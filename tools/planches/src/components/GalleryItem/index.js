@@ -7,13 +7,13 @@ function GalleryItem({input = {},  outputs = [] }) {
   <div className="row">
 
     <div className="col-md-3">
-      <img className="img-responsive" src={input.path} />
+      <img className="img-responsive" src={input.img} />
     </div>
 
     <div className="col-md-8 col-offset-1">
       {
         outputs.map(item => {
-          <img className="img-thumbnail" src={item.output.img} />
+          return <img className="img-thumbnail" src={item.output.img} />
         })
       }
     </div>
