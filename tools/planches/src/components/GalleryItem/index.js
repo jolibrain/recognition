@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import JSONPretty from 'react-json-pretty';
 
-function GalleryItem() {
+function GalleryItem({input = {},  outputs = [] }) {
   return (<div>
   <div className="row">
 
@@ -12,7 +12,9 @@ function GalleryItem() {
 
     <div className="col-md-8 col-offset-1">
       {
-        outputs.map(item => <img src={item.output.img} />)
+        outputs.map(item => {
+          <img className="img-thumbnail" src={item.output.img} />
+        })
       }
     </div>
 

@@ -6,10 +6,10 @@ function Gallery({matches = [], onSelectMatch}) {
   return (<div className="fluid-container">
     {
       matches.map((match, key) => {
-        outputs = matches.filter(item => item.input.img === match.input.img);
+        const outputs = matches.filter(item => item.input.img === match.input.img);
 
         //return <GalleryItem match={match} />;
-        return <GalleryItem input={match} outputs={outputs} />;
+        return <GalleryItem key={match.id} input={match} outputs={outputs} />;
       })
     }
   </div>);
