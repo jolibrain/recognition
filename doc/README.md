@@ -42,8 +42,7 @@ Current tentative format, as final output from AI processes and input to the Web
         },
         "img": "/img/tate/P80148_10.jpg"
       }
-    ],
-    "id": "c828c26a0e958feaf93bca63a0fdf6e817348299"
+    ]
   }
 ]
 ```
