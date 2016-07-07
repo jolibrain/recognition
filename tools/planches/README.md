@@ -7,7 +7,7 @@ Input json data is stored in *dist/match.json* file.
 # Dev setup
 
     npm install
-    npm run build
+    npm run start
 
 Then webpack-dev-server should be running on port specified inside
 *webpack.config.js* configuration file.
