@@ -1,32 +1,16 @@
 import React from 'react';
-import {Link} from 'react-router';
-import JSONPretty from 'react-json-pretty';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
+import GalleryItem from './presenter';
 
-function GalleryItem({input = {},  outputs = [] }) {
-  return (<div>
-  <div className="row">
-
-    <div className="col-md-3">
-      <img className="img-responsive" src={input.img} />
-    </div>
-
-    <div className="col-md-8 col-offset-1">
-      {
-        outputs.map(item => {
-          return <img className="img-thumbnail" src={item.output.img} />
-        })
-      }
-    </div>
-
-  </div>
-
-  <div className="row">
-    <div className="col-md-12">
-      <JSONPretty id="json-pretty" json={input}></JSONPretty>
-    </div>
-  </div>
-
-  </div>);
+const mapStateToProps = (state, ownProps = {}) => {
 }
 
-export default GalleryItem;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSelectMatchItem: bindActionCreators(actions.selectMatchItem, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GalleryItem);

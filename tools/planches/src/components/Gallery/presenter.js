@@ -2,15 +2,17 @@ import React from 'react';
 import {Link} from 'react-router';
 import GalleryItem from '../GalleryItem';
 
-function Gallery({matches = [], onSelectMatch}) {
-  return (<div className="fluid-container">
-    {
-      matches.map((match, key) => {
-        const outputs = matches.filter(item => item.input.img === match.input.img);
+function Gallery({matches = []}) {
 
-        //return <GalleryItem match={match} />;
-        return <GalleryItem key={match.id} input={match} outputs={outputs} />;
+  return (<div className="container">
+    {
+
+      matches.map((match, key) => {
+
+        return <GalleryItem key={key} match={match} />;
+
       })
+
     }
   </div>);
 }

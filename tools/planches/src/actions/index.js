@@ -1,5 +1,7 @@
-import { setMatches } from './match';
+import { loadMatchJson, addMatch, selectMatchItem } from './match';
 
 export {
-  setMatches
+  loadMatchJson,
+  addMatch,
+  selectMatchItem
 };

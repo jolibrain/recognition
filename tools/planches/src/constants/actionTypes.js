@@ -1,1 +1,3 @@
-export const MATCHES_SET = 'MATCHES_SET';
+export const MATCH_LOAD_JSON = 'MATCH_LOAD_JSON';
+export const MATCH_ADD = 'MATCH_ADD';
+export const MATCH_SELECT_ITEM = 'MATCH_SELECT_ITEM';

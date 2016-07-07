@@ -1,6 +1,6 @@
 module.exports = {
   entry: [
-    'webpack-dev-server/client?http://localhost:8080',
+    'webpack-dev-server/client?http://91.224.148.180:8090/',
     'webpack/hot/only-dev-server',
     './src/index.js'
   ],
@@ -12,7 +12,8 @@ module.exports = {
         {test: /\.woff[2]?(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&minetype=application/font-woff"},
         {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&minetype=application/octet-stream"},
         {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file"},
-        {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&minetype=image/svg+xml"}
+        {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&minetype=image/svg+xml"},
+        {test: /\.styl$/, loader: "style!css!stylus"}
     ]
   },
   resolve: {
@@ -24,6 +25,8 @@ module.exports = {
     filename: 'bundle.js'
   },
   devServer: {
+    port: 8090,
+    host: '0.0.0.0',
     contentBase: './dist',
     hot: true,
     historyApiFallback: true
