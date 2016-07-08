@@ -34,3 +34,16 @@ Nginx config example:
         try_files $uri $uri/ =404;
       }
     }
+
+## Tate/Reuters images symbolic links
+
+To access Tate/Reuters images, you need to create symbolic links.
+
+    cd tools/planches/dist
+    mkdir img
+    cd img
+    ln -sf /home/beniz/projects/tate/data/tate tate
+    ln -sf /home/beniz/projects/tate/data/reuters_decenny reuters
+
+The relative path to access these images from the web frontend are
+*/img/tate/...* and */img/reuters/...*
