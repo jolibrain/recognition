@@ -1,2 +1,3 @@
-export const PHOTOS_SET = 'PHOTOS_SET';
-export const PHOTO_SELECT = 'PHOTO_SELECT';
+export const MATCH_LOAD_JSON = 'MATCH_LOAD_JSON';
+export const MATCH_ADD = 'MATCH_ADD';
+export const MATCH_SELECT_ITEM = 'MATCH_SELECT_ITEM';
