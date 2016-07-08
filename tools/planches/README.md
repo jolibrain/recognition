@@ -2,18 +2,20 @@
 
 Tools to preview image similarities.
 
-Input json data is stored in *dist/match.json* file.
+Input json data is stored in *tools/planches/dist/match.json* file.
 
-# Dev setup
+## Dev setup
 
+    cd tools/planches/
     npm install
     npm run start
 
 Then webpack-dev-server should be running on port specified inside
 *webpack.config.js* configuration file.
 
-# Prod setup
+## Prod setup
 
+    cd tools/planches/
     npm install
     npm run build
 
@@ -24,10 +26,10 @@ Nginx config example:
     server {
       listen 80 default_server;
       listen [::]:80 default_server ipv6only=on;
-    
+
       root /home/username/recognition/tools/planches/dist;
       index index.html;
-    
+
       location / {
         try_files $uri $uri/ =404;
       }
