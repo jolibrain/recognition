@@ -5,9 +5,8 @@ import * as actions from '../../actions';
 import Splash from './presenter';
 
 const mapStateToProps = (state, ownProps = {}) => {
-  const match = state.matches[0];
   return {
-    match;
+    match: state.matches[0]
   }
 }
 
