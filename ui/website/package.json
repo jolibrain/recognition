@@ -19,6 +19,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-preset-es2015-loose": "^7.0.0",
+    "babel-preset-stage-1": "^6.5.0",
     "bootstrap": "^3.3.6",
     "browserify": "^13.0.1",
     "css-loader": "^0.23.1",
@@ -26,6 +30,7 @@
     "imports-loader": "^0.6.5",
     "jquery": "^3.0.0",
     "literalify": "^0.4.0",
+    "radium": "^0.17.1",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-redux": "^4.4.5",

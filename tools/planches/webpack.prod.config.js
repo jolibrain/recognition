@@ -14,13 +14,14 @@ module.exports = {
   },
   module: {
     loaders: [
-        {test: /\.js$/, loader: 'babel', exclude: /node_modules/},
+        {test: /\.js$/, loader: 'react-hot!babel', exclude: /node_modules/},
         {test: /\.css$/, loader: 'style!css'},
         {test: /bootstrap\/js\//, loader: 'imports?jQuery=jquery'},
         {test: /\.woff[2]?(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&minetype=application/font-woff"},
         {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&minetype=application/octet-stream"},
         {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file"},
-        {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&minetype=image/svg+xml"}
+        {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&minetype=image/svg+xml"},
+        {test: /\.styl$/, loader: "style!css!stylus"}
     ]
   },
   plugins: [

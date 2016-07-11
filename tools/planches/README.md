@@ -1,0 +1,49 @@
+# Planches
+
+Tools to preview image similarities.
+
+Input json data is stored in *tools/planches/dist/match.json* file.
+
+## Dev setup
+
+    cd tools/planches/
+    npm install
+    npm run start
+
+Then webpack-dev-server should be running on port specified inside
+*webpack.config.js* configuration file.
+
+## Prod setup
+
+    cd tools/planches/
+    npm install
+    npm run build
+
+Then use *dist* folder as the web root.
+
+Nginx config example:
+
+    server {
+      listen 80 default_server;
+      listen [::]:80 default_server ipv6only=on;
+
+      root /home/username/recognition/tools/planches/dist;
+      index index.html;
+
+      location / {
+        try_files $uri $uri/ =404;
+      }
+    }
+
+## Tate/Reuters images symbolic links
+
+To access Tate/Reuters images, you need to create symbolic links.
+
+    cd tools/planches/dist
+    mkdir img
+    cd img
+    ln -sf /home/beniz/projects/tate/data/tate tate
+    ln -sf /home/beniz/projects/tate/data/reuters_decenny reuters
+
+The relative path to access these images from the web frontend are
+*/img/tate/...* and */img/reuters/...*

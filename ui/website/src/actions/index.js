@@ -1,6 +1,7 @@
-import { setPhotos, selectPhoto } from './photo';
+import { loadMatchJson, addMatch, selectMatchItem } from './match';
 
 export {
-  setPhotos,
-  selectPhoto
+  loadMatchJson,
+  addMatch,
+  selectMatchItem
 };

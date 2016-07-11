@@ -14,9 +14,9 @@ require('bootstrap/dist/css/bootstrap.min.css');
 
 const store = configureStore();
 
-fetch('/img/photos.json').then((response) => { return response.json(); })
+fetch('/match.json').then((response) => { return response.json(); })
 .then((json) => {
-  store.dispatch(actions.setPhotos(json));
+  store.dispatch(actions.loadMatchJson(json));
 })
 
 const history = syncHistoryWithStore(browserHistory, store);
