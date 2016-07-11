@@ -43,6 +43,8 @@ class FeatureGenerator:
                     mdataout = {'meta':{},'features':{'score':0,'in':{},'out':{feature_name:{'description':feature_description,'score':nn['nns'][1][m]}}},'img':nuri_rebase}
                 else:
                     mdataout['features']['out'][feature_name] = {'description':feature_description,'score':nn['nns'][1][m]}
+                if 'tags' in nn:
+                    mdataout['features']['out'][feature_name]['tags'] = nn['tags'][m]
                 dataout['output'].append(mdataout)
                 m = m + 1
             jdataout[img] = dataout

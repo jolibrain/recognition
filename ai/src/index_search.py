@@ -43,6 +43,11 @@ class Indexer:
         self.build_index()
         self.save_index()
 
+    def index_tags_single(self,tags,uri):
+        for t in tags:
+            #print t['cat'],t['prob']
+            self.s[str(t['cat'])] = {'uri':uri,'prob':t['prob']}
+        
     def build_index(self):
         logger.info('building index in ' + self.repository)
         self.t.build(self.ntrees)
@@ -92,7 +97,29 @@ class Searcher:
             features_nns[uris[c]] = all_nns
             c = c + 1
         return feature_nns
-            
+
+    # tags is [{'cat':'category','prob':'probability'}]
+    def search_tags_single(self,tags,uri):
+        nns = {}
+        for t in tags:
+            res = self.s.get(str(t['cat']),None)
+            if res:
+                #nns.append(res) # XXX: there may have duplicates since the same URI indexes multiple tags
+                if res['uri'] in nns:
+                    nns[res['uri']]['score'] += res['prob']
+                    nns[res['uri']]['tags'].append(t['cat'])
+                else:
+                    nns[res['uri']] = {'score':res['prob'],'tags':[t['cat']]}
+              
+        all_nns = {'nns':[[],[]],'nns_uris':[],'tags':[],'uri':uri}
+        for nn in nns:
+           all_nns['nns'][1].append(nns[nn]['score']) # score
+           all_nns['nns_uris'].append(nn)
+           all_nns['tags'].append(nns[nn]['tags'])
+        print all_nns
+        return all_nns
+                        
+        
     def load_index(self):
         self.s = shelve.open(self.db_name)
         self.t = AnnoyIndex(self.s['dim'],self.s['metric'])

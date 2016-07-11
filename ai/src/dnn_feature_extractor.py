@@ -18,11 +18,12 @@ def batch(iterable, n=1):
 # class to define a dd DNN model
 class DNNModel:
 
-    def __init__(self,name,model_repo,nclasses,extract_layer='',
+    def __init__(self,name,model_repo,nclasses,extract_layer='',best=5,
                  img_width=224,img_height=224,description=''):
         self.name = name
         self.description = description
         self.extract_layer = extract_layer
+        self.best = best
         self.nclasses = nclasses
         self.img_width = img_width
         self.img_height = img_height
@@ -37,8 +38,11 @@ class DNNFeatureExtractor(FeatureGenerator):
         self.dd_port = dd_port
         self.dd_description = dd_description
         self.dd_mllib = 'caffe'
-        self.dd_mltype = 'unsupervised' ##TODO: label extraction in supervised mode
         self.dnnmodel = dnnmodel
+        if self.dnnmodel.extract_layer:
+            self.dd_mltype = 'unsupervised'
+        else:
+            self.dd_mltype = 'supervised'
         self.image_files = image_files
         self.batch_size = batch_size
         self.binarized = False
@@ -79,15 +83,18 @@ class DNNFeatureExtractor(FeatureGenerator):
         uris = []
         parameters_input = {}
         parameters_mllib = {'gpu':True,'extract_layer':self.dnnmodel.extract_layer}
-        parameters_output = {'binarized':self.binarized}
 
-        # pass one image to get the size of the output layer
-        classif = self.dd.post_predict(self.dnnmodel.name,[self.image_files[0]],
-                                       parameters_input,parameters_mllib,parameters_output)
-                
-        ##TODO: error checking
-        dim = len(classif['body']['predictions']['vals'])
-
+        if self.dd_mltype == 'unsupervised':
+            parameters_output = {'binarized':self.binarized}
+            # pass one image to get the size of the output layer
+            classif = self.dd.post_predict(self.dnnmodel.name,[self.image_files[0]],
+                                           parameters_input,parameters_mllib,parameters_output)
+            ##TODO: error checking
+            dim = len(classif['body']['predictions']['vals'])
+        else:
+            parameters_output = {'best':self.dnnmodel.best}
+            dim = self.dnnmodel.nclasses
+            
         c = 0
         logger.info('dnn feature prediction and indexing')
         with Indexer(dim,self.index_repo) as indexer:
@@ -95,11 +102,17 @@ class DNNFeatureExtractor(FeatureGenerator):
                 classif = self.dd.post_predict(self.dnnmodel.name,x,
                                                parameters_input,parameters_mllib,parameters_output)
                 ##TODO: error checking
+                predictions = classif['body']['predictions']
+                print 'predictions=',predictions
                 for p in classif['body']['predictions']:
-                    indexer.index_single(c,p['vals'],p['uri'])
-                    c = c + 1
-                    if c % self.batch_size == 0:
-                        logger.info('indexed ' + str(c) + ' images')
+                    if self.dd_mltype == 'unsupervised':
+                        indexer.index_single(c,p['vals'],p['uri'])
+                        c = c + 1
+                        if c % self.batch_size == 0:
+                            logger.info('indexed ' + str(c) + ' images')
+                    else: ##TODO: index_tags ?
+                        indexer.index_tags_single(p['classes'],p['uri'])
+                            
             indexer.build_index()
             indexer.save_index()
         logger.info('indexed a total of ' + str(c) + ' images')
@@ -109,7 +122,11 @@ class DNNFeatureExtractor(FeatureGenerator):
         self.create_dd_service()
         parameters_input = {}
         parameters_mllib = {'gpu':True,'extract_layer':self.dnnmodel.extract_layer}
-        parameters_output = {'binarized':self.binarized}
+
+        if self.dd_mltype == 'unsupervised':
+            parameters_output = {'binarized':self.binarized}
+        else:
+            parameters_output = {'best':self.dnnmodel.best}
 
         results = {}
         with Searcher(self.index_repo) as searcher:
@@ -119,8 +136,12 @@ class DNNFeatureExtractor(FeatureGenerator):
                                                parameters_input,parameters_mllib,parameters_output)
                 #print 'classif=',classif
                 ##TODO: error checking
-                for p in classif['body']['predictions']:
-                    nns = searcher.search_single(p['vals'],p['uri'])
+                predictions = classif['body']['predictions']
+                for p in predictions:
+                    if self.dd_mltype == 'unsupervised':
+                        nns = searcher.search_single(p['vals'],p['uri'])
+                    else:
+                        nns = searcher.search_tags_single(p['classes'],p['uri'])
                     results[p['uri']] = nns
 
         self.delete_dd_service()
