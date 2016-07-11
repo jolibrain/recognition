@@ -1,14 +1,3 @@
-const tateicons = {
-    fontFamily: "tateicons",
-    fontStyle: "normal",
-    fontWeight: "normal",
-    src: "url('fonts/tateicons.eot')",
-    src: "url('fonts/tateicons.eot?cce82p#iefix') format('embedded-opentype')",
-    src: "url('fonts/tateicons.ttf') format('truetype')",
-    src: "url('fonts/tateicons.woff') format('woff')",
-    src: "url('fonts/tateicons.svg?cce82p#tateicons') format('svg')",
-};
-
 const styles = {
   bg: {
     position: 'fixed',
@@ -19,27 +8,33 @@ const styles = {
     zIndex: -1,
     filter: "blur(5px) brightness(80%)"
   },
-  downIcon: {
-    fontFamily: tateicons,
-    fontSize: '20px',
-    color: '#FFF',
-    content: "\e90a"
-  },
   imgTate: {
 
   },
   mainTitle: {
     fontSize: '2.5em',
     color: '#FFF',
-    textAlign: 'center'
+    textAlign: 'center',
+    marginTop: '200px'
   },
   column: {
-    fontSize: '14px',
     color: '#FFF',
     h2: {
-
+      borderBottom: '2px dotted #FFF',
+      fontSize: '14px',
+      fontWeight: 'bold',
+      paddingBottom: '8px',
+      textTransform: 'uppercase'
     },
-    hr: {
+    h3: {
+      fontSize: '14px',
+      textDecoration: 'underline'
+    },
+    ul: {
+      padding: 0,
+      li: {
+        listStyle: 'none'
+      }
     }
   },
   gray: {
@@ -50,6 +45,24 @@ const styles = {
   },
   green: {
     color: '#00ffcc'
+  },
+  footer: {
+    bottom: '20px',
+    position: 'absolute',
+    width: '100%',
+    galleryLinkContainer: {
+      textAlign: 'center'
+    },
+    galleryLink: {
+      color: '#FFF',
+      ':hover': {
+        textDecoration: 'none',
+        color: '#00ffcc'
+      }
+    },
+    arrowDown: {
+      fontSize: '20px'
+    }
   }
 }
 

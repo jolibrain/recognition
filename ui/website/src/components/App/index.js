@@ -6,7 +6,7 @@ import styles from './styles.js';
 @Radium
 class App extends React.Component {
   render() {
-    return <div>
+    return <div style={styles.body}>
       <Header/>
       {this.props.children}
     </div>;
