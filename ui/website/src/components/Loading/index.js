@@ -2,11 +2,11 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-import Gallery from './presenter';
+import Splash from './presenter';
 
 const mapStateToProps = (state, ownProps = {}) => {
   return {
-    matches: state.matches
+    match: state.matches[0]
   }
 }
 
@@ -15,4 +15,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Gallery);
+export default connect(mapStateToProps, mapDispatchToProps)(Splash);

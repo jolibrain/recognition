@@ -19,7 +19,7 @@ class Header extends React.Component {
               <span className="icon-bar"/>
               <span className="icon-bar"/>
             </button>
-            <Link style={[styles.brand]} className="navbar-brand" to='/'>re][cognition</Link>
+            <Link style={[styles.brand]} className="navbar-brand" to='/'><span style={[styles.brand.re]}>re]</span>[cognition</Link>
           </div>
 
           <div className="collapse navbar-collapse" id="bs-navbar-collapse">

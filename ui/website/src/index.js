@@ -9,6 +9,7 @@ import App from './components/App';
 import Splash from './components/Splash';
 import Gallery from './components/Gallery';
 import Match from './components/Match';
+import Detail from './components/Detail';
 
 require('bootstrap/dist/css/bootstrap.min.css');
 
@@ -27,9 +28,9 @@ ReactDOM.render(
       <Route path="/" component={App}>
         <IndexRoute component={Splash} />
         <Route path="/" component={Splash} />
-        <Route path="/gallery" component={Gallery}>
-          <Route path="/gallery/:userId" component={Match}/>
-        </Route>
+        <Route path="/gallery" component={Gallery} />
+        <Route path="/gallery/:matchId" component={Match}/>
+        <Route path="/details/:matchId" component={Detail}/>
       </Route>
     </Router>
   </Provider>,
