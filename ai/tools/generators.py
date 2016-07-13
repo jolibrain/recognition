@@ -21,19 +21,22 @@ generator_lk = {
         'name':'resnet_152',
         'nclasses': 1000,
         'extract_layer':'fc1000',
-        'description':'general composition'
+        'description':'general composition',
+        'batch_size':8
         },
     'composition_low_2': {
         'name':'resnet_152',
         'nclasses': 1000,
         'extract_layer':'res5c',
-        'description':'general composition'
+        'description':'general composition',
+        'batch_size':8
         },
     'categories_2': {
         'name':'resnet_152',
         'nclasses': 1000,
         'best':5,
-        'description':'general categories'
+        'description':'general categories',
+        'batch_size':8
         },
     'composition_high_3': {
         'name':'vgg_16',

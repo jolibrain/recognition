@@ -118,8 +118,8 @@ class DNNFeatureExtractor(FeatureGenerator):
                 for p in classif['body']['predictions']:
                     if self.dd_mltype == 'unsupervised':
                         indexer.index_single(c,p['vals'],p['uri'])
-                        #if c % self.batch_size == 0:
-                        #    logger.info('indexed ' + str(c) + ' images')
+                        if c > 0 and c % self.batch_size == 0:
+                            logger.info('indexed ' + str(c) + ' images')
                     else:
                         indexer.index_tags_single(p['classes'],p['uri'])
                     c = c + 1

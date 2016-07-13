@@ -25,7 +25,7 @@ def execute_generator(generator):
         logger.error('Unknown generator ' + generator + ', skipping')
         return
     dnnmodel = DNNModel(name=generator,model_repo=args.models_repo + '/' + generator_conf['name'],nclasses=generator_conf['nclasses'],extract_layer=generator_conf.get('extract_layer',''),best=generator_conf.get('best',0),description=generator_conf['description'])
-    dnnfe = DNNFeatureExtractor(dnnmodel,image_files,args.indexes_repo,batch_size=args.batch_size)
+    dnnfe = DNNFeatureExtractor(dnnmodel,image_files,args.indexes_repo,batch_size=generator_conf.get('batch_size',args.batch_size))
     dnnfe.index()
     return
 
