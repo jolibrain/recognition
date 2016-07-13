@@ -18,7 +18,7 @@ class Splash extends React.Component {
 
       return (<div>
 
-        <div className="container-fluid" style={[style.fullHeight]}>
+        <div className="container-fluid" style={[styles.fullHeight]}>
           <div className="row">
             <div className="col-md-6">
 

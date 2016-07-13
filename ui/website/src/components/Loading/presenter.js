@@ -1,45 +1,49 @@
 import React from 'react';
 import Radium from 'radium';
 import styles from './styles.js';
-
-let {Link} = require('react-router');
-Link = Radium(Link);
+import { browserHistory } from 'react-router';
 
 @Radium
-class Splash extends React.Component {
+class Loading extends React.Component {
+
+  state = {
+    loadingSpeed: 10,
+    percentLoading: 10,
+    interval: null
+  }
+
+  componentDidMount() {
+    const interval = setInterval(function() {
+      if(this.state.percentLoading < 100) {
+        const percentLoading = this.state.percentLoading + 1;
+        this.setState({percentLoading: percentLoading});
+        styles.footer.width = percentLoading + '%';
+      } else {
+        window.clearInterval(this.state.interval);
+        browserHistory.push('/splash');
+      }
+    }.bind(this), this.state.loadingSpeed);
+    this.setState({interval: interval});
+  }
 
   render() {
 
-    const match = this.props.match;
-
-    if(match) {
-      const selectedOutput = match.output.filter(item => item.selected)[0];
-      console.log(selectedOutput);
-
-      return (<div>
-        <div style={styles.bg}>
-          <img src={selectedOutput.img} alt="" />
+    return (<div>
+      <div className="jumbotron vertical-center">
+        <div className="container">
+          <h1>matching British art with real-time news</h1>
         </div>
+      </div>
 
+      <footer className="footer" style={styles.footer}>
         <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-12" style={styles.column}>
-              <h2 style={styles.h2}>matching British art with real-time news</h2>
-            </div>
-          </div>
+          <p style={styles.footer.loading}>Loading <span>{this.state.percentLoading}</span>%</p>
         </div>
+      </footer>
 
-        <footer className="footer" style={styles.footer}>
-          <div className="container-fluid">
-            <p style={styles.footer.loading}>Loading <span>{percentLoading}</span></p>
-          </div>
-        </footer>
+    </div>);
 
-      </div>);
-    } else {
-      return null;
-    }
   }
 }
 
-export default Splash;
+export default Loading;
