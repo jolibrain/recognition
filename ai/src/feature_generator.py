@@ -35,10 +35,13 @@ class FeatureGenerator:
             for nuri in nn['nns_uris']:
                 nuri_rebase = img_tate_repo + os.path.basename(nuri)
                 mdataout = None
+                p = 0
                 for o in dataout['output']:
                     if o['img'] == nuri_rebase:
                         mdataout = o
+                        del dataout['output'][p]
                         break
+                    p = p + 1
                 if mdataout == None:
                     mdataout = {'meta':{},'features':{'score':0,'in':{},'out':{feature_name:{'description':feature_description,'score':nn['nns'][1][m]}}},'img':nuri_rebase}
                 else:

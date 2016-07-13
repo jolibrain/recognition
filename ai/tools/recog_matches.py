@@ -14,7 +14,7 @@ parser.add_argument('--input-imgs',help='repository with images to be indexed')
 parser.add_argument('--generators',help='list of comma-separated generators',nargs='+',type=str)
 parser.add_argument('--indexes-repo',help='repository of indexes for generators')
 parser.add_argument('--models-repo',help='repository hosting the models')
-parser.add_argument('--json-output',help='JSON output file')
+parser.add_argument('--json-output',help='JSON output file',default='match.json')
 parser.add_argument('--batch-size',help='prediction batch size',type=int,default=8)
 args = parser.parse_args()
 
@@ -42,4 +42,5 @@ if generators[0] == 'all':
     generators = generator_lk.keys()
 for gen in generators:
     json_out = execute_generator(gen)
-print 'json_out=',json.dumps(format_to_array(json_out))
+with open(args.json_output,'w') as fout:
+    json.dump(format_to_array(json_out),fout)
