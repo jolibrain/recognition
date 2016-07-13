@@ -12,11 +12,10 @@ Current tentative format, as final output from AI processes and input to the Web
     "status": "none",
     "timestamp": "2016-07-05 16:39:39",
     "input": {
-      "meta": [
+      "meta":
         {
           "date": "c.1838-1840"
-        }
-      ],
+        },
       "img": "/img/reuters/52862590.jpg"
     },
     "output": [
