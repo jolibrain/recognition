@@ -1,6 +1,6 @@
 module.exports = {
   entry: [
-    'webpack-dev-server/client?http://localhost:8080',
+    'webpack-dev-server/client?http://localhost:8101',
     'webpack/hot/only-dev-server',
     './src/index.js'
   ],
@@ -26,6 +26,8 @@ module.exports = {
   devServer: {
     contentBase: './dist',
     hot: true,
-    historyApiFallback: true
+    historyApiFallback: true,
+    host: '0.0.0.0',
+    port: 8101
   }
 };

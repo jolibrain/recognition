@@ -13,8 +13,8 @@ class Splash extends React.Component {
     const match = this.props.match;
 
     if(match) {
+
       const selectedOutput = match.output.filter(item => item.selected)[0];
-      console.log(selectedOutput);
 
       return (<div>
 
@@ -25,9 +25,18 @@ class Splash extends React.Component {
               <h2 style={styles.h2}>Searching for match</h2>
 
               <ul style={styles.ul}>
-                <li style={styles.ul.li}>Visual similarity: {selectedOutput.features.in.visual_similarity.score}%</li>
-                <li style={styles.ul.li}>Metadata crossover: {selectedOutput.features.in.metadata_crossover.score}%</li>
-                <li style={styles.ul.li}>Emotional likeness: {selectedOutput.features.in.emotional_likeness.score}%</li>
+              {
+                selectedOutput.features.in.visual_similarity ?
+                  <li style={styles.ul.li}>Visual similarity: {selectedOutput.features.in.visual_similarity.score}%</li> : ''
+              }
+              {
+                selectedOutput.features.in.metadata_crossover ?
+                  <li style={styles.ul.li}>Metadata crossover: {selectedOutput.features.in.metadata_crossover.score}%</li> : ''
+              }
+              {
+                selectedOutput.features.in.emotional_likeness ?
+                  <li style={styles.ul.li}>Emotional likeness: {selectedOutput.features.in.emotional_likeness.score}%</li> : ''
+              }
               </ul>
 
               <p style={styles.share}>Share</p>

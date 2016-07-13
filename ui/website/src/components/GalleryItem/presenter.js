@@ -17,6 +17,10 @@ class GalleryItem extends React.Component {
     const item = this.props.item;
     const selectedOutput = item.output.filter(item => item.selected)[0];
 
+    const rx = /(\d+)/g;
+    const arr = rx.exec(item.input.img);
+    const itemId = arr[1];
+
     return(<div>
       <div className="row" style={styles.row}
         onMouseEnter={() => {
@@ -26,7 +30,7 @@ class GalleryItem extends React.Component {
           this.setState({hover: false});
         }}
         onClick={() => {
-          browserHistory.push(`/gallery/${item.id}`);
+          browserHistory.push(`/gallery/${itemId}`);
         }}
       >
 
@@ -47,7 +51,7 @@ class GalleryItem extends React.Component {
 
         <div className="col-md-3" style={styles.descriptionColumn}>
 
-          <p>No {item.id}</p>
+          <p>No {itemId}</p>
 
           <p>
             {moment(item.timestamp).format('DD/MM/YYYY')}<br/>

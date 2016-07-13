@@ -2,17 +2,14 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
-
 import Match from './presenter';
 
 const mapStateToProps = (state, ownProps = {}) => {
 
-  if(state.matches.length > 0 && ownProps.params) {
-
-    const item = state.matches.filter(item => item.id === ownProps.params.matchId)[0];
+  if(state.matches.length > 0) {
 
     return {
-      item: item
+      item: state.matches.filter(item => item.input.img == '/img/reuters/' + ownProps.params.matchId + '.jpg')[0]
     };
 
   }
@@ -21,7 +18,9 @@ const mapStateToProps = (state, ownProps = {}) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    onSelectMatch: bindActionCreators(actions.selectMatch, dispatch)
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Match);
