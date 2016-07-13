@@ -19,22 +19,15 @@ class Header extends React.Component {
               <span className="icon-bar"/>
               <span className="icon-bar"/>
             </button>
-            <Link style={[styles.white]} className="navbar-brand" to='/'>re][cognition</Link>
+            <Link style={[styles.brand]} className="navbar-brand" to='/'><span style={[styles.brand.re]}>re]</span>[cognition</Link>
           </div>
 
           <div className="collapse navbar-collapse" id="bs-navbar-collapse">
             <ul className="nav navbar-nav navbar-right">
-              <li><Link style={[styles.white]} to='/gallery'>Gallery</Link></li>
-              <li><Link style={[styles.white]} to='/exhibition'>Exhibition</Link></li>
-              <li><Link style={[styles.white]} to='/info'>Info</Link></li>
-              <li>
-                <form className="navbar-form" role="search">
-                  <div className="form-group">
-                    <input type="text" className="form-control" placeholder="Search"/>
-                  </div>
-                  <button type="submit" className="btn btn-default">Submit</button>
-                </form>
-              </li>
+              <li><Link style={[styles.menuItem]} to='/gallery'>Gallery</Link></li>
+              <li><Link style={[styles.menuItem]} to='/exhibition'>Exhibition</Link></li>
+              <li><Link style={[styles.menuItem]} to='/info'>Info</Link></li>
+              <li><span style={[styles.menuItem, styles.searchIcon]} className='icon--i_search'/></li>
             </ul>
           </div>
 
@@ -45,3 +38,14 @@ class Header extends React.Component {
 }
 
 export default Header;
+
+/*
+              <li>
+                <form className="navbar-form" role="search">
+                  <div className="form-group">
+                    <input type="text" className="form-control" placeholder="Search"/>
+                  </div>
+                  <button type="submit" className="btn btn-default">Submit</button>
+                </form>
+              </li>
+*/

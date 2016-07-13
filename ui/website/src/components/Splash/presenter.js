@@ -1,7 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router';
 import Radium from 'radium';
 import styles from './styles.js';
+
+let {Link} = require('react-router');
+Link = Radium(Link);
 
 @Radium
 class Splash extends React.Component {
@@ -15,48 +17,48 @@ class Splash extends React.Component {
       console.log(selectedOutput);
 
       return (<div>
-        <div style={styles.bg}>
-          <img src={selectedOutput.img} alt="" />
-        </div>
 
-        <div className="container-fluid">
+        <div className="container-fluid" style={[styles.fullHeight]}>
           <div className="row">
-            <div className="col-md-2" style={styles.column}>
-              <h2>Reuters</h2>
-              <hr/>
-              <ul>
-                <li>DATE: {match.input.meta.date}</li>
-                <li>TITLE: {match.input.meta.title}</li>
-                <li>AUTHOR: {match.input.meta.author}</li>
+            <div className="col-md-6">
+
+              <h2 style={styles.h2}>Searching for match</h2>
+
+              <ul style={styles.ul}>
+                <li style={styles.ul.li}>Visual similarity: {selectedOutput.features.in.visual_similarity.score}%</li>
+                <li style={styles.ul.li}>Metadata crossover: {selectedOutput.features.in.metadata_crossover.score}%</li>
+                <li style={styles.ul.li}>Emotional likeness: {selectedOutput.features.in.emotional_likeness.score}%</li>
               </ul>
-              <img className="img-responsive" style={styles.imgTate} src={match.input.img} />
+
+              <p style={styles.share}>Share</p>
+
+              <img className="img-responsive" src={match.input.img} />
+
+              <p style={styles.imgDescription}>
+                {match.input.meta.date}<br/>
+                {match.input.meta.title}<br/>
+                {match.input.meta.origin}
+              </p>
+
             </div>
-            <div className="col-md-8">
-              <h1 style={styles.mainTitle}>An artificial intelligence connecting present-day photojournalism to the fine art of the past.</h1>
-            </div>
-            <div className="col-md-2" style={styles.column}>
-              <h2>ANALYSING TATE...</h2>
-              <hr/>
-              <ul>
-                <li>DATE: {selectedOutput.meta.date}</li>
-                <li>TITLE: {selectedOutput.meta.title}</li>
-                <li>AUTHOR: {selectedOutput.meta.author}</li>
-              </ul>
-              <h3>COLOR</h3>
-              <ul>
-                <li>DOMINANT COLOR: {selectedOutput.features.in.colors.dominant}</li>
-                <li>ACCENT COLOR: {selectedOutput.features.in.colors.accent}</li>
-              </ul>
-              <h3>TAGS</h3>
-              <p>{selectedOutput.meta.tags}</p>
+            <div className="col-md-6">
+
+              <img className="img-responsive" src={selectedOutput.img} />
+
+              <p style={styles.imgDescription}>
+                {selectedOutput.meta.date}<br/>
+                {selectedOutput.meta.title}<br/>
+                {selectedOutput.meta.origin}
+              </p>
+
             </div>
           </div>
         </div>
 
-        <footer className="footer">
-          <div className="container">
-            <Link to='/gallery'>
-              <span style={styles.downIcon} />
+        <footer className="footer" style={styles.footer}>
+          <div className="container"style={styles.footer.galleryLinkContainer} >
+            <Link style={styles.footer.galleryLink} to='/gallery'>
+              <span className="icon--i_arrow-down" style={styles.footer.arrowDown} />
             </Link>
           </div>
         </footer>
