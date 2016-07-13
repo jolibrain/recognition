@@ -42,10 +42,13 @@ class FeatureGenerator:
                         del dataout['output'][p]
                         break
                     p = p + 1
+                score = nn['nns'][1][m]
+                if not 'tags' in nn: # turn distance into a positive / additive score
+                    score = max(1.0 - score,0.0)
                 if mdataout == None:
-                    mdataout = {'meta':{},'features':{'score':0,'in':{},'out':{feature_name:{'description':feature_description,'score':nn['nns'][1][m]}}},'img':nuri_rebase}
+                    mdataout = {'meta':{},'features':{'score':0,'in':{},'out':{feature_name:{'description':feature_description,'score':score}}},'img':nuri_rebase}
                 else:
-                    mdataout['features']['out'][feature_name] = {'description':feature_description,'score':nn['nns'][1][m]}
+                    mdataout['features']['out'][feature_name] = {'description':feature_description,'score':score}
                 if 'tags' in nn:
                     mdataout['features']['out'][feature_name]['tags'] = nn['tags'][m]
                 dataout['output'].append(mdataout)

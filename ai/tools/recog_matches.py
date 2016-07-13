@@ -8,6 +8,7 @@ logger = logging.getLogger(__name__)
 from dnn_feature_extractor import DNNModel, DNNFeatureExtractor
 from file_utils import list_files
 from generators import generator_lk
+from ensembling import EnsemblingScores
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--input-imgs',help='repository with images to be indexed')
@@ -42,5 +43,8 @@ if generators[0] == 'all':
     generators = generator_lk.keys()
 for gen in generators:
     json_out = execute_generator(gen)
+json_out = format_to_array(json_out)
+es = EnsemblingScores()
+json_out = es.ensembling(json_out)
 with open(args.json_output,'w') as fout:
-    json.dump(format_to_array(json_out),fout)
+    json.dump(json_out,fout)

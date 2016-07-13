@@ -53,7 +53,8 @@ class DNNFeatureExtractor(FeatureGenerator):
         try:
             os.mkdir(self.index_repo)
         except:
-            logger.warning('directory ' + self.index_repo + ' may alreay exist')
+            #logger.warning('directory ' + self.index_repo + ' may alreay exist')
+            pass
             
     def create_dd_service(self):
         model = {'repository':self.dnnmodel.model_repo}
