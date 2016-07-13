@@ -7,7 +7,7 @@ The list of supported generators is available from `generators.py`.
 #### Indexing a set of images
 
 ```
-python recog_index.py --input-imgs /path/to/imgs/ --indexes-repo /path/to/tate/data/indexes/ --models-repo /path/to/tate/data/models --generators composition_1 places
+python recog_index.py --input-imgs /path/to/imgs/ --indexes-repo /path/to/tate/data/indexes/ --models-repo /path/to/tate/data/models --generators all
 ```
 
 This produces a series of indexes into `/path/to/tate/data/indexes`. Here the two generators used are `composition_1` and `places`.
@@ -15,7 +15,7 @@ This produces a series of indexes into `/path/to/tate/data/indexes`. Here the tw
 #### Getting matches for a set of images
 
 ```
-python recog_matches.py --input-imgs ~/projects/tate/data/test/small_imgs/ --indexes-repo ~/projects/tate/data/test/indexes/ --models-repo /home/beniz/projects/tate/data/models/ --generators composition_1 places
+python recog_matches.py --input-imgs /path/to/imgs/ --indexes-repo /path/to/tate/data/indexes/ --models-repo /path/to/tate/data/models/ --generators all
 ```
 
 This yields a JSON output readily usable by the UI part.

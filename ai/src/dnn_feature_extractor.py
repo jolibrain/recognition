@@ -8,6 +8,7 @@ from dd_client import DD
 import logging
 logging.basicConfig()
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 ##TODO: may move to a tools.py 
 def batch(iterable, n=1):
@@ -57,23 +58,21 @@ class DNNFeatureExtractor(FeatureGenerator):
     def create_dd_service(self):
         model = {'repository':self.dnnmodel.model_repo}
         parameters_input = {'connector':'image','width':self.dnnmodel.img_width,'height':self.dnnmodel.img_height}
-        parameters_mllib = {'nclasses':self.dnnmodel.nclasses}
+        parameters_mllib = {'nclasses':self.dnnmodel.nclasses,'gpu':True}
         parameters_output = {}
         screate = self.dd.put_service(self.dnnmodel.name,model,self.dd_description,self.dd_mllib,
                                       parameters_input,parameters_mllib,parameters_output,self.dd_mltype)
-        print 'dd service create output=',screate
         outcode = screate['status']['code']
         if outcode != 201 and outcode != 403:
-            print 'error'
             logger.error('failed creation of DNN service ' + self.dnnmodel.name)
-            sys.exit()
+            return
         return
 
     def delete_dd_service(self):
         self.dd.delete_service(self.dnnmodel.name,clear='')
         
     def preproc(self):
-        #TODO
+        # none needed with dd at the moment
         return
 
     def index(self):
@@ -89,29 +88,40 @@ class DNNFeatureExtractor(FeatureGenerator):
             # pass one image to get the size of the output layer
             classif = self.dd.post_predict(self.dnnmodel.name,[self.image_files[0]],
                                            parameters_input,parameters_mllib,parameters_output)
-            ##TODO: error checking
+            response_code = classif['status']['code']
+            if response_code != 200:
+                print 'response=',classif
+                logger.error('failed (index) initial prediction call to model ' + self.dnnmodel.name + ' via dd')
+                self.delete_dd_service()
+                return
+                
             dim = len(classif['body']['predictions']['vals'])
         else:
             parameters_output = {'best':self.dnnmodel.best}
             dim = self.dnnmodel.nclasses
             
         c = 0
-        logger.info('dnn feature prediction and indexing')
+        logger.info('dnn feature prediction and indexing for service ' + self.dnnmodel.name + ' with layer of size ' + str(dim))
         with Indexer(dim,self.index_repo) as indexer:
             for x in batch(self.image_files,self.batch_size):
                 classif = self.dd.post_predict(self.dnnmodel.name,x,
                                                parameters_input,parameters_mllib,parameters_output)
-                ##TODO: error checking
+                #print classif
+                response_code = classif['status']['code']
+                if response_code != 200:
+                    print 'response=',classif
+                    logger.error('failed (index) batch prediction call to model ' + self.dnnmodel.name + ' via dd')
+                    continue
                 predictions = classif['body']['predictions']
-                print 'predictions=',predictions
+                #print 'predictions=',predictions
                 for p in classif['body']['predictions']:
                     if self.dd_mltype == 'unsupervised':
                         indexer.index_single(c,p['vals'],p['uri'])
-                        c = c + 1
-                        if c % self.batch_size == 0:
-                            logger.info('indexed ' + str(c) + ' images')
-                    else: ##TODO: index_tags ?
+                        #if c % self.batch_size == 0:
+                        #    logger.info('indexed ' + str(c) + ' images')
+                    else:
                         indexer.index_tags_single(p['classes'],p['uri'])
+                    c = c + 1
                             
             indexer.build_index()
             indexer.save_index()
@@ -128,14 +138,18 @@ class DNNFeatureExtractor(FeatureGenerator):
         else:
             parameters_output = {'best':self.dnnmodel.best}
 
+        logger.info('dnn feature prediction and searching for service ' + self.dnnmodel.name)
         results = {}
         with Searcher(self.index_repo) as searcher:
             searcher.load_index()
             for x in batch(self.image_files,self.batch_size):
                 classif = self.dd.post_predict(self.dnnmodel.name,x,
                                                parameters_input,parameters_mllib,parameters_output)
-                #print 'classif=',classif
-                ##TODO: error checking
+                response_code = classif['status']['code']
+                if response_code != 200:
+                    print 'response=',classif
+                    logger.error('failed batch (search) prediction call to model ' + self.dnnmode.name + ' via dd')
+                    continue
                 predictions = classif['body']['predictions']
                 for p in predictions:
                     if self.dd_mltype == 'unsupervised':
