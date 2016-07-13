@@ -43,6 +43,8 @@ function loadMatchJson(state, action) {
 
   json.forEach(item => {
 
+    item.output = item.output.sort((a, b) => a.features.score - b.features.score);
+
     const selectedItem = item.output.some(output => {
       return output.selected;
     });
