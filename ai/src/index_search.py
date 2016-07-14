@@ -115,7 +115,8 @@ class Searcher:
                 for res in rres:
                     if res['uri'] in nns:
                         nns[res['uri']]['score'] += res['prob']*t['prob']
-                        nns[res['uri']]['tags'].append(t['cat'])
+                        if not t['cat'] in nns[res['uri']]['tags']:
+                            nns[res['uri']]['tags'].append(t['cat'])
                     else:
                         nns[res['uri']] = {'score':res['prob']*t['prob'],'tags':[t['cat']]} # keep max proba turned into a distance
              
