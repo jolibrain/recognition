@@ -2,6 +2,7 @@
 
 from annoy import AnnoyIndex
 import shelve
+import operator
 
 import logging
 logger = logging.getLogger(__name__)
@@ -46,7 +47,13 @@ class Indexer:
     def index_tags_single(self,tags,uri):
         for t in tags:
             #print t['cat'],t['prob']
-            self.s[str(t['cat'])] = {'uri':uri,'prob':t['prob']}
+            cat_key = str(t['cat'])
+            if not cat_key in self.s:
+                self.s[cat_key] = [{'uri':uri,'prob':t['prob']}]
+            else:
+                temp = self.s[cat_key]
+                temp.append({'uri':uri,'prob':t['prob']})
+                self.s[cat_key] = temp
         
     def build_index(self):
         logger.info('building index in ' + self.repository)
@@ -81,7 +88,6 @@ class Searcher:
         for n in nns[0]:
             nns_uris.append(self.s[str(n)])
         all_nns = {'nns':nns,'nns_uris':nns_uris,'uri':uri}
-        #print all_nns
         return all_nns
         
     def search(self,feature_vectors,uris):
@@ -103,21 +109,27 @@ class Searcher:
         nns = {}
         c = 0
         for t in tags:
-            res = self.s.get(str(t['cat']),None)
-            if res:
-                #nns.append(res) # XXX: there may have duplicates since the same URI indexes multiple tags
-                if res['uri'] in nns:
-                    #nns[res['uri']]['score'] += 1.0-res['prob']
-                    nns[res['uri']]['tags'].append(t['cat'])
-                else:
-                    nns[res['uri']] = {'score':res['prob'],'tags':[t['cat']]} # keep max proba turned into a distance
+            rres = self.s.get(str(t['cat']),None)
+            ##TODO: res['prob'] would go into 'in' output structure
+            if rres:
+                for res in rres:
+                    if res['uri'] in nns:
+                        nns[res['uri']]['score'] += res['prob']*t['prob']
+                        nns[res['uri']]['tags'].append(t['cat'])
+                    else:
+                        nns[res['uri']] = {'score':res['prob']*t['prob'],'tags':[t['cat']]} # keep max proba turned into a distance
              
+        # sort uris by score and keep X first
+        sorted_nns = sorted(nns.items(),key=lambda x: x[1]['score'],reverse=True)
         all_nns = {'nns':[[],[]],'nns_uris':[],'tags':[],'uri':uri}
-        for nn in nns:
-           all_nns['nns'][1].append(nns[nn]['score']) # score
-           all_nns['nns_uris'].append(nn)
-           all_nns['tags'].append(nns[nn]['tags'])
-        #print all_nns
+        c = 0
+        for nn in sorted_nns:
+            all_nns['nns'][1].append(nn[1]['score']) # score
+            all_nns['nns_uris'].append(nn[0])
+            all_nns['tags'].append(nn[1]['tags'])
+            c = c + 1
+            if c == self.search_size:
+                break
         return all_nns
                         
         
