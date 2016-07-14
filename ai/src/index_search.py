@@ -114,20 +114,25 @@ class Searcher:
             if rres:
                 for res in rres:
                     if res['uri'] in nns:
-                        nns[res['uri']]['score'] += res['prob']*t['prob']
-                        if not t['cat'] in nns[res['uri']]['tags']:
-                            nns[res['uri']]['tags'].append(t['cat'])
+                        if not t['cat'] in nns[res['uri']]['out']['tags']:
+                            nns[res['uri']]['out']['tags'].append(t['cat'])
+                            nns[res['uri']]['out']['score'] += res['prob']*t['prob']
+                        if not t['cat'] in nns[res['uri']]['in']['tags']:
+                            nns[res['uri']]['in']['tags'].append(t['cat'])
+                            nns[res['uri']]['in']['score'] += res['prob']
                     else:
-                        nns[res['uri']] = {'score':res['prob']*t['prob'],'tags':[t['cat']]} # keep max proba turned into a distance
+                        nns[res['uri']] = {'out':{'score':res['prob']*t['prob'],'tags':[t['cat']]},
+                                           'in':{'score':res['prob'],'tags':[t['cat']]}}
              
         # sort uris by score and keep X first
-        sorted_nns = sorted(nns.items(),key=lambda x: x[1]['score'],reverse=True)
-        all_nns = {'nns':[[],[]],'nns_uris':[],'tags':[],'uri':uri}
+        sorted_nns = sorted(nns.items(),key=lambda x: x[1]['out']['score'],reverse=True)
+        all_nns = {'nns':[[],[]],'nns_uris':[],'tags_in':[],'tags_out':[],'uri':uri}
         c = 0
         for nn in sorted_nns:
-            all_nns['nns'][1].append(nn[1]['score']) # score
+            all_nns['nns'][1].append(nn[1]['out']['score']) # score
             all_nns['nns_uris'].append(nn[0])
-            all_nns['tags'].append(nn[1]['tags'])
+            all_nns['tags_out'].append(nn[1]['out']['tags'])
+            all_nns['tags_in'].append(nn[1]['in']['tags'])
             c = c + 1
             if c == self.search_size:
                 break
