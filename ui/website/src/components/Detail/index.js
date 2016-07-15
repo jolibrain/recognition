@@ -6,12 +6,11 @@ import Detail from './presenter';
 
 const mapStateToProps = (state, ownProps = {}) => {
 
-  if(state.matches.length > 0 && ownProps.params) {
-
-    const item = state.matches.filter(item => item.id === ownProps.params.matchId)[0];
+  console.log(ownProps);
+  if(state.matches.length > 0) {
 
     return {
-      item: item
+      item: state.matches.filter(item => item.input.img == '/img/reuters/' + ownProps.params.matchId + '.jpg')[0]
     };
 
   }

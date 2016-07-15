@@ -4,6 +4,7 @@ import moment from 'moment';
 import styles from './styles.js';
 import { browserHistory } from 'react-router'
 import DetailData from './presenter_data'
+import DetailFeatures from './presenter_features'
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -22,22 +23,51 @@ class Detail extends React.Component {
       <div className="row" style={styles.rowImg}>
 
         <div className="col-md-5 col-md-offset-1">
-          <img className="img-responsive" src={item.input.img} />
+          <svg width={item.input.meta.width + 'px'} height={item.input.meta.height + 'px'}>
+            <image width={item.input.meta.width + 'px'} height={item.input.meta.height + 'px'} x='0' y='0' xlinkHref={item.input.img}/>
+            <g>
+                  <rect
+                    key={'box--1'}
+                    x='10'
+                    y='30'
+                    width='10'
+                    height='10'
+                    stroke='#F00'
+                    fill='none' strokeWidth='2'
+                  />
+            {
+              selectedOutput.features.in.densecap.scores.map((score, index) => {
+                const box = selectedOutput.features.in.densecap.boxes[index];
+                return (
+                  <rect
+                    key={'box-' + index}
+                    x={box[0]}
+                    y={box[1]}
+                    width={box[2]}
+                    height={box[3]}
+                    stroke={'#F00'}
+                    fill='none' strokeWidth='2'
+                  />
+                );
+              })
+            }
+            </g>
+          </svg>
         </div>
         <div className="col-md-5 col-md-offset-1">
           <img className="img-responsive" src={selectedOutput.img} />
         </div>
 
       </div>
-      <div className="row" style={styles.rowData}>
+      <div className="row" style={styles.dataRow}>
 
-        <div className="col-md-2">
+        <div className="col-md-6">
           <Link to={`/gallery/${item.id}`}>Back to article</Link>
-          <DetailData item={item.input} features={selectedOutput.features.in}/>
+          <DetailFeatures item={item.input} features={selectedOutput.features.in}/>
         </div>
 
-        <div className="col-md-2 col-md-offset-4">
-          <DetailData item={selectedOutput} features={selectedOutput.features.out}/>
+        <div className="col-md-6">
+          <DetailFeatures item={selectedOutput} features={selectedOutput.features.out}/>
         </div>
 
       </div>

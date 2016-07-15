@@ -14,6 +14,10 @@ class Match extends React.Component {
     const item = this.props.item;
     const selectedOutput = item.output.filter(item => item.selected)[0];
 
+    const rx = /(\d+)/g;
+    const arr = rx.exec(item.input.img);
+    const itemId = arr[1];
+
     return (<div>
       <div className="container-fluid">
         <div class="row">
@@ -59,11 +63,11 @@ class Match extends React.Component {
 
           <div className="col-md-2">
 
-            <Link to={`/details/${item.id}`}>View recognition process</Link>
+            <Link to={`/details/${itemId}`}>View recognition process</Link>
 
             <p>{selectedOutput.features.out.description}</p>
 
-            <Link to={`/details/${item.id}`}>Share</Link>
+            <Link to={`/details/${itemId}`}>Share</Link>
           </div>
 
         </div>
