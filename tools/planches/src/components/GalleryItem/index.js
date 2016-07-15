@@ -5,7 +5,6 @@ import * as actions from '../../actions';
 import GalleryItem from './presenter';
 
 const mapStateToProps = (state, ownProps = {}) => {
-  return {};
 }
 
 const mapDispatchToProps = (dispatch) => {

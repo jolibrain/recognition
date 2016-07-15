@@ -28,4 +28,3 @@ fetch('./match.json').then((response) => { return response.json(); })
     document.getElementById('app')
   );
 })
-

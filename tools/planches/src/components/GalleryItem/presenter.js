@@ -3,11 +3,8 @@ import JSONPretty from 'react-json-pretty';
 
 require('react-json-pretty/JSONPretty.monikai.styl');
 
-class GalleryItem extends React.Component {
+function GalleryItem({match = {}, onSelectMatchItem }) {
 
-  render() {
-
-    const match = this.props.match;
     const selectedOutput = match.output.filter(item => item.selected)[0];
     const visibleOutputs = match.output.filter(item => item.visible);
     console.log(match);
@@ -36,7 +33,7 @@ class GalleryItem extends React.Component {
           <div className="row">
           {
             visibleOutputs.map((item, key) => {
-              return <img key={key} style={{width: "150px", padding: "5px"}} src={item.img} onClick={this.props.onSelectMatchItem.bind(this, match, item)}/>
+              return <img key={key} style={{width: "150px", padding: "5px"}} src={item.img} onClick={onSelectMatchItem.bind(this, match, item)}/>
             })
           }
           </div>
@@ -49,7 +46,6 @@ class GalleryItem extends React.Component {
 
       </div>
     );
-  }
 }
 
 export default GalleryItem;

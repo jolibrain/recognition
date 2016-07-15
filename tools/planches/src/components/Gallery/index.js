@@ -5,9 +5,8 @@ import * as actions from '../../actions';
 import Gallery from './presenter';
 
 function mapStateToProps(state) {
-  const matches = state.matches;
   return {
-    matches
+    matches: state.matches
   }
 }
 
