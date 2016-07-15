@@ -14,8 +14,6 @@ class App extends React.Component {
 
     return <div style={styles.body}>
       <Header/>
-      {this.props.children}
-
       <ReactCSSTransitionGroup transitionName="pageSlider" transitionEnterTimeout={600} transitionLeaveTimeout={600}>
         {
           React.cloneElement(this.props.children,{ key: path })

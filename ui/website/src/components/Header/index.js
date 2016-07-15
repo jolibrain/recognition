@@ -9,7 +9,7 @@ Link = Radium(Link);
 class Header extends React.Component {
   render() {
     return <div>
-      <nav style={[styles.navbar, styles.gradientBackground]} className="navbar navbar-default">
+      <nav style={[styles.navbar, styles.gradientBackground]} className="navbar navbar-default navbar-fixed-top">
         <div className="container-fluid">
 
           <div className="navbar-header">

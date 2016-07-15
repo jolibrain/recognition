@@ -1,0 +1,80 @@
+html, body, #app {
+  height: 100%;
+  background-color: rgb(13, 18, 21);
+}
+
+#app {
+  margin-top:70px;
+}
+
+.jumbotron.vertical-center {
+  background-color: #0d1215;
+}
+
+.vertical-center {
+  height:100%;
+  width:100%;
+
+  text-align: center;  /* align the inline(-block) elements horizontally */
+  font: 0/0 a;         /* remove the gap between inline(-block) elements */
+}
+
+.vertical-center:before {    /* create a full-height inline block pseudo=element */
+  content: " ";
+  display: inline-block;
+  vertical-align: middle;    /* vertical alignment of the inline element */
+  height: 100%;
+}
+
+.vertical-center > .container {
+  max-width: 100%;
+
+  display: inline-block;
+  vertical-align: middle;  /* vertical alignment of the inline element */
+                           /* reset the font property */
+  font: 16px/1 "TateNewPro", Helvetica, Arial, sans-serif;
+}
+
+.example-appear {
+  opacity: 0.01;
+}
+
+.example-appear.example-appear-active {
+  opacity: 1;
+  transition: opacity 1.5s ease-in;
+}
+
+.pageSlider-leave {
+  transform: translate3d(0, 0, 0);
+}
+
+.pageSlider-leave.pageSlider-leave-active {
+  transform: translate3d(100%, 0, 0);
+  transition: all 600ms;
+}
+
+.pageSlider-enter {
+  transform: translate3d(100%, 0, 0);
+}
+
+.pageSlider-enter.pageSlider-enter-active {
+  transform: translate3d(0, 0, 0);
+  transition: all 600ms;
+}
+
+/*!
+ *  * IE10 viewport hack for Surface/desktop Windows 8 bug
+ *   * Copyright 2014-2015 Twitter, Inc.
+ *    * Licensed under MIT
+ *    (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ *     */
+
+/*
+ *  * See the Getting Started docs for more information:
+ *   * http://getbootstrap.com/getting-started/#support-ie10-width
+ *    */
+@-webkit-viewport { width: device-width; }
+@-moz-viewport    { width: device-width; }
+@-ms-viewport     { width: device-width; }
+@-o-viewport      { width: device-width; }
+@viewport         { width: device-width; }

@@ -4,6 +4,7 @@ import moment from 'moment';
 import styles from './styles.js';
 import { browserHistory } from 'react-router'
 import DetailData from './presenter_data'
+import DetailFeatures from './presenter_features'
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -29,15 +30,15 @@ class Detail extends React.Component {
         </div>
 
       </div>
-      <div className="row" style={styles.rowData}>
+      <div className="row" style={styles.dataRow}>
 
-        <div className="col-md-2">
+        <div className="col-md-6">
           <Link to={`/gallery/${item.id}`}>Back to article</Link>
-          <DetailData item={item.input} features={selectedOutput.features.in}/>
+          <DetailFeatures item={item.input} features={selectedOutput.features.in}/>
         </div>
 
-        <div className="col-md-2 col-md-offset-4">
-          <DetailData item={selectedOutput} features={selectedOutput.features.out}/>
+        <div className="col-md-6">
+          <DetailFeatures item={selectedOutput} features={selectedOutput.features.out}/>
         </div>
 
       </div>

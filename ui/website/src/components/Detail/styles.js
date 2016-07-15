@@ -41,6 +41,18 @@ const styles = {
     origin: {
       textTransform: 'uppercase'
     }
+  },
+  dataRow: {
+    position: 'absolute',
+    top: '60px',
+    width: '100%'
+  },
+  json: {
+    backgroundColor: 'rgba(0,0,0,0.1)',
+    color: '#FFF',
+    fontFamily: 'TateNewPro',
+    border: 0,
+    fontSize: '14px',
   }
 }
 

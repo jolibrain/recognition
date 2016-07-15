@@ -19,7 +19,6 @@ const mapStateToProps = (state, ownProps = {}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSelectMatch: bindActionCreators(actions.selectMatch, dispatch)
   };
 }
 
