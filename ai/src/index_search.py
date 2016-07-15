@@ -6,6 +6,7 @@ import operator
 
 import logging
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 # Usage
 # with Indexer('/path/to/repo') as indexer:
@@ -13,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 class Indexer:
 
-    def __init__(self,dim,repository='',metric='angular',index_name='index.ann',db_name='names.bin',ntrees=100):
+    def __init__(self,dim,repository='',metric='angular',index_name='index.ann',db_name='names.bin',ntrees=500):
         self.metric = metric # angular or euclidean
         self.dim = dim # dimension of the indexed feature vectors
         self.repository = repository
@@ -105,12 +106,13 @@ class Searcher:
         return feature_nns
 
     # tags is [{'cat':'category','prob':'probability'}]
-    def search_tags_single(self,tags,uri):
+    def search_tags_single(self,tags,uri,prob_filter=0.0):
         nns = {}
         c = 0
         for t in tags:
+            if t['prob'] < prob_filter:
+                continue
             rres = self.s.get(str(t['cat']),None)
-            ##TODO: res['prob'] would go into 'in' output structure
             if rres:
                 for res in rres:
                     if res['uri'] in nns:
@@ -141,6 +143,7 @@ class Searcher:
         
     def load_index(self):
         self.s = shelve.open(self.db_name)
+        logger.info('loading index of dim ' + str(self.s['dim']))
         self.t = AnnoyIndex(self.s['dim'],self.s['metric'])
         try:
             self.t.load(self.index_name)
