@@ -1,18 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
+import Header from './presenter';
 
-function Header() {
-  return <div>
-    <nav className="navbar navbar-default">
-      <div className="container-fluid">
-
-        <div className="navbar-header">
-          <Link className="navbar-brand" to='/'>Planches</Link>
-        </div>
-
-      </div>
-    </nav>
-  </div>;
+const mapStateToProps = (state, ownProps = {}) => {
+  return {};
 }
 
-export default Header;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onFilterMatchesOutput: bindActionCreators(actions.filterMatchesOutput, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

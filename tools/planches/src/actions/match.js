@@ -21,3 +21,10 @@ export function selectMatchItem(match, item) {
     item
   };
 };
+
+export function filterMatchesOutput(filter) {
+  return {
+    type: actionTypes.MATCH_FILTER_OUTPUTS,
+    filter
+  };
+};

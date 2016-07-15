@@ -10,6 +10,8 @@ export default function(state = initialState, action) {
       return addMatch(state, action);
     case actionTypes.MATCH_SELECT_ITEM:
       return selectMatchItem(state, action);
+    case actionTypes.MATCH_FILTER_OUTPUTS:
+      return filterMatchesOutput(state, action);
   }
   return state;
 }
@@ -53,6 +55,8 @@ function loadMatchJson(state, action) {
       item.output[0].selected = true;
     }
 
+    item.output.forEach(output => output.visible = true);
+
   });
 
   return [ ...state, ...json ];
@@ -67,6 +71,18 @@ function selectMatchItem(state, action) {
           return output.selected = false || output.img == item.img;
         });
       }
+      return match
+    })
+  );
+}
+
+function filterMatchesOutput(state, action) {
+  const filter = action.filter.target.value;
+  return Object.assign([], state,
+    state.map(match=> {
+      match.output.forEach(output => {
+        output.visible = JSON.stringify(output).indexOf(filter) >= 0;
+      });
       return match
     })
   );

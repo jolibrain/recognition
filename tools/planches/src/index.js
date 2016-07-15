@@ -11,21 +11,21 @@ import Gallery from './components/Gallery';
 require('bootstrap/dist/css/bootstrap.min.css');
 
 const store = configureStore();
+const history = syncHistoryWithStore(browserHistory, store);
 
 fetch('./match.json').then((response) => { return response.json(); })
 .then((json) => {
   store.dispatch(actions.loadMatchJson(json));
+
+  ReactDOM.render(
+    <Provider store={store}>
+      <Router history={history}>
+        <Route path="/" component={App}>
+          <IndexRoute component={Gallery} />
+        </Route>
+      </Router>
+    </Provider>,
+    document.getElementById('app')
+  );
 })
 
-const history = syncHistoryWithStore(browserHistory, store);
-
-ReactDOM.render(
-  <Provider store={store}>
-    <Router history={history}>
-      <Route path="/" component={App}>
-        <IndexRoute component={Gallery} />
-      </Route>
-    </Router>
-  </Provider>,
-  document.getElementById('app')
-);

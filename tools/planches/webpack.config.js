@@ -1,6 +1,6 @@
 module.exports = {
   entry: [
-    'webpack-dev-server/client?http://91.224.148.180:8090/',
+    'webpack-dev-server/client?http://127.0.0.1:8090/',
     'webpack/hot/only-dev-server',
     './src/index.js'
   ],

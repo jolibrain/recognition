@@ -1,7 +1,8 @@
-import { loadMatchJson, addMatch, selectMatchItem } from './match';
+import { loadMatchJson, addMatch, selectMatchItem, filterMatchesOutput} from './match';
 
 export {
   loadMatchJson,
   addMatch,
-  selectMatchItem
+  selectMatchItem,
+  filterMatchesOutput
 };
