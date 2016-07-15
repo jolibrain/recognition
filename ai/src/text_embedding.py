@@ -12,12 +12,14 @@ import numpy as np
 
 class TextEmbedding(FeatureGenerator):
 
-    def __init__(self,json_files,model_repo,model_file,index_repo,tate=True):
+    def __init__(self,json_files,model_repo,model_file,index_repo,tate=True,img_files=[],meta_in='',meta_out=''):
         self.name = 'txtembed'
         self.description = 'text similarity'
         self.json_files = json_files
         self.model_file = model_file
         self.index_repo = index_repo + '/' + self.name
+        self.meta_in = meta_in
+        self.meta_out = meta_out
         try:
             os.mkdir(self.index_repo)
         except:
@@ -25,6 +27,7 @@ class TextEmbedding(FeatureGenerator):
         self.embeddings = {} # dict of {'uri','vector'}
         self.tate = tate
         self.model_repo = model_repo
+        self.img_files = img_files
         try:
             logger.info('loading w2v model')
             self.model = word2vec.load(self.model_repo + '/' + self.model_file)
@@ -39,6 +42,11 @@ class TextEmbedding(FeatureGenerator):
         #    - in 'subjects' array: 'name' field with 'workcount' of "low" value or of level == 3 (i.e. discriminative)
         #    - 'title' field
         # - Reuters: CaptionShort and if empty, skip (for now)
+        img_dict = {} # for img fast lookup, if available
+        if self.img_files:
+            for im in self.img_files:
+                img_dict[os.path.basename(im)] = 1
+            
         c = 0
         content = {}
         for jf in self.json_files:
@@ -62,6 +70,8 @@ class TextEmbedding(FeatureGenerator):
                     for i in items:
                         caption_short = i['CaptionShort']
                         img_id = os.path.basename(i['PATH_TR3_UNWATERMARKED']['URI'])
+                        if img_dict and img_id not in img_dict:
+                            continue
                         #print img_id,caption_short
                         content[img_id] = caption_short.lower()
                         c =c + 1
@@ -104,4 +114,4 @@ class TextEmbedding(FeatureGenerator):
             for u,v in self.embeddings.iteritems():
                 nns = searcher.search_single(v,u)
                 results[u] = nns
-        return self.to_json(results,'img/reuters/','img/tate/',self.name,self.description,jdataout)
+        return self.to_json(results,'img/reuters/','img/tate/',self.name,self.description,jdataout,self.meta_in,self.meta_out)

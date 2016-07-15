@@ -1,4 +1,9 @@
 generator_lk = {
+    'meta': {
+        'type':'meta',
+        'name':'meta',
+        'description':'metadata acquisition'
+    },
     'composition_high_1': {
         'type': 'dnn',
         'name':'googlenet',
@@ -31,14 +36,14 @@ generator_lk = {
         'description':'general composition',
         'batch_size':16
         },
-    'composition_low_2': {
-        'type': 'dnn',
-        'name':'resnet_152',
-        'nclasses': 1000,
-        'extract_layer':'res5c',
-        'description':'general composition',
-        'batch_size':8
-        },
+#    'composition_low_2': {
+#        'type': 'dnn',
+#        'name':'resnet_152',
+#        'nclasses': 1000,
+#        'extract_layer':'res5c',
+#        'description':'general composition',
+#        'batch_size':8
+#        },
     'categories_2': {
         'type': 'dnn',
         'name':'resnet_152',
@@ -86,12 +91,12 @@ generator_lk = {
         'best':5,
         'description':'places',
         'batch_size': 256
-        },
-    "textembed": {
-        'type': 'w2v',
-        'name': 'textembed',
-        'file': 'GoogleNews-vectors-negative300.bin',
-        'dim': 300,
-        'description':'text similarity'
-    }
+        }#,
+#    "textembed": {
+#        'type': 'w2v',
+#        'name': 'textembed',
+#        'file': 'GoogleNews-vectors-negative300.bin',
+#        'dim': 300,
+#        'description':'text similarity'
+#    }
 }

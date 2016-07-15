@@ -34,11 +34,13 @@ class DNNModel:
 class DNNFeatureExtractor(FeatureGenerator):
 
     def __init__(self,dnnmodel,image_files,index_repo,
-                 batch_size=32,dd_host='localhost',dd_port=8080,dd_description='image classification'):
+                 batch_size=32,dd_host='localhost',dd_port=8080,dd_description='image classification',meta_in='',meta_out=''):
         self.dd_host = dd_host
         self.dd_port = dd_port
         self.dd_description = dd_description
         self.dd_mllib = 'caffe'
+        self.meta_in = meta_in
+        self.meta_out = meta_out
         self.dnnmodel = dnnmodel
         if self.dnnmodel.extract_layer:
             self.dd_mltype = 'unsupervised'
@@ -160,4 +162,4 @@ class DNNFeatureExtractor(FeatureGenerator):
                     results[p['uri']] = nns
 
         self.delete_dd_service()
-        return self.to_json(results,'/img/reuters/','/img/tate/',self.dnnmodel.name,self.dnnmodel.description,jdataout)
+        return self.to_json(results,'/img/reuters/','/img/tate/',self.dnnmodel.name,self.dnnmodel.description,jdataout,self.meta_in,self.meta_out)

@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 from dnn_feature_extractor import DNNModel, DNNFeatureExtractor
 from text_embedding import TextEmbedding
+from metadata import MetadataExtractor
 from file_utils import list_files
 from generators import generator_lk
 
@@ -34,6 +35,10 @@ def execute_generator(generator):
         txtembed = TextEmbedding(json_files,model_repo=model_repo,model_file=generator_conf['file'],index_repo=args.indexes_repo)
         txtembed.preproc()
         txtembed.index()
+    elif generator_conf['type'] == 'meta':
+        metad = MetadataExtractor(json_files,index_repo=args.indexes_repo)
+        metad.preproc()
+        metad.index()
     else:
         logger.error('Unknown generator type ' + generator_conf['type'])
     return
