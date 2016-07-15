@@ -6,7 +6,9 @@ import Gallery from './presenter';
 
 function mapStateToProps(state) {
   return {
-    matches: state.matches
+    matches: state.matches.filter(match => {
+      return match.output.filter(item => item.visible).length > 0;
+    })
   }
 }
 
