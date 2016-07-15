@@ -12,11 +12,9 @@ class Header extends React.Component {
             <Link className="navbar-brand" to='/'>Planches</Link>
           </div>
 
-          <form className="navbar-form navbar-left" role="search">
-            <div className="form-group">
-              <input type="text" className="form-control" placeholder="Filter" onKeyUp={this.props.onFilterMatchesOutput.bind(this)}/>
-            </div>
-          </form>
+          <div className="navbar-form navbar-left">
+            <input type="text" placeholder="Filter" onKeyUp={this.props.onFilterMatchesOutput.bind(this)}/>
+          </div>
 
         </div>
       </nav>
