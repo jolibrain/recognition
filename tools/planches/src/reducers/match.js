@@ -77,7 +77,7 @@ function selectMatchItem(state, action) {
 }
 
 function filterMatchesOutput(state, action) {
-  const filter = action.filter.target.value;
+  const filter = action.filter;
   return Object.assign([], state,
     state.map(match=> {
       match.output.forEach(output => {

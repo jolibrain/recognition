@@ -3,6 +3,26 @@ import { Link } from 'react-router';
 
 class Header extends React.Component {
 
+  state = {
+    searchValue: ''
+  }
+
+  constructor() {
+    super()
+
+    this.handleOnChange = this.handleOnChange.bind(this);
+    this.handleOnSubmit = this.handleOnSubmit.bind(this);
+  }
+
+  handleOnChange(e) {
+    this.setState({searchValue: e.target.value});
+  }
+
+  handleOnSubmit(e) {
+    e.preventDefault();
+    this.props.onFilterMatchesOutput(this.state.searchValue);
+  }
+
   render() {
     return <div>
       <nav className="navbar navbar-default">
@@ -12,9 +32,11 @@ class Header extends React.Component {
             <Link className="navbar-brand" to='/'>Planches</Link>
           </div>
 
-          <div className="navbar-form navbar-left">
-            <input type="text" placeholder="Filter" onKeyUp={this.props.onFilterMatchesOutput.bind(this)}/>
-          </div>
+          <form className="navbar-form navbar-left" role="search" onSubmit={this.handleOnSubmit}>
+            <div className="form-group">
+              <input type="text" className="form-control" placeholder="Filter" value={this.state.searchValue} onChange={this.handleOnChange}/>
+            </div>
+          </form>
 
         </div>
       </nav>
