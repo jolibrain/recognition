@@ -50,9 +50,11 @@ class FeatureGenerator:
                 else:
                     mdataout['features']['out'][feature_name] = {'description':feature_description,'score':score}
                 if 'tags_out' in nn:
-                    mdataout['features']['out'][feature_name]['tags'] = nn['tags_out'][m]
+                    if feature_name in mdataout['features']['out']:
+                        mdataout['features']['out'][feature_name]['tags'] = nn['tags_out'][m]
                 if 'tags_in' in nn:
-                    mdataout['features']['in'][feature_name]['tags'] = nn['tags_in'][m]
+                    if feature_name in mdataout['features']['in']:
+                        mdataout['features']['in'][feature_name]['tags'] = nn['tags_in'][m]
                 dataout['output'].append(mdataout)
                 m = m + 1
             jdataout[img] = dataout
