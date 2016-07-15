@@ -23,7 +23,36 @@ class Detail extends React.Component {
       <div className="row" style={styles.rowImg}>
 
         <div className="col-md-5 col-md-offset-1">
-          <img className="img-responsive" src={item.input.img} />
+          <svg width={item.input.meta.width + 'px'} height={item.input.meta.height + 'px'}>
+            <image width={item.input.meta.width + 'px'} height={item.input.meta.height + 'px'} x='0' y='0' xlinkHref={item.input.img}/>
+            <g>
+                  <rect
+                    key={'box--1'}
+                    x='10'
+                    y='30'
+                    width='10'
+                    height='10'
+                    stroke='#F00'
+                    fill='none' strokeWidth='2'
+                  />
+            {
+              selectedOutput.features.in.densecap.scores.map((score, index) => {
+                const box = selectedOutput.features.in.densecap.boxes[index];
+                return (
+                  <rect
+                    key={'box-' + index}
+                    x={box[0]}
+                    y={box[1]}
+                    width={box[2]}
+                    height={box[3]}
+                    stroke={'#F00'}
+                    fill='none' strokeWidth='2'
+                  />
+                );
+              })
+            }
+            </g>
+          </svg>
         </div>
         <div className="col-md-5 col-md-offset-1">
           <img className="img-responsive" src={selectedOutput.img} />

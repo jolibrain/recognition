@@ -1,4 +1,20 @@
 const styles = {
+  underline: {
+    textDecoration: 'underline'
+  },
+  borderless: {
+    border: 'none !important'
+  },
+  detailColumn: {
+    width:'30%',
+    fontFamily: 'monospace',
+    fontSize:'12px',
+    textTransform: 'uppercase',
+    background: "-moz-linear-gradient(left, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%)",
+    background: "-webkit-linear-gradient(left, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%)",
+    background: "linear-gradient(to right, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%)",
+    filter: "progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=1 )"
+  },
   hover: {
     color: '#0fc',
   },
