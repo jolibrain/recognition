@@ -14,7 +14,7 @@ class Match extends React.Component {
     const item = this.props.item;
     const selectedOutput = item.output.filter(item => item.selected)[0];
 
-    const rx = /(\d+)/g;
+    const rx = /reuters\/(.*)\.jpg/g;
     const arr = rx.exec(item.input.img);
     const itemId = arr[1];
 

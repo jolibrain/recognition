@@ -51,10 +51,15 @@ class DetailFeatures extends React.Component {
                 </table>
               </div>
             </div>);
-          } else {
+          } else if(feature.tags) {
             return (<div key={feature_key}>
               <h5 style={[styles.underline]}>{feature_key}</h5>
               <p>{feature.tags.join(', ')}</p>
+            </div>);
+          } else {
+            return (<div key={feature_key}>
+              <h5 style={[styles.underline]}>{feature_key}</h5>
+              <p>{feature.description}: {feature.score}</p>
             </div>);
           }
         })

@@ -50,7 +50,7 @@ function loadMatchJson(state, action) {
     });
 
     if(!selectedItem) {
-      item.output[1].selected = true;
+      item.output[0].selected = true;
     }
 
   });
