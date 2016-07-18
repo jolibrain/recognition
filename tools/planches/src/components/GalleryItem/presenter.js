@@ -7,8 +7,6 @@ function GalleryItem({match = {}, onSelectMatchItem }) {
 
     const selectedOutput = match.output.filter(item => item.selected)[0];
     const visibleOutputs = match.output.filter(item => item.visible);
-    console.log(match);
-    console.log(visibleOutputs);
 
     return (
       <div className="row" style={{
@@ -23,10 +21,16 @@ function GalleryItem({match = {}, onSelectMatchItem }) {
             "marginBottom": "20px"
           }}>
             <div className="col-md-6">
-              <img className="img-responsive" src={match.input.img} />
+              <figure className="figure">
+                <img className="img-responsive figure-img img-fluid" src={match.input.img} />
+                <figcaption className="figure-caption">{match.input.meta.caption}</figcaption>
+              </figure>
             </div>
             <div className="col-md-6">
-              <img className="img-responsive" src={selectedOutput.img} />
+              <figure className="figure">
+                <img className="img-responsive figure-img img-fluid" src={selectedOutput.img} />
+                <figcaption className="figure-caption">{selectedOutput.meta.title}</figcaption>
+              </figure>
             </div>
           </div>
 
