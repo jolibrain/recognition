@@ -45,7 +45,7 @@ class Splash extends React.Component {
 
               <p style={styles.imgDescription}>
                 {match.input.meta.date}<br/>
-                {match.input.meta.title}<br/>
+                {match.input.meta.caption}<br/>
                 {match.input.meta.origin}
               </p>
 
