@@ -75,7 +75,7 @@ class GalleryItem extends React.Component {
               </span>
               <br/>
               <span key="item.input.meta.origin" style={styles.input.title}>
-                {item.input.meta.title}</span>
+                {item.input.meta.caption}</span>
               <br/>
             </div>
             )}
