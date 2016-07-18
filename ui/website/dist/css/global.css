@@ -87,3 +87,12 @@ html, body, #app {
 @-ms-viewport     { width: device-width; }
 @-o-viewport      { width: device-width; }
 @viewport         { width: device-width; }
+
+svg g {
+  fill: none;
+  pointer-events: all;
+}
+
+svg g:hover polyline {
+  stroke: #00FFCC !important;
+}

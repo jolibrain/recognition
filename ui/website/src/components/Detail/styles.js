@@ -61,7 +61,8 @@ const styles = {
   dataRow: {
     position: 'absolute',
     top: '60px',
-    width: '100%'
+    width: '100%',
+    pointerEvents: 'none'
   },
   json: {
     backgroundColor: 'rgba(0,0,0,0.1)',
