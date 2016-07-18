@@ -45,7 +45,7 @@ class TextEmbedding(FeatureGenerator):
         img_dict = {} # for img fast lookup, if available
         if self.img_files:
             for im in self.img_files:
-                img_dict[os.path.basename(im)] = 1
+                img_dict[os.path.basename(im)] = im
             
         c = 0
         content = {}
@@ -72,6 +72,7 @@ class TextEmbedding(FeatureGenerator):
                         img_id = os.path.basename(i['PATH_TR3_UNWATERMARKED']['URI'])
                         if img_dict and img_id not in img_dict:
                             continue
+                        img_id = img_dict[img_id]
                         #print img_id,caption_short
                         content[img_id] = caption_short.lower()
                         c =c + 1

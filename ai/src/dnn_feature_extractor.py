@@ -151,7 +151,7 @@ class DNNFeatureExtractor(FeatureGenerator):
                 response_code = classif['status']['code']
                 if response_code != 200:
                     print 'response=',classif
-                    logger.error('failed batch (search) prediction call to model ' + self.dnnmode.name + ' via dd')
+                    logger.error('failed batch (search) prediction call to model ' + self.dnnmodel.name + ' via dd')
                     continue
                 predictions = classif['body']['predictions']
                 for p in predictions:

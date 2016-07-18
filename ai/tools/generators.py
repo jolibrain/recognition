@@ -91,12 +91,12 @@ generator_lk = {
         'best':5,
         'description':'places',
         'batch_size': 256
-        }#,
-#    "textembed": {
-#        'type': 'w2v',
-#        'name': 'textembed',
-#        'file': 'GoogleNews-vectors-negative300.bin',
-#        'dim': 300,
-#        'description':'text similarity'
-#    }
+        },
+    "textembed": {
+        'type': 'w2v',
+        'name': 'textembed',
+        'file': 'GoogleNews-vectors-negative300.bin',
+        'dim': 300,
+        'description':'text similarity'
+    }
 }
