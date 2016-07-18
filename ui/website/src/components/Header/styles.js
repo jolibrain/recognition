@@ -14,13 +14,19 @@ const styles = {
     re: {
       position: 'relative',
       top: '-3px'
+    },
+    ':hover': {
+      color: '#0FC'
     }
   },
   menuItem: {
     color: "#FFF",
     textTransform: 'uppercase',
     fontWeight: 'bold',
-    marginLeft: '20px'
+    marginLeft: '20px',
+    ':hover': {
+      color: '#0FC'
+    }
   },
   searchIcon: {
     position: 'relative',
