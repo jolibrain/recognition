@@ -6,7 +6,7 @@ const styles = {
     border: 'none !important'
   },
   detailColumn: {
-    width:'30%',
+    width:'50%',
     fontFamily: 'monospace',
     fontSize:'12px',
     textTransform: 'uppercase',
@@ -14,6 +14,9 @@ const styles = {
     background: "-webkit-linear-gradient(left, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%)",
     background: "linear-gradient(to right, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%)",
     filter: "progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=1 )"
+  },
+  tableOverflow: {
+    'overflow-x': 'none',
   },
   hover: {
     color: '#0fc',

@@ -3,7 +3,6 @@ import Radium from 'radium';
 import moment from 'moment';
 import styles from './styles.js';
 import { browserHistory } from 'react-router'
-import DetailData from './presenter_data'
 import DetailFeatures from './presenter_features'
 import BoundedImage from '../BoundedImage'
 

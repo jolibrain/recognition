@@ -12,8 +12,12 @@ class DetailFeatures extends React.Component {
     const item = this.props.item;
     const features = this.props.features;
 
+    if(item.meta.html_content) {
+      item.meta.html_content = '...';
+    }
+
     return(<div style={[styles.detailColumn]}>
-      <div className="table-responsive">
+      <div className="table-responsive" style={[styles.tableOverflow]}>
         <table className="table borderless">
           <tbody>
           {
