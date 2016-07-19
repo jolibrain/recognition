@@ -21,8 +21,16 @@ class GalleryItem extends React.Component {
     const arr = rx.exec(item.input.img);
     const itemId = arr[1];
 
+    let classname = "row gallery_item";
+    if(this.state.hover) {
+      classname += " hovered";
+    } else {
+      classname += " not_hovered";
+    }
+
+
     return(<div>
-      <div className="row" style={styles.row}
+      <div className={classname} style={styles.row}
         onMouseEnter={() => {
           this.setState({hover: true});
         }}
