@@ -16,7 +16,7 @@ class Match extends React.Component {
 
     return (<div>
       <div className="container-fluid">
-        <div class="row">
+        <div className="row">
 
           <div className="col-md-5">
 
