@@ -11,8 +11,8 @@ class Match extends React.Component {
 
   render() {
 
-    const item = this.props.item;
-    const selectedOutput = item.output.filter(item => item.selected)[0];
+    const input = this.props.input;
+    const output = this.props.output;
 
     return (<div>
       <div className="container-fluid">
@@ -20,51 +20,51 @@ class Match extends React.Component {
 
           <div className="col-md-5">
 
-            <img className="img-responsive" src={item.input.img} />
-            <p style={styles.imgDescription}>{item.input.meta.origin}</p>
+            <img className="img-responsive" src={input.img} />
+            <p style={styles.imgDescription}>{input.meta.origin}</p>
 
             <div>
               <span key="item.input.meta.date" style={styles.input.date}>
-                {item.input.meta.date}
+                {input.meta.date}
               </span>
               <br/>
               <span key="item.input.meta.title" style={styles.input.title}>
-                {item.input.meta.title}</span>
+                {input.meta.title}</span>
               <br/>
-              <span key="item.input.meta.origin" style={styles.input.method}>{item.input.meta.method}</span>
+              <span key="item.input.meta.origin" style={styles.input.method}>{input.meta.method}</span>
             </div>
 
             <div>
               <span key="item.output.meta.date" style={styles.output.date}>
-                {selectedOutput.meta.date}
+                {output.meta.date}
               </span>
               <br/>
               <span key="item.output.meta.title" style={styles.output.title}>
-                {selectedOutput.meta.title}
+                {output.meta.title}
               </span>&nbsp;
               <span key="item.output.meta.author" style={styles.output.author}>
-                by {selectedOutput.meta.author}
+                by {output.meta.author}
               </span>
               <br/>
-              <span key="item.output.meta.origin" style={styles.output.method}>{selectedOutput.meta.method}</span>
+              <span key="item.output.meta.origin" style={styles.output.method}>{output.meta.method}</span>
             </div>
 
           </div>
 
           <div className="col-md-5">
 
-            <img className="img-responsive" src={selectedOutput.img} />
-            <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
+            <img className="img-responsive" src={output.img} />
+            <p style={styles.imgDescription}>{output.meta.origin}</p>
 
           </div>
 
           <div className="col-md-2">
 
-            <Link to={`/details/${item.id}`}>View recognition process</Link>
+            <Link to={`/details/${this.props.itemId}`}>View recognition process</Link>
 
-            <p>{selectedOutput.features.out.description}</p>
+            <p>{output.features.out.description}</p>
 
-            <Link to={`/details/${item.id}`}>Share</Link>
+            <Link to={`/details/${this.props.itemId}`}>Share</Link>
           </div>
 
         </div>

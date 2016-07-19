@@ -20,36 +20,42 @@ class Match extends React.Component {
     const item = this.props.item;
     const selectedOutput = item.output.filter(item => item.selected)[0];
 
-    if(item.input.meta.orientation && selectedOutput.meta.orientation) {
+    const inputOrientation = item.input.meta.height > item.input.meta.width ?
+      "vertical" : "horizontal";
 
-      switch (item.input.meta.orientation) {
+    const outputOrientation = selectedOutput.meta.height > selectedOutput.meta.width ?
+      "vertical" : "horizontal";
 
-        case "horizontal":
-          switch (selectedOutput.meta.orientation) {
-            case "horizontal":
-              return <MatchHH item={item}/>
-            break;
-            case "vertical":
-              return <MatchHV item={item}/>
-            break;
-          }
-        break;
+    const rx = /reuters\/(.*)\.jpg/g;
+    const arr = rx.exec(item.input.img);
+    const itemId = arr[1];
 
-        case "vertical":
-          switch (selectedOutput.meta.orientation) {
-            case "horizontal":
-              return <MatchVH item={item}/>
-            break;
-            case "vertical":
-              return <MatchVV item={item}/>
-            break;
-          }
-        break;
-      }
+    switch (inputOrientation) {
 
+      case "horizontal":
+        switch (outputOrientation) {
+          case "horizontal":
+            return <MatchHH itemId={itemId} input={item.input} output={selectedOutput}/>
+          break;
+          case "vertical":
+            return <MatchHV itemId={itemId} input={item.input} output={selectedOutput}/>
+          break;
+        }
+      break;
+
+      case "vertical":
+        switch (outputOrientation) {
+          case "horizontal":
+            return <MatchVH itemId={itemId} input={item.input} output={selectedOutput}/>
+          break;
+          case "vertical":
+            return <MatchVV itemId={itemId} input={item.input} output={selectedOutput}/>
+          break;
+        }
+      break;
     }
 
-    return <MatchHH item={item}/>;
+    return <MatchHH itemId={itemId} input={item.input} output={selectedOutput}/>;
   }
 }
 
