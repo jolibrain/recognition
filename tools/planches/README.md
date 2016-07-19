@@ -4,6 +4,12 @@ Tools to preview image similarities.
 
 Input json data is stored in *tools/planches/dist/match.json* file.
 
+## Requirements
+
+To install latest version of node.js, with local user rights, please follow this tutorial:
+
+https://gist.github.com/isaacs/579814
+
 ## Dev setup
 
     cd tools/planches/
