@@ -6,7 +6,7 @@ class EnsemblingScores:
 
     # json_out in UI format, simple additive ensembling
     def ensembling(self,json_out):
-        for m in json_out: # iterate matches
+        for k,m in json_out.iteritems(): # iterate matches
             for o in m['output']: # iterate candidates for a given match
                 final_score = 0.0
                 for g,v in o['features']['out'].iteritems(): # iterate generators of a match
