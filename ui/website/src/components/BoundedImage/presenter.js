@@ -30,8 +30,10 @@ class BoundedImage extends React.Component {
 
   render() {
 
-    if(this.props.densecap) {
-      return (<CanvasImage item={this.props.item} densecap={this.props.densecap}/>)
+    console.log("render");
+    console.log(this.props);
+    if(this.props.boxes.length > 0) {
+      return (<CanvasImage item={this.props.item} boxes={this.props.boxes}/>)
     } else {
       return (<HtmlImage img={this.props.item.img}/>)
     }

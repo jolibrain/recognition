@@ -59,7 +59,7 @@ class CanvasImage extends React.Component {
   renderBoxes(ctx) {
     let i = 0;
     let box;
-    while(box = this.props.densecap.boxes[i++]) {
+    while(box = this.props.boxes[i++]) {
       this.renderBox(i, box, ctx);
     }
   }
@@ -97,7 +97,7 @@ class CanvasImage extends React.Component {
 
         //ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        for(var i = this.props.densecap.boxes.length - 1, b; b = this.props.densecap.boxes[i]; i--) {
+        for(var i = this.props.boxes.length - 1, b; b = this.props.boxes[i]; i--) {
           const [bx, by, bw, bh] = b;
 
           if(x >= bx && x <= bx + bw &&

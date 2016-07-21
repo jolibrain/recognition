@@ -20,7 +20,44 @@ import * as actions from '../../actions';
 import BoundedImage from './presenter';
 
 const mapStateToProps = (state, ownProps = {}) => {
-  return {};
+
+  const features = ownProps.features;
+  let boxes = [];
+
+  if(features) {
+
+    if(features.densecap &&
+      features.densecap.boxes.length > 0) {
+      boxes = boxes.concat(features.densecap.boxes);
+    }
+
+    if(features.vision &&
+      features.vision.faces.length > 0) {
+      boxes = boxes.concat(features.vision.faces.map(face => {
+        return [
+          face.faceRectangle.left,
+          face.faceRectangle.top,
+          face.faceRectangle.width,
+          face.faceRectangle.height
+        ];
+      }));
+    }
+
+    if(features.emotion &&
+      features.emotion.length > 0) {
+      boxes = boxes.concat(features.emotion.map(emotion => {
+        return [
+          emotion.faceRectangle.left,
+          emotion.faceRectangle.top,
+          emotion.faceRectangle.width,
+          emotion.faceRectangle.height
+        ];
+      }));
+    }
+
+  }
+
+  return {boxes: boxes};
 }
 
 const mapDispatchToProps = (dispatch) => {
