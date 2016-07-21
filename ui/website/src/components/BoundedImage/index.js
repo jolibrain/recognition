@@ -28,15 +28,11 @@ const mapStateToProps = (state, ownProps = {}) => {
 
     if(features.densecap &&
       features.densecap.boxes.length > 0) {
-      console.log(features.densecap.boxes[0]);
       const img_h = ownProps.item.meta.height;
       const img_w = ownProps.item.meta.width;
-      console.log("img: " + img_w + 'x' + img_h);
       const ratio_hw = img_h / img_w;
-      console.log("ratio_hw: " + ratio_hw);
       const ref_w = (1.0/ratio_hw) * 720;
-      const ref_h = 1;
-      console.log("ref_w: " + ref_w);
+      const ref_h = 720;
       boxes = boxes.concat(features.densecap.boxes.map(b => {
         let box = [];
         box[0] = img_w * b[0] / ref_w;
@@ -45,7 +41,6 @@ const mapStateToProps = (state, ownProps = {}) => {
         box[3] = img_w * (b[1] + b[3]) / ref_h;
         return box;
       }));
-      console.log(boxes[0]);
     }
 
     if(features.vision &&

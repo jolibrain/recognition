@@ -40,6 +40,7 @@ class CanvasImage extends React.Component {
     ctx.fill();
 
     ctx.strokeStyle = colorStyle;
+    ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.moveTo(x + width / 10, y);
     ctx.lineTo(x, y);
