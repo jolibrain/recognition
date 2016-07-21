@@ -21,8 +21,14 @@ specific language governing permissions and limitations
 under the License.
 """
 
-import os, sys, json
+import os, json
+import sys
 import word2vec
+import string
+import unicodedata
+from unidecode import unidecode
+from nltk.corpus import stopwords
+
 from feature_generator import FeatureGenerator
 from index_search import Indexer, Searcher
 
@@ -32,6 +38,10 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 import numpy as np
+
+def strip_accents(s):
+    return ''.join(c for c in unicodedata.normalize('NFD',s)
+                   if unicodedata.category(c) != 'Mn')
 
 class TextEmbedding(FeatureGenerator):
 
@@ -51,6 +61,7 @@ class TextEmbedding(FeatureGenerator):
         self.tate = tate
         self.model_repo = model_repo
         self.img_files = img_files
+        self.stopw = stopwords.words('english') # XXX: other languages, French appears to be used in some titles
         try:
             logger.info('loading w2v model')
             self.model = word2vec.load(self.model_repo + '/' + self.model_file)
@@ -58,7 +69,7 @@ class TextEmbedding(FeatureGenerator):
             logger.info('successfully loaded w2v model ' + self.model_repo + '/' + self.model_file + ' of dim ' + str(self.dim))
         except:
             logger.error('failed loading w2v model ' + self.model_repo + '/' + self.model_file)
-            
+
     def preproc(self):
         ## parse json files and extract relevant txt data from either reuters or tate metadata
         #- Tate
@@ -93,7 +104,7 @@ class TextEmbedding(FeatureGenerator):
                     for i in items:
                         caption_short = i['CaptionShort']
                         img_id = os.path.basename(i['PATH_TR3_UNWATERMARKED']['URI'])
-                        if img_dict and img_id not in img_dict:
+                        if img_dict and img_id not in img_dict: # if image is not available, skip it
                             continue
                         img_id = img_dict[img_id]
                         #print img_id,caption_short
@@ -103,13 +114,16 @@ class TextEmbedding(FeatureGenerator):
         logger.info('Processed ' + str(c) + ' JSON files')
         
         # compute embeddings
+        exclude = set(string.punctuation)
         c = 0
         for u,t in content.iteritems():
-            ts = t.split(' ') #TODO: replace all punctuation ?
+            #t = strip_accents(t) ## for now unidecode is more generic
+            t = ''.join(ch for ch in t if ch not in exclude)
+            ts = [unidecode(i) for i in t.split() if i not in self.stopw and len(i) > 2]
             vt = np.zeros(self.dim)
-            for t in ts:
+            for w in ts:
                 try:
-                    vt += self.model[t]
+                    vt += self.model[w]
                 except:
                     pass
             self.embeddings[u] = vt
