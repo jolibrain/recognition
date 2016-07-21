@@ -111,3 +111,9 @@ svg g {
 svg g:hover polyline {
   stroke: #00FFCC !important;
 }
+
+canvas {
+  background-color: blue;
+  width: 100%;
+  height: auto;
+}
