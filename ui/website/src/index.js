@@ -15,7 +15,8 @@ limitations under the License.
 */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute, browserHistory, Location } from 'react-router';
+import { applyRouterMiddleware, Router, Route, IndexRoute, browserHistory, Location } from 'react-router';
+import useScroll from 'react-router-scroll';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { Provider } from 'react-redux';
 import configureStore from './stores/configureStore';
@@ -38,7 +39,7 @@ fetch('/match.json').then((response) => { return response.json(); })
 
   ReactDOM.render(
     <Provider store={store}>
-      <Router history={history}>
+      <Router history={history} render={applyRouterMiddleware(useScroll())}>
         <Route path="/" component={App}>
           <IndexRoute component={Loading} />
           <Route path="/splash" component={Splash} />
