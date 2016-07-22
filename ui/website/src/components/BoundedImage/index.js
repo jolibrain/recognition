@@ -37,8 +37,8 @@ const mapStateToProps = (state, ownProps = {}) => {
         let box = [];
         box[0] = img_w * b[0] / ref_w;
         box[1] = img_h * b[1] / ref_h;
-        box[2] = img_w * (b[0] + b[2]) / ref_w;
-        box[3] = img_w * (b[1] + b[3]) / ref_h;
+        box[2] = img_w * b[2] / ref_w;
+        box[3] = img_h * b[3] / ref_h;
         return box;
       }));
     }
