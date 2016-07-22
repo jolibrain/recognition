@@ -28,9 +28,12 @@ import logging
 logging.basicConfig()
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
+
 from dnn_feature_extractor import DNNModel, DNNFeatureExtractor
 from text_embedding import TextEmbedding
 from metadata import MetadataExtractor
+from densecap_extractor import DenseCapExtractor
+
 from file_utils import list_files
 from generators import generator_lk
 
@@ -60,6 +63,11 @@ def execute_generator(generator):
         metad = MetadataExtractor(json_files,index_repo=args.indexes_repo)
         metad.preproc()
         metad.index()
+    elif generator_conf['type'] == 'densecap':
+        dcap = DenseCapExtractor(images_repo=args.input_imgs,nimages=len(image_files),model_repo=model_repo,index_repo=args.indexes_repo,name=generator,
+                                 densecap_dir=generator_conf['wdir'],description=generator_conf['description'])
+        dcap.preproc()
+        #dcap.index()
     else:
         logger.error('Unknown generator type ' + generator_conf['type'])
     return

@@ -80,7 +80,7 @@ class FeatureGenerator:
                 if mdataout == None:
                     metad = {}
                     if meta_in:
-                        metad = meta_in_s[str(os.path.basename(nuri))]
+                        metad = meta_in_s.get(str(os.path.basename(nuri)),'')
                     mdataout = {'meta':metad,'features':{'score':0,'in':{feature_name:{}},'out':{feature_name:{'description':feature_description,'score':score}}},'img':nuri_rebase}
                 else:
                     mdataout['features']['out'][feature_name] = {'description':feature_description,'score':score}
