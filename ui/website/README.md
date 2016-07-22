@@ -6,9 +6,13 @@ Input json data is stored in *ui/website/dist/match.json* file.
 
 ## Requirements
 
-To install latest version of node.js, with local user rights, please follow this tutorial:
+Install necessary packages on server:
 
-https://gist.github.com/isaacs/579814
+    sudo apt-get install git nginx apache2-utils
+
+To install latest version of node.js, with local user rights, please follow this tutorial, in particular the script *node-and-npm-in-30-seconds-sh*:
+
+https://gist.github.com/isaacs/579814#file-node-and-npm-in-30-seconds-sh
 
 ## Dev setup
 
@@ -53,3 +57,23 @@ To access Tate/Reuters images, you need to create symbolic links.
 
 The relative path to access these images from the web frontend are
 */img/tate/...* and */img/reuters/...*
+
+## Nginx htpassword
+
+Create a *htpasswd* file:
+
+    mkdir /etc/nginx/auth/
+    htpasswd -c /etc/nginx/auth/recog_htpasswd recog
+
+Use it in nginx server configuration:
+
+    server {
+        ...
+        auth_basic "closed site";
+        auth_basic_user_file /etc/nginx/auth/recog_htpasswd;
+        ...
+    }
+
+Reload nginx when modifications are done:
+
+    service reload nginx
