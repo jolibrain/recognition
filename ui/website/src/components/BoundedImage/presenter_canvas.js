@@ -30,9 +30,9 @@ class CanvasImage extends React.Component {
   renderBox(index, box, ctx) {
     const [x, y, width, height] = box;
 
-    let colorStyle = 'rgba(225,0,0,1)';
+    let colorStyle = 'rgba(225,255,255,1)';
     if(this.state.hoverIndex == index) {
-      colorStyle = 'rgba(0,225,0,1)';
+      colorStyle = 'rgba(0,225,204,1)';
     }
 
     ctx.rect(x, y, width, height);
@@ -40,12 +40,12 @@ class CanvasImage extends React.Component {
     ctx.fill();
 
     ctx.strokeStyle = colorStyle;
-    ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.moveTo(x + width / 10, y);
     ctx.lineTo(x, y);
     ctx.lineTo(x, y + height);
     ctx.lineTo(x + width / 10, y + height);
+    ctx.lineWidth = 2;
     ctx.stroke();
 
     ctx.strokeStyle = colorStyle;
@@ -54,6 +54,7 @@ class CanvasImage extends React.Component {
     ctx.lineTo(x + width, y);
     ctx.lineTo(x + width, y + height);
     ctx.lineTo(x + 9 * width / 10, y + height);
+    ctx.lineWidth = 2;
     ctx.stroke();
   }
 
@@ -82,6 +83,25 @@ class CanvasImage extends React.Component {
     // Make sure the image is loaded first otherwise nothing will draw.
     background.onload = (() => {
       ctx.drawImage(background,0,0);
+
+      const gradientWidth = item.meta.width * 0.3;
+
+      ctx.beginPath();
+      // put stroke color to transparent
+      ctx.strokeStyle = "transparent"
+      // draw rectablge towards right hand side
+      ctx.rect(0,0,gradientWidth,item.meta.height);
+      // create linear gradient
+      let grdLinear = ctx.createLinearGradient(0, 0, gradientWidth, 0);
+      // Important bit here is to use rgba()
+      grdLinear.addColorStop(0, "rgba(0, 0, 0, 0.85)");
+      grdLinear.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      // add gradient to rectangle
+      ctx.fillStyle = grdLinear;
+      // step below are pretty much standard to finish drawing an object to canvas
+      ctx.fill();
+      ctx.stroke();
+      ctx.closePath();
 
       this.renderBoxes(ctx)
 

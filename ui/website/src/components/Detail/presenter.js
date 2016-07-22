@@ -37,7 +37,7 @@ class Detail extends React.Component {
     return(<div className="container-fluid">
       <div className="row" style={styles.rowImg}>
 
-        <div className="col-md-5 col-md-offset-1">
+        <div className="col-md-5 col-md-offset-1"style={[styles.leftImg]} >
           <BoundedImage item={item.input} features={selectedOutput.features.in}/>
         </div>
         <div className="col-md-5 col-md-offset-1">
@@ -48,11 +48,11 @@ class Detail extends React.Component {
       <div className="row" style={styles.dataRow}>
 
         <div className="col-md-6">
-          <Link to={`/gallery/${item.id}`}>Back to article</Link>
+          <Link style={[styles.link]} to={`/gallery/${item.id}`}><span className='icon--i_arrow-left'/> Back to article</Link>
           <DetailFeatures item={item.input} features={selectedOutput.features.in}/>
         </div>
 
-        <div className="col-md-6">
+        <div className="col-md-6" style={[styles.rightDetails]}>
           <DetailFeatures item={selectedOutput} features={selectedOutput.features.out}/>
         </div>
 

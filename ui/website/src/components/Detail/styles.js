@@ -25,13 +25,9 @@ const styles = {
     fontFamily: 'monospace',
     fontSize:'12px',
     textTransform: 'uppercase',
-    background: "-moz-linear-gradient(left, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%)",
-    background: "-webkit-linear-gradient(left, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%)",
-    background: "linear-gradient(to right, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%)",
-    filter: "progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=1 )"
   },
   tableOverflow: {
-    'overflow-x': 'none',
+    overflowX: 'none',
   },
   hover: {
     color: '#0fc',
@@ -88,6 +84,17 @@ const styles = {
     fontFamily: 'TateNewPro',
     border: 0,
     fontSize: '14px',
+  },
+  link: {
+    color: '#FFF',
+    marginBottom: '20px',
+    textTransform: 'uppercase'
+  },
+  leftImg: {
+    marginTop: '20px',
+  },
+  rightDetails: {
+    marginTop: '60px',
   }
 }
 
