@@ -45,6 +45,12 @@ class GalleryItem extends React.Component {
       classname += " not_hovered";
     }
 
+    const inputOrientation = item.input.meta.height > item.input.meta.width ?
+      "vertical" : "horizontal";
+
+    const outputOrientation = selectedOutput.meta.height > selectedOutput.meta.width ?
+      "vertical" : "horizontal";
+
 
     return(<div>
       <div className={classname} style={styles.row}
@@ -61,7 +67,7 @@ class GalleryItem extends React.Component {
 
         <div className="col-md-9">
 
-          <div className="fluid-container">
+          <div className="container">
             <div className="row">
               <div className="col-md-6">
                 <img className="img-responsive" src={item.input.img} />
