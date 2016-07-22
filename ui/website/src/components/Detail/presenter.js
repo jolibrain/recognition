@@ -35,22 +35,6 @@ class Detail extends React.Component {
                     stroke='#F00'
                     fill='none' strokeWidth='2'
                   />
-            {
-              selectedOutput.features.in.densecap.scores.map((score, index) => {
-                const box = selectedOutput.features.in.densecap.boxes[index];
-                return (
-                  <rect
-                    key={'box-' + index}
-                    x={box[0]}
-                    y={box[1]}
-                    width={box[2]}
-                    height={box[3]}
-                    stroke={'#F00'}
-                    fill='none' strokeWidth='2'
-                  />
-                );
-              })
-            }
             </g>
           </svg>
         </div>
@@ -77,3 +61,21 @@ class Detail extends React.Component {
 }
 
 export default Detail;
+            /*
+            {
+              selectedOutput.features.in.densecap.scores.map((score, index) => {
+                const box = selectedOutput.features.in.densecap.boxes[index];
+                return (
+                  <rect
+                    key={'box-' + index}
+                    x={box[0]}
+                    y={box[1]}
+                    width={box[2]}
+                    height={box[3]}
+                    stroke={'#F00'}
+                    fill='none' strokeWidth='2'
+                  />
+                );
+              })
+            }
+            */
