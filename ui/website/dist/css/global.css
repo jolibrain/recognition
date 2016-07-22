@@ -116,3 +116,7 @@ canvas {
   width: 100%;
   height: auto;
 }
+
+.menuSelected a {
+  color: #00FFCC !important;
+}

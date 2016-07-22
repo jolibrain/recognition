@@ -25,10 +25,8 @@ class App extends React.Component {
 
     const path = this.props.location.pathname;
 
-    console.log(path);
-
     return <div style={styles.body}>
-      <Header/>
+      <Header path={path}/>
       <ReactCSSTransitionGroup transitionName="pageSlider" transitionEnterTimeout={600} transitionLeaveTimeout={600}>
         {
           React.cloneElement(this.props.children,{ key: path })

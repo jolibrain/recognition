@@ -4,3 +4,6 @@ dist/*
 !dist/index.html
 !dist/fonts
 !dist/css
+!dist/img
+dist/img/*
+!dist/img/logos
