@@ -14,29 +14,29 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import React from 'react';
-import LeftRight from './LeftRight';
-import ThumbSelector from './ThumbSelector';
+import Radium from 'radium';
+import moment from 'moment';
+import styles from './styles.js';
+import { browserHistory } from 'react-router'
+import SvgImage from './presenter_svg';
+import HtmlImage from './presenter_html';
+import CanvasImage from './presenter_canvas';
 
-function Preview({ photos = [], onSelectPhoto}) {
+let {Link} = require('react-router');
+Link = Radium(Link);
 
-  const style = {
-    'margin-top': '20px',
-    'padding-bottom': '20px',
-    'border-bottom': '1px solid #666'
-  };
+@Radium
+class BoundedImage extends React.Component {
 
-  return (
-    <div className="fluid-container">
-      {
-        photos.map((photo, key) => {
-          return (<div className="photo" key={key} style={style}>
-            <LeftRight photo={photo}/>
-            <ThumbSelector photo={photo} onClick={onSelectPhoto} />
-          </div>);
-        })
-      }
-    </div>
-  );
+  render() {
+
+    if(this.props.boxes.length > 0) {
+      return (<CanvasImage item={this.props.item} boxes={this.props.boxes}/>)
+    } else {
+      return (<HtmlImage img={this.props.item.img}/>)
+    }
+
+  }
 }
 
-export default Preview;
+export default BoundedImage;

@@ -13,23 +13,5 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import * as actions from '../../actions';
-import Preview from './presenter';
-
-function mapStateToProps(state) {
-  const photos = state.photo;
-  return {
-    photos
-  }
+var styles={
 }
-
-function mapDispatchToProps(dispatch) {
-  return {
-    onSelectPhoto: bindActionCreators(actions.selectPhoto, dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Preview);

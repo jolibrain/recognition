@@ -1,4 +1,4 @@
-<!--
+/*
 Copyright 2016 Fabrica S.P.A., Emmanuel Benazera, Alexandre Girard
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,15 +12,24 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
--->
-<!DOCTYPE html>
-<html>
-  <head>
-      <title>re][cognition</title>
-      <link rel="stylesheet" href="/css/global.css">
-  </head>
-  <body>
-    <div id="app"></div>
-    <script src="bundle.js"></script>
-  </body>
-</html>
+*/
+import React from 'react';
+import Radium from 'radium';
+import moment from 'moment';
+import styles from './styles.js';
+
+@Radium
+class HtmlImage extends React.Component {
+
+  render() {
+
+    console.log('HtmlImage');
+
+    return (<div>
+      <img className="img-responsive" src={this.props.img} />
+    </div>);
+  }
+
+}
+
+export default HtmlImage;

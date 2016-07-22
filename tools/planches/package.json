@@ -28,6 +28,8 @@
     "imports-loader": "^0.6.5",
     "jquery": "^3.0.0",
     "literalify": "^0.4.0",
+    "moment": "^2.14.1",
+    "radium": "^0.18.1",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-json-pretty": "^1.2.0",
