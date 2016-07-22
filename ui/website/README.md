@@ -1,8 +1,8 @@
-# Planches
+# Website
 
 Tools to preview image similarities.
 
-Input json data is stored in *tools/planches/dist/match.json* file.
+Input json data is stored in *ui/website/dist/match.json* file.
 
 ## Requirements
 
@@ -12,7 +12,7 @@ https://gist.github.com/isaacs/579814
 
 ## Dev setup
 
-    cd tools/planches/
+    cd ui/website/
     npm install
     npm run start
 
@@ -21,7 +21,7 @@ Then webpack-dev-server should be running on port specified inside
 
 ## Prod setup
 
-    cd tools/planches/
+    cd ui/website/
     npm install
     npm run build
 
