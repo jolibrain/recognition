@@ -20,7 +20,56 @@ import * as actions from '../../actions';
 import BoundedImage from './presenter';
 
 const mapStateToProps = (state, ownProps = {}) => {
-  return {};
+
+  const features = ownProps.features;
+  let boxes = [];
+
+  if(features) {
+
+    if(features.densecap &&
+      features.densecap.boxes.length > 0) {
+      const img_h = ownProps.item.meta.height;
+      const img_w = ownProps.item.meta.width;
+      const ratio_hw = img_h / img_w;
+      const ref_w = (1.0/ratio_hw) * 720;
+      const ref_h = 720;
+      boxes = boxes.concat(features.densecap.boxes.map(b => {
+        let box = [];
+        box[0] = img_w * b[0] / ref_w;
+        box[1] = img_h * b[1] / ref_h;
+        box[2] = img_w * (b[0] + b[2]) / ref_w;
+        box[3] = img_w * (b[1] + b[3]) / ref_h;
+        return box;
+      }));
+    }
+
+    if(features.vision &&
+      features.vision.faces.length > 0) {
+      boxes = boxes.concat(features.vision.faces.map(face => {
+        return [
+          face.faceRectangle.left,
+          face.faceRectangle.top,
+          face.faceRectangle.width,
+          face.faceRectangle.height
+        ];
+      }));
+    }
+
+    if(features.emotion &&
+      features.emotion.length > 0) {
+      boxes = boxes.concat(features.emotion.map(emotion => {
+        return [
+          emotion.faceRectangle.left,
+          emotion.faceRectangle.top,
+          emotion.faceRectangle.width,
+          emotion.faceRectangle.height
+        ];
+      }));
+    }
+
+  }
+
+  return {boxes: boxes};
 }
 
 const mapDispatchToProps = (dispatch) => {

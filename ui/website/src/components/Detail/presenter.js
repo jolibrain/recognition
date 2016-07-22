@@ -38,10 +38,10 @@ class Detail extends React.Component {
       <div className="row" style={styles.rowImg}>
 
         <div className="col-md-5 col-md-offset-1">
-          <BoundedImage item={item.input} densecap={selectedOutput.features.in.densecap}/>
+          <BoundedImage item={item.input} features={selectedOutput.features.in}/>
         </div>
         <div className="col-md-5 col-md-offset-1">
-          <BoundedImage item={selectedOutput} densecap={selectedOutput.features.out.densecap}/>
+          <BoundedImage item={selectedOutput} features={selectedOutput.features.out}/>
         </div>
 
       </div>

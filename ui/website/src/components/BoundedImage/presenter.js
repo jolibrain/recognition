@@ -20,6 +20,7 @@ import styles from './styles.js';
 import { browserHistory } from 'react-router'
 import SvgImage from './presenter_svg';
 import HtmlImage from './presenter_html';
+import CanvasImage from './presenter_canvas';
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -29,10 +30,8 @@ class BoundedImage extends React.Component {
 
   render() {
 
-    console.log(this.props.densecap);
-
-    if(this.props.densecap) {
-      return (<SvgImage item={this.props.item} densecap={this.props.densecap}/>)
+    if(this.props.boxes.length > 0) {
+      return (<CanvasImage item={this.props.item} boxes={this.props.boxes}/>)
     } else {
       return (<HtmlImage img={this.props.item.img}/>)
     }
