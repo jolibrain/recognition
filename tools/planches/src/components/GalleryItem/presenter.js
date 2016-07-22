@@ -44,7 +44,7 @@ function GalleryItem({match = {}, onSelectMatchItem }) {
             </div>
             <div className="col-md-6">
               <figure className="figure">
-                <BoundedImage item={selectedOutput} features={selectedOutput.features.in}/>
+                <BoundedImage item={selectedOutput} features={selectedOutput.features.out}/>
                 <figcaption className="figure-caption">{selectedOutput.meta.title}</figcaption>
               </figure>
             </div>
