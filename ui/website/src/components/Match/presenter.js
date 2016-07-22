@@ -1,3 +1,18 @@
+/*
+Copyright 2016 Fabrica S.P.A., Emmanuel Benazera, Alexandre Girard
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
 import React from 'react';
 import Radium from 'radium';
 import styles from './styles.js';
@@ -20,36 +35,42 @@ class Match extends React.Component {
     const item = this.props.item;
     const selectedOutput = item.output.filter(item => item.selected)[0];
 
-    if(item.input.meta.orientation && selectedOutput.meta.orientation) {
+    const inputOrientation = item.input.meta.height > item.input.meta.width ?
+      "vertical" : "horizontal";
 
-      switch (item.input.meta.orientation) {
+    const outputOrientation = selectedOutput.meta.height > selectedOutput.meta.width ?
+      "vertical" : "horizontal";
 
-        case "horizontal":
-          switch (selectedOutput.meta.orientation) {
-            case "horizontal":
-              return <MatchHH item={item}/>
-            break;
-            case "vertical":
-              return <MatchHV item={item}/>
-            break;
-          }
-        break;
+    const rx = /reuters\/(.*)\.jpg/g;
+    const arr = rx.exec(item.input.img);
+    const itemId = arr[1];
 
-        case "vertical":
-          switch (selectedOutput.meta.orientation) {
-            case "horizontal":
-              return <MatchVH item={item}/>
-            break;
-            case "vertical":
-              return <MatchVV item={item}/>
-            break;
-          }
-        break;
-      }
+    switch (inputOrientation) {
 
+      case "horizontal":
+        switch (outputOrientation) {
+          case "horizontal":
+            return <MatchHH itemId={itemId} input={item.input} output={selectedOutput}/>
+          break;
+          case "vertical":
+            return <MatchHV itemId={itemId} input={item.input} output={selectedOutput}/>
+          break;
+        }
+      break;
+
+      case "vertical":
+        switch (outputOrientation) {
+          case "horizontal":
+            return <MatchVH itemId={itemId} input={item.input} output={selectedOutput}/>
+          break;
+          case "vertical":
+            return <MatchVV itemId={itemId} input={item.input} output={selectedOutput}/>
+          break;
+        }
+      break;
     }
 
-    return <MatchHH item={item}/>;
+    return <MatchHH itemId={itemId} input={item.input} output={selectedOutput}/>;
   }
 }
 

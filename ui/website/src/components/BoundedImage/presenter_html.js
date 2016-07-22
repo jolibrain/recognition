@@ -14,19 +14,22 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import * as actions from '../../actions';
-import GalleryItem from './presenter';
+import Radium from 'radium';
+import moment from 'moment';
+import styles from './styles.js';
 
-const mapStateToProps = (state, ownProps = {}) => {
-  return {
-    item: ownProps.item
-  };
+@Radium
+class HtmlImage extends React.Component {
+
+  render() {
+
+    console.log('HtmlImage');
+
+    return (<div>
+      <img className="img-responsive" src={this.props.img} />
+    </div>);
+  }
+
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {};
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(GalleryItem);
+export default HtmlImage;

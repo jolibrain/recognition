@@ -1,10 +1,25 @@
+/*
+Copyright 2016 Fabrica S.P.A., Emmanuel Benazera, Alexandre Girard
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
 import React from 'react';
 import Radium from 'radium';
 import moment from 'moment';
 import styles from './styles.js';
 import { browserHistory } from 'react-router'
-import DetailData from './presenter_data'
 import DetailFeatures from './presenter_features'
+import BoundedImage from '../BoundedImage'
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -23,23 +38,10 @@ class Detail extends React.Component {
       <div className="row" style={styles.rowImg}>
 
         <div className="col-md-5 col-md-offset-1">
-          <svg width={item.input.meta.width + 'px'} height={item.input.meta.height + 'px'}>
-            <image width={item.input.meta.width + 'px'} height={item.input.meta.height + 'px'} x='0' y='0' xlinkHref={item.input.img}/>
-            <g>
-                  <rect
-                    key={'box--1'}
-                    x='10'
-                    y='30'
-                    width='10'
-                    height='10'
-                    stroke='#F00'
-                    fill='none' strokeWidth='2'
-                  />
-            </g>
-          </svg>
+          <BoundedImage item={item.input} features={selectedOutput.features.in}/>
         </div>
         <div className="col-md-5 col-md-offset-1">
-          <img className="img-responsive" src={selectedOutput.img} />
+          <BoundedImage item={selectedOutput} features={selectedOutput.features.out}/>
         </div>
 
       </div>
@@ -61,21 +63,3 @@ class Detail extends React.Component {
 }
 
 export default Detail;
-            /*
-            {
-              selectedOutput.features.in.densecap.scores.map((score, index) => {
-                const box = selectedOutput.features.in.densecap.boxes[index];
-                return (
-                  <rect
-                    key={'box-' + index}
-                    x={box[0]}
-                    y={box[1]}
-                    width={box[2]}
-                    height={box[3]}
-                    stroke={'#F00'}
-                    fill='none' strokeWidth='2'
-                  />
-                );
-              })
-            }
-            */

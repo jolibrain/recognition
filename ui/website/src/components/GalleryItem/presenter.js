@@ -1,3 +1,18 @@
+/*
+Copyright 2016 Fabrica S.P.A., Emmanuel Benazera, Alexandre Girard
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
 import React from 'react';
 import Radium from 'radium';
 import moment from 'moment';
@@ -21,8 +36,16 @@ class GalleryItem extends React.Component {
     const arr = rx.exec(item.input.img);
     const itemId = arr[1];
 
+    let classname = "row gallery_item";
+    if(this.state.hover) {
+      classname += " hovered";
+    } else {
+      classname += " not_hovered";
+    }
+
+
     return(<div>
-      <div className="row" style={styles.row}
+      <div className={classname} style={styles.row}
         onMouseEnter={() => {
           this.setState({hover: true});
         }}
@@ -65,7 +88,7 @@ class GalleryItem extends React.Component {
               </span>
               <br/>
               <span key="item.input.meta.origin" style={[styles.input.title, styles.hover]}>
-                {item.input.meta.title}</span>
+                {item.input.meta.caption}</span>
               <br/>
             </div>
             ) : (
@@ -75,7 +98,7 @@ class GalleryItem extends React.Component {
               </span>
               <br/>
               <span key="item.input.meta.origin" style={styles.input.title}>
-                {item.input.meta.title}</span>
+                {item.input.meta.caption}</span>
               <br/>
             </div>
             )}

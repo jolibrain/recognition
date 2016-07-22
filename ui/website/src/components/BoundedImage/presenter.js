@@ -14,19 +14,29 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import * as actions from '../../actions';
-import GalleryItem from './presenter';
+import Radium from 'radium';
+import moment from 'moment';
+import styles from './styles.js';
+import { browserHistory } from 'react-router'
+import SvgImage from './presenter_svg';
+import HtmlImage from './presenter_html';
+import CanvasImage from './presenter_canvas';
 
-const mapStateToProps = (state, ownProps = {}) => {
-  return {
-    item: ownProps.item
-  };
+let {Link} = require('react-router');
+Link = Radium(Link);
+
+@Radium
+class BoundedImage extends React.Component {
+
+  render() {
+
+    if(this.props.boxes.length > 0) {
+      return (<CanvasImage item={this.props.item} boxes={this.props.boxes}/>)
+    } else {
+      return (<HtmlImage img={this.props.item.img}/>)
+    }
+
+  }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {};
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(GalleryItem);
+export default BoundedImage;
