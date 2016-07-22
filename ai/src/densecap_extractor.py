@@ -21,10 +21,13 @@ specific language governing permissions and limitations
 under the License.
 """
 
-import os, sys, json
+import os, sys, json, shutil
 import subprocess
 import tempfile
 from PIL import Image
+import h5py
+import numpy as np
+import shelve
 
 from feature_generator import FeatureGenerator
 from index_search import Indexer, Searcher
@@ -50,16 +53,27 @@ class DenseCapExtractor(FeatureGenerator):
             os.mkdir(self.index_repo)
         except:
             pass
+        self.dcap_tmp = ''
         self.densecap_dir = densecap_dir
-        self.rec_per_img = {}
-        self.crops = {}
-        
+        self.rec_per_img = []
+        self.dim = 4096 # from VGG densecap
+        #self.crops = {}
+        ##TODO: into generator config
+        #self.dnn_name = 'googlenet'
+        #self.dnn_model_repo = self.model_repo + '/' + self.dnn_name
+        #self.dnn_nclasses = 1000
+        #self.dnn_extract_layer = 'loss3/classifier'
+        #self.dnn_batch_size = 128
+
         return
+
+    def __del__(self):
+        shutil.rmtree(self.dcap_tmp)
 
     def preproc(self):
         # get bounding boxes, captions and scores out of densecap
-        dcap_tmp = tempfile.mkdtemp()
-        dcap_args = ' -input_dir ' + self.images_repo + ' -output_dir ' + dcap_tmp + ' -max_images ' + str(self.nimages) + ' -output_vis_dir ' + dcap_tmp
+        self.dcap_tmp = tempfile.mkdtemp(prefix='dcap_')
+        dcap_args = ' -input_dir ' + self.images_repo + ' -output_dir ' + self.dcap_tmp + ' -max_images ' + str(self.nimages) + ' -output_vis_dir ' + self.dcap_tmp + ' -boxes_per_image 10 -output_h5 1' ## XXX: custom densecap, beware that boxes_per_image > max box selected per image
         print 'dcap_args=',dcap_args
         logger.info('Detecting objects')
         pout = ''
@@ -72,7 +86,7 @@ class DenseCapExtractor(FeatureGenerator):
         print 'pout=',pout
         
         # read output results.json file
-        results_file = dcap_tmp + '/results.json'
+        results_file = self.dcap_tmp + '/results.json'
         with open(results_file,'r') as jsonf:
             results_data = json.load(jsonf)
         
@@ -80,7 +94,8 @@ class DenseCapExtractor(FeatureGenerator):
         jresults = results_data['results']
         for r in jresults:
             img_name = r['img_name']
-            self.rec_per_img[img_name] = r
+            #self.rec_per_img[img_name] = r
+            self.rec_per_img.append(r)
             img = Image.open(self.images_repo + '/' + img_name)
             img_w,img_h = img.size
             ratio_hw = img_h/float(img_w)
@@ -96,27 +111,52 @@ class DenseCapExtractor(FeatureGenerator):
                     del bboxes[c:]
                     del captions[c:]
                     del scores[c:]
-                    self.rec_per_img[img_name]['boxes']=bboxes
-                    self.rec_per_img[img_name]['captions']=captions
-                    self.rec_per_img[img_name]['scores']=scores
-                    self.rec_per_img[img_name]['crops']=crops
+                    self.rec_per_img[j]['boxes']=bboxes
+                    self.rec_per_img[j]['captions']=captions
+                    self.rec_per_img[j]['scores']=scores
+                    #self.rec_per_img[j]['crops']=crops
                     break
-                cx = img_w * bb[0] / ref_w
-                cy = img_h * bb[1] / ref_h
-                cw = img_w*(bb[0]+bb[2]) / ref_w
-                ch = img_h*(bb[1]+bb[3]) / ref_h
-                img_crop = img.crop((int(cx),int(cy),int(cw),int(ch)))
-                crops.append(img_crop)
+                #cx = img_w * bb[0] / ref_w
+                #cy = img_h * bb[1] / ref_h
+                #cw = img_w*(bb[0]+bb[2]) / ref_w
+                #ch = img_h*(bb[1]+bb[3]) / ref_h
+                #img_crop = img.crop((int(cx),int(cy),int(cw),int(ch)))
+                #crops.append(img_crop)
                 c = c + 1
             j = j + 1
-        logger.info('Successfully preprocessing with object recognition')
+        logger.info('Successfully preprocessed with object recognition')
         return
 
     def index(self):
-        ##TODO: index features and data for boxes etc...
-        #- iterate images and crops to get features
-        #- index features
+        # index features and data for boxes etc...
+        c = 0
+        with h5py.File(self.dcap_tmp+'/feats.h5','r') as hf:
+            #print 'h5 keys=',hf.keys()
+            #npboxes = np.array(hf.get('boxes')) ## debug
+            npfeats = np.array(hf.get('feats'))
+            nimages = npfeats.shape[0]
+            nboxes = npfeats.shape[1]
+            with Indexer(self.dim,self.index_repo) as indexer:
+                ldb = shelve.open(self.index_repo + '/ldata.bin')
+                for i in range(0,nimages):
+                    ldata = self.rec_per_img[i]
+                    tnboxes = min(len(ldata['boxes']),nboxes)
+                    #print 'tnboxes=',tnboxes
+                    for j in range(0,tnboxes):
+                        feats = npfeats[i,j]
+                        #box = npboxes[i,j]
+                        #print 'box=',box,' / ref box=',self.rec_per_img[i]['boxes'][j]
 
+                        # index features
+                        indexer.index_single(c,feats,ldata['img_name'])
+                        
+                        # put rest of the data into local db
+                        lbdata = {'box':ldata['boxes'][j],'caption':ldata['captions'][j],'score':ldata['scores'][j]}
+                        ldb[str(c)] = lbdata          
+                        c = c + 1
+            ldb.close()
+            indexer.build_index()
+            indexer.save_index()
         return
 
     def search(self,jdataout={}):

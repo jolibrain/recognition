@@ -67,7 +67,7 @@ def execute_generator(generator):
         dcap = DenseCapExtractor(images_repo=args.input_imgs,nimages=len(image_files),model_repo=model_repo,index_repo=args.indexes_repo,name=generator,
                                  densecap_dir=generator_conf['wdir'],description=generator_conf['description'])
         dcap.preproc()
-        #dcap.index()
+        dcap.index()
     else:
         logger.error('Unknown generator type ' + generator_conf['type'])
     return
