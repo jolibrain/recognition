@@ -88,7 +88,8 @@ const styles = {
   link: {
     color: '#FFF',
     marginBottom: '20px',
-    textTransform: 'uppercase'
+    textTransform: 'uppercase',
+    pointerEvents: 'all'
   },
   leftImg: {
     marginTop: '20px',

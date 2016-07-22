@@ -29,6 +29,8 @@ class GalleryItem extends React.Component {
 
   render() {
 
+    if(!this.props.item) return null;
+
     const item = this.props.item;
     const selectedOutput = item.output.filter(item => item.selected)[0];
 

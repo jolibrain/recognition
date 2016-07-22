@@ -53,6 +53,10 @@ const styles = {
     arrowDown: {
       fontSize: '20px'
     }
+  },
+  img: {
+    maxWidth: '100%',
+    maxHeight: '100%'
   }
 
 }

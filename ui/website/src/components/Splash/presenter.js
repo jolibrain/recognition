@@ -65,15 +65,19 @@ class Splash extends React.Component {
               </p>
 
             </div>
-            <div className="col-md-6">
+            <div className="col-md-6 nopadding">
 
-              <img className="img-responsive" src={selectedOutput.img} />
+              <div className="row">
+                <div className="col-md-10 col-md-offset-1">
+                  <img className="img-responsive" style={styles.img} src={selectedOutput.img} />
 
-              <p style={styles.imgDescription}>
-                {selectedOutput.meta.date}<br/>
-                {selectedOutput.meta.title}<br/>
-                {selectedOutput.meta.origin}
-              </p>
+                  <p style={styles.imgDescription}>
+                    {selectedOutput.meta.date}<br/>
+                    {selectedOutput.meta.title}<br/>
+                    {selectedOutput.meta.origin}
+                  </p>
+                </div>
+              </div>
 
             </div>
           </div>
