@@ -34,6 +34,10 @@ class Detail extends React.Component {
     const item = this.props.item;
     const selectedOutput = item.output.filter(item => item.selected)[0];
 
+    const rx = /reuters\/(.*)\.jpg/g;
+    const arr = rx.exec(item.input.img);
+    const itemId = arr[1];
+
     return(<div className="container-fluid">
       <div className="row" style={styles.rowImg}>
 
@@ -48,7 +52,7 @@ class Detail extends React.Component {
       <div className="row" style={styles.dataRow}>
 
         <div className="col-md-6">
-          <Link style={[styles.link]} to={`/gallery/${item.id}`}><span className='icon--i_arrow-left'/> Back to article</Link>
+          <Link style={[styles.link]} to={`/gallery/${itemId}`}><span className='icon--i_arrow-left'/> Back to article</Link>
           <DetailFeatures item={item.input} features={selectedOutput.features.in}/>
         </div>
 

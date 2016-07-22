@@ -116,23 +116,3 @@ canvas {
   width: 100%;
   height: auto;
 }
-
-.pickgradient{
-  position:relative;
-  display:inline-block;
-}
-.pickgradient:after {
-  pointerEvents: 'none';
-  content:'';
-  position:absolute;
-  left:0; top:0;
-  width:100%; height:100%;
-  display:inline-block;
-  background: -moz-linear-gradient(right, rgba(0,0,0,0) 60%, rgba(0,0,0,0.85) 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, top right, top left, color-stop(60%,rgba(0,0,0,0.85)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(right, rgba(0,0,0,0) 60%,rgba(0,0,0,0.85) 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(right, rgba(0,0,0,0) 60%,rgba(0,0,0,0.85) 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(right, rgba(0,0,0,0) 60%,rgba(0,0,0,0.85) 100%); /* IE10+ */
-  background: linear-gradient(to left, rgba(0,0,0,0) 60%,rgba(0,0,0,0.85) 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
-}
