@@ -57,14 +57,6 @@ class DenseCapExtractor(FeatureGenerator):
         self.densecap_dir = densecap_dir
         self.rec_per_img = []
         self.dim = 4096 # from VGG densecap
-        #self.crops = {}
-        ##TODO: into generator config
-        #self.dnn_name = 'googlenet'
-        #self.dnn_model_repo = self.model_repo + '/' + self.dnn_name
-        #self.dnn_nclasses = 1000
-        #self.dnn_extract_layer = 'loss3/classifier'
-        #self.dnn_batch_size = 128
-
         return
 
     def __del__(self):
@@ -94,7 +86,6 @@ class DenseCapExtractor(FeatureGenerator):
         jresults = results_data['results']
         for r in jresults:
             img_name = r['img_name']
-            #self.rec_per_img[img_name] = r
             self.rec_per_img.append(r)
             img = Image.open(self.images_repo + '/' + img_name)
             img_w,img_h = img.size
