@@ -71,10 +71,11 @@ class MetadataExtractor:
                         meta['author'].append(co['fc'])
                     meta['tags'] = []
                     if 'subjects' in json_data_s:
-                        for su in json_data_s['subjects']:
-                            meta['tags'].append(su['name'])
-                    if 'resources' in json_data_s and 'content' in json_data_s['resources'][0]:
-                        meta['html_content'] = json_data_s['resources'][0]['content'] # content in HTML format
+                        if isinstance(json_data_s['subjects'],list):
+                            for su in json_data_s['subjects']:
+                                meta['tags'].append(su['name'])
+                    #if 'resources' in json_data_s and 'content' in json_data_s['resources'][0]:
+                        #meta['html_content'] = json_data_s['resources'][0]['content'] # content in HTML format
                     meta['copyright'] = json_data_s['masterImages'][0]['copyright']
                     meta['creativeCommons'] = json_data_s['masterImages'][0]['creativeCommons']
                     self.metadata[imgid] = meta
