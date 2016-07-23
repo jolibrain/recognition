@@ -29,6 +29,8 @@ logger = logging.getLogger(__name__)
 from dnn_feature_extractor import DNNModel, DNNFeatureExtractor
 from text_embedding import TextEmbedding
 from metadata import MetadataExtractor
+from densecap_extractor import DenseCapExtractor
+
 from file_utils import list_files
 from generators import generator_lk
 from ensembling import EnsemblingScores
@@ -61,6 +63,11 @@ def execute_generator(generator,jdataout={},meta_in='',meta_out=''):
         txtembed = TextEmbedding(json_files,model_repo=model_repo,model_file=generator_conf['file'],index_repo=args.indexes_repo,tate=False,img_files=image_files,meta_in=meta_in,meta_out=meta_out)
         txtembed.preproc()
         return txtembed.search(jdataout)
+    elif generator_conf['type'] == 'densecap':
+        dcap = DenseCapExtractor(images_repo=args.input_imgs,nimages=len(image_files),model_repo=model_repo,index_repo=args.indexes_repo,name=generator,
+                                 densecap_dir=generator_conf['wdir'],description=generator_conf['description'],meta_in=meta_in,meta_out=meta_out)
+        dcap.preproc()
+        return dcap.search(jdataout)
     elif generator_conf['type'] != 'meta':
         logger.error('Unknown generator type ' + generator_conf['type'])
     return

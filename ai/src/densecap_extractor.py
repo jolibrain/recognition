@@ -148,7 +148,7 @@ class DenseCapExtractor(FeatureGenerator):
                         #print 'box=',box,' / ref box=',self.rec_per_img[i]['boxes'][j]
 
                         # index features
-                        indexer.index_single(c,feats,ldata['img_name'])
+                        indexer.index_single(c,feats,self.images_repo + '/' + ldata['img_name'])
                         
                         # put rest of the data into local db
                         lbdata = {'box':ldata['boxes'][j],'caption':ldata['captions'][j],'score':ldata['scores'][j]}
@@ -161,4 +161,27 @@ class DenseCapExtractor(FeatureGenerator):
 
     def search(self,jdataout={}):
         ##TODO
-        return
+        results = {}
+        with h5py.File(self.dcap_tmp+'/feats.h5','r') as hf:
+            npfeats = np.array(hf.get('feats'))
+            nimages = npfeats.shape[0]
+            nboxes = npfeats.shape[1]
+            with Searcher(self.index_repo) as searcher:     
+                ldb = shelve.open(self.index_repo + '/ldata.bin')
+                searcher.load_index()
+                for i in range(0,nimages):
+                    ldata = self.rec_per_img[i]
+                    tnboxes = min(len(ldata['boxes']),nboxes)
+                    for j in range(0,tnboxes):
+                        feats = npfeats[i,j]
+                        nns = searcher.search_single(feats,ldata['img_name'])
+                        #print 'nns=',nns
+                        nns['dcap_out'] = []
+                        for nn in nns['nns'][0]:
+                            nns['dcap_out'].append(ldb[str(nn)])
+                        lbdata = {'box':ldata['boxes'][j],'caption':ldata['captions'][j],'score':ldata['scores'][j]}
+                        nns['dcap_in'] = lbdata
+                        #print 'nns=',nns
+                        results[ldata['img_name']] = nns
+                ldb.close()
+        return self.to_json(results,'img/reuters/','img/tate/',self.name,self.description,jdataout,self.meta_in,self.meta_out)

@@ -65,6 +65,7 @@ class FeatureGenerator:
                 }
             m = 0
             for nuri in nn['nns_uris']:
+                #print 'nuri=',nuri
                 nuri_rebase = img_tate_repo + os.path.basename(nuri)
                 mdataout = None
                 p = 0
@@ -90,6 +91,26 @@ class FeatureGenerator:
                 if 'tags_in' in nn:
                     if feature_name in mdataout['features']['in']:
                         mdataout['features']['in'][feature_name]['tags'] = nn['tags_in'][m]
+                if 'dcap_in' in nn:
+                    if feature_name in mdataout['features']['in']:
+                        if not 'scores' in mdataout['features']['in'][feature_name]:
+                            mdataout['features']['in'][feature_name]['scores'] = []
+                            mdataout['features']['in'][feature_name]['boxes'] = []
+                            mdataout['features']['in'][feature_name]['captions'] = []
+                        mdataout['features']['in'][feature_name]['scores'].append(nn['dcap_in']['score']) # XXX: this can lead to duplicates
+                        mdataout['features']['in'][feature_name]['boxes'].append(nn['dcap_in']['box'])
+                        mdataout['features']['in'][feature_name]['captions'].append(nn['dcap_in']['caption'])
+                if 'dcap_out' in nn:
+                    if feature_name in mdataout['features']['out']:
+                        if not 'scores' in mdataout['features']['out'][feature_name]:
+                            mdataout['features']['out'][feature_name]['scores'] = []
+                            mdataout['features']['out'][feature_name]['boxes'] = []
+                            mdataout['features']['out'][feature_name]['captions'] = []
+                        #print 'dcap_out=',nn['dcap_out']
+                        #for dc in range(0,len(nn['dcap_out'])):
+                        mdataout['features']['out'][feature_name]['scores'].append(nn['dcap_out'][m]['score']) # XXX: this can lead to duplicates
+                        mdataout['features']['out'][feature_name]['boxes'].append(nn['dcap_out'][m]['box'])
+                        mdataout['features']['out'][feature_name]['captions'].append(nn['dcap_out'][m]['caption'])
                 dataout['output'].append(mdataout)
                 m = m + 1
             jdataout[img] = dataout
