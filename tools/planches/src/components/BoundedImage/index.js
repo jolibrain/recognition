@@ -19,9 +19,9 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import BoundedImage from './presenter';
 
-const mapStateToProps = (state, ownProps = {}) => {
+const mapStateToProps = (state, ownProps) => {
 
-  const features = ownProps.features;
+  let features = ownProps.features;
   let boxes = [];
 
   if(features) {

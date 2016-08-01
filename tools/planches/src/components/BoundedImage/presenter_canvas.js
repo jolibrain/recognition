@@ -24,7 +24,9 @@ class CanvasImage extends React.Component {
 
   state = {
     imgRatio: 0,
-    hoverIndex: -1
+    hoverIndex: -1,
+    redraw: false,
+    currentImg: ""
   };
 
   renderBox(index, box, ctx) {
@@ -65,7 +67,7 @@ class CanvasImage extends React.Component {
     }
   }
 
-  componentDidMount() {
+  createCanvas() {
 
     const item = this.props.item;
     const densemap = this.props.densemap;
@@ -113,6 +115,26 @@ class CanvasImage extends React.Component {
       });
 
     });
+  }
+
+  componentDidMount() {
+    this.createCanvas();
+  }
+
+  componentDidUpdate() {
+    if(this.state.currentImg != this.props.item.img) {
+      this.setState({
+        currentImg: this.props.item.img
+      });
+
+      const item = this.props.item;
+      const densemap = this.props.densemap;
+
+      let canvas = ReactDOM.findDOMNode(this.refs.canvasImage);
+      let ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      this.createCanvas();
+    }
   }
 
   render() {
