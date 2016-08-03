@@ -121,20 +121,14 @@ class CanvasImage extends React.Component {
     this.createCanvas();
   }
 
-  componentDidUpdate() {
-    if(this.state.currentImg != this.props.item.img) {
-      this.setState({
-        currentImg: this.props.item.img
-      });
+  componentWillReceiveProps() {
+    const item = this.props.item;
+    const densemap = this.props.densemap;
 
-      const item = this.props.item;
-      const densemap = this.props.densemap;
-
-      let canvas = ReactDOM.findDOMNode(this.refs.canvasImage);
-      let ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      this.createCanvas();
-    }
+    let canvas = ReactDOM.findDOMNode(this.refs.canvasImage);
+    let ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    this.createCanvas();
   }
 
   render() {
