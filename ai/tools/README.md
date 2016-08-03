@@ -19,3 +19,26 @@ python recog_matches.py --input-imgs /path/to/imgs/ --indexes-repo /path/to/tate
 ```
 
 This yields a JSON output readily usable by the UI part.
+
+### Requirements
+
+Packages to be installed.
+
+```
+sudo pip install annoy
+sudo aptitude install cython
+sudo pip install word2vec
+sudo pip install unidecode
+sudo pip install nltk
+```
+
+Then install DeepDetect from
+https://github.com/beniz/deepdetect.git
+
+Install custom densecap from 
+https://github.com/beniz/densecap
+Modify `recognition/ai/tools/generators.py to set the correct path to densecap
+
+Install neuraltalk2 from
+https://github.com/karpathy/neuraltalk2
+

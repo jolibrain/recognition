@@ -54,6 +54,7 @@ class MetadataExtractor:
                 with open(jf,'r') as jfile:
                     meta = {}
                     json_data = json.load(jfile)
+                    #print 'json_data=',json_data
                     meta['id'] = json_data['id'] # file id
                     json_data_s = json_data['source']
                     if json_data_s.get('masterImages',None) == None:
@@ -71,10 +72,11 @@ class MetadataExtractor:
                         meta['author'].append(co['fc'])
                     meta['tags'] = []
                     if 'subjects' in json_data_s:
-                        for su in json_data_s['subjects']:
-                            meta['tags'].append(su['name'])
-                    if 'resources' in json_data_s and 'content' in json_data_s['resources'][0]:
-                        meta['html_content'] = json_data_s['resources'][0]['content'] # content in HTML format
+                        if isinstance(json_data_s['subjects'],list):
+                            for su in json_data_s['subjects']:
+                                meta['tags'].append(su['name'])
+                    #if 'resources' in json_data_s and 'content' in json_data_s['resources'][0]:
+                        #meta['html_content'] = json_data_s['resources'][0]['content'] # content in HTML format
                     meta['copyright'] = json_data_s['masterImages'][0]['copyright']
                     meta['creativeCommons'] = json_data_s['masterImages'][0]['creativeCommons']
                     self.metadata[imgid] = meta
@@ -84,7 +86,10 @@ class MetadataExtractor:
                 # each file usually contains data for more than a single image
                 with open(jf,'r') as jfile:
                     json_data = json.load(jfile)
-                    items = json_data['APIResponse']['Items']
+                    try:
+                        items = json_data['APIResponse']['Items']
+                    except:
+                        continue
                     for i in items:
                         meta = {}
                         imgid = os.path.basename(i['PATH_TR3_UNWATERMARKED']['URI'])

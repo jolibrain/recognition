@@ -30,7 +30,7 @@ def list_files(repository,ext='.jpg',nfiles=-1):
     for (dirpath, dirnames, filenames) in walk(repository):
         nfilenames = []
         for f in filenames:
-            if f.endswith(ext) and not 'tga' in f and not 'TGA' in f:
+            if f.endswith(ext) and not 'mapi' in f:# and not 'tga' in f and not 'TGA' in f:
                 nfilenames.append(dirpath +'/' + f)
             if nfiles > 0 and len(nfilenames) >= nfiles:
                 break

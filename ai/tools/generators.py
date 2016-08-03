@@ -92,11 +92,17 @@ generator_lk = {
         'description':'places',
         'batch_size': 256
         },
-    "textembed": {
+    'textembed': {
         'type': 'w2v',
         'name': 'textembed',
         'file': 'GoogleNews-vectors-negative300.bin',
         'dim': 300,
         'description':'text similarity'
+    },
+    'densecap': {
+        'type': 'densecap',
+        'name': 'densecap',
+        'description': 'object detection',
+        'wdir':  '/home/recog/tate/apps/densecap/'
     }
 }
