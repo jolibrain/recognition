@@ -24,7 +24,7 @@ under the License.
 import os, sys, json, shutil
 import subprocess
 import tempfile
-from PIL import Image
+#from PIL import Image
 import h5py
 import numpy as np
 import shelve
@@ -87,16 +87,16 @@ class DenseCapExtractor(FeatureGenerator):
         for r in jresults:
             img_name = r['img_name']
             self.rec_per_img.append(r)
-            img = Image.open(self.images_repo + '/' + img_name)
-            img_w,img_h = img.size
-            ratio_hw = img_h/float(img_w)
-            ref_h = 720
-            ref_w = 1.0/ratio_hw * ref_h
+            #img = Image.open(self.images_repo + '/' + img_name)
+            #img_w,img_h = img.size
+            #ratio_hw = img_h/float(img_w)
+            #ref_h = 720
+            #ref_w = 1.0/ratio_hw * ref_h
             bboxes = r['boxes']
             captions = r['captions']
             scores = r['scores']
             c = 0
-            crops = []
+            #crops = []
             for bb in bboxes:
                 if scores[c] <= 0.0:
                     del bboxes[c:]
@@ -151,28 +151,64 @@ class DenseCapExtractor(FeatureGenerator):
         return
 
     def search(self,jdataout={}):
-        ##TODO
         results = {}
         with h5py.File(self.dcap_tmp+'/feats.h5','r') as hf:
             npfeats = np.array(hf.get('feats'))
             nimages = npfeats.shape[0]
             nboxes = npfeats.shape[1]
+            print 'nimages=',nimages
+            print 'nboxes=',nboxes
             with Searcher(self.index_repo) as searcher:     
                 ldb = shelve.open(self.index_repo + '/ldata.bin')
                 searcher.load_index()
                 for i in range(0,nimages):
+                    resi = {} # results for this image
                     ldata = self.rec_per_img[i]
+                    #print 'ldata=',ldata
                     tnboxes = min(len(ldata['boxes']),nboxes)
+                    #print 'tnboxes=',tnboxes
                     for j in range(0,tnboxes):
                         feats = npfeats[i,j]
+                        #print 'feats=',feats
                         nns = searcher.search_single(feats,ldata['img_name'])
-                        #print 'nns=',nns
-                        nns['dcap_out'] = []
-                        for nn in nns['nns'][0]:
-                            nns['dcap_out'].append(ldb[str(nn)])
                         lbdata = {'box':ldata['boxes'][j],'caption':ldata['captions'][j],'score':ldata['scores'][j]}
-                        nns['dcap_in'] = lbdata
-                        #print 'nns=',nns
-                        results[ldata['img_name']] = nns
+
+                        # aggregation of the results, that may correspond to different images for every box
+                        m = 0
+                        for nuri in nns['nns_uris']:
+                            nuri = self.images_repo + '/' + nuri # add file path
+                            if not nuri in resi:
+                                resi[nuri] = {'dcap_out':{'boxes':[],'captions':[],'scores':[]},
+                                              'dcap_in':{'boxes':[],'captions':[],'scores':[]}}
+
+                            if not lbdata['box'] in resi[nuri]['dcap_in']['boxes']:    
+                                resi[nuri]['dcap_in']['boxes'].append(lbdata['box'])
+                                resi[nuri]['dcap_in']['captions'].append(lbdata['caption'])
+                                resi[nuri]['dcap_in']['scores'].append(lbdata['score'])
+                            
+                            nn = nns['nns'][0][m]
+                            nndata = ldb[str(nn)]
+                            resi[nuri]['score'] = 0.0
+                            if not nndata['box'] in resi[nuri]['dcap_out']['boxes']:
+                                resi[nuri]['dcap_out']['boxes'].append(nndata['box'])
+                                resi[nuri]['dcap_out']['captions'].append(nndata['caption'])
+                                resi[nuri]['dcap_out']['scores'].append(nndata['score'])
+                                resi[nuri]['score'] += nns['nns'][1][m]
+                            m = m + 1
+                            break # limit to one uri (top) per box match
+
+                    # add uri array
+                    nnns_uris = []
+                    nnns = [[],[]]
+                    for r in resi:
+                        if r == 'nns_uris' or r == 'nns':
+                            continue
+                        nnns_uris.append(r)
+                        nnns[0].append('') # dummy array
+                        nnns[1].append(resi[r]['score'])
+                    resi['nns_uris'] = nnns_uris
+                    resi['nns'] = nnns
+                    results[ldata['img_name']] = resi
+                    #print 'results=',results
                 ldb.close()
         return self.to_json(results,'img/reuters/','img/tate/',self.name,self.description,jdataout,self.meta_in,self.meta_out)

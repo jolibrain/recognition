@@ -103,6 +103,6 @@ generator_lk = {
         'type': 'densecap',
         'name': 'densecap',
         'description': 'object detection',
-        'wdir':  '/home/beniz/projects/tate/apps/densecap/'
+        'wdir':  '/home/recog/tate/apps/densecap/'
     }
 }

@@ -80,7 +80,7 @@ def format_to_array(dict_out):
         vout = sorted(v['output'], key=lambda x: x['features']['score'],reverse=True)
         out = []
         for m in vout:
-            if c <= args.nmatches:
+            if c < args.nmatches:
                 out.append(m)
             c = c + 1
         v['output'] = out

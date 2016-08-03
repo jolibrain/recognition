@@ -41,7 +41,6 @@ class FeatureGenerator:
     def search(self):
         return
 
-    ##TODO: pass input_meta and output_meta shelve dicts
     def to_json(self,results,img_reuters_repo,img_tate_repo,feature_name='',feature_description='',jdataout={},
                 meta_in='',meta_out=''):
         meta_in_s = None
@@ -52,18 +51,28 @@ class FeatureGenerator:
             meta_out_s = shelve.open(meta_out)
         ts = time.time()
         for img in results:
+            #print 'img=',img
             nn = results[img]
+            if 'uri' not in nn:
+                nn['uri'] = img
+            #print 'nn=',nn
             dataout = jdataout.get(img,None)
             if not dataout:
                 metad = {}
                 if meta_out:
-                    metad = meta_out_s[str(os.path.basename(nn['uri']))]
+                    try:
+                        metad = meta_out_s[str(os.path.basename(nn['uri']))]
+                    except:
+                        print 'failed metad acquisition'
+                        pass
                 dataout = {'timestamp':datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S'),
                            'status':'none',
                            'input':{'img':img_reuters_repo + os.path.basename(nn['uri']),'meta':metad},
                            'output':[]
                 }
             m = 0
+            #print 'nns_uris=',nn['nns_uris']
+            #print 'nn=',nn
             for nuri in nn['nns_uris']:
                 #print 'nuri=',nuri
                 nuri_rebase = img_tate_repo + os.path.basename(nuri)
@@ -76,8 +85,11 @@ class FeatureGenerator:
                         break
                     p = p + 1
                 score = nn['nns'][1][m]
-                if not 'tags_out' in nn: # turn distance into a positive / additive score
-                    score = max(1.0 - score,0.0)
+                if not 'tags_out' in nn and (nuri not in nn or not 'dcap_out' in nn[nuri]): # turn distance into a positive / additive score
+                    score = max(1.0 - score/2.0,0.0)
+                else:
+                    score /= 2.0
+                #print 'initial score=',nn['nns'][1][m],'final score=',score
                 if mdataout == None:
                     metad = {}
                     if meta_in:
@@ -91,32 +103,25 @@ class FeatureGenerator:
                 if 'tags_in' in nn:
                     if feature_name in mdataout['features']['in']:
                         mdataout['features']['in'][feature_name]['tags'] = nn['tags_in'][m]
-                if 'dcap_in' in nn:
-                    if feature_name in mdataout['features']['in']:
-                        if not 'scores' in mdataout['features']['in'][feature_name]:
-                            mdataout['features']['in'][feature_name]['scores'] = []
-                            mdataout['features']['in'][feature_name]['boxes'] = []
-                            mdataout['features']['in'][feature_name]['captions'] = []
-                        mdataout['features']['in'][feature_name]['scores'].append(nn['dcap_in']['score']) # XXX: this can lead to duplicates
-                        mdataout['features']['in'][feature_name]['boxes'].append(nn['dcap_in']['box'])
-                        mdataout['features']['in'][feature_name]['captions'].append(nn['dcap_in']['caption'])
-                if 'dcap_out' in nn:
-                    if feature_name in mdataout['features']['out']:
-                        if not 'scores' in mdataout['features']['out'][feature_name]:
-                            mdataout['features']['out'][feature_name]['scores'] = []
-                            mdataout['features']['out'][feature_name]['boxes'] = []
-                            mdataout['features']['out'][feature_name]['captions'] = []
-                        #print 'dcap_out=',nn['dcap_out']
-                        #for dc in range(0,len(nn['dcap_out'])):
-                        mdataout['features']['out'][feature_name]['scores'].append(nn['dcap_out'][m]['score']) # XXX: this can lead to duplicates
-                        mdataout['features']['out'][feature_name]['boxes'].append(nn['dcap_out'][m]['box'])
-                        mdataout['features']['out'][feature_name]['captions'].append(nn['dcap_out'][m]['caption'])
+                if nuri in nn:
+                    if 'dcap_in' in nn[nuri]:
+                        if feature_name in mdataout['features']['in']:
+                            mdataout['features']['in'][feature_name]['scores'] = nn[nuri]['dcap_in']['scores']
+                            mdataout['features']['in'][feature_name]['boxes'] = nn[nuri]['dcap_in']['boxes']
+                            mdataout['features']['in'][feature_name]['captions'] = nn[nuri]['dcap_in']['captions']
+                    if 'dcap_out' in nn[nuri]:
+                        if feature_name in mdataout['features']['out']:
+                            mdataout['features']['out'][feature_name]['scores'] = nn[nuri]['dcap_out']['scores']
+                            mdataout['features']['out'][feature_name]['boxes'] = nn[nuri]['dcap_out']['boxes']
+                            mdataout['features']['out'][feature_name]['captions'] = nn[nuri]['dcap_out']['captions']
                 dataout['output'].append(mdataout)
                 m = m + 1
+            #print 'len dataout output=',len(dataout['output'])
             jdataout[img] = dataout
         #print jdataout
         if meta_in:
             meta_in_s.close()
         if meta_out:
             meta_out_s.close()
+        #print 'jdataout=',jdataout
         return jdataout

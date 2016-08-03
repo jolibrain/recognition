@@ -175,6 +175,8 @@ class DNNFeatureExtractor(FeatureGenerator):
                     logger.error('failed batch (search) prediction call to model ' + self.dnnmodel.name + ' via dd')
                     continue
                 predictions = classif['body']['predictions']
+                if len(self.image_files) == 1:
+                    predictions = [predictions]
                 for p in predictions:
                     if self.dd_mltype == 'unsupervised':
                         nns = searcher.search_single(p['vals'],p['uri'])

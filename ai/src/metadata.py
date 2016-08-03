@@ -54,6 +54,7 @@ class MetadataExtractor:
                 with open(jf,'r') as jfile:
                     meta = {}
                     json_data = json.load(jfile)
+                    #print 'json_data=',json_data
                     meta['id'] = json_data['id'] # file id
                     json_data_s = json_data['source']
                     if json_data_s.get('masterImages',None) == None:
@@ -85,7 +86,10 @@ class MetadataExtractor:
                 # each file usually contains data for more than a single image
                 with open(jf,'r') as jfile:
                     json_data = json.load(jfile)
-                    items = json_data['APIResponse']['Items']
+                    try:
+                        items = json_data['APIResponse']['Items']
+                    except:
+                        continue
                     for i in items:
                         meta = {}
                         imgid = os.path.basename(i['PATH_TR3_UNWATERMARKED']['URI'])
