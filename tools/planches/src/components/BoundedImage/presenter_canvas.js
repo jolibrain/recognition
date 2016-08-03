@@ -23,10 +23,7 @@ import styles from './styles.js';
 class CanvasImage extends React.Component {
 
   state = {
-    imgRatio: 0,
-    hoverIndex: -1,
-    redraw: false,
-    currentImg: ""
+    hoverIndex: -1
   };
 
   renderBox(index, box, ctx) {
@@ -68,7 +65,6 @@ class CanvasImage extends React.Component {
   }
 
   createCanvas() {
-
     const item = this.props.item;
     const densemap = this.props.densemap;
 
@@ -117,17 +113,21 @@ class CanvasImage extends React.Component {
     });
   }
 
+  componentWillReceiveProps() {
+    let canvas = ReactDOM.findDOMNode(this.refs.canvasImage);
+    let ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    this.createCanvas();
+  }
+
   componentDidMount() {
     this.createCanvas();
   }
 
-  componentWillReceiveProps() {
-    const item = this.props.item;
-    const densemap = this.props.densemap;
+  shouldComponentUpdate(nextProps, nextState) {
+  }
 
-    let canvas = ReactDOM.findDOMNode(this.refs.canvasImage);
-    let ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  componentDidUpdate() {
     this.createCanvas();
   }
 

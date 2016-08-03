@@ -30,9 +30,9 @@ const mapStateToProps = (state, ownProps) => {
       features.densecap.boxes.length > 0) {
       const img_h = ownProps.item.meta.height;
       const img_w = ownProps.item.meta.width;
-      const ratio_hw = img_h / img_w;
-      const ref_w = (1.0/ratio_hw) * 720;
-      const ref_h = 720;
+      const ratio_wh = img_w / img_h;
+      const ref_w = 720;
+      const ref_h = (1.0/ratio_wh) * 720;
       boxes = boxes.concat(features.densecap.boxes.map(b => {
         let box = [];
         box[0] = img_w * b[0] / ref_w;
