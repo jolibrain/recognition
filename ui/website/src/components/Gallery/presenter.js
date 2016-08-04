@@ -26,7 +26,7 @@ class Gallery extends React.Component {
 
   render() {
 
-      return (<div className="container gallery">
+      return (<div className="container-fluid gallery">
         {
           this.props.matches.map((item, key) => {
             return <GalleryItem key={key} item={item}/>
