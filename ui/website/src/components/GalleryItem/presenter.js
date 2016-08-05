@@ -67,7 +67,7 @@ class GalleryItem extends React.Component {
 
         <div className="col-md-9">
 
-          <div className="container">
+          <div className="container-fluid">
             <div className="row">
               <div className="col-md-6">
                 <img className="img-responsive" src={item.input.img} />

@@ -25,7 +25,7 @@ class App extends React.Component {
 
     const path = this.props.location.pathname;
 
-    return <div style={styles.body}>
+    return <div className="appComponent" style={styles.body}>
       <Header path={path}/>
       <ReactCSSTransitionGroup transitionName="pageSlider" transitionEnterTimeout={600} transitionLeaveTimeout={600}>
         {

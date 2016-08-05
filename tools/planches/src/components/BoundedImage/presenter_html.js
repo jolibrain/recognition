@@ -22,9 +22,6 @@ import styles from './styles.js';
 class HtmlImage extends React.Component {
 
   render() {
-
-    console.log('HtmlImage');
-
     return (<div>
       <img className="img-responsive" src={this.props.img} />
     </div>);

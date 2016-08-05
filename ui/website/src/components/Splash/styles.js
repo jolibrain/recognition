@@ -15,6 +15,17 @@ limitations under the License.
 */
 const styles = {
   fullHeight: {
+    row: {
+      height: "100vh",
+    },
+    col: {
+      height: "100%",
+    },
+    img: {
+      maxHeight: "calc(100% - 170px)",
+      verticalAlign: "top",
+      maxWidth: "100%"
+    }
   },
   h2: {
     borderBottom: '2px dotted #FFF',
