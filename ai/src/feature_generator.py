@@ -97,6 +97,7 @@ class FeatureGenerator:
                     mdataout = {'meta':metad,'features':{'score':0,'in':{feature_name:{}},'out':{feature_name:{'description':feature_description,'score':score}}},'img':nuri_rebase}
                 else:
                     mdataout['features']['out'][feature_name] = {'description':feature_description,'score':score}
+                    mdataout['features']['in'][feature_name] = {}
                 if 'tags_out' in nn:
                     if feature_name in mdataout['features']['out']:
                         mdataout['features']['out'][feature_name]['tags'] = nn['tags_out'][m]

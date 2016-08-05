@@ -180,6 +180,8 @@ class DenseCapExtractor(FeatureGenerator):
                                 resi[nuri] = {'dcap_out':{'boxes':[],'captions':[],'scores':[]},
                                               'dcap_in':{'boxes':[],'captions':[],'scores':[]},
                                               'score':0.0}
+                            #if len(resi[nuri]['dcap_out']['boxes']) >= 10:
+                                #continue # skip if two many boxes are matching -> better visualization, simpler matchings
                             if not lbdata['box'] in resi[nuri]['dcap_in']['boxes']:    
                                 resi[nuri]['dcap_in']['boxes'].append(lbdata['box'])
                                 resi[nuri]['dcap_in']['captions'].append(lbdata['caption'])
@@ -192,7 +194,7 @@ class DenseCapExtractor(FeatureGenerator):
                                 resi[nuri]['dcap_out']['boxes'].append(nndata['box'])
                                 resi[nuri]['dcap_out']['captions'].append(nndata['caption'])
                                 resi[nuri]['dcap_out']['scores'].append(nndata['score'])
-                                resi[nuri]['score'] += nns['nns'][1][m]
+                                resi[nuri]['score'] += 0.1*nns['nns'][1][m]
                             m = m + 1
                             #if m >= 5:
                             #if len(resi[nuri]) >= 5:
@@ -211,7 +213,7 @@ class DenseCapExtractor(FeatureGenerator):
                         
                     resi['nns_uris'] = nnns_uris
                     resi['nns'] = nnns
-                    results[ldata['img_name']] = resi
+                    results[self.images_repo + '/' + ldata['img_name']] = resi
                     #print 'results=',results
                 ldb.close()
-        return self.to_json(results,'img/reuters/','img/tate/',self.name,self.description,jdataout,self.meta_in,self.meta_out)
+        return self.to_json(results,'/img/reuters/','/img/tate/',self.name,self.description,jdataout,self.meta_in,self.meta_out)
