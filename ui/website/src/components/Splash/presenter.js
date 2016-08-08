@@ -16,6 +16,7 @@ limitations under the License.
 import React from 'react';
 import Radium from 'radium';
 import styles from './styles.js';
+import ShareModal from '../ShareModal';
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -57,7 +58,7 @@ class Splash extends React.Component {
                   }
                   </ul>
 
-                  <p style={styles.share}>Share</p>
+                  <ShareModal/>
 
                 </div>
               </div>
