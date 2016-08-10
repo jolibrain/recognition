@@ -198,7 +198,7 @@ class DenseCapExtractor(FeatureGenerator):
                             m = m + 1
                             #if m >= 5:
                             #if len(resi[nuri]) >= 5:
-                            #break # limit to one uri (top) per box match
+                                #break # limit to one uri (top) per box match
 
                     # add uri array
                     nnns_uris = []

@@ -104,5 +104,10 @@ generator_lk = {
         'name': 'densecap',
         'description': 'object detection',
         'wdir':  '/home/recog/tate/apps/densecap/'
+    },
+    'mapi': {
+        'type': 'mapi',
+        'name': 'mapi',
+        'description': 'vision'
     }
 }
