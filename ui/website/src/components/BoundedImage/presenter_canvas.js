@@ -23,51 +23,62 @@ import styles from './styles.js';
 class CanvasImage extends React.Component {
 
   state = {
-    imgRatio: 0,
     hoverIndex: -1
   };
 
-  renderBox(index, box, ctx) {
-    const [x, y, width, height] = box;
+  renderBox(index, box) {
+    let canvas = ReactDOM.findDOMNode(this.refs.canvasImage);
+    let ctx = canvas.getContext('2d');
 
+    const item = this.props.item;
+    let [x, y, width, height] = box;
+
+    // choose box color, depending on hover status
     let colorStyle = 'rgba(225,255,255,1)';
-    if(this.state.hoverIndex == index) {
+    if(this.state.hoverIndex == index)
       colorStyle = 'rgba(0,225,204,1)';
-    }
 
+    let lineWidth = 1;
+    if(canvas.width > 600)
+      lineWidth = 2;
+    if(canvas.width > 1000)
+      lineWidth = 4;
+
+    // erase current box
     ctx.rect(x, y, width, height);
     ctx.fillStyle = 'rgba(225,225,225,0)';
     ctx.fill();
 
+    // Left segment
     ctx.strokeStyle = colorStyle;
+    ctx.lineWidth = lineWidth;
     ctx.beginPath();
     ctx.moveTo(x + width / 10, y);
     ctx.lineTo(x, y);
     ctx.lineTo(x, y + height);
     ctx.lineTo(x + width / 10, y + height);
-    ctx.lineWidth = 2;
     ctx.stroke();
 
+    // Right segment
     ctx.strokeStyle = colorStyle;
     ctx.beginPath();
     ctx.moveTo(x + 9 * width / 10, y);
     ctx.lineTo(x + width, y);
     ctx.lineTo(x + width, y + height);
     ctx.lineTo(x + 9 * width / 10, y + height);
-    ctx.lineWidth = 2;
     ctx.stroke();
   }
 
-  renderBoxes(ctx) {
+  renderBoxes() {
     let i = 0;
     let box;
     while(box = this.props.boxes[i++]) {
-      this.renderBox(i, box, ctx);
+      this.renderBox(i, box);
     }
+
   }
 
-  componentDidMount() {
-
+  createCanvas() {
     const item = this.props.item;
     const densemap = this.props.densemap;
 
@@ -85,7 +96,6 @@ class CanvasImage extends React.Component {
       ctx.drawImage(background,0,0);
 
       const gradientWidth = item.meta.width * 0.3;
-
       ctx.beginPath();
       // put stroke color to transparent
       ctx.strokeStyle = "transparent"
@@ -103,7 +113,7 @@ class CanvasImage extends React.Component {
       ctx.stroke();
       ctx.closePath();
 
-      this.renderBoxes(ctx)
+      this.renderBoxes()
 
       canvas.onmousemove = ((e) => {
 
@@ -129,15 +139,29 @@ class CanvasImage extends React.Component {
           }
         }
         // Draw the rectangles by Z (ASC)
-        this.renderBoxes(ctx);
+        this.renderBoxes();
       });
 
     });
   }
 
+  componentWillReceiveProps() {
+    let canvas = ReactDOM.findDOMNode(this.refs.canvasImage);
+    let ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    this.createCanvas();
+  }
+
+  componentDidMount() {
+    this.createCanvas();
+  }
+
+  componentDidUpdate() {
+  }
+
   render() {
     return (<div>
-      <canvas ref="canvasImage" />
+      <canvas ref="canvasImage"/>
     </div>);
   }
 
