@@ -52,26 +52,15 @@ const mapStateToProps = (state, ownProps) => {
       }));
     }
 
-    if(features.vision &&
-      features.vision.faces.length > 0) {
-      boxes = boxes.concat(features.vision.faces.map(face => {
+    if(features.mapi &&
+      features.mapi.faceRectangles &&
+      features.mapi.faceRectangles.length > 0) {
+      boxes = boxes.concat(features.mapi.faceRectangles.map(emotion => {
         return [
-          face.faceRectangle.left,
-          face.faceRectangle.top,
-          face.faceRectangle.width,
-          face.faceRectangle.height
-        ];
-      }));
-    }
-
-    if(features.emotion &&
-      features.emotion.length > 0) {
-      boxes = boxes.concat(features.emotion.map(emotion => {
-        return [
-          emotion.faceRectangle.left,
-          emotion.faceRectangle.top,
-          emotion.faceRectangle.width,
-          emotion.faceRectangle.height
+          emotion.left,
+          emotion.top,
+          emotion.width,
+          emotion.height
         ];
       }));
     }
