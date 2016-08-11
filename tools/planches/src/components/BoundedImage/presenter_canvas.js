@@ -26,20 +26,33 @@ class CanvasImage extends React.Component {
     hoverIndex: -1
   };
 
-  renderBox(index, box, ctx) {
-    const [x, y, width, height] = box;
+  renderBox(index, box) {
+    let canvas = ReactDOM.findDOMNode(this.refs.canvasImage);
+    let ctx = canvas.getContext('2d');
 
+    const item = this.props.item;
+    let [x, y, width, height] = box;
+
+    // choose box color, depending on hover status
     let colorStyle = 'rgba(225,0,0,1)';
     if(this.state.hoverIndex == index) {
       colorStyle = 'rgba(0,225,0,1)';
     }
 
+    let lineWidth = 1;
+    if(canvas.width > 600)
+      lineWidth = 2;
+    if(canvas.width > 1000)
+      lineWidth = 4;
+
+    // erase current box
     ctx.rect(x, y, width, height);
     ctx.fillStyle = 'rgba(225,225,225,0)';
     ctx.fill();
 
+    // Left segment
     ctx.strokeStyle = colorStyle;
-    ctx.lineWidth = 2;
+    ctx.lineWidth = lineWidth;
     ctx.beginPath();
     ctx.moveTo(x + width / 10, y);
     ctx.lineTo(x, y);
@@ -47,6 +60,7 @@ class CanvasImage extends React.Component {
     ctx.lineTo(x + width / 10, y + height);
     ctx.stroke();
 
+    // Right segment
     ctx.strokeStyle = colorStyle;
     ctx.beginPath();
     ctx.moveTo(x + 9 * width / 10, y);
@@ -56,12 +70,13 @@ class CanvasImage extends React.Component {
     ctx.stroke();
   }
 
-  renderBoxes(ctx) {
+  renderBoxes() {
     let i = 0;
     let box;
     while(box = this.props.boxes[i++]) {
-      this.renderBox(i, box, ctx);
+      this.renderBox(i, box);
     }
+
   }
 
   createCanvas() {
@@ -80,8 +95,7 @@ class CanvasImage extends React.Component {
     // Make sure the image is loaded first otherwise nothing will draw.
     background.onload = (() => {
       ctx.drawImage(background,0,0);
-
-      this.renderBoxes(ctx)
+      this.renderBoxes()
 
       canvas.onmousemove = ((e) => {
 
@@ -107,7 +121,7 @@ class CanvasImage extends React.Component {
           }
         }
         // Draw the rectangles by Z (ASC)
-        this.renderBoxes(ctx);
+        this.renderBoxes();
       });
 
     });
@@ -124,16 +138,12 @@ class CanvasImage extends React.Component {
     this.createCanvas();
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-  }
-
   componentDidUpdate() {
-    this.createCanvas();
   }
 
   render() {
     return (<div>
-      <canvas ref="canvasImage" />
+      <canvas ref="canvasImage"/>
     </div>);
   }
 
