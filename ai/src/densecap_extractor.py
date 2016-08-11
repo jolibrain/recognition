@@ -43,8 +43,7 @@ class DenseCapExtractor(FeatureGenerator):
         self.name = name
         self.description = description
         self.images_repo = images_repo
-        #self.nimages = nimages
-        self.nimages=10
+        self.nimages = nimages
         self.meta_in = meta_in
         self.meta_out = meta_out
         self.model_repo = model_repo
@@ -158,7 +157,7 @@ class DenseCapExtractor(FeatureGenerator):
             nboxes = npfeats.shape[1]
             print 'nimages=',nimages
             print 'nboxes=',nboxes
-            with Searcher(self.index_repo) as searcher:     
+            with Searcher(self.index_repo,search_size=500) as searcher:     
                 ldb = shelve.open(self.index_repo + '/ldata.bin')
                 searcher.load_index()
                 for i in range(0,nimages):
@@ -179,8 +178,10 @@ class DenseCapExtractor(FeatureGenerator):
                             nuri = self.images_repo + '/' + nuri # add file path
                             if not nuri in resi:
                                 resi[nuri] = {'dcap_out':{'boxes':[],'captions':[],'scores':[]},
-                                              'dcap_in':{'boxes':[],'captions':[],'scores':[]}}
-
+                                              'dcap_in':{'boxes':[],'captions':[],'scores':[]},
+                                              'score':0.0}
+                            #if len(resi[nuri]['dcap_out']['boxes']) >= 10:
+                                #continue # skip if two many boxes are matching -> better visualization, simpler matchings
                             if not lbdata['box'] in resi[nuri]['dcap_in']['boxes']:    
                                 resi[nuri]['dcap_in']['boxes'].append(lbdata['box'])
                                 resi[nuri]['dcap_in']['captions'].append(lbdata['caption'])
@@ -188,14 +189,16 @@ class DenseCapExtractor(FeatureGenerator):
                             
                             nn = nns['nns'][0][m]
                             nndata = ldb[str(nn)]
-                            resi[nuri]['score'] = 0.0
+
                             if not nndata['box'] in resi[nuri]['dcap_out']['boxes']:
                                 resi[nuri]['dcap_out']['boxes'].append(nndata['box'])
                                 resi[nuri]['dcap_out']['captions'].append(nndata['caption'])
                                 resi[nuri]['dcap_out']['scores'].append(nndata['score'])
-                                resi[nuri]['score'] += nns['nns'][1][m]
+                                resi[nuri]['score'] += 0.1*nns['nns'][1][m]
                             m = m + 1
-                            break # limit to one uri (top) per box match
+                            #if m >= 5:
+                            #if len(resi[nuri]) >= 5:
+                            #break # limit to one uri (top) per box match
 
                     # add uri array
                     nnns_uris = []
@@ -206,9 +209,11 @@ class DenseCapExtractor(FeatureGenerator):
                         nnns_uris.append(r)
                         nnns[0].append('') # dummy array
                         nnns[1].append(resi[r]['score'])
+                        del resi[r]['score']
+                        
                     resi['nns_uris'] = nnns_uris
                     resi['nns'] = nnns
-                    results[ldata['img_name']] = resi
+                    results[self.images_repo + '/' + ldata['img_name']] = resi
                     #print 'results=',results
                 ldb.close()
-        return self.to_json(results,'img/reuters/','img/tate/',self.name,self.description,jdataout,self.meta_in,self.meta_out)
+        return self.to_json(results,'/img/reuters/','/img/tate/',self.name,self.description,jdataout,self.meta_in,self.meta_out)

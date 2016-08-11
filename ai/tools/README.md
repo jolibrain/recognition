@@ -32,6 +32,14 @@ sudo pip install unidecode
 sudo pip install nltk
 ```
 
+For `nltk`, the following is needed in a Python interpreter:
+```
+import nltk
+nltk.download("stopwords")
+```
+
+Word2vec needs a fix in order to work properly, see https://github.com/nicholas-leonard/word2vec/issues/25#issuecomment-174262029
+
 Then install DeepDetect from
 https://github.com/beniz/deepdetect.git
 

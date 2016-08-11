@@ -64,7 +64,8 @@ def execute_generator(generator,jdataout={},meta_in='',meta_out=''):
         txtembed.preproc()
         return txtembed.search(jdataout)
     elif generator_conf['type'] == 'densecap':
-        dcap = DenseCapExtractor(images_repo=args.input_imgs,nimages=len(image_files),model_repo=model_repo,index_repo=args.indexes_repo,name=generator,
+        nfiles = min(args.nfiles,len(image_files))
+        dcap = DenseCapExtractor(images_repo=args.input_imgs,nimages=nfiles,model_repo=model_repo,index_repo=args.indexes_repo,name=generator,
                                  densecap_dir=generator_conf['wdir'],description=generator_conf['description'],meta_in=meta_in,meta_out=meta_out)
         dcap.preproc()
         return dcap.search(jdataout)
