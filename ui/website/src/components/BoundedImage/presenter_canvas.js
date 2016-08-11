@@ -44,6 +44,16 @@ class CanvasImage extends React.Component {
     if(canvas.width > 1000)
       lineWidth = 4;
 
+    if(x < lineWidth / 2)
+      x = lineWidth / 2;
+    if(y < lineWidth / 2)
+      y = lineWidth / 2;
+
+    if((x + width) > (item.meta.width + lineWidth / 2))
+      width = item.meta.width + lineWidth / 2 - x;
+    if((y + height) > (item.meta.height + lineWidth / 2))
+      height = item.meta.height + lineWidth / 2 - y;
+
     // erase current box
     ctx.rect(x, y, width, height);
     ctx.fillStyle = 'rgba(225,225,225,0)';
