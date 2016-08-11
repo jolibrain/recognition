@@ -14,17 +14,28 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import React from 'react';
-import { ReactBootstrap, ModalTrigger, Button } from 'react-bootstrap';
-import ShareModal from './ShareModal.js';
+import {ModalContainer, ModalDialog} from 'react-modal-dialog';
 
-class ComponentThatOpensTheModal extends React.Component {
-  render(){
-     return (
-       <ModalTrigger modal={<ShareModal/>}>
-         <Button bsStyle='primary'>Share</Button>
-       </ModalTrigger>
-     );
+class ShareModal extends React.Component {
+  state = {
+    isShowingModal: false,
+  }
+  handleClick = () => this.setState({isShowingModal: true})
+  handleClose = () => this.setState({isShowingModal: false})
+  render() {
+    return <div onClick={this.handleClick}>
+      <p>Share</p>
+      {
+        this.state.isShowingModal &&
+        <ModalContainer onClose={this.handleClose}>
+          <ModalDialog onClose={this.handleClose}>
+            <h1>Dialog Content</h1>
+            <p>More Content. Anything goes here</p>
+          </ModalDialog>
+        </ModalContainer>
+      }
+    </div>;
   }
 }
 
-export default ComponentThatOpensTheModal;
+export default ShareModal;
