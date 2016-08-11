@@ -15,6 +15,7 @@ limitations under the License.
 */
 import React from 'react';
 import Radium from 'radium';
+import moment from 'moment';
 import styles from './styles.js';
 import ShareModal from '../ShareModal';
 import ReactInterval from 'react-interval';
@@ -33,7 +34,18 @@ class Splash extends React.Component {
 
     if(match) {
 
-      const selectedOutput = match.output[this.state.outputIndex];
+      //const selectedOutput = match.output[this.state.outputIndex];
+      let selectedOutput = match.output[this.state.outputIndex];
+
+      selectedOutput.summary = {
+        processing_time: Math.random() * 100000,
+        scores: {
+          objects: Math.random(),
+          faces: Math.random(),
+          composition: Math.random(),
+          context: Math.random()
+        }
+      };
 
       return (<div className="splashComponent">
 
@@ -48,29 +60,32 @@ class Splash extends React.Component {
 
               <div className="row">
                 <div className="col-md-12">
-
-                  <h2 style={styles.h2}>Searching for match</h2>
-
-                  {
-                    selectedOutput.features ?
-                      <ul style={styles.ul}>
-                      {
-                        selectedOutput.features.in.visual_similarity ?
-                          <li style={styles.ul.li}>Visual similarity: {selectedOutput.features.in.visual_similarity.score}%</li> : ''
-                      }
-                      {
-                        selectedOutput.features.in.metadata_crossover ?
-                          <li style={styles.ul.li}>Metadata crossover: {selectedOutput.features.in.metadata_crossover.score}%</li> : ''
-                      }
-                      {
-                        selectedOutput.features.in.emotional_likeness ?
-                          <li style={styles.ul.li}>Emotional likeness: {selectedOutput.features.in.emotional_likeness.score}%</li> : ''
-                      }
-                      </ul>
-                    : ''
-                  }
-
-                  <ShareModal/>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Searching for match</th>
+                        <th>{moment.unix(selectedOutput.summary.processing_time).format("HH:mm:ss")}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><img src="/img/icons/score_objects.png"/> Objects</td>
+                        <td>{(selectedOutput.summary.scores.objects * 100).toFixed(2)}%</td>
+                      </tr>
+                      <tr>
+                        <td><img src="/img/icons/score_faces.png"/> Faces</td>
+                        <td>{(selectedOutput.summary.scores.faces * 100).toFixed(2)}%</td>
+                      </tr>
+                      <tr>
+                        <td><img src="/img/icons/score_composition.png"/> Composition</td>
+                        <td>{(selectedOutput.summary.scores.composition * 100).toFixed(2)}%</td>
+                      </tr>
+                      <tr>
+                        <td><img src="/img/icons/score_context.png"/> Context</td>
+                        <td>{(selectedOutput.summary.scores.context * 100).toFixed(2)}%</td>
+                      </tr>
+                    </tbody>
+                  </table>
 
                 </div>
               </div>
