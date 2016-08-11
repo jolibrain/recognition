@@ -7,3 +7,4 @@ dist/*
 !dist/img
 dist/img/*
 !dist/img/logos
+!dist/img/icons
