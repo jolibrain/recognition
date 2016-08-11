@@ -42,7 +42,7 @@ fetch('/match.json').then((response) => { return response.json(); })
     <Provider store={store}>
       <Router history={history} render={applyRouterMiddleware(useScroll())}>
         <Route path="/" component={App}>
-          <IndexRoute component={Loading} />
+          <IndexRoute component={Splash} />
           <Route path="/splash" component={Splash} />
           <Route path="/gallery" component={Gallery} />
           <Route path="/gallery/:matchId" component={Match}/>
