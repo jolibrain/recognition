@@ -17,6 +17,7 @@ import React from 'react';
 import Radium from 'radium';
 import styles from './styles.js';
 import ShareModal from '../ShareModal';
+import ReactInterval from 'react-interval';
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -24,15 +25,22 @@ Link = Radium(Link);
 @Radium
 class Splash extends React.Component {
 
+  state = {outputIndex: 0}
+
   render() {
 
     const match = this.props.match;
 
     if(match) {
 
-      const selectedOutput = match.output.filter(item => item.selected)[0];
+      const selectedOutput = match.output[this.state.outputIndex];
 
       return (<div className="splashComponent">
+
+        <ReactInterval timeout={1000} enabled={true}
+          callback={() => this.setState({
+            outputIndex: this.state.outputIndex >= (this.props.match.output.length - 1) ? 0 : this.state.outputIndex + 1
+          })} />
 
         <div className="container splashContainer" style={[styles.fullHeight]}>
           <div className="row" style={styles.fullHeight.row}>
@@ -43,20 +51,24 @@ class Splash extends React.Component {
 
                   <h2 style={styles.h2}>Searching for match</h2>
 
-                  <ul style={styles.ul}>
                   {
-                    selectedOutput.features.in.visual_similarity ?
-                      <li style={styles.ul.li}>Visual similarity: {selectedOutput.features.in.visual_similarity.score}%</li> : ''
+                    selectedOutput.features ?
+                      <ul style={styles.ul}>
+                      {
+                        selectedOutput.features.in.visual_similarity ?
+                          <li style={styles.ul.li}>Visual similarity: {selectedOutput.features.in.visual_similarity.score}%</li> : ''
+                      }
+                      {
+                        selectedOutput.features.in.metadata_crossover ?
+                          <li style={styles.ul.li}>Metadata crossover: {selectedOutput.features.in.metadata_crossover.score}%</li> : ''
+                      }
+                      {
+                        selectedOutput.features.in.emotional_likeness ?
+                          <li style={styles.ul.li}>Emotional likeness: {selectedOutput.features.in.emotional_likeness.score}%</li> : ''
+                      }
+                      </ul>
+                    : ''
                   }
-                  {
-                    selectedOutput.features.in.metadata_crossover ?
-                      <li style={styles.ul.li}>Metadata crossover: {selectedOutput.features.in.metadata_crossover.score}%</li> : ''
-                  }
-                  {
-                    selectedOutput.features.in.emotional_likeness ?
-                      <li style={styles.ul.li}>Emotional likeness: {selectedOutput.features.in.emotional_likeness.score}%</li> : ''
-                  }
-                  </ul>
 
                   <ShareModal/>
 
