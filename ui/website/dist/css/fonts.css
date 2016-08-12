@@ -14,6 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 @font-face {
+    font-family: 'MaisonNeue';
+    src: url('/fonts/MaisonNeue-Mono.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'TateNewPro';
     src: url('/fonts/TateNewPro-Regular.eot');
     src: url('/fonts/TateNewPro-Regular.eot?#iefix') format('embedded-opentype'),

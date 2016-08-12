@@ -68,8 +68,31 @@ const styles = {
   img: {
     maxWidth: '100%',
     maxHeight: '100%'
+  },
+  table: {
+    width: '350px',
+    fontSize: '12px',
+    textTransform: 'uppercase',
+    marginBottom: '40px',
+    header: {
+      borderBottom: '1px dotted #fff',
+    },
+    row: {
+      padding: '0px 3px !important'
+    },
+    leftColumn: {
+      width: '250px'
+    },
+    headerCell: {
+      padding: '3px 0px 12px 0px'
+    },
+    firstRowCell: {
+      padding: '12px 0px 3px 0px'
+    },
+    cell: {
+      padding: '3px 0px'
+    }
   }
-
 }
 
 export default styles;

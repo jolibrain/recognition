@@ -13,9 +13,22 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-const styles = {
-  body: {
+import React from 'react';
+
+export default class IntroHeader extends React.Component {
+
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div className="container container-table">
+        <div className="row vertical-center-row">
+          <div className="text-center col-md-4 col-md-offset-4">
+            TEST 2
+          </div>
+        </div>
+      </div>);
   }
 }
-
-export default styles;
