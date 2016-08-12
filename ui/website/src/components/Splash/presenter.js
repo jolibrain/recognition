@@ -60,29 +60,27 @@ class Splash extends React.Component {
 
               <div className="row">
                 <div className="col-md-12">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>Searching for match</th>
-                        <th>{moment.unix(selectedOutput.summary.processing_time).format("HH:mm:ss")}</th>
-                      </tr>
-                    </thead>
+                  <table className="table borderless" style={styles.table}>
                     <tbody>
-                      <tr>
-                        <td><img src="/img/icons/score_objects.png"/> Objects</td>
-                        <td>{(selectedOutput.summary.scores.objects * 100).toFixed(2)}%</td>
+                      <tr style={styles.table.header}>
+                        <td  style={[styles.table.leftColumn, styles.table.headerCell]}>Searching for match</td>
+                        <td style={styles.table.headerCell}>{moment.unix(selectedOutput.summary.processing_time).format("HH:mm:ss")}</td>
                       </tr>
-                      <tr>
-                        <td><img src="/img/icons/score_faces.png"/> Faces</td>
-                        <td>{(selectedOutput.summary.scores.faces * 100).toFixed(2)}%</td>
+                      <tr style={styles.table.row}>
+                        <td style={[styles.table.leftColumn, styles.table.firstRowCell]}><img src="/img/icons/score_objects.png"/> Objects:</td>
+                        <td style={styles.table.firstRowCell}>{(selectedOutput.summary.scores.objects * 100).toFixed(2)}%</td>
                       </tr>
-                      <tr>
-                        <td><img src="/img/icons/score_composition.png"/> Composition</td>
-                        <td>{(selectedOutput.summary.scores.composition * 100).toFixed(2)}%</td>
+                      <tr style={styles.table.row}>
+                        <td style={[styles.table.leftColumn, styles.table.cell]}><img src="/img/icons/score_faces.png"/> Faces:</td>
+                        <td style={styles.table.cell}>{(selectedOutput.summary.scores.faces * 100).toFixed(2)}%</td>
                       </tr>
-                      <tr>
-                        <td><img src="/img/icons/score_context.png"/> Context</td>
-                        <td>{(selectedOutput.summary.scores.context * 100).toFixed(2)}%</td>
+                      <tr style={styles.table.row}>
+                        <td style={[styles.table.leftColumn, styles.table.cell]}><img src="/img/icons/score_composition.png"/> Composition:</td>
+                        <td style={styles.table.cell}>{(selectedOutput.summary.scores.composition * 100).toFixed(2)}%</td>
+                      </tr>
+                      <tr style={styles.table.row}>
+                        <td style={[styles.table.leftColumn, styles.table.cell]}><img src="/img/icons/score_context.png"/> Context:</td>
+                        <td style={styles.table.cell}>{(selectedOutput.summary.scores.context * 100).toFixed(2)}%</td>
                       </tr>
                     </tbody>
                   </table>
