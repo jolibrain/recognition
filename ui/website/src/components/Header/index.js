@@ -22,65 +22,35 @@ Link = Radium(Link);
 
 @Radium
 class Header extends React.Component {
+
   render() {
+    return <div>
+      <nav style={[styles.navbar, styles.gradientBackground]} className="navbar navbar-default navbar-fixed-top">
+        <div className="container-fluid">
 
-    if(this.props.displayIntro) {
-
-      return <div>
-        <nav style={[styles.navbar, styles.gradientBackground]} className="navbar navbar-default navbar-fixed-top">
-          <div className="container-fluid">
-
-            <div className="navbar-header">
-              <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse" aria-expanded="false">
-                <span className="sr-only">Toggle navigation</span>
-                <span className="icon-bar"/>
-                <span className="icon-bar"/>
-                <span className="icon-bar"/>
-              </button>
-              <Link style={[styles.brand]} className="navbar-brand" to='/'><span style={[styles.brand.re]}>re]</span>[cognition</Link>
-              <p>Winner of IK Prize 2016</p>
-            </div>
-
-            <div className="collapse navbar-collapse" id="bs-navbar-collapse">
-              <ul className="nav navbar-nav navbar-right">
-                <li><Link style={[styles.menuItem]} to='/splash'>Skip Intro</Link></li>
-              </ul>
-            </div>
-
+          <div className="navbar-header">
+            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse" aria-expanded="false">
+              <span className="sr-only">Toggle navigation</span>
+              <span className="icon-bar"/>
+              <span className="icon-bar"/>
+              <span className="icon-bar"/>
+            </button>
+            <Link style={[styles.brand]} className="navbar-brand" to='/'><span style={[styles.brand.re]}>re]</span>[cognition</Link>
           </div>
-        </nav>
-      </div>;
 
-    } else {
-
-      return <div>
-        <nav style={[styles.navbar, styles.gradientBackground]} className="navbar navbar-default navbar-fixed-top">
-          <div className="container-fluid">
-
-            <div className="navbar-header">
-              <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse" aria-expanded="false">
-                <span className="sr-only">Toggle navigation</span>
-                <span className="icon-bar"/>
-                <span className="icon-bar"/>
-                <span className="icon-bar"/>
-              </button>
-              <Link style={[styles.brand]} className="navbar-brand" to='/'><span style={[styles.brand.re]}>re]</span>[cognition</Link>
-            </div>
-
-            <div className="collapse navbar-collapse" id="bs-navbar-collapse">
-              <ul className="nav navbar-nav navbar-right">
-                <li className={this.props.path == '/gallery' ? 'menuSelected' : ''}><Link style={[styles.menuItem]} to='/gallery'>Gallery</Link></li>
-                <li><Link style={[styles.menuItem]} to='/exhibition'>Exhibition</Link></li>
-                <li className={this.props.path == '/info' ? 'menuSelected' : ''}><Link style={[styles.menuItem]} to='/info'>Info</Link></li>
-                <li><Link style={[styles.menuItem]} to='/subscribe'>Subscribe</Link></li>
-                <li><span style={[styles.menuItem, styles.searchIcon]} className='icon--i_search'/></li>
-              </ul>
-            </div>
-
+          <div className="collapse navbar-collapse" id="bs-navbar-collapse">
+            <ul className="nav navbar-nav navbar-right">
+              <li className={this.props.path == '/gallery' ? 'menuSelected' : ''}><Link style={[styles.menuItem]} to='/gallery'>Gallery</Link></li>
+              <li><Link style={[styles.menuItem]} to='/exhibition'>Exhibition</Link></li>
+              <li className={this.props.path == '/info' ? 'menuSelected' : ''}><Link style={[styles.menuItem]} to='/info'>Info</Link></li>
+              <li><Link style={[styles.menuItem]} to='/subscribe'>Subscribe</Link></li>
+              <li><span style={[styles.menuItem, styles.searchIcon]} className='icon--i_search'/></li>
+            </ul>
           </div>
-        </nav>
-      </div>;
-    }
+
+        </div>
+      </nav>
+    </div>;
   }
 }
 

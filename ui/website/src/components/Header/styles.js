@@ -16,6 +16,7 @@ limitations under the License.
 const styles = {
   navbar: {
     border: 0,
+    zIndex: 5
   },
   gradientBackground: {
     background: "-moz-linear-gradient(top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.8) 55%, rgba(0,0,0,0) 100%)",

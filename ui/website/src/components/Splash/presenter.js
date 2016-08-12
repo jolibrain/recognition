@@ -20,6 +20,7 @@ import styles from './styles.js';
 import ShareModal from '../ShareModal';
 import ReactInterval from 'react-interval';
 import Scrollchor from 'react-scrollchor';
+import {Overlay} from 'react-overlays';
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -27,9 +28,24 @@ Link = Radium(Link);
 @Radium
 class Splash extends React.Component {
 
-  state = {outputIndex: 0}
+  state = {
+    outputIndex: 0,
+    introOverlay: true
+  }
 
   render() {
+
+    const OverlayStyle = {
+      position: 'absolute',
+      top: '0',
+      left: '0',
+      width: '100vw',
+      height: '100vh',
+      color: '#fff',
+      backgroundColor: 'rgba(255,0,0,0.8)',
+      textAlign: 'center',
+      zIndex: 10
+    }
 
     const match = this.props.match;
 
@@ -54,6 +70,30 @@ class Splash extends React.Component {
           callback={() => this.setState({
             outputIndex: this.state.outputIndex >= (this.props.match.output.length - 1) ? 0 : this.state.outputIndex + 1
           })} />
+
+        <Overlay
+          show={this.state.introOverlay}
+          onHide={() => this.setState({ introOverlay: false })}
+        >
+          <div style={{...OverlayStyle}}>
+            <nav style={[styles.navbar, styles.gradientBackground]} className="navbar navbar-default navbar-fixed-top">
+              <div className="container-fluid">
+
+                <div className="navbar-header">
+                  <p>Recognition<br/>Winner of IK Prize 2016</p>
+                </div>
+
+                <div className="collapse navbar-collapse" id="bs-navbar-collapse">
+                  <ul className="nav navbar-nav navbar-right">
+                    <li><a style={[styles.menuItem]} onClick={() => {this.setState({introOverlay: false})}}>Skip Intro</a></li>
+                  </ul>
+                </div>
+
+              </div>
+            </nav>
+            Overlay
+          </div>
+        </Overlay>
 
         <div className="container splashContainer" style={[styles.fullHeight]}>
           <div className="row" style={styles.fullHeight.row}>
