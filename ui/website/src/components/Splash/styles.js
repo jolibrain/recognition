@@ -22,7 +22,7 @@ const styles = {
       height: "100%",
     },
     img: {
-      maxHeight: "calc(100% - 170px)",
+      maxHeight: "45vh",
       verticalAlign: "top",
       maxWidth: "100%"
     }
@@ -43,6 +43,7 @@ const styles = {
   },
   share: {},
   imgDescription: {
+    textAlign: 'left',
     color: '#4a4a4a',
     fontWeight: 'bold',
     marginTop: '20px'

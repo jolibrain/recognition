@@ -19,6 +19,7 @@ import moment from 'moment';
 import styles from './styles.js';
 import ShareModal from '../ShareModal';
 import ReactInterval from 'react-interval';
+import Scrollchor from 'react-scrollchor';
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -89,7 +90,7 @@ class Splash extends React.Component {
               </div>
 
               <div className="row">
-                <div className="col-md-12">
+                <div className="col-md-12" style={{textAlign: "center"}}>
 
                   <img src={match.input.img} style={[styles.fullHeight.img]}/>
 
@@ -109,7 +110,7 @@ class Splash extends React.Component {
               <div className="row"  style={styles.fullHeight.row}>
                 <div className="col-md-10 col-md-offset-1" style={styles.fullHeight.col}>
 
-                  <img style={[styles.fullHeight.img]} src={selectedOutput.img} />
+                  <img style={[styles.fullHeight.img, {maxHeight: "75vh"}]} src={selectedOutput.img} />
 
                   <p style={styles.imgDescription}>
                     {selectedOutput.meta.date}<br/>
@@ -126,9 +127,9 @@ class Splash extends React.Component {
 
         <footer className="footer" style={styles.footer}>
           <div className="container"style={styles.footer.galleryLinkContainer} >
-            <Link style={styles.footer.galleryLink} to='/gallery'>
+            <Scrollchor style={styles.footer.galleryLink} to='#gallery'>
               <span className="icon--i_arrow-down" style={styles.footer.arrowDown} />
-            </Link>
+            </Scrollchor>
           </div>
         </footer>
 
