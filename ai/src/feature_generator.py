@@ -43,6 +43,7 @@ class FeatureGenerator:
 
     def to_json(self,results,img_reuters_repo,img_tate_repo,feature_name='',feature_description='',jdataout={},
                 meta_in='',meta_out=''):
+        #print 'feature_name=',feature_name,' / jdataout=',jdataout
         meta_in_s = None
         meta_out_s = None
         if meta_in:

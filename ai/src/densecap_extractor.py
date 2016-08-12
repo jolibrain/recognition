@@ -39,10 +39,11 @@ logger.setLevel(logging.INFO)
 
 class DenseCapExtractor(FeatureGenerator):
     
-    def __init__(self,images_repo,nimages,model_repo,index_repo,densecap_dir,name,description,meta_in='',meta_out=''):
+    def __init__(self,images_repo,image_files,nimages,model_repo,index_repo,densecap_dir,name,description,meta_in='',meta_out=''):
         self.name = name
         self.description = description
         self.images_repo = images_repo
+        self.image_files = image_files
         self.nimages = nimages
         self.meta_in = meta_in
         self.meta_out = meta_out
@@ -64,7 +65,7 @@ class DenseCapExtractor(FeatureGenerator):
     def preproc(self):
         # get bounding boxes, captions and scores out of densecap
         self.dcap_tmp = tempfile.mkdtemp(prefix='dcap_')
-        dcap_args = ' -input_dir ' + self.images_repo + ' -output_dir ' + self.dcap_tmp + ' -max_images ' + str(self.nimages) + ' -output_vis_dir ' + self.dcap_tmp + ' -boxes_per_image 10 -output_h5 1' ## XXX: custom densecap, beware that boxes_per_image > max box selected per image
+        dcap_args = ' -input_images ' + ','.join(self.image_files) + ' -output_dir ' + self.dcap_tmp + ' -max_images ' + str(self.nimages) + ' -output_vis_dir ' + self.dcap_tmp + ' -boxes_per_image 10 -output_h5 1' ## XXX: custom densecap, beware that boxes_per_image > max box selected per image
         print 'dcap_args=',dcap_args
         logger.info('Detecting objects')
         pout = ''
