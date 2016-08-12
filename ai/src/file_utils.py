@@ -27,13 +27,16 @@ from os import walk
 
 def list_files(repository,ext='.jpg',nfiles=-1):
     onlyfiles = []
-    for (dirpath, dirnames, filenames) in walk(repository):
-        nfilenames = []
-        for f in filenames:
-            if f.endswith(ext) and not 'mapi' in f:# and not 'tga' in f and not 'TGA' in f:
-                nfilenames.append(dirpath +'/' + f)
-            if nfiles > 0 and len(nfilenames) >= nfiles:
-                break
-        if nfilenames:
-            onlyfiles.extend(nfilenames)
+    #print 'repository=',repository
+    filenames = [f for f in listdir(repository) if f.endswith(ext)]
+    #print 'filenames=',filenames
+    #for (dirpath, dirnames, filenames) in walk(repository):
+    nfilenames = []
+    for f in filenames:
+        #if f.endswith(ext): # and not 'mapi' in f:# and not 'tga' in f and not 'TGA' in f:
+        nfilenames.append(repository +'/' + f)
+        if nfiles > 0 and len(nfilenames) >= nfiles:
+            break
+    if nfilenames:
+        onlyfiles.extend(nfilenames)
     return onlyfiles

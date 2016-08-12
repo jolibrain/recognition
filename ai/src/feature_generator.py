@@ -115,9 +115,25 @@ class FeatureGenerator:
                             mdataout['features']['out'][feature_name]['scores'] = nn[nuri]['dcap_out']['scores']
                             mdataout['features']['out'][feature_name]['boxes'] = nn[nuri]['dcap_out']['boxes']
                             mdataout['features']['out'][feature_name]['captions'] = nn[nuri]['dcap_out']['captions']
+
+                    if 'mapi_in' in nn[nuri]:
+                        if feature_name in mdataout['features']['in']:
+                            mdataout['features']['in'][feature_name]['faceRectangles'] = nn[nuri]['mapi_in']['faceRectangles']
+                            mdataout['features']['in'][feature_name]['emotions'] = nn[nuri]['mapi_in']['emotions']
+                            mdataout['features']['in'][feature_name]['genders'] = nn[nuri]['mapi_in']['genders']
+                            mdataout['features']['in'][feature_name]['ages'] = nn[nuri]['mapi_in']['ages']
+                    if 'mapi_out' in nn[nuri]:
+                        if feature_name in mdataout['features']['out']:
+                            mdataout['features']['out'][feature_name]['faceRectangles'] = nn[nuri]['mapi_out']['faceRectangles']
+                            mdataout['features']['out'][feature_name]['emotions'] = nn[nuri]['mapi_out']['emotions']
+                            mdataout['features']['out'][feature_name]['genders'] = nn[nuri]['mapi_out']['genders']
+                            mdataout['features']['out'][feature_name]['ages'] = nn[nuri]['mapi_out']['ages']
+
                 dataout['output'].append(mdataout)
                 m = m + 1
             #print 'len dataout output=',len(dataout['output'])
+            if len(dataout['output']) == 0:
+                continue
             jdataout[img] = dataout
         #print jdataout
         if meta_in:

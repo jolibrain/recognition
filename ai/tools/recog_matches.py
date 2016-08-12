@@ -30,6 +30,7 @@ from dnn_feature_extractor import DNNModel, DNNFeatureExtractor
 from text_embedding import TextEmbedding
 from metadata import MetadataExtractor
 from densecap_extractor import DenseCapExtractor
+from mapi_generator import MAPIGenerator
 
 from file_utils import list_files
 from generators import generator_lk
@@ -48,6 +49,11 @@ args = parser.parse_args()
 
 image_files = list_files(args.input_imgs,ext='.jpg',nfiles=args.nfiles)
 json_files = list_files(args.input_imgs,ext='.json',nfiles=args.nfiles)
+json_mapi_files = json_mapi_emo_files = []
+if 'mapi' in args.generators:
+    #print 'reading mapi files from',args.input_imgs + '/mapi/'
+    json_mapi_files = list_files(args.input_imgs + '/mapi/',ext='.json',nfiles=args.nfiles)
+    json_mapi_emo_files = list_files(args.input_imgs + '/mapi_emo/',ext='.json',nfiles=args.nfiles)
 
 def execute_generator(generator,jdataout={},meta_in='',meta_out=''):
     generator_conf = generator_lk.get(generator,None)
@@ -69,6 +75,10 @@ def execute_generator(generator,jdataout={},meta_in='',meta_out=''):
                                  densecap_dir=generator_conf['wdir'],description=generator_conf['description'],meta_in=meta_in,meta_out=meta_out)
         dcap.preproc()
         return dcap.search(jdataout)
+    elif generator_conf['type'] == 'mapi':
+        mapi = MAPIGenerator(image_files=image_files,json_files=json_mapi_files,json_emo_files=json_mapi_emo_files,index_repo=args.indexes_repo,name=generator,description=generator_conf['description'],meta_in=meta_in,meta_out=meta_out)
+        mapi.preproc()
+        return mapi.search(jdataout)
     elif generator_conf['type'] != 'meta':
         logger.error('Unknown generator type ' + generator_conf['type'])
     return
