@@ -202,7 +202,7 @@ class MAPIGenerator(FeatureGenerator):
             for t,v in self.mapi_categories.iteritems():            
                 nns =searcher.search_tags_single(v,t)
                 results_cats[t] = nns
-        results_cats = self.to_json(results_cats,'/img/reuters/','/img/tate/',self.name+'_tags',self.description,results_tags,self.meta_in,self.meta_out)
+        results_cats = self.to_json(results_cats,'/img/reuters/','/img/tate/',self.name+'_cats',self.description,results_tags,self.meta_in,self.meta_out)
                  
         results_faces = {}
         with Searcher(self.index_repo,search_size=1000) as searcher:
