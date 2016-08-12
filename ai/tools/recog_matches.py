@@ -50,12 +50,14 @@ args = parser.parse_args()
 image_files = list_files(args.input_imgs,ext='.jpg',nfiles=args.nfiles)
 json_files = list_files(args.input_imgs,ext='.json',nfiles=args.nfiles)
 json_mapi_files = json_mapi_emo_files = []
-if 'mapi' in args.generators:
+
+if 'mapi' in args.generators or 'all' in args.generators:
     #print 'reading mapi files from',args.input_imgs + '/mapi/'
-    json_mapi_files = list_files(args.input_imgs + '/mapi/',ext='.json',nfiles=args.nfiles)
-    json_mapi_emo_files = list_files(args.input_imgs + '/mapi_emo/',ext='.json',nfiles=args.nfiles)
+    json_mapi_files = list_files(args.input_imgs + '/mapi/',ext='.json')#,nfiles=args.nfiles)
+    json_mapi_emo_files = list_files(args.input_imgs + '/mapi_emo/',ext='.json')#,nfiles=args.nfiles)
 
 def execute_generator(generator,jdataout={},meta_in='',meta_out=''):
+    #print 'jdataout=',jdataout
     generator_conf = generator_lk.get(generator,None)
     if not generator_conf:
         logger.error('Unknown generator ' + generator + ', skipping')
@@ -71,7 +73,7 @@ def execute_generator(generator,jdataout={},meta_in='',meta_out=''):
         return txtembed.search(jdataout)
     elif generator_conf['type'] == 'densecap':
         nfiles = min(args.nfiles,len(image_files))
-        dcap = DenseCapExtractor(images_repo=args.input_imgs,nimages=nfiles,model_repo=model_repo,index_repo=args.indexes_repo,name=generator,
+        dcap = DenseCapExtractor(images_repo=args.input_imgs,image_files=image_files,nimages=nfiles,model_repo=model_repo,index_repo=args.indexes_repo,name=generator,
                                  densecap_dir=generator_conf['wdir'],description=generator_conf['description'],meta_in=meta_in,meta_out=meta_out)
         dcap.preproc()
         return dcap.search(jdataout)
@@ -110,8 +112,12 @@ meta_out = args.indexes_repo + '/metadata/out_names.bin'
 generators = args.generators
 if generators[0] == 'all':
     generators = generator_lk.keys()
+json_out = {}
 for gen in generators:
-    json_out = execute_generator(gen,meta_in=meta_in,meta_out=meta_out)
+    json_out_tmp = execute_generator(gen,jdataout=json_out,meta_in=meta_in,meta_out=meta_out)
+    if json_out_tmp:
+        json_out = json_out_tmp
+    #print 'json_out output=',json_out
 es = EnsemblingScores()
 json_out = es.ensembling(json_out)
 json_out = format_to_array(json_out)
