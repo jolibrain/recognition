@@ -23,23 +23,28 @@ under the License.
 
 class EnsemblingScores:
     def __init__(self):
-        self.factors = {'composition':1.0,'places':0.5} ##TODO
+        self.factors = {'composition':0.3,'places_composition':0.3,'places':0.2,'categories':0.1,'densecap':0.5,'mapi_tags':0.1,'mapi_cats':0.1,'mapi':0.05,'txtembed':0.1}
         return
 
     # json_out in UI format, simple additive ensembling
     def ensembling(self,json_out):
         for k,m in json_out.iteritems(): # iterate matches
-            comp_score = 0.0 # compositional score
-            comp_num = 0.0
             for o in m['output']: # iterate candidates for a given match
                 final_score = 0.0
+                comp_score = 0.0 # compositional score
+                comp_num = 0.0
                 for g,v in o['features']['out'].iteritems(): # iterate generators of a match
+                    factor = 1.0 #TODO: scoring before selection
+                    for fa,fv in self.factors.iteritems():
+                        if fa in g:
+                            factor = fv
+                            break
                     if 'composition' in g:
-                        comp_score += v['score']
                         comp_num += 1.0
+                        comp_score += (1.0/comp_num) * factor*v['score']
                     else:
-                        final_score += v['score']
+                        final_score += factor*v['score']
+                if comp_num > 0.0:
+                    final_score += comp_score# / comp_num
                 o['features']['score'] = final_score
-        if comp_num > 0.0:
-            final_score += comp_score / comp_num
         return json_out

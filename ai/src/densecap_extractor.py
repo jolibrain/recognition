@@ -181,8 +181,8 @@ class DenseCapExtractor(FeatureGenerator):
                                 resi[nuri] = {'dcap_out':{'boxes':[],'captions':[],'scores':[]},
                                               'dcap_in':{'boxes':[],'captions':[],'scores':[]},
                                               'score':0.0}
-                            #if len(resi[nuri]['dcap_out']['boxes']) >= 10:
-                                #continue # skip if two many boxes are matching -> better visualization, simpler matchings
+                            #if len(resi[nuri]['dcap_out']['boxes']) >= 7:
+                            #    continue # skip if two many boxes are matching -> better visualization, simpler matchings
                             if not lbdata['box'] in resi[nuri]['dcap_in']['boxes']:    
                                 resi[nuri]['dcap_in']['boxes'].append(lbdata['box'])
                                 resi[nuri]['dcap_in']['captions'].append(lbdata['caption'])
@@ -195,11 +195,11 @@ class DenseCapExtractor(FeatureGenerator):
                                 resi[nuri]['dcap_out']['boxes'].append(nndata['box'])
                                 resi[nuri]['dcap_out']['captions'].append(nndata['caption'])
                                 resi[nuri]['dcap_out']['scores'].append(nndata['score'])
-                                resi[nuri]['score'] += 0.3*nns['nns'][1][m]
+                                resi[nuri]['score'] += 0.2*(1.0/float(len(resi[nuri])))*nns['nns'][1][m] # 0.1 factor allows for mixed selection (e.g. non densecap) later in the process
                             m = m + 1
                             #if m >= 5:
-                            #if len(resi[nuri]) >= 5:
-                                #break # limit to one uri (top) per box match
+                            #if len(resi[nuri]) >= 3:
+                            #    break # limit to a few top boxes per uri match
 
                     # add uri array
                     nnns_uris = []

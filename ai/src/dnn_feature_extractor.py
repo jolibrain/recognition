@@ -164,7 +164,7 @@ class DNNFeatureExtractor(FeatureGenerator):
 
         logger.info('dnn feature prediction and searching for service ' + self.dnnmodel.name)
         results = {}
-        with Searcher(self.index_repo,search_size=100) as searcher:
+        with Searcher(self.index_repo,search_size=1000) as searcher:
             searcher.load_index()
             for x in batch(self.image_files,self.batch_size):
                 classif = self.dd.post_predict(self.dnnmodel.name,x,
