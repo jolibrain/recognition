@@ -46,11 +46,15 @@ class Indexer:
         self.s = shelve.open(self.db_name)
         self.s['dim'] = self.dim
         self.s['metric'] = self.metric
+        self.sm = {} # in memory
 
     def __enter__(self):
         return self
 
     def __exit__(self, exc_type, exc_value, traceback): # to be used with the 'with Indexer(...) as indexer:' statement
+        if len(self.sm) > 0:
+            for k,v in self.sm.iteritems():
+                self.s[k] = v
         self.s.close()
 
     def index_single(self,c,feature_vector,uri):
@@ -70,12 +74,12 @@ class Indexer:
         for t in tags:
             #print t['cat'],t['prob']
             cat_key = str(t['cat'])
-            if not cat_key in self.s:
-                self.s[cat_key] = [{'uri':uri,'prob':t['prob']}]
+            if not cat_key in self.sm:
+                self.sm[cat_key] = [{'uri':uri,'prob':t['prob']}]
             else:
-                temp = self.s[cat_key]
+                temp = self.sm[cat_key]
                 temp.append({'uri':uri,'prob':t['prob']})
-                self.s[cat_key] = temp
+                self.sm[cat_key] = temp
         
     def build_index(self):
         logger.info('building index in ' + self.repository)

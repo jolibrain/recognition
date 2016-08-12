@@ -74,26 +74,44 @@ class MAPIGenerator(FeatureGenerator):
             n = n + 1
         return -1
 
+    def face_vector(self,fv):
+        vec = [0.0] * 10
+        vec[0] = fv.get('age',-1)
+        gender = -1
+        g = fv.get('gender',None)
+        if g:
+            if g == 'Male':
+                gender = 1
+            else:
+                gender = 2
+        vec[1] = gender
+        v_emos = fv.get('emotions',None)
+        if v_emos:
+            for e,pos in self.emotions.iteritems():
+                if v_emos.get(e,None):
+                    vec[2+pos] = v_emos[e]
+        return vec
 
     def preproc(self):
-        ##TODO: acquire or read JSON file ?
         ## prepare fields to be indexed:
         # - dominantColors
-        # - tags (no scores) -> too generic... (attach a low factor...) ordered ?? let's take top 5 and attach uniform scores
-        # - categories + scores -> keep scores > 0.5 ?
-        # - faces + age + gender + emotion (from emotion JSON / API) -> encode age + gender + emotion (8 categories ?) into vector, if below 0.3, set to 0 and normalize 
+        # - tags (no scores) -> too generic... take top 5 and attach uniform scores
+        # - categories + scores -> keep scores > 0.3
+        # - faces + age + gender + emotion (from emotion JSON / API) -> encode age + gender + emotion (8 categories) into vector 
 
+        img_bn = ''
         for jf in self.json_files:
             with open(jf,'r') as jfile:
-                #print jf
                 json_data = json.load(jfile)
-                img_name = os.path.basename(jf).replace('_mapi.json','.jpg')
+                if not img_bn:
+                    jf = jf.replace('//','/')
+                    img_bn = os.path.dirname(os.path.dirname(jf))
+                img_name = img_bn + '/' + os.path.basename(jf).replace('_mapi.json','.jpg')
                 if json_data.get('color',None):
                     self.mapi_dominant_colors[img_name] = []
                     for c in json_data['color']['dominantColors']:
                         self.mapi_dominant_colors[img_name].append({'cat':c,'prob':1.0})
                 if json_data.get('description',None):
-                    #self.mapi_tags[img_name] = json_data['description']['tags'][:5]
                     self.mapi_tags[img_name] = []
                     for t in json_data['description']['tags'][:5]:
                         self.mapi_tags[img_name].append({'cat':t,'prob':0.2})
@@ -111,14 +129,11 @@ class MAPIGenerator(FeatureGenerator):
                 
 
         for jf in self.json_emo_files:
-            #print jf
             with open(jf,'r') as jfile:
                 json_data = json.load(jfile)
-                img_name = os.path.basename(jf).replace('_mapi.json','.jpg')
+                img_name = img_bn + '/' + os.path.basename(jf).replace('_mapi.json','.jpg')
                 if len(json_data) == 0:
                     continue
-                #self.mapi_faces[img_name] = [] # should already exist
-                #n = 0
                 if self.mapi_faces.get(img_name,None) == None:
                     print 'face detected with emotion API but not with Vision API...'
                     self.mapi_faces[img_name] = json_data
@@ -129,65 +144,43 @@ class MAPIGenerator(FeatureGenerator):
                         continue
                     emo_scores = r['scores']
                     has_emo = False
-                    #print 'emotions'
                     for e,c in self.emotions.iteritems():
                         if emo_scores[e] > 0.5:
                             if not has_emo:
-                                #print 'n=',n,' / img_name=',img_name
-                                #print self.mapi_faces[img_name]
                                 self.mapi_faces[img_name][n]['emotions'] = {}
                                 has_emo = True
                             self.mapi_faces[img_name][n]['emotions'][e] = emo_scores[e]
-                    #n = n + 1
         return
 
     def index(self):
         ## index every variable type
         # - dominant colors (XXX: let's not match based on this, DNN does much better)
-        #print 'indexing dominant colors...'
         #with Indexer(dim=1,repository=self.index_repo,db_name='colors.bin') as indexer:
         #    for c,v in self.mapi_dominant_colors.iteritems():
         #        indexer.index_tags_single(v,c)
                 
         # - tags
-        print 'indexing mapi tags...'
+        #print 'indexing mapi tags...'
         with Indexer(dim=1,repository=self.index_repo,db_name='tags.bin') as indexer:
             for t,v in self.mapi_tags.iteritems():
                 indexer.index_tags_single(v,t)
 
         # - categories
-        print 'indexing mapi categories...'
+        #print 'indexing mapi categories...'
         with Indexer(dim=1,repository=self.index_repo,db_name='cats.bin') as indexer:
             for t,v in self.mapi_categories.iteritems():
                 indexer.index_tags_single(v,t)
 
         # - vector for age + gender + emotion + save boxes
-        print 'indexing mapi age, gender, emotion and boxes...'
+        #print 'indexing mapi age, gender, emotion and boxes...'
         c = 0
         with Indexer(dim=10,repository=self.index_repo) as indexer:
             ldb = shelve.open(self.index_repo + '/ldata.bin')
             for f,v in self.mapi_faces.iteritems():
-                #print f,v
-                ldb[f] = v
                 for fv in v:
-                    vec = [0.0] * 10
-                    vec[0] = fv.get('age',-1)
-                    gender = -1
-                    g = fv.get('gender',None)
-                    if g:
-                        if g == 'Male':
-                            gender = 1
-                        else:
-                            gender = 0
-                    vec[1] = gender
-                    v_emos = fv.get('emotions',None)
-                    if v_emos:
-                        for e,pos in self.emotions.iteritems():
-                            if v_emos.get(e,None):
-                                vec[2+pos] = 1.0 # we could use e, but we are using binary markers instead
-                    #print c,vec,f
+                    vec = self.face_vector(fv)
                     indexer.index_single(c,vec,f)
-                    
+                    ldb[str(c)] = (fv,f)
                     c = c + 1
             ldb.close()
             indexer.build_index()
@@ -195,5 +188,72 @@ class MAPIGenerator(FeatureGenerator):
         return
 
     def search(self,jdataout={}):
-        ##TODO
-        return
+        results_tags = {}
+        with Searcher(self.index_repo,search_size=100,db_name='tags.bin') as searcher:
+            searcher.load_index()
+            for t,v in self.mapi_tags.iteritems():            
+                nns =searcher.search_tags_single(v,t)
+                results_tags[t] = nns
+        results_tags = self.to_json(results_tags,'/img/reuters/','/img/tate/',self.name+'_tags',self.description,jdataout,self.meta_in,self.meta_out)
+        
+        results_cats = {}
+        with Searcher(self.index_repo,search_size=100,db_name='cats.bin') as searcher:
+            searcher.load_index()
+            for t,v in self.mapi_categories.iteritems():            
+                nns =searcher.search_tags_single(v,t)
+                results_cats[t] = nns
+        results_cats = self.to_json(results_cats,'/img/reuters/','/img/tate/',self.name+'_tags',self.description,results_tags,self.meta_in,self.meta_out)
+                 
+        results_faces = {}
+        with Searcher(self.index_repo,search_size=1000) as searcher:
+            searcher.load_index()
+            ldb = shelve.open(self.index_repo + '/ldata.bin')
+            for f,v in self.mapi_faces.iteritems():
+                resi = {} # results for this image
+                for fv in v:
+                    vec = self.face_vector(fv)
+                    nns = searcher.search_single(vec,f)
+                    m = 0
+                    #print 'nns scores=',nns['nns'][1]
+                    for nuri in nns['nns_uris']:
+                        if not nuri in resi:
+                            resi[nuri] = {'mapi_out':{'faceRectangles':[],'emotions':[],'genders':[],'ages':[]},
+                                          'mapi_in':{'faceRectangles':[],'emotions':[],'genders':[],'ages':[]},
+                                          'score':0.0}
+                        if not fv.get('faceRectangle',{}) in resi[nuri]['mapi_in']['faceRectangles']:
+                            resi[nuri]['mapi_in']['faceRectangles'].append(fv.get('faceRectangle',{}))
+                            resi[nuri]['mapi_in']['emotions'].append(fv.get('emotions',{}))
+                            resi[nuri]['mapi_in']['genders'].append(fv.get('gender',-1))
+                            resi[nuri]['mapi_in']['ages'].append(fv.get('age',-1))
+
+                        nn = nns['nns'][0][m]
+                        nndata = ldb[str(nn)]
+                        nndata0 = nndata[0]
+                        
+                        if not nndata0.get('faceRectangle',{}) in resi[nuri]['mapi_out']['faceRectangles']:
+                            resi[nuri]['mapi_out']['faceRectangles'].append(nndata0.get('faceRectangle',{}))
+                            resi[nuri]['mapi_out']['emotions'].append(nndata0.get('emotions',{}))
+                            resi[nuri]['mapi_out']['genders'].append(nndata0.get('gender',-1))
+                            resi[nuri]['mapi_out']['ages'].append(nndata0.get('age',-1))
+                            resi[nuri]['score'] += nns['nns'][1][m]
+
+                        m = m + 1
+
+                # add uri array
+                nnns_uris = []
+                nnns = [[],[]]
+                for r in resi:
+                    if r == 'nns_uris' or r == 'nns':
+                        continue
+                    nnns_uris.append(r)
+                    nnns[0].append('') # dummy array
+                    nnns[1].append(resi[r]['score'])
+                    del resi[r]['score']
+                resi['nns_uris'] = nnns_uris
+                resi['nns'] = nnns
+                results_faces[f] = resi
+                
+        ldb.close()
+        results_faces = self.to_json(results_faces,'/img/reuters/','/img/tate/',self.name,self.description,results_cats,self.meta_in,self.meta_out)
+        return results_faces
+        

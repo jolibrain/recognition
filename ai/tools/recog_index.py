@@ -44,6 +44,7 @@ parser.add_argument('--generators',help='list of comma-separated generators',nar
 parser.add_argument('--indexes-repo',help='repository of indexes for generators')
 parser.add_argument('--models-repo',help='repository hosting the models')
 parser.add_argument('--batch-size',help='prediction batch size',type=int,default=8)
+parser.add_argument('--nfiles',help='processes only the x first files',type=int,default=-1)
 args = parser.parse_args()
 
 def execute_generator(generator):
@@ -77,13 +78,13 @@ def execute_generator(generator):
         logger.error('Unknown generator type ' + generator_conf['type'])
     return
 
-image_files = list_files(args.input_imgs,ext='.jpg')
-json_files = list_files(args.input_imgs,ext='.json')
+image_files = list_files(args.input_imgs,ext='.jpg',nfiles=args.nfiles)
+json_files = list_files(args.input_imgs,ext='.json',nfiles=args.nfiles)
 json_mapi_files = json_mapi_emo_files = []
 if 'mapi' in args.generators:
     print 'reading mapi files from',args.input_imgs + '/mapi/'
-    json_mapi_files = list_files(args.input_imgs + '/mapi/',ext='.json')
-    json_mapi_emo_files = list_files(args.input_imgs + '/mapi_emo/',ext='.json')
+    json_mapi_files = list_files(args.input_imgs + '/mapi/',ext='.json',nfiles=args.nfiles)
+    json_mapi_emo_files = list_files(args.input_imgs + '/mapi_emo/',ext='.json',nfiles=args.nfiles)
 
 print 'json_mapi_files size=',len(json_mapi_files)
 print 'json_mapi_emo_files size=',len(json_mapi_emo_files)
