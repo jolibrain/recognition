@@ -22,8 +22,7 @@ import { Provider } from 'react-redux';
 import configureStore from './stores/configureStore';
 import * as actions from './actions';
 import App from './components/App';
-import Loading from './components/Loading';
-import Splash from './components/Splash';
+import Home from './components/Home';
 import Gallery from './components/Gallery';
 import Match from './components/Match';
 import Detail from './components/Detail';
@@ -42,7 +41,7 @@ fetch('/match.json').then((response) => { return response.json(); })
     <Provider store={store}>
       <Router history={history} render={applyRouterMiddleware(useScroll())}>
         <Route path="/" component={App}>
-          <IndexRoute component={Gallery} />
+          <IndexRoute component={Home} />
           <Route path="/gallery" component={Gallery} />
           <Route path="/gallery/:matchId" component={Match}/>
           <Route path="/details/:matchId" component={Detail}/>

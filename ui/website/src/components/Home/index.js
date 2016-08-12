@@ -15,21 +15,18 @@ limitations under the License.
 */
 import React from 'react';
 import Splash from '../Splash';
-import GalleryItem from '../GalleryItem';
+import Gallery from '../Gallery';
 
-class Gallery extends React.Component {
+class Home extends React.Component {
 
   render() {
 
-      return (<div className="container-fluid gallery" id="gallery">
-        {
-          this.props.matches.map((item, key) => {
-            return <GalleryItem key={key} item={item}/>
-          })
-        }
+      return (<div>
+        <Splash/>
+        <Gallery/>
       </div>);
 
   }
 }
 
-export default Gallery;
+export default Home;
