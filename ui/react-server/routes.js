@@ -4,32 +4,34 @@ module.exports = {
 		Intro: {
 			path: ['/'],
 			method: 'get',
-			page: './pages/intro',
+			page: './src/pages/intro',
+		}
+	},
+};
+/*
 		},
 		Splash: {
 			path: ['/splash'],
 			method: 'get',
-			page: './pages/splash',
+			page: './src/pages/splash',
 		},
 		Gallery: {
 			path: ['/gallery'],
 			method: 'get',
-			page: './pages/gallery',
+			page: './src/pages/gallery',
 		},
 		Match: {
 			path: ['/gallery/123'],
 			method: 'get',
-			page: './pages/match',
+			page: './src/pages/match',
 		},
 		Details: {
 			path: ['/details/123'],
 			method: 'get',
-			page: './pages/details',
+			page: './src/pages/details',
 		},
 		Info: {
 			path: ['/info'],
 			method: 'get',
-			page: './pages/info',
-		}
-	},
-};
+			page: './src/pages/info',
+      */

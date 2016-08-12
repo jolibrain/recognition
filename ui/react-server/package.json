@@ -1,11 +1,13 @@
 {
-  "name": "react-server-io",
+  "name": "react-server-recognition",
   "version": "0.0.1",
-  "description": "A react-server instance",
-  "main": "HelloWorld.js",
+  "description": "A react-server instance for recognition project",
+  "main": "index.js",
   "scripts": {
-    "start": "react-server start",
+    "clean": "rm -rf build __clientTemp",
+    "start": "npm run clean && npm run styles && react-server start --hot",
     "lint": "eslint routes.js test.js pages",
+    "styles": "node-sass src/styles/index.scss build/styles/index.css && node-sass src/styles/header.scss build/styles/header.css ",
     "test": "npm run lint && nsp check && ava test.js"
   },
   "license": "Apache-2.0",
@@ -23,6 +25,7 @@
     "babel-eslint": "^6.1.2",
     "eslint": "3.2.2",
     "eslint-plugin-react": "6.0.0",
+    "node-sass": "^3.8.0",
     "nsp": "^2.3.3"
   }
 }
