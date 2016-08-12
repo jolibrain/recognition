@@ -1,0 +1,10 @@
+html, body, #content, #content>div, #content>div>div, .container-table {
+  height: 100%;
+}
+.container-table {
+  display: table;
+}
+.vertical-center-row {
+  display: table-cell;
+  vertical-align: middle;
+}
