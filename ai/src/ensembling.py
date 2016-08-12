@@ -29,9 +29,17 @@ class EnsemblingScores:
     # json_out in UI format, simple additive ensembling
     def ensembling(self,json_out):
         for k,m in json_out.iteritems(): # iterate matches
+            comp_score = 0.0 # compositional score
+            comp_num = 0.0
             for o in m['output']: # iterate candidates for a given match
                 final_score = 0.0
                 for g,v in o['features']['out'].iteritems(): # iterate generators of a match
-                    final_score += v['score']
+                    if 'composition' in g:
+                        comp_score += v['score']
+                        comp_num += 1.0
+                    else:
+                        final_score += v['score']
                 o['features']['score'] = final_score
+        if comp_num > 0.0:
+            final_score += comp_score / comp_num
         return json_out
