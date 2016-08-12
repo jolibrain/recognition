@@ -29,10 +29,13 @@ class App extends React.Component {
   render() {
 
     const path = this.props.location.pathname;
+    const segment = path.split('/')[1] || 'root';
+
+    const transitionName = segment === 'root' ? 'pageSwap' : 'pageSliderDown';
 
     return <div className="appComponent" style={styles.body}>
       <Header path={path} displayIntro={this.state.displayIntro}/>
-      <ReactCSSTransitionGroup transitionName="pageSlider" transitionEnterTimeout={600} transitionLeaveTimeout={600}>
+      <ReactCSSTransitionGroup transitionName='' transitionEnterTimeout={600} transitionLeaveTimeout={600}>
         {
           React.cloneElement(this.props.children,{ key: path, displayIntro: this.state.displayIntro })
         }

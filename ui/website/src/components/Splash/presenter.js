@@ -89,7 +89,7 @@ class Splash extends React.Component {
               </div>
 
               <div className="row">
-                <div className="col-md-12">
+                <div className="col-md-12" style={{textAlign: "center"}}>
 
                   <img src={match.input.img} style={[styles.fullHeight.img]}/>
 
@@ -109,7 +109,7 @@ class Splash extends React.Component {
               <div className="row"  style={styles.fullHeight.row}>
                 <div className="col-md-10 col-md-offset-1" style={styles.fullHeight.col}>
 
-                  <img style={[styles.fullHeight.img]} src={selectedOutput.img} />
+                  <img style={[styles.fullHeight.img, {maxHeight: "75vh"}]} src={selectedOutput.img} />
 
                   <p style={styles.imgDescription}>
                     {selectedOutput.meta.date}<br/>
