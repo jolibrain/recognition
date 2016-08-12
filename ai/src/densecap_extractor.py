@@ -195,7 +195,7 @@ class DenseCapExtractor(FeatureGenerator):
                                 resi[nuri]['dcap_out']['boxes'].append(nndata['box'])
                                 resi[nuri]['dcap_out']['captions'].append(nndata['caption'])
                                 resi[nuri]['dcap_out']['scores'].append(nndata['score'])
-                                resi[nuri]['score'] += 0.1*nns['nns'][1][m]
+                                resi[nuri]['score'] += 0.3*nns['nns'][1][m]
                             m = m + 1
                             #if m >= 5:
                             #if len(resi[nuri]) >= 5:

@@ -23,6 +23,7 @@ under the License.
 
 class EnsemblingScores:
     def __init__(self):
+        self.factors = {'composition':1.0,'places':0.5} ##TODO
         return
 
     # json_out in UI format, simple additive ensembling
