@@ -15,7 +15,12 @@ limitations under the License.
 */
 @font-face {
     font-family: 'MaisonNeue';
-    src: url('/fonts/MaisonNeue-Mono.ttf');
+    src: url('/fonts/MaisonNeue-Mono.eot');
+    src: url('/fonts/MaisonNeue-Mono.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/MaisonNeue-Mono.woff') format('woff'),
+         url('/fonts/MaisonNeue-Mono.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
     font-weight: normal;
     font-style: normal;
 }
