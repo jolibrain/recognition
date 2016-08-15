@@ -30,21 +30,12 @@ class Splash extends React.Component {
 
   state = {
     outputIndex: 0,
-    introOverlay: true
+    introOverlay: false
   }
 
   render() {
 
     const OverlayStyle = {
-      position: 'absolute',
-      top: '0',
-      left: '0',
-      width: '100vw',
-      height: '100vh',
-      color: '#fff',
-      backgroundColor: 'rgba(255,0,0,0.8)',
-      textAlign: 'center',
-      zIndex: 10
     }
 
     const match = this.props.match;
@@ -64,6 +55,14 @@ class Splash extends React.Component {
         }
       };
 
+      if(this.state.introOverlay) {
+        document.body.classList.toggle('noscroll', true);
+        document.getElementById("app").classList.toggle('blurred', this.state.introOverlay);
+      } else {
+        document.body.classList.remove('noscroll');
+        document.getElementById("app").classList.remove('blurred');
+      }
+
       return (<div className="splashComponent">
 
         <ReactInterval timeout={1000} enabled={true}
@@ -75,7 +74,7 @@ class Splash extends React.Component {
           show={this.state.introOverlay}
           onHide={() => this.setState({ introOverlay: false })}
         >
-          <div style={{...OverlayStyle}}>
+          <div className="introOverlay" style={{...OverlayStyle}}>
             <nav style={[styles.navbar, styles.gradientBackground]} className="navbar navbar-default navbar-fixed-top">
               <div className="container-fluid">
 
@@ -91,7 +90,9 @@ class Splash extends React.Component {
 
               </div>
             </nav>
-            Overlay
+            <div className="content">
+              Overlay
+            </div>
           </div>
         </Overlay>
 

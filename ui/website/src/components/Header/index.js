@@ -16,6 +16,7 @@ limitations under the License.
 import React from 'react';
 import Radium from 'radium';
 import styles from './styles.js';
+import SubscribeModal from '../Modals/SubscribeModal';
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -43,7 +44,7 @@ class Header extends React.Component {
               <li className={this.props.path == '/gallery' ? 'menuSelected' : ''}><Link style={[styles.menuItem]} to='/gallery'>Gallery</Link></li>
               <li><Link style={[styles.menuItem]} to='/exhibition'>Exhibition</Link></li>
               <li className={this.props.path == '/info' ? 'menuSelected' : ''}><Link style={[styles.menuItem]} to='/info'>Info</Link></li>
-              <li><Link style={[styles.menuItem]} to='/subscribe'>Subscribe</Link></li>
+              <li><SubscribeModal/></li>
               <li><span style={[styles.menuItem, styles.searchIcon]} className='icon--i_search'/></li>
             </ul>
           </div>

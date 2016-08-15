@@ -35,7 +35,7 @@ class App extends React.Component {
 
     return <div className="appComponent" style={styles.body}>
       <Header path={path} displayIntro={this.state.displayIntro}/>
-      <ReactCSSTransitionGroup transitionName='' transitionEnterTimeout={600} transitionLeaveTimeout={600}>
+      <ReactCSSTransitionGroup transitionName='pageSlider' transitionEnterTimeout={600} transitionLeaveTimeout={600}>
         {
           React.cloneElement(this.props.children,{ key: path, displayIntro: this.state.displayIntro })
         }

@@ -28,6 +28,13 @@ html, body, #app {
   background-color: #0d1215;
 }
 
+.container-table {
+  display: table; }
+
+.vertical-center-row {
+  display: table-cell;
+  vertical-align: middle; }
+
 .vertical-center {
   height:100%;
   width:100%;
@@ -191,4 +198,33 @@ canvas {
 
 .menuSelected a {
   color: #00FFCC !important;
+}
+
+.introOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  color: #fff;
+  background-color: rgba(255,0,0,0.8);
+  text-align: center;
+  z-index: 10;
+  -webkit-filter: none;
+  filter: none;
+}
+
+.blurred {
+  -webkit-filter: blur(2px);
+  filter: blur(2px);
+}
+
+body.noscroll{
+  position:fixed;
+  overflow:hidden;
+}
+
+.introOverlay .content {
+  position: relative;
+  top: 50%;
 }
