@@ -17,12 +17,17 @@ import React from 'react';
 import Radium from 'radium';
 import styles from './styles.js';
 import SubscribeModal from '../Modals/SubscribeModal';
+import SearchInput from './searchInput';
 
 let {Link} = require('react-router');
 Link = Radium(Link);
 
 @Radium
 class Header extends React.Component {
+
+  state = {
+    displaySearch: false
+  }
 
   render() {
     return <div>
@@ -45,7 +50,10 @@ class Header extends React.Component {
               <li><Link style={[styles.menuItem]} to='/exhibition'>Exhibition</Link></li>
               <li className={this.props.path == '/info' ? 'menuSelected' : ''}><Link style={[styles.menuItem]} to='/info'>Info</Link></li>
               <li><SubscribeModal/></li>
-              <li><span style={[styles.menuItem, styles.searchIcon]} className='icon--i_search'/></li>
+              <li><span style={[styles.menuItem, styles.searchIcon]} className='icon--i_search' onClick={() => { this.setState({displaySearch: true})}}/></li>
+              { this.state.displaySearch ? <SearchInput/> ; ''}
+                <li><input type="text" placeholder="search"/></li>
+                : '' }
             </ul>
           </div>
 

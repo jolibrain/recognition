@@ -47,7 +47,8 @@ const styles = {
   searchIcon: {
     position: 'relative',
     top: '15px',
-    marginRight: '20px'
+    marginRight: '20px',
+    cursor: 'pointer'
   }
 }
 
