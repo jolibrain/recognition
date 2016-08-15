@@ -76,8 +76,21 @@ class SubscribeModal extends React.Component {
           }}
         >
           <div style={dialogStyle} >
-            <h4 id='modal-label'>Text in a modal</h4>
-            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+            <h4 id='modal-label'>Subscribe</h4>
+            <p>Keep up to date with RECOGNITION</p>
+
+            <form class="form__newsletter-signup" action="http://links.mkt41.net/servlet/UserSignUp?f=717648&amp;postMethod=HTML&amp;m=0&amp;j=MAS2" method="post">
+              <input type="hidden" value="T" name="EMAIL_REQUIRED">
+              <input type="hidden" value="email" name="EMAIL_DATATYPE">
+              <input type="hidden" value="Yes" name="EB_EXHIBITIONS">
+              <input type="hidden" value="Tate home page E-Bulletin sign-up" name="Source">
+              <fieldset>
+                <label for="email">Email address</label>
+                <input type="email" name="email" id="email" placeholder="Email address">
+                <button type="submit">Ok</button>
+              </fieldset>
+            </form>
+
           </div>
         </Modal>
       </Link>
