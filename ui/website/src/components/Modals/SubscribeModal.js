@@ -80,13 +80,13 @@ class SubscribeModal extends React.Component {
             <p>Keep up to date with RECOGNITION</p>
 
             <form class="form__newsletter-signup" action="http://links.mkt41.net/servlet/UserSignUp?f=717648&amp;postMethod=HTML&amp;m=0&amp;j=MAS2" method="post">
-              <input type="hidden" value="T" name="EMAIL_REQUIRED">
-              <input type="hidden" value="email" name="EMAIL_DATATYPE">
-              <input type="hidden" value="Yes" name="EB_EXHIBITIONS">
-              <input type="hidden" value="Tate home page E-Bulletin sign-up" name="Source">
+              <input type="hidden" value="T" name="EMAIL_REQUIRED"/>
+              <input type="hidden" value="email" name="EMAIL_DATATYPE"/>
+              <input type="hidden" value="Yes" name="EB_EXHIBITIONS"/>
+              <input type="hidden" value="Tate home page E-Bulletin sign-up" name="Source"/>
               <fieldset>
                 <label for="email">Email address</label>
-                <input type="email" name="email" id="email" placeholder="Email address">
+                <input type="email" name="email" id="email" placeholder="Email address"/>
                 <button type="submit">Ok</button>
               </fieldset>
             </form>
