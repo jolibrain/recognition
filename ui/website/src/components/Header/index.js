@@ -52,8 +52,6 @@ class Header extends React.Component {
               <li><SubscribeModal/></li>
               <li><span style={[styles.menuItem, styles.searchIcon]} className='icon--i_search' onClick={() => { this.setState({displaySearch: true})}}/></li>
               { this.state.displaySearch ? <SearchInput/> ; ''}
-                <li><input type="text" placeholder="search"/></li>
-                : '' }
             </ul>
           </div>
 
