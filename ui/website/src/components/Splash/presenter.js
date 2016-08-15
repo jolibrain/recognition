@@ -21,6 +21,7 @@ import ShareModal from '../ShareModal';
 import ReactInterval from 'react-interval';
 import Scrollchor from 'react-scrollchor';
 import {Overlay} from 'react-overlays';
+import {Preload} from 'react-preload';
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -30,7 +31,8 @@ class Splash extends React.Component {
 
   state = {
     outputIndex: 0,
-    introOverlay: false
+    introOverlay: false,
+    hasInterval: false
   }
 
   render() {
@@ -39,6 +41,8 @@ class Splash extends React.Component {
     }
 
     const match = this.props.match;
+
+    const imagesToLoad = match.output.map(item => item.img);
 
     if(match) {
 
@@ -65,10 +69,19 @@ class Splash extends React.Component {
 
       return (<div className="splashComponent">
 
-        <ReactInterval timeout={1000} enabled={true}
+        <ReactInterval timeout={1000} enabled={this.state.hasInterval}
           callback={() => this.setState({
             outputIndex: this.state.outputIndex >= (this.props.match.output.length - 1) ? 0 : this.state.outputIndex + 1
           })} />
+
+        <Preload
+          children={<div></div>}
+          loadingIndicator={<div></div>}
+          images={imagesToLoad}
+          onSuccess={() => this.setState({hasInterval: true})}
+          resolveOnError={false}
+          mountChildren={false}
+        />
 
         <Overlay
           show={this.state.introOverlay}
