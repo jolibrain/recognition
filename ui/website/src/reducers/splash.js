@@ -15,31 +15,18 @@ limitations under the License.
 */
 import * as actionTypes from '../constants/actionTypes';
 
-export function loadSplashJson(json) {
-  return {
-    type: actionTypes.SPLASH_LOAD_JSON,
-    json
-  };
-};
+const initialState = [];
 
-export function loadMatchJson(json) {
-  return {
-    type: actionTypes.MATCH_LOAD_JSON,
-    json
-  };
-};
+export default function(state = initialState, action) {
+  switch (action.type) {
+    case actionTypes.SPLASH_LOAD_JSON:
+      return loadSplashJson(state, action);
+  }
+  return state;
+}
 
-export function addMatch(match) {
-  return {
-    type: actionTypes.MATCH_ADD,
-    match
-  };
-};
+function loadSplashJson(state, action) {
+  const { json } = action;
 
-export function selectMatchItem(match, item) {
-  return {
-    type: actionTypes.MATCH_SELECT_ITEM,
-    match,
-    item
-  };
-};
+  return [ ...state, ...json ];
+}

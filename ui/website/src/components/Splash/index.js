@@ -21,7 +21,7 @@ import Splash from './presenter';
 
 const mapStateToProps = (state, ownProps = {}) => {
   return {
-    match: state.matches[0]
+    match: state.splash[0]
   }
 }
 

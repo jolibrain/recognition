@@ -14,10 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import { combineReducers } from 'redux';
+import splash from './splash';
 import matches from './match';
 import { routerReducer } from 'react-router-redux';
 
 export default combineReducers({
+  splash,
   matches,
   routing: routerReducer
 });
