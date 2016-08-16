@@ -66,10 +66,8 @@ class DenseCapExtractor(FeatureGenerator):
     def box_hash(self,box):
         m = hashlib.md5()
         for c in box:
-            print 'c=',c
             m.update(str(c))
         ha = m.hexdigest()
-        print 'ha=',ha
         return ha
 
     def preproc(self):
