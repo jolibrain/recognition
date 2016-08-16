@@ -26,70 +26,75 @@ class DetailFeatures extends React.Component {
 
     const item = this.props.item;
     const features = this.props.features;
+    const scores = this.props.scores;
 
     if(item.meta.html_content) {
       item.meta.html_content = '...';
     }
 
-    return(<div style={[styles.detailColumn]}>
+    return(<div className="detailFeatures" style={[styles.detailColumn]}>
       <div className="table-responsive" style={[styles.tableOverflow]}>
         <table className="table borderless">
           <tbody>
-          {
-            Object.keys(item.meta).map(key => {
-              return (<tr key={key}>
-                <td>{key}:</td>
-                <td>{item.meta[key]}</td>
-              </tr>);
-            })
-          }
+            <tr>
+              <td>DATE:</td>
+              <td>{item.meta['date']}</td>
+            </tr>
+            <tr>
+              <td>TITLE:</td>
+              <td>{item.meta['title']}</td>
+            </tr>
+            <tr>
+              <td>AUTHOR:</td>
+              <td>{item.meta['author']}</td>
+            </tr>
+            <tr>
+              <td>SOURCE:</td>
+              <td>{this.props.source}</td>
+            </tr>
           </tbody>
         </table>
       </div>
 
-      <hr/>
+      <h3><img src="/img/icons/score_objects.png"/> OBJECTS {(scores.objects * 100).toFixed(2)}%</h3>
+      <div className="table-responsive" style={[styles.tableOverflow]}>
+        <table className="table borderless">
+          <tbody>
+            {
+              features.densecap.captions.map((caption, index) => {
+                return (<tr>
+                  <td>{index + 1}</td>
+                  <td>{caption}</td>
+                </tr>);
+              })
+            }
+          </tbody>
+        </table>
+      </div>
 
-      {
-        Object.keys(features).map(feature_key => {
-          const feature = features[feature_key];
-          if(feature.captions) {
-            return (<div key={feature_key}>
-              <h5 style={[styles.underline]}>{feature_key}</h5>
-              <div className="table-responsive">
-                <table className="table borderless">
-                  <tbody>
-                  {
-                    feature.captions.map((caption, index) => {
-                      return (<tr key={index}>
-                        <td>{caption}</td>
-                        <td>{feature.scores[index]}</td>
-                      </tr>);
-                    })
-                  }
-                  </tbody>
-                </table>
-              </div>
-            </div>);
-          } else if(feature.tags) {
-            return (<div key={feature_key}>
-              <h5 style={[styles.underline]}>{feature_key}</h5>
-              <p>{feature.tags.join(', ')}</p>
-            </div>);
-          } else {
-            return (<div key={feature_key}>
-              <h5 style={[styles.underline]}>{feature_key}</h5>
-              <p>{feature.description}: {feature.score}</p>
-            </div>);
-          }
-        })
-      }
+      <h3><img src="/img/icons/score_faces.png"/> FACES {(scores.faces * 100).toFixed(2)}%</h3>
+      <div className="table-responsive" style={[styles.tableOverflow]}>
+        <table className="table borderless">
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+
+      <h3><img src="/img/icons/score_composition.png"/> COMPOSITION {(scores.composition * 100).toFixed(2)}%</h3>
+      <div className="table-responsive" style={[styles.tableOverflow]}>
+        <table className="table borderless">
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+
+      <h3><img src="/img/icons/score_context.png"/> CONTEXT {(scores.context * 100).toFixed(2)}%</h3>
+      { item.meta.tags ? (<div><h4>TAGS</h4><p>{item.meta.tags.join(', ')}</p></div>) : ''}
+
+      { features.places ? (<p>PLACES: {features.places.tags.join(', ')}</p>) : ''}
+
     </div>);
   }
 }
 
 export default DetailFeatures;
-
-/*
-<JSONPretty id="json-pretty" json={item.meta} style={styles.json}></JSONPretty>
-<JSONPretty id="json-pretty" json={features} style={styles.json}></JSONPretty>
-*/
