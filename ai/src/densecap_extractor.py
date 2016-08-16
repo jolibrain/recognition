@@ -28,6 +28,7 @@ import tempfile
 import h5py
 import numpy as np
 import shelve
+import hashlib
 
 from feature_generator import FeatureGenerator
 from index_search import Indexer, Searcher
@@ -61,6 +62,15 @@ class DenseCapExtractor(FeatureGenerator):
 
     def __del__(self):
         shutil.rmtree(self.dcap_tmp)
+
+    def box_hash(self,box):
+        m = hashlib.md5()
+        for c in box:
+            print 'c=',c
+            m.update(str(c))
+        ha = m.hexdigest()
+        print 'ha=',ha
+        return ha
 
     def preproc(self):
         # get bounding boxes, captions and scores out of densecap
@@ -178,15 +188,15 @@ class DenseCapExtractor(FeatureGenerator):
                         for nuri in nns['nns_uris']:
                             nuri = self.images_repo + '/' + nuri # add file path
                             if not nuri in resi:
-                                resi[nuri] = {'dcap_out':{'boxes':[],'captions':[],'scores':[]},
-                                              'dcap_in':{'boxes':[],'captions':[],'scores':[]},
+                                resi[nuri] = {'dcap_out':{'boxes':[],'captions':[],'scores':[],'boxids':[]},
+                                              'dcap_in':{'boxes':[],'captions':[],'scores':[],'boxids':[]},
                                               'score':0.0}
-                            #if len(resi[nuri]['dcap_out']['boxes']) >= 7:
-                            #    continue # skip if two many boxes are matching -> better visualization, simpler matchings
+                            in_box_hash = self.box_hash(lbdata['box']) 
                             if not lbdata['box'] in resi[nuri]['dcap_in']['boxes']:    
                                 resi[nuri]['dcap_in']['boxes'].append(lbdata['box'])
                                 resi[nuri]['dcap_in']['captions'].append(lbdata['caption'])
                                 resi[nuri]['dcap_in']['scores'].append(lbdata['score'])
+                                resi[nuri]['dcap_in']['boxids'].append(in_box_hash)
                             
                             nn = nns['nns'][0][m]
                             nndata = ldb[str(nn)]
@@ -195,6 +205,7 @@ class DenseCapExtractor(FeatureGenerator):
                                 resi[nuri]['dcap_out']['boxes'].append(nndata['box'])
                                 resi[nuri]['dcap_out']['captions'].append(nndata['caption'])
                                 resi[nuri]['dcap_out']['scores'].append(nndata['score'])
+                                resi[nuri]['dcap_out']['boxids'].append(in_box_hash)
                                 resi[nuri]['score'] += 0.2*(1.0/float(len(resi[nuri])))*nns['nns'][1][m] # 0.1 factor allows for mixed selection (e.g. non densecap) later in the process
                             m = m + 1
                             #if m >= 5:
