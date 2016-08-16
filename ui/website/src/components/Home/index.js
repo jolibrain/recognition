@@ -21,8 +21,6 @@ class Home extends React.Component {
 
   render() {
 
-    console.log("Home");
-
     return (<div>
       <Splash/>
       <Gallery/>
