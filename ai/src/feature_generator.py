@@ -111,11 +111,13 @@ class FeatureGenerator:
                             mdataout['features']['in'][feature_name]['scores'] = nn[nuri]['dcap_in']['scores']
                             mdataout['features']['in'][feature_name]['boxes'] = nn[nuri]['dcap_in']['boxes']
                             mdataout['features']['in'][feature_name]['captions'] = nn[nuri]['dcap_in']['captions']
+                            mdataout['features']['in'][feature_name]['boxids'] = nn[nuri]['dcap_in']['boxids']
                     if 'dcap_out' in nn[nuri]:
                         if feature_name in mdataout['features']['out']:
                             mdataout['features']['out'][feature_name]['scores'] = nn[nuri]['dcap_out']['scores']
                             mdataout['features']['out'][feature_name]['boxes'] = nn[nuri]['dcap_out']['boxes']
                             mdataout['features']['out'][feature_name]['captions'] = nn[nuri]['dcap_out']['captions']
+                            mdataout['features']['out'][feature_name]['boxids'] = nn[nuri]['dcap_out']['boxids']
 
                     if 'mapi_in' in nn[nuri]:
                         if feature_name in mdataout['features']['in']:

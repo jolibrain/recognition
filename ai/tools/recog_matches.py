@@ -45,6 +45,7 @@ parser.add_argument('--json-output',help='JSON output file',default='match.json'
 parser.add_argument('--batch-size',help='prediction batch size',type=int,default=8)
 parser.add_argument('--nfiles',help='processes only the x first files',type=int,default=-1)
 parser.add_argument('--nmatches',help='max final number of matches per reference image',type=int,default=20)
+parser.add_argument('--no-tga',help='filter out images from TGA archive',action='store_true')
 args = parser.parse_args()
 
 image_files = list_files(args.input_imgs,ext='.jpg',nfiles=args.nfiles)
@@ -86,13 +87,15 @@ def execute_generator(generator,jdataout={},meta_in='',meta_out=''):
     return
 
 # to final format, i.e. an array instead of a dict
-def format_to_array(dict_out):
+def format_to_array(dict_out,no_tga=False):
     json_out = []
     for k,v in dict_out.iteritems():
         c = 0
         vout = sorted(v['output'], key=lambda x: x['features']['score'],reverse=True)
         out = []
         for m in vout:
+            if no_tga and 'TGA' in m['img']:
+                continue
             if c < args.nmatches:
                 out.append(m)
             c = c + 1
@@ -120,6 +123,6 @@ for gen in generators:
     #print 'json_out output=',json_out
 es = EnsemblingScores()
 json_out = es.ensembling(json_out)
-json_out = format_to_array(json_out)
+json_out = format_to_array(json_out,no_tga=args.no_tga)
 with open(args.json_output,'w') as fout:
     json.dump(json_out,fout)

@@ -112,7 +112,7 @@ class MAPIGenerator(FeatureGenerator):
                 if json_data.get('color',None):
                     self.mapi_dominant_colors[img_name] = []
                     for c in json_data['color']['dominantColors']:
-                        self.mapi_dominant_colors[img_name].append({'cat':c,'prob':1.0})
+                        self.mapi_dominant_colors[img_name].append({'cat':c,'prob':0.1})
                 if json_data.get('description',None):
                     self.mapi_tags[img_name] = []
                     for t in json_data['description']['tags'][:5]:
@@ -243,7 +243,7 @@ class MAPIGenerator(FeatureGenerator):
                             resi[nuri]['mapi_out']['emotions'].append(nndata0.get('emotions',{}))
                             resi[nuri]['mapi_out']['genders'].append(nndata0.get('gender',-1))
                             resi[nuri]['mapi_out']['ages'].append(nndata0.get('age',-1))
-                            resi[nuri]['score'] += nns['nns'][1][m]
+                            resi[nuri]['score'] += 10.0*nns['nns'][1][m] + 0.5
 
                         m = m + 1
 
