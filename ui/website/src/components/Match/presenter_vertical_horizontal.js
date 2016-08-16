@@ -17,6 +17,7 @@ import React from 'react';
 import Radium from 'radium';
 import styles from './styles.js';
 import { browserHistory } from 'react-router'
+import BoundedImage from '../BoundedImage'
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -64,18 +65,19 @@ class Match extends React.Component {
 
           <div className="col-md-5">
 
-            <img className="img-responsive" src={input.img} />
+            <BoundedImage item={input} features={output.features.in}/>
             <p style={styles.imgDescription}>{input.meta.origin}</p>
 
           </div>
 
           <div className="col-md-5">
 
-            <img className="img-responsive" src={output.img} />
+            <BoundedImage item={output} features={output.features.out}/>
             <p style={styles.imgDescription}>{output.meta.origin}</p>
 
-            <Link to={`/details/${this.props.itemId}`}>View recognition process</Link>
+            <Link style={styles.processLink} to={`/details/${this.props.itemId}`}>View recognition process <span className="icon--i_arrow-right"/></Link>
 
+            <h3>AI Description</h3>
             <p>{output.features.out.description}</p>
 
             <Link to={`/details/${this.props.itemId}`}>Share</Link>

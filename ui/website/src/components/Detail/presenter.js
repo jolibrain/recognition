@@ -34,6 +34,8 @@ class Detail extends React.Component {
     const item = this.props.item;
     const selectedOutput = item.output.filter(item => item.selected)[0];
 
+    console.log(selectedOutput);
+
     const rx = /reuters\/(.*)\.jpg/g;
     const arr = rx.exec(item.input.img);
     const itemId = arr[1];
@@ -53,11 +55,11 @@ class Detail extends React.Component {
 
         <div className="col-md-6">
           <Link style={[styles.link]} to={`/gallery/${itemId}`}><span className='icon--i_arrow-left'/> Back to article</Link>
-          <DetailFeatures item={item.input} features={selectedOutput.features.in}/>
+          <DetailFeatures item={item.input} source={'reuters'} features={selectedOutput.features.in} scores={selectedOutput.features.summary.scores}/>
         </div>
 
         <div className="col-md-6" style={[styles.rightDetails]}>
-          <DetailFeatures item={selectedOutput} features={selectedOutput.features.out}/>
+          <DetailFeatures item={selectedOutput} source={'tate'} features={selectedOutput.features.out} scores={selectedOutput.features.summary.scores}/>
         </div>
 
       </div>
