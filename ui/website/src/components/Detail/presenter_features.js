@@ -62,8 +62,27 @@ class DetailFeatures extends React.Component {
           <tbody>
             {
               features.densecap.captions.map((caption, index) => {
-                return (<tr>
+
+                const rowStyle = [
+                  styles.rowHover,
+                  features.densecap.boxids[index] == this.props.overHash ? styles.rowHovered: ''
+                ]
+
+                return (<tr key={'densecap-' + index}
+                            style={rowStyle}
+                            onMouseEnter={
+                              this.props.onOver.bind(null,
+                                this.props.parent,
+                                features.densecap.boxids[index])
+                            }
+                            onMouseLeave={
+                              this.props.onOver.bind(null,
+                                this.props.parent,
+                                '')
+                            }
+                        >
                   <td>{index + 1}</td>
+                  <td>{features.densecap.boxids[index]}</td>
                   <td>{caption}</td>
                 </tr>);
               })

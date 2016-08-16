@@ -23,20 +23,27 @@ import styles from './styles.js';
 class CanvasImage extends React.Component {
 
   state = {
+    boxids: [],
+    hoverHash: '',
     hoverIndex: -1
   };
 
   renderBox(index, box) {
+
     let canvas = ReactDOM.findDOMNode(this.refs.canvasImage);
     let ctx = canvas.getContext('2d');
 
     const item = this.props.item;
     let [x, y, width, height] = box;
 
+
     // choose box color, depending on hover status
     let colorStyle = 'rgba(225,255,255,1)';
-    if(this.state.hoverIndex == index)
+    if(this.state.hoverIndex == index ||
+      this.state.boxids[index - 1] == this.props.overHash
+      ) {
       colorStyle = 'rgba(0,225,204,1)';
+    }
 
     let lineWidth = 1;
     if(canvas.width > 600)
@@ -77,6 +84,10 @@ class CanvasImage extends React.Component {
     ctx.lineTo(x + width, y + height);
     ctx.lineTo(x + 9 * width / 10, y + height);
     ctx.stroke();
+
+    ctx.font = "30px Arial";
+    ctx.fillStyle = 'rgba(225,0,0,1)';
+    ctx.fillText(this.state.boxids[index - 1].slice(0, 3),x,y+height);
   }
 
   renderBoxes() {
@@ -127,7 +138,7 @@ class CanvasImage extends React.Component {
 
       canvas.onmousemove = ((e) => {
 
-        this.setState({hoverIndex: -1});
+        this.setState({hoverIndex: -1, hoverHash: ''});
 
         // Get the current mouse position
         const r = canvas.getBoundingClientRect();
@@ -144,11 +155,19 @@ class CanvasImage extends React.Component {
           if(x >= bx && x <= bx + bw &&
              y >= by && y <= by + bh) {
               // The mouse honestly hits the rect
-              this.setState({hoverIndex: i + 1});
+              this.setState({hoverIndex: i + 1, hoverHash: this.state.boxids[i]});
+              this.props.onOver.bind(null,
+                this.props.parent,
+                this.state.hoverHash)
               break;
           }
         }
         // Draw the rectangles by Z (ASC)
+        this.renderBoxes();
+      });
+
+      canvas.onmouseout = ((e) => {
+        this.setState({hoverIndex: -1, hoverHash: ''});
         this.renderBoxes();
       });
 
@@ -162,7 +181,12 @@ class CanvasImage extends React.Component {
     this.createCanvas();
   }
 
+  shouldComponentUpdate() {
+    return true;
+  }
+
   componentDidMount() {
+    this.setState({boxids: this.props.features.densecap.boxids});
     this.createCanvas();
   }
 
@@ -172,6 +196,12 @@ class CanvasImage extends React.Component {
   render() {
     return (<div>
       <canvas ref="canvasImage"/>
+      <p>Hover index {this.state.hoverIndex} - hash {this.props.overHash}</p>
+      <ul>
+        {this.state.boxids.map((ids, index) => {
+          return <li key={ids + '-' + index}>{ids}</li>;
+        })}
+      </ul>
     </div>);
   }
 
