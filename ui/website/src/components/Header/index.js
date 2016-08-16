@@ -51,7 +51,7 @@ class Header extends React.Component {
               <li className={this.props.path == '/info' ? 'menuSelected' : ''}><Link style={[styles.menuItem]} to='/info'>Info</Link></li>
               <li><SubscribeModal/></li>
               <li><span style={[styles.menuItem, styles.searchIcon]} className='icon--i_search' onClick={() => { this.setState({displaySearch: true})}}/></li>
-              { this.state.displaySearch ? <SearchInput/> ; ''}
+              { this.state.displaySearch ? <SearchInput/> : ''}
             </ul>
           </div>
 
