@@ -45,6 +45,7 @@ parser.add_argument('--json-output',help='JSON output file',default='match.json'
 parser.add_argument('--batch-size',help='prediction batch size',type=int,default=8)
 parser.add_argument('--nfiles',help='processes only the x first files',type=int,default=-1)
 parser.add_argument('--nmatches',help='max final number of matches per reference image',type=int,default=20)
+parser.add_argument('--sort-best',help='final ordering is best top match first',action='store_true')
 parser.add_argument('--no-tga',help='filter out images from TGA archive',action='store_true')
 args = parser.parse_args()
 
@@ -101,6 +102,8 @@ def format_to_array(dict_out,no_tga=False):
             c = c + 1
         v['output'] = out
         json_out.append(v)
+    if args.sort_best:
+        json_out = sorted(json_out, key=lambda x: x['output'][0]['features']['score'],reverse=True)
     return json_out
 
 json_out = ''
