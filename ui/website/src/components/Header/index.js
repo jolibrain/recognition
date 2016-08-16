@@ -30,6 +30,13 @@ class Header extends React.Component {
   }
 
   render() {
+
+    const searchStyles = [
+      styles.menuItem,
+      styles.searchIcon,
+      this.state.displaySearch ? styles.searchIconActivated : ''
+    ]
+
     return <div>
       <nav style={[styles.navbar, styles.gradientBackground]} className="navbar navbar-default navbar-fixed-top">
         <div className="container-fluid">
@@ -50,7 +57,9 @@ class Header extends React.Component {
               <li><Link style={[styles.menuItem]} to='/exhibition'>Exhibition</Link></li>
               <li className={this.props.path == '/info' ? 'menuSelected' : ''}><Link style={[styles.menuItem]} to='/info'>Info</Link></li>
               <li><SubscribeModal/></li>
-              <li><span style={[styles.menuItem, styles.searchIcon]} className='icon--i_search' onClick={() => { this.setState({displaySearch: true})}}/></li>
+              <li><span style={searchStyles} className='icon--i_search' onClick={() => {
+                this.setState({displaySearch: !this.state.displaySearch})
+              }}/></li>
               { this.state.displaySearch ? <SearchInput/> : ''}
             </ul>
           </div>

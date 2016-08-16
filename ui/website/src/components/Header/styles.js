@@ -49,6 +49,18 @@ const styles = {
     top: '15px',
     marginRight: '20px',
     cursor: 'pointer'
+  },
+  searchIconActivated: {
+    color: '#0FC'
+  },
+  searchInput: {
+    background: '#000',
+    borderStyle: 'dotted',
+    borderTop: '0',
+    borderLeft: '0',
+    borderRight: '0',
+    margin: '13px 20px 0 0',
+    ':focus': {outline:'none'}
   }
 }
 

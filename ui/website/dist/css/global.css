@@ -228,3 +228,16 @@ body.noscroll{
   position: relative;
   top: 50%;
 }
+
+.react-autosuggest__input {
+  background: #000;
+  border-style: dotted;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  margin: 13px 20px 0 0;
+}
+
+.react-autosuggest__input:focus {
+  outline: none;
+}

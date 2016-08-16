@@ -14,19 +14,22 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import React from 'react';
-import Radium from 'radium';
-import styles from './styles.js';
 import Autosuggest from 'react-autosuggest';
+import theme from './searchInput.css';
 
-let {Link} = require('react-router');
-Link = Radium(Link);
+const matches = [
+  {
+    reuters: {date: '01/08/2016', description: 'Traffic on Golden Gate Bridge'},
+    tate: {date: '01/08/2016', description: 'Traffic on Golden Gate Bridge'}
+  }
+]
 
 function getSuggestions(value) {
   const inputValue = value.trim().toLowerCase();
   const inputLength = inputValue.length;
 
-  return inputLength === 0 ? [] : languages.filter(lang =>
-    lang.name.toLowerCase().slice(0, inputLength) === inputValue
+  return inputLength === 0 ? [] : matches.filter(match =>
+    match.reuters.description.toLowerCase().slice(0, inputLength) === inputValue
   );
 }
 
@@ -40,7 +43,6 @@ function renderSuggestion(suggestion) {
   );
 }
 
-@Radium
 class SearchInput extends React.Component {
 
   constructor() {
@@ -68,12 +70,22 @@ class SearchInput extends React.Component {
   }
 
   render() {
+
+    const { value, suggestions } = this.state;
+    const inputProps = {
+      placeholder: '',
+      value,
+      onChange: this.onChange,
+      autoFocus: true
+    };
+
     return <li>
       <Autosuggest suggestions={suggestions}
                    onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested}
                    getSuggestionValue={getSuggestionValue}
                    renderSuggestion={renderSuggestion}
-                   inputProps={inputProps} />
+                   inputProps={inputProps}
+      />
     </li>
   }
 
