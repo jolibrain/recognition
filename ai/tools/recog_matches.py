@@ -46,6 +46,7 @@ parser.add_argument('--batch-size',help='prediction batch size',type=int,default
 parser.add_argument('--nfiles',help='processes only the x first files',type=int,default=-1)
 parser.add_argument('--nmatches',help='max final number of matches per reference image',type=int,default=20)
 parser.add_argument('--sort-best',help='final ordering is best top match first',action='store_true')
+parser.add_argument('--website',help='generates splash.json in addition to a version of matches without candidates',action='store_true')
 parser.add_argument('--no-tga',help='filter out images from TGA archive',action='store_true')
 args = parser.parse_args()
 
@@ -90,21 +91,38 @@ def execute_generator(generator,jdataout={},meta_in='',meta_out=''):
 # to final format, i.e. an array instead of a dict
 def format_to_array(dict_out,no_tga=False):
     json_out = []
+    splash_out = {}
+    nmatches = args.nmatches
+    if args.website:
+        nmatches = 1
+    j = 0
     for k,v in dict_out.iteritems():
         c = 0
         vout = sorted(v['output'], key=lambda x: x['features']['score'],reverse=True)
         out = []
+        out_splash = []
         for m in vout:
             if no_tga and 'TGA' in m['img']:
                 continue
-            if c < args.nmatches:
+            if c < nmatches:
                 out.append(m)
+                if j > 0:
+                    break
+            if j == 0 and args.website and c < args.nmatches:
+                out_splash.append(m)
             c = c + 1
         v['output'] = out
         json_out.append(v)
+        if j == 0 and args.website:
+            v_splash = v
+            v_splash['output'] = out_splash
+            splash_out[k] = v_splash
+        j = j + 1
     if args.sort_best:
         json_out = sorted(json_out, key=lambda x: x['output'][0]['features']['score'],reverse=True)
-    return json_out
+    if args.website:
+        splash_out = [splash_out]
+    return json_out,splash_out
 
 json_out = ''
 
@@ -126,6 +144,9 @@ for gen in generators:
     #print 'json_out output=',json_out
 es = EnsemblingScores()
 json_out = es.ensembling(json_out)
-json_out = format_to_array(json_out,no_tga=args.no_tga)
+json_out,splash_out = format_to_array(json_out,no_tga=args.no_tga)
 with open(args.json_output,'w') as fout:
     json.dump(json_out,fout)
+if splash_out:
+    with open('splash.json','w') as fout:
+        json.dump(splash_out,fout)
