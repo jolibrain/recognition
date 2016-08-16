@@ -47,17 +47,7 @@ class Splash extends React.Component {
     if(match) {
 
       //const selectedOutput = match.output[this.state.outputIndex];
-      let selectedOutput = match.output[this.state.outputIndex];
-
-      selectedOutput.summary = {
-        processing_time: Math.random() * 100000,
-        scores: {
-          objects: Math.random(),
-          faces: Math.random(),
-          composition: Math.random(),
-          context: Math.random()
-        }
-      };
+      const selectedOutput = match.output[this.state.outputIndex];
 
       if(this.state.introOverlay) {
         document.body.classList.toggle('noscroll', true);
@@ -119,23 +109,23 @@ class Splash extends React.Component {
                     <tbody>
                       <tr style={styles.table.header}>
                         <td  style={[styles.table.leftColumn, styles.table.headerCell]}>Searching for match</td>
-                        <td style={styles.table.headerCell}>{moment.unix(selectedOutput.summary.processing_time).format("HH:mm:ss")}</td>
+                        <td style={styles.table.headerCell}>{moment.unix(selectedOutput.features.summary.processing_time).format("HH:mm:ss")}</td>
                       </tr>
                       <tr style={styles.table.row}>
                         <td style={[styles.table.leftColumn, styles.table.firstRowCell]}><img src="/img/icons/score_objects.png"/> Objects:</td>
-                        <td style={styles.table.firstRowCell}>{(selectedOutput.summary.scores.objects * 100).toFixed(2)}%</td>
+                        <td style={styles.table.firstRowCell}>{(selectedOutput.features.summary.scores.objects * 100).toFixed(2)}%</td>
                       </tr>
                       <tr style={styles.table.row}>
                         <td style={[styles.table.leftColumn, styles.table.cell]}><img src="/img/icons/score_faces.png"/> Faces:</td>
-                        <td style={styles.table.cell}>{(selectedOutput.summary.scores.faces * 100).toFixed(2)}%</td>
+                        <td style={styles.table.cell}>{(selectedOutput.features.summary.scores.faces * 100).toFixed(2)}%</td>
                       </tr>
                       <tr style={styles.table.row}>
                         <td style={[styles.table.leftColumn, styles.table.cell]}><img src="/img/icons/score_composition.png"/> Composition:</td>
-                        <td style={styles.table.cell}>{(selectedOutput.summary.scores.composition * 100).toFixed(2)}%</td>
+                        <td style={styles.table.cell}>{(selectedOutput.features.summary.scores.composition * 100).toFixed(2)}%</td>
                       </tr>
                       <tr style={styles.table.row}>
                         <td style={[styles.table.leftColumn, styles.table.cell]}><img src="/img/icons/score_context.png"/> Context:</td>
-                        <td style={styles.table.cell}>{(selectedOutput.summary.scores.context * 100).toFixed(2)}%</td>
+                        <td style={styles.table.cell}>{(selectedOutput.features.summary.scores.context * 100).toFixed(2)}%</td>
                       </tr>
                     </tbody>
                   </table>

@@ -241,3 +241,16 @@ body.noscroll{
 .react-autosuggest__input:focus {
   outline: none;
 }
+
+.detailFeatures {
+  width: 30%;
+}
+
+.detailFeatures .table>tbody>tr>td, .detailFeatures .table>tbody>tr>th, .detailFeatures .table>tfoot>tr>td, .detailFeatures .table>tfoot>tr>th, .detailFeatures .table>thead>tr>td, .detailFeatures .table>thead>tr>th {
+  padding:0 4px;
+}
+
+.detailFeatures h3 {
+  font-size:12px;
+  border-bottom: 1px dotted #fff;
+}

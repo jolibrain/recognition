@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+export const SPLASH_LOAD_JSON = 'SPLASH_LOAD_JSON';
 export const MATCH_LOAD_JSON = 'MATCH_LOAD_JSON';
 export const MATCH_ADD = 'MATCH_ADD';
 export const MATCH_SELECT_ITEM = 'MATCH_SELECT_ITEM';

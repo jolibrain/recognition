@@ -20,6 +20,7 @@ import Gallery from '../Gallery';
 class Home extends React.Component {
 
   render() {
+
     return (<div>
       <Splash/>
       <Gallery/>

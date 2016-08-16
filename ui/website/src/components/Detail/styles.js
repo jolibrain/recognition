@@ -21,7 +21,6 @@ const styles = {
     border: 'none !important'
   },
   detailColumn: {
-    width:'50%',
     fontFamily: 'monospace',
     fontSize:'12px',
     textTransform: 'uppercase',

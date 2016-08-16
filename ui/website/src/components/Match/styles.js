@@ -56,6 +56,12 @@ const styles = {
     origin: {
       textTransform: 'uppercase'
     }
+  },
+  processLink: {
+    color: '#FFF',
+    ':hover': {
+      color: '#04F'
+    }
   }
 }
 

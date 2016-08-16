@@ -33,9 +33,9 @@ require('bootstrap/dist/css/bootstrap.min.css');
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
-fetch('/match.json').then((response) => { return response.json(); })
+fetch('/splash.json').then((response) => { return response.json(); })
 .then((json) => {
-  store.dispatch(actions.loadMatchJson(json));
+  store.dispatch(actions.loadSplashJson(json));
 
   ReactDOM.render(
     <Provider store={store}>
@@ -51,5 +51,10 @@ fetch('/match.json').then((response) => { return response.json(); })
     </Provider>,
     document.getElementById('app')
   );
+
+  fetch('/match.json').then((response) => { return response.json(); })
+  .then((json) => {
+    store.dispatch(actions.loadMatchJson(json));
+  });
 })
 
