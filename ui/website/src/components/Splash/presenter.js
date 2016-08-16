@@ -20,6 +20,8 @@ import styles from './styles.js';
 import ShareModal from '../ShareModal';
 import ReactInterval from 'react-interval';
 import Scrollchor from 'react-scrollchor';
+import {Overlay} from 'react-overlays';
+import {Preload} from 'react-preload';
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -27,11 +29,20 @@ Link = Radium(Link);
 @Radium
 class Splash extends React.Component {
 
-  state = {outputIndex: 0}
+  state = {
+    outputIndex: 0,
+    introOverlay: false,
+    hasInterval: false
+  }
 
   render() {
 
+    const OverlayStyle = {
+    }
+
     const match = this.props.match;
+
+    const imagesToLoad = match.output.map(item => item.img);
 
     if(match) {
 
@@ -48,12 +59,55 @@ class Splash extends React.Component {
         }
       };
 
+      if(this.state.introOverlay) {
+        document.body.classList.toggle('noscroll', true);
+        document.getElementById("app").classList.toggle('blurred', this.state.introOverlay);
+      } else {
+        document.body.classList.remove('noscroll');
+        document.getElementById("app").classList.remove('blurred');
+      }
+
       return (<div className="splashComponent">
 
-        <ReactInterval timeout={1000} enabled={true}
+        <ReactInterval timeout={1000} enabled={this.state.hasInterval}
           callback={() => this.setState({
             outputIndex: this.state.outputIndex >= (this.props.match.output.length - 1) ? 0 : this.state.outputIndex + 1
           })} />
+
+        <Preload
+          children={<div></div>}
+          loadingIndicator={<div></div>}
+          images={imagesToLoad}
+          onSuccess={() => this.setState({hasInterval: true})}
+          resolveOnError={false}
+          mountChildren={false}
+        />
+
+        <Overlay
+          show={this.state.introOverlay}
+          onHide={() => this.setState({ introOverlay: false })}
+        >
+          <div className="introOverlay" style={{...OverlayStyle}}>
+            <nav style={[styles.navbar, styles.gradientBackground]} className="navbar navbar-default navbar-fixed-top">
+              <div className="container-fluid">
+
+                <div className="navbar-header">
+                  <p>Recognition<br/>Winner of IK Prize 2016</p>
+                </div>
+
+                <div className="collapse navbar-collapse" id="bs-navbar-collapse">
+                  <ul className="nav navbar-nav navbar-right">
+                    <li><a style={[styles.menuItem]} onClick={() => {this.setState({introOverlay: false})}}>Skip Intro</a></li>
+                  </ul>
+                </div>
+
+              </div>
+            </nav>
+            <div className="content">
+              Overlay
+            </div>
+          </div>
+        </Overlay>
 
         <div className="container splashContainer" style={[styles.fullHeight]}>
           <div className="row" style={styles.fullHeight.row}>
