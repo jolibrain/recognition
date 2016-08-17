@@ -52,11 +52,11 @@ class FeatureGenerator:
             meta_out_s = shelve.open(meta_out)
         ts = time.time()
         for img in results:
-            #print 'img=',img
             nn = results[img]
             if 'uri' not in nn:
                 nn['uri'] = img
             #print 'nn=',nn
+            #print 'img=',img
             dataout = jdataout.get(img,None)
             if not dataout:
                 metad = {}

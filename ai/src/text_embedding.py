@@ -28,6 +28,7 @@ import string
 import unicodedata
 from unidecode import unidecode
 from nltk.corpus import stopwords
+import xmltodict
 
 from feature_generator import FeatureGenerator
 from index_search import Indexer, Searcher
@@ -45,12 +46,13 @@ def strip_accents(s):
 
 class TextEmbedding(FeatureGenerator):
 
-    def __init__(self,json_files,model_repo,model_file,index_repo,tate=True,img_files=[],meta_in='',meta_out=''):
+    def __init__(self,json_files,model_repo,model_file,index_repo,tate=True,img_files=[],reuters_json=False,meta_in='',meta_out=''):
         self.name = 'txtembed'
         self.description = 'text similarity'
         self.json_files = json_files
         self.model_file = model_file
         self.index_repo = index_repo + '/' + self.name
+        self.reuters_json = reuters_json
         self.meta_in = meta_in
         self.meta_out = meta_out
         try:
@@ -96,7 +98,8 @@ class TextEmbedding(FeatureGenerator):
                     title = json_data['source']['title']
                     content[img_id] = title.lower()
                     c = c + 1
-            else: # reuters or incoming images
+            ##TODO: reuters XML
+            elif self.reuters_json: # reuters or incoming images
                 # each file usually contains data for more than a single image
                 with open(jf,'r') as jfile:
                     json_data = json.load(jfile)
@@ -110,8 +113,26 @@ class TextEmbedding(FeatureGenerator):
                         #print img_id,caption_short
                         content[img_id] = caption_short.lower()
                         c =c + 1
-                        
-        logger.info('Processed ' + str(c) + ' JSON files')
+            else:
+                with open(jf,'r') as xfile:
+                    doc = xmltodict.parse(xfile.read())
+                    img_loc = doc['newsMessage']['itemSet']['newsItem']['contentSet']['remoteContent']
+                    l = 0
+                    img_id = ''
+                    for im in img_loc:
+                        if '_2_' in im['rtr:altId']['#text']: # selecting mid-res image
+                            img_loc = img_loc[l]
+                            img_id = im['rtr:altId']['#text']
+                            break
+                        l = l + 1
+                    if img_dict and img_id not in img_dict:
+                        continue
+                    img_id = img_dict[img_id]
+                    caption = doc['newsMessage']['itemSet']['newsItem']['contentMeta']['headline'].lower()
+                    content[img_id] = caption
+                    c = c + 1
+
+        logger.info('Processed ' + str(c) + ' files')
         
         # compute embeddings
         exclude = set(string.punctuation)

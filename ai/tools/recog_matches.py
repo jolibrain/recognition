@@ -47,17 +47,20 @@ parser.add_argument('--nfiles',help='processes only the x first files',type=int,
 parser.add_argument('--nmatches',help='max final number of matches per reference image',type=int,default=20)
 parser.add_argument('--sort-best',help='final ordering is best top match first',action='store_true')
 parser.add_argument('--website',help='generates splash.json in addition to a version of matches without candidates',action='store_true')
+parser.add_argument('--medium',help='filters out all photographs and undefined medium in art from Tate',action='store_true')
 parser.add_argument('--no-tga',help='filter out images from TGA archive',action='store_true')
 args = parser.parse_args()
 
-image_files = list_files(args.input_imgs,ext='.jpg',nfiles=args.nfiles)
+image_files = list_files(args.input_imgs,ext='.JPG',nfiles=args.nfiles,pattern='*_2_*')
 json_files = list_files(args.input_imgs,ext='.json',nfiles=args.nfiles)
+xml_files = list_files(args.input_imgs,ext='.XML',nfiles=-1,pattern='*')
 json_mapi_files = json_mapi_emo_files = []
-
 if 'mapi' in args.generators or 'all' in args.generators:
-    #print 'reading mapi files from',args.input_imgs + '/mapi/'
-    json_mapi_files = list_files(args.input_imgs + '/mapi/',ext='.json')#,nfiles=args.nfiles)
-    json_mapi_emo_files = list_files(args.input_imgs + '/mapi_emo/',ext='.json')#,nfiles=args.nfiles)
+    try:
+        json_mapi_files = list_files(args.input_imgs + '/mapi/',ext='.json')
+        json_mapi_emo_files = list_files(args.input_imgs + '/mapi_emo/',ext='.json')
+    except:
+        pass
 
 def execute_generator(generator,jdataout={},meta_in='',meta_out=''):
     #print 'jdataout=',jdataout
@@ -71,7 +74,7 @@ def execute_generator(generator,jdataout={},meta_in='',meta_out=''):
         dnnfe = DNNFeatureExtractor(dnnmodel,image_files,args.indexes_repo,batch_size=generator_conf.get('batch_size',args.batch_size),meta_in=meta_in,meta_out=meta_out)
         return dnnfe.search(jdataout)
     elif generator_conf['type'] == 'w2v':
-        txtembed = TextEmbedding(json_files,model_repo=model_repo,model_file=generator_conf['file'],index_repo=args.indexes_repo,tate=False,img_files=image_files,meta_in=meta_in,meta_out=meta_out)
+        txtembed = TextEmbedding(xml_files,model_repo=model_repo,model_file=generator_conf['file'],index_repo=args.indexes_repo,tate=False,img_files=image_files,reuters_json=False,meta_in=meta_in,meta_out=meta_out)
         txtembed.preproc()
         return txtembed.search(jdataout)
     elif generator_conf['type'] == 'densecap':
@@ -80,7 +83,7 @@ def execute_generator(generator,jdataout={},meta_in='',meta_out=''):
                                  densecap_dir=generator_conf['wdir'],description=generator_conf['description'],meta_in=meta_in,meta_out=meta_out)
         dcap.preproc()
         return dcap.search(jdataout)
-    elif generator_conf['type'] == 'mapi':
+    elif generator_conf['type'] == 'mapi' and json_mapi_files and json_mapi_emo_files:
         mapi = MAPIGenerator(image_files=image_files,json_files=json_mapi_files,json_emo_files=json_mapi_emo_files,index_repo=args.indexes_repo,name=generator,description=generator_conf['description'],meta_in=meta_in,meta_out=meta_out)
         mapi.preproc()
         return mapi.search(jdataout)
@@ -104,9 +107,13 @@ def format_to_array(dict_out,no_tga=False):
         for m in vout:
             if no_tga and 'TGA' in m['img']:
                 continue
+            if args.medium:
+                medium = m['meta']['medium']
+                if not medium or 'hotograph' in medium or 'lack and white' in medium:
+                    continue
             if c < nmatches:
                 out.append(m)
-                if j > 0:
+                if args.website and j > 0:
                     break
             if j == 0 and args.website and c < args.nmatches:
                 out_splash.append(m)
@@ -127,7 +134,7 @@ def format_to_array(dict_out,no_tga=False):
 json_out = ''
 
 ## execute metadata generator first
-metad = MetadataExtractor(json_files,index_repo=args.indexes_repo,tate=False)
+metad = MetadataExtractor(xml_files,index_repo=args.indexes_repo,tate=False,reuters_json=False)
 metad.preproc()
 metad.index()
 meta_in = args.indexes_repo + '/metadata/names.bin'
