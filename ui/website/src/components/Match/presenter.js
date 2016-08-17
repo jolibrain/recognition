@@ -46,7 +46,7 @@ class Match extends React.Component {
     const outputOrientation = selectedOutput.meta.height > selectedOutput.meta.width ?
       "vertical" : "horizontal";
 
-    const rx = /reuters\/(.*)\.jpg/g;
+    const rx = /Z_\d+_(.*?)_/g;
     const arr = rx.exec(item.input.img);
     const itemId = arr[1];
 

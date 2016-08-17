@@ -40,7 +40,7 @@ class Detail extends React.Component {
     const item = this.props.item;
     const selectedOutput = item.output.filter(item => item.selected)[0];
 
-    const rx = /reuters\/(.*)\.jpg/g;
+    const rx = /Z_\d+_(.*?)_/g;
     const arr = rx.exec(item.input.img);
     const itemId = arr[1];
 
