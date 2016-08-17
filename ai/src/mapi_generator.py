@@ -106,7 +106,7 @@ class MAPIGenerator(FeatureGenerator):
                 if not img_bn:
                     jf = jf.replace('//','/')
                     img_bn = os.path.dirname(os.path.dirname(jf))
-                img_name = img_bn + '/' + os.path.basename(jf).replace('_mapi.json','.jpg')
+                img_name = img_bn + '/' + os.path.basename(jf).replace('_mapi.json','')
                 if not img_name in self.image_files:
                     continue
                 if json_data.get('color',None):

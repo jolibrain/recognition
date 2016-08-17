@@ -29,6 +29,7 @@ sudo pip install annoy
 sudo aptitude install cython
 sudo pip install word2vec
 sudo pip install unidecode
+sudo pip install xmltodict
 sudo pip install nltk
 ```
 

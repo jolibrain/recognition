@@ -44,7 +44,9 @@ class DenseCapExtractor(FeatureGenerator):
         self.name = name
         self.description = description
         self.images_repo = images_repo
-        self.image_files = image_files
+        self.image_files = []
+        for i in image_files:
+            self.image_files.append(i.replace(' ','\ ')) # since we're calling from shell
         self.nimages = nimages
         self.meta_in = meta_in
         self.meta_out = meta_out
@@ -223,7 +225,7 @@ class DenseCapExtractor(FeatureGenerator):
                         
                     resi['nns_uris'] = nnns_uris
                     resi['nns'] = nnns
-                    results[self.images_repo + '/' + ldata['img_name']] = resi
+                    results[self.images_repo + ldata['img_name']] = resi
                     #print 'results=',results
                 ldb.close()
         return self.to_json(results,'/img/reuters/','/img/tate/',self.name,self.description,jdataout,self.meta_in,self.meta_out)

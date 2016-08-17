@@ -24,6 +24,7 @@ under the License.
 import os, sys
 import json
 import shelve
+import xmltodict
 
 import logging
 logging.basicConfig()
@@ -32,11 +33,12 @@ logger.setLevel(logging.INFO)
 
 class MetadataExtractor:
 
-    def __init__(self,json_files,index_repo,tate=True):
-        self.json_files = json_files
+    def __init__(self,mdata_files,index_repo,tate=True,reuters_json=False):
+        self.mdata_files = mdata_files
         self.index_repo = index_repo + '/metadata/'
         self.metadata = {}
         self.tate = tate
+        self.reuters_json = reuters_json
         self.s = None
         try:
             os.mkdir(self.index_repo)
@@ -47,7 +49,7 @@ class MetadataExtractor:
         # acquire metadata
         c = 0
         content = {}
-        for jf in self.json_files:
+        for jf in self.mdata_files:
             if self.tate:
                 ## meta -> date, title, author, origin (?), tags, description, heightxwidth, license, medium
                 #print 'jf=',jf
@@ -81,7 +83,7 @@ class MetadataExtractor:
                     meta['creativeCommons'] = json_data_s['masterImages'][0]['creativeCommons']
                     self.metadata[imgid] = meta
                     c = c + 1
-            else: # reuters or incoming images
+            elif self.reuters_json: # reuters or incoming images
                 ## meta -> date, caption, author, heighxwidth
                 # each file usually contains data for more than a single image
                 with open(jf,'r') as jfile:
@@ -99,8 +101,34 @@ class MetadataExtractor:
                         meta['date'] = i['MediaDate']
                         meta['title'] = i['Title']
                         self.metadata[imgid] = meta
-                        c =c + 1
-        logger.info('Processed ' + str(c) + ' JSON files')
+                        c = c + 1
+            else:
+                with open(jf,'r') as xfile:
+                    doc = xmltodict.parse(xfile.read())
+                    #print 'doc=',doc
+                    #with open('testxml.json','w+') as fd:
+                    #    json.dump(doc,fd)
+                    meta = {}
+                    img_loc = doc['newsMessage']['itemSet']['newsItem']['contentSet']['remoteContent']
+                    l = 0
+                    for im in img_loc:
+                        if '_2_' in im['rtr:altId']['#text']: # selecting mid-res image
+                            img_loc = img_loc[l]
+                            imgid = im['rtr:altId']['#text']
+                            break
+                        l = l + 1
+                    meta['caption'] = doc['newsMessage']['itemSet']['newsItem']['contentMeta']['headline']
+                    meta['height'] = img_loc['@height']
+                    meta['width'] = img_loc['@width']
+                    meta['date'] = doc['newsMessage']['itemSet']['newsItem']['itemMeta']['firstCreated']
+                    meta['title'] = doc['newsMessage']['itemSet']['newsItem']['contentMeta']['slugline']['#text']
+                    #print imgid
+                    #print meta['date']
+                    #print meta['title']['#text']
+                    self.metadata[imgid] = meta
+                    c = c + 1
+                    
+        logger.info('Processed ' + str(c) + ' files')
         return
 
     def index(self):
