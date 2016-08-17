@@ -70,7 +70,12 @@ class GalleryItem extends React.Component {
           <div className="container-fluid">
             <div className="row">
               <div className="col-md-6">
-                <img className="img-responsive" src={item.input.img} />
+                <img
+                  src={match.input.img}
+                  className="img-responsive"
+                  srcset={match.input.img.replace('reuters/', 'reuters/responsive_375') + " 375w, " + match.input.img.replace('reuters/', 'reuters/responsive_480') + " 480w, " + match.input.img.replace('reuters/', 'reuters/responsive_757') + " 757w, " + match.input.img.replace('reuters/', 'reuters/responsive_1920') + " 1920w"}
+                  sizes="(min-width: 40em) 80vw, 100vw"
+                />
               </div>
               <div className="col-md-6">
                 <img className="img-responsive" src={selectedOutput.img} />

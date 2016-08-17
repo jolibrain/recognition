@@ -136,7 +136,12 @@ class Splash extends React.Component {
               <div className="row">
                 <div className="col-md-12" style={{textAlign: "center"}}>
 
-                  <img src={match.input.img} style={[styles.fullHeight.img]}/>
+                  <img
+                    src={match.input.img}
+                    style={[styles.fullHeight.img]}
+                    srcset={match.input.img.replace('reuters/', 'reuters/responsive_375') + " 375w, " + match.input.img.replace('reuters/', 'reuters/responsive_480') + " 480w, " + match.input.img.replace('reuters/', 'reuters/responsive_757') + " 757w, " + match.input.img.replace('reuters/', 'reuters/responsive_1920') + " 1920w"}
+                    sizes="(min-width: 40em) 80vw, 100vw"
+                  />
 
                   <p style={styles.imgDescription}>
                     {match.input.meta.date}<br/>
