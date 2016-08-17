@@ -109,7 +109,7 @@ class Splash extends React.Component {
                     <tbody>
                       <tr style={styles.table.header}>
                         <td  style={[styles.table.leftColumn, styles.table.headerCell]}>Searching for match</td>
-                        <td style={styles.table.headerCell}>{moment.unix(selectedOutput.features.summary.processing_time).format("HH:mm:ss")}</td>
+                        <td style={styles.table.headerCell}></td>
                       </tr>
                       <tr style={styles.table.row}>
                         <td style={[styles.table.leftColumn, styles.table.firstRowCell]}><img src="/img/icons/score_objects.png"/> Objects:</td>
