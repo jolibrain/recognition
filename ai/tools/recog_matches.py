@@ -116,7 +116,7 @@ def format_to_array(dict_out,no_tga=False):
         if j == 0 and args.website:
             v_splash = v
             v_splash['output'] = out_splash
-            splash_out[k] = v_splash
+            splash_out = v_splash
         j = j + 1
     if args.sort_best:
         json_out = sorted(json_out, key=lambda x: x['output'][0]['features']['score'],reverse=True)
