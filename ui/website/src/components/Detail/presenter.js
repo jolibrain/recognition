@@ -30,7 +30,6 @@ class Detail extends React.Component {
   state = {overHash: ''};
 
   handleOverHash(parent, overHash) {
-console.log('onHover');
     parent.setState({overHash: overHash});
   }
 

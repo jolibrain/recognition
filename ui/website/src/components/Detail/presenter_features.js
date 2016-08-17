@@ -82,7 +82,6 @@ class DetailFeatures extends React.Component {
                             }
                         >
                   <td>{index + 1}</td>
-                  <td>{features.densecap.boxids[index]}</td>
                   <td>{caption}</td>
                 </tr>);
               })

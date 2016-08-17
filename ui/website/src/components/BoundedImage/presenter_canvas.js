@@ -36,7 +36,6 @@ class CanvasImage extends React.Component {
     const item = this.props.item;
     let [x, y, width, height] = box;
 
-
     // choose box color, depending on hover status
     let colorStyle = 'rgba(225,255,255,1)';
     if(this.state.hoverIndex == index ||
@@ -85,9 +84,11 @@ class CanvasImage extends React.Component {
     ctx.lineTo(x + 9 * width / 10, y + height);
     ctx.stroke();
 
+    /*
     ctx.font = "30px Arial";
     ctx.fillStyle = 'rgba(225,0,0,1)';
     ctx.fillText(this.state.boxids[index - 1].slice(0, 3),x,y+height);
+    */
   }
 
   renderBoxes() {
@@ -156,18 +157,17 @@ class CanvasImage extends React.Component {
              y >= by && y <= by + bh) {
               // The mouse honestly hits the rect
               this.setState({hoverIndex: i + 1, hoverHash: this.state.boxids[i]});
-              this.props.onOver.bind(null,
-                this.props.parent,
-                this.state.hoverHash)
               break;
           }
         }
         // Draw the rectangles by Z (ASC)
+        this.props.onOver(this.props.parent, this.state.hoverHash)
         this.renderBoxes();
       });
 
       canvas.onmouseout = ((e) => {
         this.setState({hoverIndex: -1, hoverHash: ''});
+        this.props.onOver(this.props.parent, this.state.hoverHash)
         this.renderBoxes();
       });
 
@@ -181,8 +181,8 @@ class CanvasImage extends React.Component {
     this.createCanvas();
   }
 
-  shouldComponentUpdate() {
-    return true;
+  shouldComponentUpdate(nextProps, nextState) {
+      return true;
   }
 
   componentDidMount() {
@@ -196,12 +196,6 @@ class CanvasImage extends React.Component {
   render() {
     return (<div>
       <canvas ref="canvasImage"/>
-      <p>Hover index {this.state.hoverIndex} - hash {this.props.overHash}</p>
-      <ul>
-        {this.state.boxids.map((ids, index) => {
-          return <li key={ids + '-' + index}>{ids}</li>;
-        })}
-      </ul>
     </div>);
   }
 
