@@ -34,6 +34,9 @@ module.exports = {
     extensions: ['', '.js', '.jsx']
   },
   output: {
+    devtoolLineToLine: true,
+    sourceMapFilename: "./bundle.js.map",
+    pathinfo: true,
     path: __dirname + '/dist',
     publicPath: '/',
     filename: 'bundle.js'
