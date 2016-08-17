@@ -205,8 +205,14 @@ class DenseCapExtractor(FeatureGenerator):
                                 resi[nuri]['dcap_out']['boxes'].append(nndata['box'])
                                 resi[nuri]['dcap_out']['captions'].append(nndata['caption'])
                                 resi[nuri]['dcap_out']['scores'].append(nndata['score'])
-                                resi[nuri]['dcap_out']['boxids'].append(in_box_hash)
+                                resi[nuri]['dcap_out']['boxids'].append([in_box_hash])
                                 resi[nuri]['score'] += 0.2*(1.0/float(len(resi[nuri])))*nns['nns'][1][m] # 0.1 factor allows for mixed selection (e.g. non densecap) later in the process
+                            else:
+                                bidx = resi[nuri]['dcap_out']['boxes'].index(nndata['box'])
+                                #print 'bidx=',bidx
+                                #print resi[nuri]['dcap_out']['boxids']
+                                resi[nuri]['dcap_out']['boxids'][bidx].append(in_box_hash)
+
                             m = m + 1
                             #if m >= 5:
                             #if len(resi[nuri]) >= 3:
