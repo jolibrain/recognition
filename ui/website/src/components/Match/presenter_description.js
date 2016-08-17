@@ -17,6 +17,8 @@ import React from 'react';
 import Radium from 'radium';
 import styles from './styles.js';
 
+import ShareModal from '../Modals/ShareModal';
+
 let {Link} = require('react-router');
 Link = Radium(Link);
 
@@ -26,12 +28,12 @@ class Description extends React.Component {
   render() {
 
     return (<div>
-      <Link style={styles.processLink} to={`/details/${this.props.itemId}`}>View recognition process <span className="icon--i_arrow-right"/></Link>
+      <Link style={styles.processLink} to={`/details/${this.props.id}`}>View recognition process <span className="icon--i_arrow-right"/></Link>
 
       <h3>AI Description</h3>
       <p>{this.props.description}</p>
 
-      <Link to={`/details/${this.props.itemId}`}>Share</Link>
+      <ShareModal />
     </div>);
   }
 }
