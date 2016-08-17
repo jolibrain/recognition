@@ -15,6 +15,7 @@ limitations under the License.
 */
 import React from 'react';
 import Radium from 'radium';
+import moment from 'moment';
 import styles from './styles.js';
 
 @Radium
@@ -32,9 +33,14 @@ class DetailFeatures extends React.Component {
       item.meta.html_content = '...';
     }
 
+    console.log(item);
+
     let title = item.meta['title'];
-    if(this.props.source == 'reuters')
+    let date = item.meta['date'];
+    if(this.props.source == 'reuters') {
       title = item.meta['caption'];
+      date = moment(date).format('DD/MM/YYYY');
+    }
 
     return(<div className="detailFeatures" style={[styles.detailColumn]}>
       <div className="table-responsive" style={[styles.tableOverflow]}>
@@ -42,11 +48,11 @@ class DetailFeatures extends React.Component {
           <tbody>
             <tr>
               <td>DATE:</td>
-              <td>{item.meta['date']}</td>
+              <td>{date}</td>
             </tr>
             <tr>
               <td>TITLE:</td>
-              <td>{item.meta['title']}</td>
+              <td>{title}</td>
             </tr>
             <tr>
               <td>AUTHOR:</td>
