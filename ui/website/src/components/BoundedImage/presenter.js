@@ -31,7 +31,7 @@ class BoundedImage extends React.Component {
   render() {
 
     if(this.props.boxes.length > 0) {
-      return (<CanvasImage item={this.props.item} boxes={this.props.boxes}/>)
+      return (<CanvasImage {...this.props}/>)
     } else {
       return (<HtmlImage img={this.props.item.img}/>)
     }

@@ -95,6 +95,15 @@ const styles = {
   },
   rightDetails: {
     marginTop: '60px',
+  },
+  rowHover: {
+    ':hover': {
+      color: '#04F'
+    },
+    pointerEvents: 'all'
+  },
+  rowHovered: {
+    color: '#04F'
   }
 }
 

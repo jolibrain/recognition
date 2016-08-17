@@ -27,14 +27,18 @@ Link = Radium(Link);
 @Radium
 class Detail extends React.Component {
 
+  state = {overHash: ''};
+
+  handleOverHash(parent, overHash) {
+    parent.setState({overHash: overHash});
+  }
+
   render() {
 
     if(!this.props.item) return null;
 
     const item = this.props.item;
     const selectedOutput = item.output.filter(item => item.selected)[0];
-
-    console.log(selectedOutput);
 
     const rx = /reuters\/(.*)\.jpg/g;
     const arr = rx.exec(item.input.img);
@@ -44,10 +48,20 @@ class Detail extends React.Component {
       <div className="row" style={styles.rowImg}>
 
         <div className="col-md-5 col-md-offset-1"style={[styles.leftImg]} >
-          <BoundedImage item={item.input} features={selectedOutput.features.in}/>
+          <BoundedImage item={item.input}
+                        features={selectedOutput.features.in}
+                        onOver={this.handleOverHash}
+                        overHash={this.state.overHash}
+                        parent={this}
+          />
         </div>
         <div className="col-md-5 col-md-offset-1">
-          <BoundedImage item={selectedOutput} features={selectedOutput.features.out}/>
+          <BoundedImage item={selectedOutput}
+                        features={selectedOutput.features.out}
+                        onOver={this.handleOverHash}
+                        overHash={this.state.overHash}
+                        parent={this}
+          />
         </div>
 
       </div>
@@ -55,11 +69,25 @@ class Detail extends React.Component {
 
         <div className="col-md-6">
           <Link style={[styles.link]} to={`/gallery/${itemId}`}><span className='icon--i_arrow-left'/> Back to article</Link>
-          <DetailFeatures item={item.input} source={'reuters'} features={selectedOutput.features.in} scores={selectedOutput.features.summary.scores}/>
+          <DetailFeatures item={item.input}
+                          source={'reuters'}
+                          features={selectedOutput.features.in}
+                          scores={selectedOutput.features.summary.scores}
+                          onOver={this.handleOverHash}
+                          overHash={this.state.overHash}
+                          parent={this}
+          />
         </div>
 
         <div className="col-md-6" style={[styles.rightDetails]}>
-          <DetailFeatures item={selectedOutput} source={'tate'} features={selectedOutput.features.out} scores={selectedOutput.features.summary.scores}/>
+          <DetailFeatures item={selectedOutput}
+                          source={'tate'}
+                          features={selectedOutput.features.out}
+                          scores={selectedOutput.features.summary.scores}
+                          onOver={this.handleOverHash}
+                          overHash={this.state.overHash}
+                          parent={this}
+          />
         </div>
 
       </div>
