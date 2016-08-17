@@ -254,3 +254,7 @@ body.noscroll{
   font-size:12px;
   border-bottom: 1px dotted #fff;
 }
+
+.not_hovered {
+  opacity: 0.5;
+}

@@ -17,16 +17,21 @@ import React from 'react';
 import Radium from 'radium';
 import styles from './styles.js';
 
-import MatchHH from './presenter_horizontal_horizontal';
-import MatchHV from './presenter_horizontal_vertical';
-import MatchVH from './presenter_vertical_horizontal';
-import MatchVV from './presenter_vertical_vertical';
+import Titles from './presenter_titles';
+import Description from './presenter_description';
+import BoundedImage from '../BoundedImage'
 
 let {Link} = require('react-router');
 Link = Radium(Link);
 
 @Radium
 class Match extends React.Component {
+
+  state = {overHash: ''};
+
+  handleOverHash(parent, overHash) {
+    parent.setState({overHash: overHash});
+  }
 
   render() {
 
@@ -41,7 +46,7 @@ class Match extends React.Component {
     const outputOrientation = selectedOutput.meta.height > selectedOutput.meta.width ?
       "vertical" : "horizontal";
 
-    const rx = /reuters\/(.*)\.jpg/g;
+    const rx = /Z_\d+_(.*?)_/g;
     const arr = rx.exec(item.input.img);
     const itemId = arr[1];
 
@@ -50,10 +55,65 @@ class Match extends React.Component {
       case "horizontal":
         switch (outputOrientation) {
           case "horizontal":
-            return <MatchHH itemId={itemId} input={item.input} output={selectedOutput}/>
+            return (<div className="container-fluid">
+              <div className="row">
+                <div className="col-md-5">
+                  <Titles input={item.input} output={selectedOutput}/>
+                  <BoundedImage
+                    item={item.input}
+                    features={selectedOutput.features.in}
+                    onOver={this.handleOverHash}
+                    overHash={this.state.overHash}
+                    parent={this}
+                  />
+                  <p style={styles.imgDescription}>{item.input.meta.origin}</p>
+                </div>
+                <div className="col-md-5">
+                  <BoundedImage
+                    item={selectedOutput}
+                    features={selectedOutput.features.out}
+                    onOver={this.handleOverHash}
+                    overHash={this.state.overHash}
+                    parent={this}
+                  />
+                  <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
+                </div>
+                <div className="col-md-2">
+                  <Description id={itemId} description={selectedOutput.features.out.description}/>
+                </div>
+              </div>
+            </div>);
+            <MatchHH itemId={itemId} input={item.input} output={selectedOutput}/>
           break;
           case "vertical":
-            return <MatchHV itemId={itemId} input={item.input} output={selectedOutput}/>
+            return (<div className="container-fluid">
+              <div className="row">
+                <div className="col-md-5">
+                  <BoundedImage
+                    item={item.input}
+                    features={selectedOutput.features.in}
+                    onOver={this.handleOverHash}
+                    overHash={this.state.overHash}
+                    parent={this}
+                  />
+                  <p style={styles.imgDescription}>{item.input.meta.origin}</p>
+                  <Titles input={item.input} output={selectedOutput}/>
+                </div>
+                <div className="col-md-5">
+                  <BoundedImage
+                    item={selectedOutput}
+                    features={selectedOutput.features.out}
+                    onOver={this.handleOverHash}
+                    overHash={this.state.overHash}
+                    parent={this}
+                  />
+                  <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
+                </div>
+                <div className="col-md-2">
+                  <Description id={itemId} description={selectedOutput.features.out.description}/>
+                </div>
+              </div>
+            </div>);
           break;
         }
       break;
@@ -61,10 +121,64 @@ class Match extends React.Component {
       case "vertical":
         switch (outputOrientation) {
           case "horizontal":
-            return <MatchVH itemId={itemId} input={item.input} output={selectedOutput}/>
+            return (<div className="container-fluid">
+              <div className="row">
+                <div className="col-md-2">
+                  <Titles input={item.input} output={selectedOutput}/>
+                </div>
+                <div className="col-md-5">
+                  <BoundedImage
+                    item={item.input}
+                    features={selectedOutput.features.in}
+                    onOver={this.handleOverHash}
+                    overHash={this.state.overHash}
+                    parent={this}
+                  />
+                  <p style={styles.imgDescription}>{item.input.meta.origin}</p>
+                </div>
+                <div className="col-md-5">
+                  <BoundedImage
+                    item={selectedOutput}
+                    features={selectedOutput.features.out}
+                    onOver={this.handleOverHash}
+                    overHash={this.state.overHash}
+                    parent={this}
+                  />
+                  <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
+                  <Description id={itemId} description={selectedOutput.features.out.description}/>
+                </div>
+              </div>
+            </div>);
           break;
           case "vertical":
-            return <MatchVV itemId={itemId} input={item.input} output={selectedOutput}/>
+            return (<div className="container-fluid">
+              <div className="row">
+                <div className="col-md-2">
+                  <Titles input={item.input} output={selectedOutput}/>
+                  <Description id={itemId} description={selectedOutput.features.out.description}/>
+                </div>
+                <div className="col-md-5">
+                  <BoundedImage
+                    item={item.input}
+                    features={selectedOutput.features.in}
+                    onOver={this.handleOverHash}
+                    overHash={this.state.overHash}
+                    parent={this}
+                  />
+                  <p style={styles.imgDescription}>{item.input.meta.origin}</p>
+                </div>
+                <div className="col-md-5">
+                  <BoundedImage
+                    item={selectedOutput}
+                    features={selectedOutput.features.out}
+                    onOver={this.handleOverHash}
+                    overHash={this.state.overHash}
+                    parent={this}
+                  />
+                  <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
+                </div>
+              </div>
+            </div>);
           break;
         }
       break;

@@ -32,6 +32,10 @@ class DetailFeatures extends React.Component {
       item.meta.html_content = '...';
     }
 
+    let title = item.meta['title'];
+    if(this.props.source == 'reuters')
+      title = item.meta['caption'];
+
     return(<div className="detailFeatures" style={[styles.detailColumn]}>
       <div className="table-responsive" style={[styles.tableOverflow]}>
         <table className="table borderless">

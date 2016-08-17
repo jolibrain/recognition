@@ -31,7 +31,7 @@ const mapStateToProps = (state, ownProps = {}) => {
     }
 
     return {
-      item: state.matches.filter(item => item.input.img == '/img/reuters/' + matchId  + '.jpg')[0]
+      item: state.matches.filter(item => item.input.img.indexOf(matchId) != -1)[0]
     };
 
   }
