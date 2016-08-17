@@ -35,10 +35,3 @@ def list_files(repository,ext='.jpg',nfiles=-1,pattern='*'):
         return filenames[:nfiles]
     else:
         return filenames
-    #for f in filenames:
-    #nfilenames.append(f)#.replace(' ','\ '))
-    #    if nfiles > 0 and len(nfilenames) >= nfiles:
-    #        break
-    #if nfilenames:
-    #    onlyfiles.extend(nfilenames)
-    #return onlyfiles
