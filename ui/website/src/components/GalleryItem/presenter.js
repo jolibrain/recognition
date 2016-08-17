@@ -102,7 +102,7 @@ class GalleryItem extends React.Component {
             {this.state.hover ? (
             <div>
               <span key="item.input.meta.date" style={[styles.input.date, styles.hover]}>
-                {item.input.meta.date}
+                {moment(item.input.meta.date).format('DD/MM/YYYY')}
               </span>
               <br/>
               <span key="item.input.meta.origin" style={[styles.input.title, styles.hover]}>
