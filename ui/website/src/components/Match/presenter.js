@@ -28,6 +28,12 @@ Link = Radium(Link);
 @Radium
 class Match extends React.Component {
 
+  state = {overHash: ''};
+
+  handleOverHash(parent, overHash) {
+    parent.setState({overHash: overHash});
+  }
+
   render() {
 
     if(!this.props.item) return null;
