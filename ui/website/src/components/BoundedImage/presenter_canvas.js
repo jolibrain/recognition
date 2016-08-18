@@ -155,16 +155,32 @@ class CanvasImage extends React.Component {
 
         //ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+        let selectedBox = {index: -1, dimensions: null};
         for(var i = this.props.boxes.length - 1, b; b = this.props.boxes[i]; i--) {
           const [bx, by, bw, bh] = b;
 
           if(x >= bx && x <= bx + bw &&
              y >= by && y <= by + bh) {
               // The mouse honestly hits the rect
-              this.setState({hoverIndex: i, hoverHash: this.props.boxids[i]});
-              break;
+              const insideBox = !selectedBox.dimensions || (
+                bx >= selectedBox.dimensions[0] &&
+                bx <= selectedBox.dimensions[0] + selectedBox.dimensions[2] &&
+                by >= selectedBox.dimensions[1] &&
+                by <= selectedBox.dimensions[1] + selectedBox.dimensions[3]
+              );
+              if(insideBox) {
+                selectedBox.index = i;
+                selectedBox.dimensions = b;
+              }
           }
         }
+
+        if(selectedBox.index != -1)
+          this.setState({
+            hoverIndex: selectedBox.index,
+            hoverHash: this.props.boxids[selectedBox.index]
+          });
+
         // Draw the rectangles by Z (ASC)
         this.props.onOver(this.props.parent, this.state.hoverHash, this.state.hoverIndex);
         this.renderBoxes();
