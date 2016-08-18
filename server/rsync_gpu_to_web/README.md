@@ -1,17 +1,16 @@
 Generate ssh key:
 
 ```
-ssk-keygen -f id_rsa_recog_web
+ssh-keygen -f id_rsa_recog_web
 ```
 
-Copy *~/.ssh/id_rsa_recog_web.pub* inside *recog_web* server file
-*/hone/recog/.ssh/authorized_keys*
+Copy *~/.ssh/id_rsa_recog_web.pub* inside *recog_gpu* server file */home/recog/.ssh/authorized_keys*
 
 Create *~/.ssh/config* with this content:
 
 ```
-Host recog_web
-  Hostname 163.172.51.247
+Host recog_gpu
+  Hostname 151.80.227.150
   User recog
   IdentityFile ~/.ssh/id_rsa_recog_web
 ```
@@ -19,5 +18,5 @@ Host recog_web
 rsync config, every 5 minutes:
 
 ```
-*/5 * * * * rsync --protect-args -avz -e ssh /data/tate/imgs/reuters/RPA\ Feed\ for\ Tate/*.JPG recog_web:"/data/tate/imgs/reuters/RPA Feed for Tate/"
+*/5 * * * * /home/recog/recognition/server/rsync_gpu_to_web/rsync_mogrify.sh
 ```

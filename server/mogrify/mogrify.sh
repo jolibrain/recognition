@@ -1,5 +1,6 @@
 #!/bin/sh
 picture_root=/data/tate/imgs/reuters/RPA\ Feed\ for\ Tate/
+#picture_root=/data/tate/imgs/tate_final/
 
 cd "$picture_root"
 chmod -R 755 *
