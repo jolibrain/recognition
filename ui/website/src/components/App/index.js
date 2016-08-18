@@ -14,13 +14,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import React from 'react';
-import ReactCSSTransitionGroup  from 'react-addons-css-transition-group';
 import Header from '../Header';
 import Footer from '../Footer';
-import Radium from 'radium';
-import styles from './styles.js';
 
-@Radium
 class App extends React.Component {
 
   state = {
@@ -34,7 +30,7 @@ class App extends React.Component {
 
     const transitionName = segment === 'root' ? 'pageSwap' : 'pageSliderDown';
 
-    return <div className="appComponent" style={styles.body}>
+    return <div className="appComponent">
       <Header path={path} displayIntro={this.state.displayIntro}/>
       {this.props.children}
       <Footer/>
