@@ -23,8 +23,7 @@ import styles from './styles.js';
 class CanvasImage extends React.Component {
 
   state = {
-    boxids: [],
-    hoverHash: '',
+    hoverHash: [],
     hoverIndex: -1
   };
 
@@ -36,11 +35,20 @@ class CanvasImage extends React.Component {
     const item = this.props.item;
     let [x, y, width, height] = box;
 
+    let duplicates = false;
+    if(this.props.overHash && this.props.overHash.hash.length > 0) {
+      const mergedBoxids = this.props.boxids[index].concat(this.props.overHash.hash);
+      duplicates  = mergedBoxids.reduce(function(acc, el, i, arr) {
+        if (arr.indexOf(el) !== i && acc.indexOf(el) < 0)
+          acc.push(el);
+          return acc;
+        }, []).length > 0;
+    }
+
     // choose box color, depending on hover status
     let colorStyle = 'rgba(225,255,255,1)';
-    if(this.state.hoverIndex == index ||
-      this.state.boxids[index - 1] == this.props.overHash
-      ) {
+    if(this.props.overHash.index == index ||
+       duplicates) {
       colorStyle = 'rgba(0,225,204,1)';
     }
 
@@ -87,17 +95,14 @@ class CanvasImage extends React.Component {
     /*
     ctx.font = "30px Arial";
     ctx.fillStyle = 'rgba(225,0,0,1)';
-    ctx.fillText(this.state.boxids[index - 1].slice(0, 3),x,y+height);
+    ctx.fillText(this.props.boxids[index].map(i => i.slice(0, 2)).join(','), x,y+height);
+    ctx.fillStyle = 'rgba(0,0,225,1)';
+    ctx.fillText(index,x+width,y);
     */
   }
 
   renderBoxes() {
-    let i = 0;
-    let box;
-    while(box = this.props.boxes[i++]) {
-      this.renderBox(i, box);
-    }
-
+    this.props.boxes.forEach((box, i) => this.renderBox(i, box));
   }
 
   createCanvas() {
@@ -139,7 +144,7 @@ class CanvasImage extends React.Component {
 
       canvas.onmousemove = ((e) => {
 
-        this.setState({hoverIndex: -1, hoverHash: ''});
+        this.setState({hoverIndex: -1, hoverHash: []});
 
         // Get the current mouse position
         const r = canvas.getBoundingClientRect();
@@ -156,18 +161,18 @@ class CanvasImage extends React.Component {
           if(x >= bx && x <= bx + bw &&
              y >= by && y <= by + bh) {
               // The mouse honestly hits the rect
-              this.setState({hoverIndex: i + 1, hoverHash: this.state.boxids[i]});
+              this.setState({hoverIndex: i, hoverHash: this.props.boxids[i]});
               break;
           }
         }
         // Draw the rectangles by Z (ASC)
-        this.props.onOver(this.props.parent, this.state.hoverHash)
+        this.props.onOver(this.props.parent, this.state.hoverHash, this.state.hoverIndex);
         this.renderBoxes();
       });
 
       canvas.onmouseout = ((e) => {
-        this.setState({hoverIndex: -1, hoverHash: ''});
-        this.props.onOver(this.props.parent, this.state.hoverHash)
+        this.setState({hoverIndex: -1, hoverHash: []});
+        this.props.onOver(this.props.parent, this.state.hoverHash, this.state.hoverIndex);
         this.renderBoxes();
       });
 
@@ -175,7 +180,6 @@ class CanvasImage extends React.Component {
   }
 
   componentWillReceiveProps() {
-    this.renderBoxes();
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -183,11 +187,11 @@ class CanvasImage extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({boxids: this.props.features.densecap.boxids});
     this.createCanvas();
   }
 
   componentDidUpdate() {
+    this.renderBoxes();
   }
 
   render() {

@@ -33,8 +33,6 @@ class DetailFeatures extends React.Component {
       item.meta.html_content = '...';
     }
 
-    console.log(item);
-
     let title = item.meta['title'];
     let date = item.meta['date'];
     if(this.props.source == 'reuters') {
@@ -73,22 +71,38 @@ class DetailFeatures extends React.Component {
             {
               features.densecap.captions.map((caption, index) => {
 
+                let duplicates = false;
+                if(this.props.overHash.hash.length > 0) {
+                  const mergedBoxids = features.densecap.boxids[index].concat(this.props.overHash.hash);
+                  duplicates  = mergedBoxids.reduce(function(acc, el, i, arr) {
+                    if (arr.indexOf(el) !== i && acc.indexOf(el) < 0)
+                      acc.push(el);
+                      return acc;
+                    }, []).length > 0;
+                }
+
                 const rowStyle = [
                   styles.rowHover,
-                  features.densecap.boxids[index] == this.props.overHash ? styles.rowHovered: ''
+                  duplicates || index == this.props.overHash.index ? styles.rowHovered: ''
                 ]
 
                 return (<tr key={'densecap-' + index}
                             style={rowStyle}
                             onMouseEnter={
-                              this.props.onOver.bind(null,
+                              this.props.onOver.bind(
+                                null,
                                 this.props.parent,
-                                features.densecap.boxids[index])
+                                features.densecap.boxids[index],
+                                index
+                              )
                             }
                             onMouseLeave={
-                              this.props.onOver.bind(null,
+                              this.props.onOver.bind(
+                                null,
                                 this.props.parent,
-                                '')
+                                [],
+                                -1
+                              )
                             }
                         >
                   <td>{index + 1}</td>

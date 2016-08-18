@@ -23,6 +23,7 @@ const mapStateToProps = (state, ownProps) => {
 
   let features = ownProps.features;
   let boxes = [];
+  let boxids = [];
 
   if(features) {
 
@@ -50,6 +51,8 @@ const mapStateToProps = (state, ownProps) => {
         box[3] = img_h * b[3] / ref_h;
         return box;
       }));
+
+      boxids = boxids.concat(features.densecap.boxids);
     }
 
     if(features.mapi &&
@@ -63,11 +66,12 @@ const mapStateToProps = (state, ownProps) => {
           emotion.height
         ];
       }));
+      boxids = boxids.concat(features.densecap.boxids);
     }
 
   }
 
-  return {boxes: boxes};
+  return {boxes: boxes, boxids: boxids};
 }
 
 const mapDispatchToProps = (dispatch) => {

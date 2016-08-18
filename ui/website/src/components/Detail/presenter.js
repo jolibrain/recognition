@@ -27,10 +27,23 @@ Link = Radium(Link);
 @Radium
 class Detail extends React.Component {
 
-  state = {overHash: ''};
+  state = {
+    overLeft: {hash: [], index: -1},
+    overRight: {hash: [], index: -1}
+  };
 
-  handleOverHash(parent, overHash) {
-    parent.setState({overHash: overHash});
+  handleLeftOver(parent, overHash, overIndex) {
+    parent.setState({
+      overLeft: {hash: overHash, index: -1},
+      overRight: {hash: [], index: overIndex}
+    });
+  }
+
+  handleRightOver(parent, overHash, overIndex) {
+    parent.setState({
+      overLeft: {hash: [], index: overIndex},
+      overRight: {hash: overHash, index: -1}
+    });
   }
 
   render() {
@@ -50,16 +63,16 @@ class Detail extends React.Component {
         <div className="col-md-5 col-md-offset-1"style={[styles.leftImg]} >
           <BoundedImage item={item.input}
                         features={selectedOutput.features.in}
-                        onOver={this.handleOverHash}
-                        overHash={this.state.overHash}
+                        onOver={this.handleLeftOver}
+                        overHash={this.state.overRight}
                         parent={this}
           />
         </div>
         <div className="col-md-5 col-md-offset-1">
           <BoundedImage item={selectedOutput}
                         features={selectedOutput.features.out}
-                        onOver={this.handleOverHash}
-                        overHash={this.state.overHash}
+                        onOver={this.handleRightOver}
+                        overHash={this.state.overLeft}
                         parent={this}
           />
         </div>
@@ -73,8 +86,8 @@ class Detail extends React.Component {
                           source={'reuters'}
                           features={selectedOutput.features.in}
                           scores={selectedOutput.features.summary.scores}
-                          onOver={this.handleOverHash}
-                          overHash={this.state.overHash}
+                          onOver={this.handleLeftOver}
+                          overHash={this.state.overRight}
                           parent={this}
           />
         </div>
@@ -84,8 +97,8 @@ class Detail extends React.Component {
                           source={'tate'}
                           features={selectedOutput.features.out}
                           scores={selectedOutput.features.summary.scores}
-                          onOver={this.handleOverHash}
-                          overHash={this.state.overHash}
+                          onOver={this.handleRightOver}
+                          overHash={this.state.overLeft}
                           parent={this}
           />
         </div>
