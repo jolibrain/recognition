@@ -196,7 +196,7 @@ class DenseCapExtractor(FeatureGenerator):
                                 resi[nuri]['dcap_in']['boxes'].append(lbdata['box'])
                                 resi[nuri]['dcap_in']['captions'].append(lbdata['caption'])
                                 resi[nuri]['dcap_in']['scores'].append(lbdata['score'])
-                                resi[nuri]['dcap_in']['boxids'].append(in_box_hash)
+                                resi[nuri]['dcap_in']['boxids'].append([in_box_hash])
                             
                             nn = nns['nns'][0][m]
                             nndata = ldb[str(nn)]
