@@ -46,7 +46,6 @@ class Splash extends React.Component {
 
     if(match) {
 
-      //const selectedOutput = match.output[this.state.outputIndex];
       const selectedOutput = match.output[this.state.outputIndex];
 
       if(this.state.introOverlay) {
@@ -109,7 +108,7 @@ class Splash extends React.Component {
                     <tbody>
                       <tr style={styles.table.header}>
                         <td  style={[styles.table.leftColumn, styles.table.headerCell]}>Searching for match</td>
-                        <td style={styles.table.headerCell}>{moment.unix(selectedOutput.features.summary.processing_time).format("HH:mm:ss")}</td>
+                        <td style={styles.table.headerCell}></td>
                       </tr>
                       <tr style={styles.table.row}>
                         <td style={[styles.table.leftColumn, styles.table.firstRowCell]}><img src="/img/icons/score_objects.png"/> Objects:</td>
@@ -136,7 +135,12 @@ class Splash extends React.Component {
               <div className="row">
                 <div className="col-md-12" style={{textAlign: "center"}}>
 
-                  <img src={match.input.img} style={[styles.fullHeight.img]}/>
+                  <img
+                    src={match.input.img}
+                    style={[styles.fullHeight.img]}
+                    srcSet={match.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + match.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w, " + match.input.img.replace('reuters/', 'reuters/responsive_757/').replace("_2_", "_3_") + " 757w, " + match.input.img.replace('reuters/', 'reuters/responsive_1920/').replace("_2_", "_3_") + " 1920w"}
+                    sizes="(min-width: 40em) 80vw, 100vw"
+                  />
 
                   <p style={styles.imgDescription}>
                     {match.input.meta.date}<br/>
@@ -154,7 +158,12 @@ class Splash extends React.Component {
               <div className="row"  style={styles.fullHeight.row}>
                 <div className="col-md-10 col-md-offset-1" style={styles.fullHeight.col}>
 
-                  <img style={[styles.fullHeight.img, {maxHeight: "75vh"}]} src={selectedOutput.img} />
+                  <img
+                    style={[styles.fullHeight.img, {maxHeight: "75vh"}]}
+                    src={selectedOutput.img}
+                    srcSet={selectedOutput.img.replace('tate/', 'tate/responsive_375/') + " 375w, " + selectedOutput.img.replace('tate/', 'tate/responsive_480/') + " 480w, " + selectedOutput.img.replace('tate/', 'tate/responsive_757/') + " 757w"}
+                    sizes="(min-width: 40em) 80vw, 100vw"
+                  />
 
                   <p style={styles.imgDescription}>
                     {selectedOutput.meta.date}<br/>

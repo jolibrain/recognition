@@ -70,10 +70,20 @@ class GalleryItem extends React.Component {
           <div className="container-fluid">
             <div className="row">
               <div className="col-md-6">
-                <img className="img-responsive" src={item.input.img} />
+                <img
+                  src={item.input.img}
+                  className="img-responsive"
+                  srcSet={item.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + item.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w, " + item.input.img.replace('reuters/', 'reuters/responsive_757/').replace("_2_", "_3_") + " 757w, " + item.input.img.replace('reuters/', 'reuters/responsive_1920/').replace("_2_", "_3_") + " 1920w"}
+                  sizes="(min-width: 40em) 80vw, 100vw"
+                />
               </div>
               <div className="col-md-6">
-                <img className="img-responsive" src={selectedOutput.img} />
+                <img
+                  className="img-responsive"
+                  src={selectedOutput.img}
+                  srcSet={selectedOutput.img.replace('tate/', 'tate/responsive_375/') + " 375w, " + selectedOutput.img.replace('tate/', 'tate/responsive_480/') + " 480w, " + selectedOutput.img.replace('tate/', 'tate/responsive_757/') + " 757w"}
+                  sizes="(min-width: 40em) 80vw, 100vw"
+                />
               </div>
             </div>
           </div>
@@ -92,7 +102,7 @@ class GalleryItem extends React.Component {
             {this.state.hover ? (
             <div>
               <span key="item.input.meta.date" style={[styles.input.date, styles.hover]}>
-                {item.input.meta.date}
+                {moment(item.input.meta.date).format('DD/MM/YYYY')}
               </span>
               <br/>
               <span key="item.input.meta.origin" style={[styles.input.title, styles.hover]}>
@@ -102,7 +112,7 @@ class GalleryItem extends React.Component {
             ) : (
             <div>
               <span key="item.input.meta.date" style={styles.input.date}>
-                {item.input.meta.date}
+                {moment(item.input.meta.date).format('DD/MM/YYYY')}
               </span>
               <br/>
               <span key="item.input.meta.origin" style={styles.input.title}>

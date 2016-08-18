@@ -16,9 +16,7 @@ limitations under the License.
 import React from 'react';
 import Radium from 'radium';
 import {Modal} from 'react-overlays';
-
-let {Link} = require('react-router');
-Link = Radium(Link);
+import styles from './SubscribeStyles.js';
 
 class SubscribeModal extends React.Component {
 
@@ -26,75 +24,43 @@ class SubscribeModal extends React.Component {
 
   render() {
 
-    const linkStyle = {
-      color: 'rgb(255, 255, 255)',
-      textTransform: 'uppercase',
-      fontWeight: 'bold',
-      marginLeft: '20px',
-      ':hover': {
-        color: '#0FC'
-      }
-    };
-
-    const modalStyle = {
-      position: 'fixed',
-      zIndex: 1040,
-      top: 0, bottom: 0, left: 0, right: 0
-    };
-
-    const backdropStyle = {
-      ...modalStyle,
-      zIndex: 'auto',
-      backgroundColor: '#000',
-      opacity: 0.5
-    };
-
-    const dialogStyle =  {
-      position: 'absolute',
-      width: 400,
-      border: '1px solid #e5e5e5',
-      backgroundColor: 'white',
-      boxShadow: '0 5px 15px rgba(0,0,0,.5)',
-      padding: 20,
-      top: '50%', left: '50%',
-      transform: 'translate(-50%, -50%)'
-    };
-
-    return (
-      <Link to='#' style={linkStyle}
+    return (<div className="subscribeModal" style={styles.component}>
+      <a style={styles.link}
          onClick={() => {
           this.setState({ showModal: true });
         }}>
         Subscribe
-        <Modal
-          aria-labelledby='modal-label'
-          style={modalStyle}
-          backdropStyle={backdropStyle}
-          show={this.state.showModal}
-          onHide={() => {
-            this.setState({ showModal: false });
-          }}
-        >
-          <div style={dialogStyle} >
-            <h4 id='modal-label'>Subscribe</h4>
-            <p>Keep up to date with RECOGNITION</p>
+      </a>
 
-            <form class="form__newsletter-signup" action="http://links.mkt41.net/servlet/UserSignUp?f=717648&amp;postMethod=HTML&amp;m=0&amp;j=MAS2" method="post">
-              <input type="hidden" value="T" name="EMAIL_REQUIRED"/>
-              <input type="hidden" value="email" name="EMAIL_DATATYPE"/>
-              <input type="hidden" value="Yes" name="EB_EXHIBITIONS"/>
-              <input type="hidden" value="Tate home page E-Bulletin sign-up" name="Source"/>
-              <fieldset>
-                <label for="email">Email address</label>
-                <input type="email" name="email" id="email" placeholder="Email address"/>
-                <button type="submit">Ok</button>
-              </fieldset>
-            </form>
+      <Modal
+        aria-labelledby='modal-label'
+        style={styles.modal}
+        backdropStyle={styles.backdrop}
+        show={this.state.showModal}
+        onHide={() => {
+          this.setState({ showModal: false });
+        }}
+      >
+        <div style={styles.dialog} >
+          <h4 id='modal-label' style={styles.title}>Subscribe</h4>
+          <p style={styles.text}>Keep up to date with RECOGNITION</p>
 
-          </div>
-        </Modal>
-      </Link>
-    );
+          <form class="form__newsletter-signup" action="http://links.mkt41.net/servlet/UserSignUp?f=717648&amp;postMethod=HTML&amp;m=0&amp;j=MAS2" method="post">
+            <input type="hidden" value="T" name="EMAIL_REQUIRED"/>
+            <input type="hidden" value="email" name="EMAIL_DATATYPE"/>
+            <input type="hidden" value="Yes" name="EB_EXHIBITIONS"/>
+            <input type="hidden" value="Tate home page E-Bulletin sign-up" name="Source"/>
+            <fieldset>
+              <label for="email">Email address</label>
+              <br/>
+              <input type="email" name="email" id="email" placeholder="Email address" style={styles.input}/>
+              <button type="submit" style={styles.button}>Ok</button>
+            </fieldset>
+          </form>
+        </div>
+      </Modal>
+
+    </div>);
   }
 
   close(){

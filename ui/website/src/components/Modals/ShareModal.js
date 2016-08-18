@@ -17,6 +17,11 @@ import React from 'react';
 import Radium from 'radium';
 import {Modal} from 'react-overlays';
 
+import {
+  ShareButtons,
+  generateShareIcon
+} from 'react-share';
+
 let {Link} = require('react-router');
 Link = Radium(Link);
 
@@ -25,6 +30,18 @@ class ShareModal extends React.Component {
   state = { showModal: false }
 
   render() {
+
+    const {
+      FacebookShareButton,
+      TwitterShareButton,
+      PinterestShareButton,
+      GooglePlusShareButton
+    } = ShareButtons;
+
+    const FacebookIcon = generateShareIcon('facebook');
+    const TwitterIcon = generateShareIcon('twitter');
+    const PinterestIcon = generateShareIcon('pinterest');
+    const GooglePlusIcon = generateShareIcon('google');
 
     const linkStyle = {
       color: 'rgb(255, 255, 255)',
@@ -56,13 +73,30 @@ class ShareModal extends React.Component {
     const dialogStyle =  {
       position: 'absolute',
       width: 400,
-      border: '1px solid #e5e5e5',
-      backgroundColor: 'white',
+      backgroundColor: '#0d1215',
+      border: '1px solid #4a4a4a',
       boxShadow: '0 5px 15px rgba(0,0,0,.5)',
-      padding: 20,
+      padding: 10,
       top: '50%', left: '50%',
-      transform: 'translate(-50%, -50%)'
+      transform: 'translate(-50%, -50%)',
+      outline: 'none'
     };
+
+    const titleStyle = {
+      color: '#FFF',
+      fontFamily: 'TateNewPro-Thin',
+      fontSize: '24px',
+      margin: 0
+    };
+
+    const textStyle = {
+      color: '#AAA',
+      fontFamily: 'TateNewPro',
+      fontSize: '18px'
+    };
+
+    const url = encodeURI(this.props.url || "http://recognition.tate.org.uk");
+    const text = encodeURI(this.props.text || "RECOGNITION");
 
     return (<div className="shareModal">
       <a style={linkStyle}
@@ -81,22 +115,72 @@ class ShareModal extends React.Component {
           this.setState({ showModal: false });
         }}
       >
-        <div style={dialogStyle} >
-          <h4 id='modal-label'>Subscribe</h4>
-          <p>Keep up to date with RECOGNITION</p>
+        <div style={dialogStyle}>
+          <h4 id='modal-label' style={titleStyle}>share</h4>
+          <p style={textStyle}>what makes this an interesting match?<br/>
+          could you write a better caption thant the AI?</p>
 
-          <form class="form__newsletter-signup" action="http://links.mkt41.net/servlet/UserSignUp?f=717648&amp;postMethod=HTML&amp;m=0&amp;j=MAS2" method="post">
-            <input type="hidden" value="T" name="EMAIL_REQUIRED"/>
-            <input type="hidden" value="email" name="EMAIL_DATATYPE"/>
-            <input type="hidden" value="Yes" name="EB_EXHIBITIONS"/>
-            <input type="hidden" value="Tate home page E-Bulletin sign-up" name="Source"/>
-            <fieldset>
-              <label for="email">Email address</label>
-              <input type="email" name="email" id="email" placeholder="Email address"/>
-              <button type="submit">Ok</button>
-            </fieldset>
-          </form>
+          <div className="fluid-container">
+            <div className="row">
+              <div className="col-md-3">
 
+                <FacebookShareButton
+                  url={url}
+                  title={text}
+                  className="share-button">
+                  <FacebookIcon
+                    logoFillColor="white"
+                    size={32}
+                    iconBgStyle={{fillOpacity: 0}}
+                  />
+                </FacebookShareButton>
+
+              </div>
+              <div className="col-md-3">
+
+                <TwitterShareButton
+                  url={url}
+                  title={text}
+                  className="share-button">
+                  <TwitterIcon
+                    logoFillColor="white"
+                    size={32}
+                    iconBgStyle={{fillOpacity: 0}}
+                  />
+                </TwitterShareButton>
+
+              </div>
+              <div className="col-md-3">
+
+                <PinterestShareButton
+                  url={url}
+                  title={text}
+                  className="share-button">
+                  <PinterestIcon
+                    logoFillColor="white"
+                    size={32}
+                    iconBgStyle={{fillOpacity: 0}}
+                  />
+                </PinterestShareButton>
+
+              </div>
+              <div className="col-md-3">
+
+                <GooglePlusShareButton
+                  url={url}
+                  title={text}
+                  className="share-button">
+                  <GooglePlusIcon
+                    logoFillColor="white"
+                    size={32}
+                    iconBgStyle={{fillOpacity: 0}}
+                  />
+                </GooglePlusShareButton>
+
+              </div>
+            </div>
+
+          </div>
         </div>
       </Modal>
     </div>);
