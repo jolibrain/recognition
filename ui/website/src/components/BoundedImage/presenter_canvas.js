@@ -175,10 +175,7 @@ class CanvasImage extends React.Component {
   }
 
   componentWillReceiveProps() {
-    let canvas = ReactDOM.findDOMNode(this.refs.canvasImage);
-    let ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    this.createCanvas();
+    this.renderBoxes();
   }
 
   shouldComponentUpdate(nextProps, nextState) {
