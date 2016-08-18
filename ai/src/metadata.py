@@ -118,6 +118,10 @@ class MetadataExtractor:
                             break
                         l = l + 1
                     meta['caption'] = doc['newsMessage']['itemSet']['newsItem']['contentMeta']['headline']
+                    if 'TPX' in doc['newsMessage']['itemSet']['newsItem']['contentMeta']['description']['#text']:
+                        meta['TPX'] = True
+                    else:
+                        meta['TPX'] = False
                     meta['height'] = img_loc['@height']
                     meta['width'] = img_loc['@width']
                     meta['date'] = doc['newsMessage']['itemSet']['newsItem']['itemMeta']['firstCreated']
