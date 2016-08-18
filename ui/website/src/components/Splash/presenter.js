@@ -46,7 +46,6 @@ class Splash extends React.Component {
 
     if(match) {
 
-      //const selectedOutput = match.output[this.state.outputIndex];
       const selectedOutput = match.output[this.state.outputIndex];
 
       if(this.state.introOverlay) {
@@ -162,7 +161,7 @@ class Splash extends React.Component {
                   <img
                     style={[styles.fullHeight.img, {maxHeight: "75vh"}]}
                     src={selectedOutput.img}
-                    srcset={selectedOutput.input.img.replace('tate/', 'tate/responsive_375') + " 375w, " + selectedOutput.input.img.replace('tate/', 'tate/responsive_480') + " 480w, " + selectedOutput.input.img.replace('tate/', 'tate/responsive_757') + " 757w, " + selectedOutput.input.img.replace('tate/', 'tate/responsive_1920') + " 1920w"}
+                    srcset={selectedOutput.img.replace('tate/', 'tate/responsive_375') + " 375w, " + selectedOutput.img.replace('tate/', 'tate/responsive_480') + " 480w, " + selectedOutput.img.replace('tate/', 'tate/responsive_757') + " 757w, " + selectedOutput.img.replace('tate/', 'tate/responsive_1920') + " 1920w"}
                     sizes="(min-width: 40em) 80vw, 100vw"
                   />
 
