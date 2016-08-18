@@ -112,7 +112,7 @@ class GalleryItem extends React.Component {
             ) : (
             <div>
               <span key="item.input.meta.date" style={styles.input.date}>
-                {item.input.meta.date}
+                {moment(item.input.meta.date).format('DD/MM/YYYY')}
               </span>
               <br/>
               <span key="item.input.meta.origin" style={styles.input.title}>
