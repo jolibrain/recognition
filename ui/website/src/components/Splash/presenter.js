@@ -161,7 +161,7 @@ class Splash extends React.Component {
                   <img
                     style={[styles.fullHeight.img, {maxHeight: "75vh"}]}
                     src={selectedOutput.img}
-                    srcSet={selectedOutput.img.replace('tate/', 'tate/responsive_375/') + " 375w, " + selectedOutput.img.replace('tate/', 'tate/responsive_480/') + " 480w, " + selectedOutput.img.replace('tate/', 'tate/responsive_757/') + " 757w, " + selectedOutput.img.replace('tate/', 'tate/responsive_1920/') + " 1920w"}
+                    srcSet={selectedOutput.img.replace('tate/', 'tate/responsive_375/') + " 375w, " + selectedOutput.img.replace('tate/', 'tate/responsive_480/') + " 480w, " + selectedOutput.img.replace('tate/', 'tate/responsive_757/') + " 757w"}
                     sizes="(min-width: 40em) 80vw, 100vw"
                   />
 
