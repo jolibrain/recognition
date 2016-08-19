@@ -24,13 +24,23 @@ under the License.
 from os import listdir
 from os.path import isfile, join
 from os import walk
+import os
+import time
 import glob
 import sys
 
-def list_files(repository,ext='.jpg',nfiles=-1,pattern='*'):
+def list_files(repository,ext='.jpg',nfiles=-1,pattern='*',last_hour=False):
     onlyfiles = []
     fpattern = repository + '/' + pattern + ext
     filenames = glob.glob(fpattern)
+    if last_hour:
+        nfilenames = []
+        past = time.time() - 1*60*60 # 1 hours
+        for f in filenames:
+            if os.path.getmtime(f) >= past:
+                nfilenames.append(f)
+        return nfilenames
+            
     if nfiles > 0:
         return filenames[:nfiles]
     else:
