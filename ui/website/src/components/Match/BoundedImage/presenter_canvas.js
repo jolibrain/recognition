@@ -94,6 +94,7 @@ class CanvasImage extends React.Component {
           }, []).length > 0;
       }
 
+      console.log(this.props);
       return duplicates || this.props.overHash.index == index;
 
     }).forEach((box, i) => this.renderBox(i, box));

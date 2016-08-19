@@ -80,7 +80,6 @@ class Match extends React.Component {
                     onOver={this.handleLeftOver}
                     overHash={this.state.overRight}
                     parent={this}
-                    style={{opacity: 0}}
                   />
                   <p style={styles.imgDescription}>{item.input.meta.origin}</p>
                 </div>
@@ -92,7 +91,6 @@ class Match extends React.Component {
                     onOver={this.handleRightOver}
                     overHash={this.state.overLeft}
                     parent={this}
-                    style={{opacity: 0}}
                   />
                   <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
                 </div>
@@ -125,8 +123,8 @@ class Match extends React.Component {
                     item={selectedOutput}
                     itemId={itemId}
                     features={selectedOutput.features.out}
-                    onOver={this.handleOverHash}
-                    overHash={this.state.overHash}
+                    onOver={this.handleRightOver}
+                    overHash={this.state.overLeft}
                     parent={this}
                   />
                   <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
@@ -164,8 +162,8 @@ class Match extends React.Component {
                     item={selectedOutput}
                     itemId={itemId}
                     features={selectedOutput.features.out}
-                    onOver={this.handleOverHash}
-                    overHash={this.state.overHash}
+                    onOver={this.handleRightOver}
+                    overHash={this.state.overLeft}
                     parent={this}
                   />
                   <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
@@ -186,8 +184,8 @@ class Match extends React.Component {
                     item={item.input}
                     itemId={itemId}
                     features={selectedOutput.features.in}
-                    onOver={this.handleOverHash}
-                    overHash={this.state.overHash}
+                    onOver={this.handleLeftOver}
+                    overHash={this.state.overRight}
                     parent={this}
                   />
                   <p style={styles.imgDescription}>{item.input.meta.origin}</p>
@@ -197,8 +195,8 @@ class Match extends React.Component {
                     item={selectedOutput}
                     itemId={itemId}
                     features={selectedOutput.features.out}
-                    onOver={this.handleOverHash}
-                    overHash={this.state.overHash}
+                    onOver={this.handleRightOver}
+                    overHash={this.state.overLeft}
                     parent={this}
                   />
                   <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
