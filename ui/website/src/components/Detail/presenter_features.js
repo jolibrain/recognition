@@ -49,6 +49,14 @@ class DetailFeatures extends React.Component {
       date = moment(date).format('DD/MM/YYYY');
     }
 
+    let tags = [];
+    if(features.mapi_tags)    tags = tags.concat(features.mapi_tags.tags);
+    if(features.places)       tags = tags.concat(features.places.tags);
+    if(features.categories_1) tags = tags.concat(features.categories_1.tags);
+    if(features.categories_2) tags = tags.concat(features.categories_2.tags);
+    if(features.categories_3) tags = tags.concat(features.categories_3.tags);
+    if(features.mapi_cats)    tags = tags.concat(features.mapi_cats.tags);
+
     return(<div className={this.state.hovered ? 'detailFeatures detailHovered' : 'detailFeatures'}
       style={[styles.detailColumn, this.state.hovered ? styles.columnHovered : '']}>
       <p>{this.state.hovered} - {this.state.objHovered}</p>
@@ -180,7 +188,7 @@ class DetailFeatures extends React.Component {
       >
         <img src={this.getIconUrl('context')}/> CONTEXT {(scores.context * 100).toFixed(2)}%
       </h3>
-      { item.meta.tags ? (<div><h4>TAGS</h4><p>{item.meta.tags.join(', ')}</p></div>) : ''}
+      { tags.length > 0 ? (<div><h4>TAGS</h4><p>{tags.join(', ')}</p></div>) : ''}
 
       { features.places ? (<div><h4>PLACES</h4><p>{features.places.tags.join(', ')}</p></div>) : ''}
 
