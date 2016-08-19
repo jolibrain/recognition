@@ -16,6 +16,7 @@ limitations under the License.
 import React from 'react';
 import Radium from 'radium';
 import styles from './styles.js';
+import moment from 'moment';
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -31,11 +32,11 @@ class Titles extends React.Component {
     return (<div>
       <div>
         <span key="item.input.meta.date" style={styles.input.date}>
-          {input.meta.date}
+          {moment(input.meta.date).format('DD/MM/YYYY')}
         </span>
         <br/>
         <span key="item.input.meta.title" style={styles.input.title}>
-          {input.meta.title}</span>
+          {input.meta.caption}</span>
         <br/>
         <span key="item.input.meta.origin" style={styles.input.method}>{input.meta.method}</span>
       </div>
