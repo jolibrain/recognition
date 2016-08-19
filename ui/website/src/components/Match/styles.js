@@ -58,10 +58,28 @@ const styles = {
     }
   },
   processLink: {
+    display: 'block',
+    textTransform: 'uppercase',
+    fontFamily: 'TateNewPro',
+    fontSize: '13px',
+    textDecoration: 'none',
     color: '#FFF',
+    marginBottom: '60px',
     ':hover': {
-      color: '#04F'
+      color: '#0FC'
     }
+  },
+  descriptionTitle: {
+    fontFamily: 'MaisonNeue',
+    fontSize: '12px',
+    color: '#FFF',
+    display: 'inline',
+    borderBottom: '1px solid #FFF'
+  },
+  descriptionText: {
+    fontFamily: 'MaisonNeue',
+    fontSize: '12px',
+    color: '#FFF'
   }
 }
 
