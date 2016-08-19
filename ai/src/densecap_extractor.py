@@ -40,7 +40,7 @@ logger.setLevel(logging.INFO)
 
 class DenseCapExtractor(FeatureGenerator):
     
-    def __init__(self,images_repo,image_files,nimages,model_repo,index_repo,densecap_dir,name,description,meta_in='',meta_out=''):
+    def __init__(self,images_repo,image_files,nimages,model_repo,index_repo,densecap_dir,name,description,meta_in='',meta_out='',captions_in='',captions_out=''):
         self.name = name
         self.description = description
         self.images_repo = images_repo
@@ -50,6 +50,8 @@ class DenseCapExtractor(FeatureGenerator):
         self.nimages = nimages
         self.meta_in = meta_in
         self.meta_out = meta_out
+        self.captions_in = captions_in
+        self.captions_out = captions_out
         self.model_repo = model_repo
         self.index_repo = index_repo + '/' + self.name
         try:
@@ -234,4 +236,4 @@ class DenseCapExtractor(FeatureGenerator):
                     results[self.images_repo + ldata['img_name']] = resi
                     #print 'results=',results
                 ldb.close()
-        return self.to_json(results,'/img/reuters/','/img/tate/',self.name,self.description,jdataout,self.meta_in,self.meta_out)
+        return self.to_json(results,'/img/reuters/','/img/tate/',self.name,self.description,jdataout,self.meta_in,self.meta_out,self.captions_in,self.captions_out)

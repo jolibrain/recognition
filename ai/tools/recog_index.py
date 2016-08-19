@@ -34,6 +34,7 @@ from text_embedding import TextEmbedding
 from metadata import MetadataExtractor
 from densecap_extractor import DenseCapExtractor
 from mapi_generator import MAPIGenerator
+from caption_generator import CaptionGenerator
 
 from file_utils import list_files
 from generators import generator_lk
@@ -66,7 +67,7 @@ def execute_generator(generator):
         metad.preproc()
         metad.index()
     elif generator_conf['type'] == 'densecap':
-        dcap = DenseCapExtractor(images_repo=args.input_imgs,nimages=len(image_files),model_repo=model_repo,index_repo=args.indexes_repo,name=generator,
+        dcap = DenseCapExtractor(images_repo=args.input_imgs,image_files=image_files,nimages=len(image_files),model_repo=model_repo,index_repo=args.indexes_repo,name=generator,
                                  densecap_dir=generator_conf['wdir'],description=generator_conf['description'])
         dcap.preproc()
         dcap.index()
@@ -74,6 +75,10 @@ def execute_generator(generator):
         mapi = MAPIGenerator(image_files=image_files,json_files=json_mapi_files,json_emo_files=json_mapi_emo_files,index_repo=args.indexes_repo,name=generator,description=generator_conf['description'])
         mapi.preproc()
         mapi.index()
+    elif generator_conf['type'] == 'captions':
+        capt = CaptionGenerator(images_repo=args.input_imgs,image_files=image_files,nimages=len(image_files),model_repo=model_repo,index_repo=args.indexes_repo,nt2_dir=generator_conf['nt2_dir'],name=generator,description=generator_conf['description'],tate=True)
+        capt.preproc()
+        capt.index()
     else:
         logger.error('Unknown generator type ' + generator_conf['type'])
     return

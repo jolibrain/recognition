@@ -46,7 +46,7 @@ def strip_accents(s):
 
 class TextEmbedding(FeatureGenerator):
 
-    def __init__(self,json_files,model_repo,model_file,index_repo,tate=True,img_files=[],reuters_json=False,meta_in='',meta_out=''):
+    def __init__(self,json_files,model_repo,model_file,index_repo,tate=True,img_files=[],reuters_json=False,meta_in='',meta_out='',captions_in='',captions_out=''):
         self.name = 'txtembed'
         self.description = 'text similarity'
         self.json_files = json_files
@@ -55,6 +55,8 @@ class TextEmbedding(FeatureGenerator):
         self.reuters_json = reuters_json
         self.meta_in = meta_in
         self.meta_out = meta_out
+        self.captions_in = captions_in
+        self.captions_out = captions_out
         try:
             os.mkdir(self.index_repo)
         except:
@@ -173,4 +175,4 @@ class TextEmbedding(FeatureGenerator):
             for u,v in self.embeddings.iteritems():
                 nns = searcher.search_single(v,u)
                 results[u] = nns
-        return self.to_json(results,'img/reuters/','img/tate/',self.name,self.description,jdataout,self.meta_in,self.meta_out)
+        return self.to_json(results,'img/reuters/','img/tate/',self.name,self.description,jdataout,self.meta_in,self.meta_out,self.captions_in,self.captions_out)

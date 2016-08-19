@@ -109,5 +109,11 @@ generator_lk = {
         'type': 'mapi',
         'name': 'mapi',
         'description': 'vision'
+    },
+    'captions': {
+        'type': 'captions',
+        'name': 'captions',
+        'description': 'captions',
+        'nt2_dir': '/home/recog/tate/apps/neuraltalk2/'
     }
 }

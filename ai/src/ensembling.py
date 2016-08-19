@@ -50,8 +50,9 @@ class EnsemblingScores:
                     elif 'categories' in g:
                         summary['scores'][self.summary_map['categories']] += 1.0
                     else:
-                        final_score += factor*v['score']
-                        summary['scores'][self.summary_map[g]] += 1.0
+                        if 'score' in v: # typically, captions have no score at the moment
+                            final_score += factor*v['score']
+                            summary['scores'][self.summary_map[g]] += 1.0
                     summary_sum += 1.0
                 if comp_num > 0.0:
                     final_score += comp_score / comp_num
