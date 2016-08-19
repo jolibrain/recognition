@@ -18,6 +18,7 @@ import Radium from 'radium';
 import {Modal} from 'react-overlays';
 import styles from './SubscribeStyles.js';
 
+@Radium
 class SubscribeModal extends React.Component {
 
   state = { showModal: false }
