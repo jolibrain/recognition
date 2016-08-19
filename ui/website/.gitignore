@@ -8,3 +8,4 @@ dist/*
 dist/img/*
 !dist/img/logos
 !dist/img/icons
+!dist/img/loading
