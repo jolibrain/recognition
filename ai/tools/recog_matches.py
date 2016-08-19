@@ -152,7 +152,7 @@ if 'captions' in generator_lk:
     generator_conf = generator_lk['captions']
     nfiles = min(args.nfiles,len(image_files))
     model_repo = args.models_repo + '/captions'
-    captiond = CaptionGenerator(images_repo=args.input_imgs,image_files=image_files,nimages=nfiles,model_repo=model_repo,index_repo=args.indexes_repo,name='captions',nt2_dir=generator_conf['nt2_dir'],description=generator_conf['description'],meta_in='',meta_out='',tate=False)
+    captiond = CaptionGenerator(images_repo=args.input_imgs,image_files=image_files,nimages=nfiles,model_repo=model_repo,index_repo=args.indexes_repo,name='captions',nt2_dir=generator_conf['nt2_dir'],description=generator_conf['description'],tate=False)
     captiond.preproc()
     captiond.index()
     captions_in = args.indexes_repo + '/captions/ldata.bin'

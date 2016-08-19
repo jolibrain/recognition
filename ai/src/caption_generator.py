@@ -36,7 +36,7 @@ logger.setLevel(logging.INFO)
 
 class CaptionGenerator(FeatureGenerator):
 
-    def __init__(self,images_repo,image_files,nimages,model_repo,index_repo,nt2_dir,name,description,meta_in='',meta_out='',tate=False):
+    def __init__(self,images_repo,image_files,nimages,model_repo,index_repo,nt2_dir,name,description,tate=False):
         self.name = name
         self.description = description
         self.images_repo = images_repo
