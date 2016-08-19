@@ -111,8 +111,8 @@ class Match extends React.Component {
                     item={item.input}
                     itemId={itemId}
                     features={selectedOutput.features.in}
-                    onOver={this.handleOverHash}
-                    overHash={this.state.overHash}
+                    onOver={this.handleLeftOver}
+                    overHash={this.state.overRight}
                     parent={this}
                   />
                   <p style={styles.imgDescription}>{item.input.meta.origin}</p>
@@ -130,7 +130,9 @@ class Match extends React.Component {
                   <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
                 </div>
                 <div className="col-md-2">
-                  <Description id={itemId} description={selectedOutput.features.out.description}/>
+                  <Description id={itemId}
+                               descriptionIn={selectedOutput.features.in.captions.caption}
+                               descriptionOut={selectedOutput.features.out.captions.caption}/>
                 </div>
               </div>
             </div>);
@@ -151,8 +153,8 @@ class Match extends React.Component {
                     item={item.input}
                     itemId={itemId}
                     features={selectedOutput.features.in}
-                    onOver={this.handleOverHash}
-                    overHash={this.state.overHash}
+                    onOver={this.handleLeftOver}
+                    overHash={this.state.overRight}
                     parent={this}
                   />
                   <p style={styles.imgDescription}>{item.input.meta.origin}</p>
@@ -167,7 +169,9 @@ class Match extends React.Component {
                     parent={this}
                   />
                   <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
-                  <Description id={itemId} description={selectedOutput.features.out.description}/>
+                  <Description id={itemId}
+                               descriptionIn={selectedOutput.features.in.captions.caption}
+                               descriptionOut={selectedOutput.features.out.captions.caption}/>
                 </div>
               </div>
             </div>);
@@ -177,7 +181,9 @@ class Match extends React.Component {
               <div className="row">
                 <div className="col-md-2">
                   <Titles input={item.input} output={selectedOutput}/>
-                  <Description id={itemId} description={selectedOutput.features.out.description}/>
+                  <Description id={itemId}
+                               descriptionIn={selectedOutput.features.in.captions.caption}
+                               descriptionOut={selectedOutput.features.out.captions.caption}/>
                 </div>
                 <div className="col-md-5">
                   <BoundedImage

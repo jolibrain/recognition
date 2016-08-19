@@ -30,8 +30,9 @@ class Description extends React.Component {
     return (<div>
       <Link style={styles.processLink} to={`/details/${this.props.id}`}>View recognition process <span className="icon--i_arrow-right"/></Link>
 
-      <h3>AI Description</h3>
-      <p>{this.props.description}</p>
+      <h3 style={styles.descriptionTitle}>AI Description</h3>
+      <p style={styles.descriptionText}>{this.props.descriptionIn}</p>
+      <p style={styles.descriptionText}>{this.props.descriptionOut}</p>
 
       <ShareModal />
     </div>);
