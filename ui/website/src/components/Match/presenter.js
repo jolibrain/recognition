@@ -19,7 +19,7 @@ import styles from './styles.js';
 
 import Titles from './presenter_titles';
 import Description from './presenter_description';
-import BoundedImage from '../BoundedImage'
+import BoundedImage from './BoundedImage'
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -27,11 +27,25 @@ Link = Radium(Link);
 @Radium
 class Match extends React.Component {
 
-  state = {overHash: ''};
+  state = {
+    overLeft: {hash: [], index: -1},
+    overRight: {hash: [], index: -1}
+  };
 
-  handleOverHash(parent, overHash) {
-    parent.setState({overHash: overHash});
+  handleLeftOver(parent, overHash, overIndex) {
+    parent.setState({
+      overLeft: {hash: overHash, index: -1},
+      overRight: {hash: [], index: overIndex}
+    });
   }
+
+  handleRightOver(parent, overHash, overIndex) {
+    parent.setState({
+      overLeft: {hash: [], index: overIndex},
+      overRight: {hash: overHash, index: -1}
+    });
+  }
+
 
   render() {
 
@@ -62,9 +76,10 @@ class Match extends React.Component {
                   <BoundedImage
                     item={item.input}
                     features={selectedOutput.features.in}
-                    onOver={this.handleOverHash}
-                    overHash={this.state.overHash}
+                    onOver={this.handleLeftOver}
+                    overHash={this.state.overRight}
                     parent={this}
+                    style={{opacity: 0}}
                   />
                   <p style={styles.imgDescription}>{item.input.meta.origin}</p>
                 </div>
@@ -72,9 +87,10 @@ class Match extends React.Component {
                   <BoundedImage
                     item={selectedOutput}
                     features={selectedOutput.features.out}
-                    onOver={this.handleOverHash}
-                    overHash={this.state.overHash}
+                    onOver={this.handleRightOver}
+                    overHash={this.state.overLeft}
                     parent={this}
+                    style={{opacity: 0}}
                   />
                   <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
                 </div>

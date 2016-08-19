@@ -69,9 +69,11 @@ class CanvasImage extends React.Component {
       height = item.meta.height + lineWidth / 2 - y;
 
     // erase current box
+      /*
     ctx.rect(x, y, width, height);
     ctx.fillStyle = 'rgba(225,225,225,0)';
     ctx.fill();
+    */
 
     // Left segment
     ctx.strokeStyle = colorStyle;
@@ -84,7 +86,6 @@ class CanvasImage extends React.Component {
     ctx.stroke();
 
     // Right segment
-    ctx.strokeStyle = colorStyle;
     ctx.beginPath();
     ctx.moveTo(x + 9 * width / 10, y);
     ctx.lineTo(x + width, y);

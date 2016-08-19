@@ -19,7 +19,7 @@ import moment from 'moment';
 import styles from './styles.js';
 import { browserHistory } from 'react-router'
 import DetailFeatures from './presenter_features'
-import BoundedImage from '../BoundedImage'
+import BoundedImage from './BoundedImage'
 
 let {Link} = require('react-router');
 Link = Radium(Link);
