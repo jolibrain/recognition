@@ -97,7 +97,9 @@ class Match extends React.Component {
                   <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
                 </div>
                 <div className="col-md-2">
-                  <Description id={itemId} description={selectedOutput.features.out.description}/>
+                  <Description id={itemId}
+                               descriptionIn={selectedOutput.features.in.captions.caption}
+                               descriptionOut={selectedOutput.features.out.captions.caption}/>
                 </div>
               </div>
             </div>);

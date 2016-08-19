@@ -65,7 +65,7 @@ const mapStateToProps = (state, ownProps) => {
           emotion.height
         ];
       }));
-      boxids = boxids.concat(features.densecap.boxids);
+      boxids = boxids.concat(features.mapi.boxids);
     }
 
   }

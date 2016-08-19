@@ -68,13 +68,6 @@ class CanvasImage extends React.Component {
     if((y + height) > (item.meta.height + lineWidth / 2))
       height = item.meta.height + lineWidth / 2 - y;
 
-    // erase current box
-      /*
-    ctx.rect(x, y, width, height);
-    ctx.fillStyle = 'rgba(225,225,225,0)';
-    ctx.fill();
-    */
-
     // Left segment
     ctx.strokeStyle = colorStyle;
     ctx.lineWidth = lineWidth;
@@ -93,13 +86,11 @@ class CanvasImage extends React.Component {
     ctx.lineTo(x + 9 * width / 10, y + height);
     ctx.stroke();
 
-    /*
     ctx.font = "30px Arial";
     ctx.fillStyle = 'rgba(225,0,0,1)';
     ctx.fillText(this.props.boxids[index].map(i => i.slice(0, 2)).join(','), x,y+height);
     ctx.fillStyle = 'rgba(0,0,225,1)';
     ctx.fillText(index,x+width,y);
-    */
   }
 
   renderBoxes() {

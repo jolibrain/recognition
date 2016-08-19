@@ -147,9 +147,15 @@ class DetailFeatures extends React.Component {
       >
       {
         features.mapi ? (features.mapi.ages.map((age, index) => {
+
+          let hoverStyle = {};
+
+          if((index + features.densecap.boxids.length) == this.props.overHash.index)
+            hoverStyle = {color: '#0FC'};
+
           return(<div>
-            <h4>SUBJECT {index}</h4>
-            <table className="table borderless">
+            <h4 style={hoverStyle}>SUBJECT {index + 1}</h4>
+            <table className="table borderless" style={hoverStyle}>
               <tbody>
                 <tr><td>AGE:</td><td>{age}</td></tr>
                 <tr><td>GENDER:</td><td>{features.mapi.genders[index]}</td></tr>
