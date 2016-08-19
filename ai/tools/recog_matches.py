@@ -52,9 +52,10 @@ parser.add_argument('--sort-best',help='final ordering is best top match first',
 parser.add_argument('--website',help='generates splash.json in addition to a version of matches without candidates',action='store_true')
 parser.add_argument('--medium',help='filters out all photographs and undefined medium in art from Tate',action='store_true')
 parser.add_argument('--no-tga',help='filter out images from TGA archive',action='store_true')
+parser.add_argument('--last-hour',help='select images from last hour',action='store_true')
 args = parser.parse_args()
 
-image_files = list_files(args.input_imgs,ext='.JPG',nfiles=args.nfiles,pattern='*_2_*')
+image_files = list_files(args.input_imgs,ext='.JPG',nfiles=args.nfiles,pattern='*_2_*',last_hour=args.last_hour)
 json_files = list_files(args.input_imgs,ext='.json',nfiles=args.nfiles)
 xml_files = list_files(args.input_imgs,ext='.XML',nfiles=-1,pattern='*')
 json_mapi_files = json_mapi_emo_files = []
