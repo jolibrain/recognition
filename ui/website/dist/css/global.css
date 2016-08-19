@@ -244,6 +244,11 @@ body.noscroll{
 
 .detailFeatures {
   width: 30%;
+  font-family: 'MaisonNeue';
+  font-size:12px;
+}
+.detailFeatures.detailHovered {
+  color: #4a4a4a;
 }
 
 .detailFeatures .table>tbody>tr>td, .detailFeatures .table>tbody>tr>th, .detailFeatures .table>tfoot>tr>td, .detailFeatures .table>tfoot>tr>th, .detailFeatures .table>thead>tr>td, .detailFeatures .table>thead>tr>th {
@@ -251,8 +256,44 @@ body.noscroll{
 }
 
 .detailFeatures h3 {
+  font-family: 'MaisonNeue';
   font-size:12px;
-  border-bottom: 1px dotted #fff;
+  border-bottom: 2px dotted rgba(255, 255, 255, 0.8);
+  padding-bottom: 3px;
+}
+.detailFeatures.detailHovered h3 {
+  color: #4a4a4a;
+  border-bottom: 2px dotted #4a4a4a;
+}
+.detailFeatures.detailHovered h3.hovered {
+  font-family: 'MaisonNeue';
+  font-size:12px;
+  border-bottom: 2px dotted rgba(255, 255, 255, 0.8);
+  padding-bottom: 3px;
+  color: #fff;
+}
+
+/*
+.detailFeatures h3:before {
+  content: " ";
+  z-index: 2;
+  border-bottom: 2px dotted rgba(255, 255, 255, 0.8);
+}
+*/
+
+.detailFeatures h4, .detailFeatures h3.hovered h4 {
+  display: inline;
+  font-family: 'MaisonNeue';
+  font-size:12px;
+  border-bottom: 1px solid #fff;
+}
+.detailFeatures.detailHovered h4 {
+  color: #4a4a4a;
+  border-bottom: 1px solid #4a4a4a;
+}
+.detailFeatures h3.hovered h4 {
+  color: #fff;
+  border-bottom: 1px solid #fff;
 }
 
 /*

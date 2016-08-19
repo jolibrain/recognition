@@ -98,12 +98,12 @@ const styles = {
   },
   rowHover: {
     ':hover': {
-      color: '#04F'
+      color: '#0FC'
     },
     pointerEvents: 'all'
   },
   rowHovered: {
-    color: '#04F'
+    color: '#0FC'
   }
 }
 

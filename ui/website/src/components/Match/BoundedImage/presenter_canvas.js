@@ -18,6 +18,7 @@ import ReactDOM from 'react-dom';
 import Radium from 'radium';
 import moment from 'moment';
 import styles from './styles.js';
+import { browserHistory } from 'react-router'
 
 @Radium
 class CanvasImage extends React.Component {
@@ -134,6 +135,8 @@ class CanvasImage extends React.Component {
       ctx.closePath();
 
       this.renderBoxes()
+
+      canvas.onclick = ((e) => browserHistory.push(`/details/${this.props.itemId}`));
 
       canvas.onmousemove = ((e) => {
 

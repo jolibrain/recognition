@@ -75,6 +75,7 @@ class Match extends React.Component {
                   <Titles input={item.input} output={selectedOutput}/>
                   <BoundedImage
                     item={item.input}
+                    itemId={itemId}
                     features={selectedOutput.features.in}
                     onOver={this.handleLeftOver}
                     overHash={this.state.overRight}
@@ -86,6 +87,7 @@ class Match extends React.Component {
                 <div className="col-md-5">
                   <BoundedImage
                     item={selectedOutput}
+                    itemId={itemId}
                     features={selectedOutput.features.out}
                     onOver={this.handleRightOver}
                     overHash={this.state.overLeft}
@@ -107,6 +109,7 @@ class Match extends React.Component {
                 <div className="col-md-5">
                   <BoundedImage
                     item={item.input}
+                    itemId={itemId}
                     features={selectedOutput.features.in}
                     onOver={this.handleOverHash}
                     overHash={this.state.overHash}
@@ -118,6 +121,7 @@ class Match extends React.Component {
                 <div className="col-md-5">
                   <BoundedImage
                     item={selectedOutput}
+                    itemId={itemId}
                     features={selectedOutput.features.out}
                     onOver={this.handleOverHash}
                     overHash={this.state.overHash}
@@ -145,6 +149,7 @@ class Match extends React.Component {
                 <div className="col-md-5">
                   <BoundedImage
                     item={item.input}
+                    itemId={itemId}
                     features={selectedOutput.features.in}
                     onOver={this.handleOverHash}
                     overHash={this.state.overHash}
@@ -155,6 +160,7 @@ class Match extends React.Component {
                 <div className="col-md-5">
                   <BoundedImage
                     item={selectedOutput}
+                    itemId={itemId}
                     features={selectedOutput.features.out}
                     onOver={this.handleOverHash}
                     overHash={this.state.overHash}
@@ -176,6 +182,7 @@ class Match extends React.Component {
                 <div className="col-md-5">
                   <BoundedImage
                     item={item.input}
+                    itemId={itemId}
                     features={selectedOutput.features.in}
                     onOver={this.handleOverHash}
                     overHash={this.state.overHash}
@@ -186,6 +193,7 @@ class Match extends React.Component {
                 <div className="col-md-5">
                   <BoundedImage
                     item={selectedOutput}
+                    itemId={itemId}
                     features={selectedOutput.features.out}
                     onOver={this.handleOverHash}
                     overHash={this.state.overHash}
