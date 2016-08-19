@@ -42,7 +42,7 @@ class FeatureGenerator:
         return
 
     def to_json(self,results,img_reuters_repo,img_tate_repo,feature_name='',feature_description='',jdataout={},
-                meta_in='',meta_out=''):
+                meta_in='',meta_out='',captions_in='',captions_out=''):
         #print 'feature_name=',feature_name,' / jdataout=',jdataout
         meta_in_s = None
         meta_out_s = None
@@ -50,6 +50,12 @@ class FeatureGenerator:
             meta_in_s = shelve.open(meta_in)
         if meta_out:
             meta_out_s = shelve.open(meta_out)
+        captions_in_s = None
+        captions_out_s = None
+        if captions_in:
+            captions_in_s = shelve.open(captions_in)
+        if captions_out:
+            captions_out_s = shelve.open(captions_out)
         ts = time.time()
         for img in results:
             nn = results[img]
@@ -57,6 +63,7 @@ class FeatureGenerator:
                 nn['uri'] = img
             #print 'nn=',nn
             #print 'img=',img
+            captions_outd = ''
             dataout = jdataout.get(img,None)
             if not dataout:
                 metad = {}
@@ -65,6 +72,12 @@ class FeatureGenerator:
                         metad = meta_out_s[str(os.path.basename(nn['uri']))]
                     except:
                         print 'failed metad acquisition'
+                        pass
+                if captions_out:
+                    try:
+                        captions_outd = captions_out_s[str(os.path.basename(nn['uri']))]
+                    except:
+                        print 'failed captions_outd acquisition'
                         pass
                 dataout = {'timestamp':datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S'),
                            'status':'none',
@@ -95,7 +108,10 @@ class FeatureGenerator:
                     metad = {}
                     if meta_in:
                         metad = meta_in_s.get(str(os.path.basename(nuri)),'')
-                    mdataout = {'meta':metad,'features':{'score':0,'in':{feature_name:{}},'out':{feature_name:{'description':feature_description,'score':score}}},'img':nuri_rebase}
+                    captions_ind = ''
+                    if captions_in:
+                        captions_ind = captions_in_s.get(str(os.path.basename(nuri)),'')
+                    mdataout = {'meta':metad,'features':{'score':0,'in':{feature_name:{},'captions':{'caption':captions_outd}},'out':{feature_name:{'description':feature_description,'score':score},'captions':{'caption':captions_ind}}},'img':nuri_rebase}
                 else:
                     mdataout['features']['out'][feature_name] = {'description':feature_description,'score':score}
                     mdataout['features']['in'][feature_name] = {}

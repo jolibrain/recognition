@@ -36,11 +36,13 @@ logger.setLevel(logging.INFO)
 
 class MAPIGenerator(FeatureGenerator):
 
-    def __init__(self,image_files,json_files,json_emo_files,index_repo,name,description,meta_in='',meta_out=''):
+    def __init__(self,image_files,json_files,json_emo_files,index_repo,name,description,meta_in='',meta_out='',captions_in='',captions_out=''):
         self.name = name
         self.description = description
         self.meta_in = meta_in
         self.meta_out = meta_out
+        self.captions_in = captions_in
+        self.captions_out = captions_out
         self.image_files = image_files
         self.json_files = json_files
         self.json_emo_files = json_emo_files
@@ -206,7 +208,7 @@ class MAPIGenerator(FeatureGenerator):
             for t,v in self.mapi_tags.iteritems():   
                 nns =searcher.search_tags_single(v,t)
                 results_tags[t] = nns
-        results_tags = self.to_json(results_tags,'/img/reuters/','/img/tate/',self.name+'_tags',self.description,jdataout,self.meta_in,self.meta_out)
+        results_tags = self.to_json(results_tags,'/img/reuters/','/img/tate/',self.name+'_tags',self.description,jdataout,self.meta_in,self.meta_out,self.captions_in,self.captions_out)
         #print 'results_tags=',results_tags
        
         results_cats = {}
@@ -215,7 +217,7 @@ class MAPIGenerator(FeatureGenerator):
             for t,v in self.mapi_categories.iteritems():            
                 nns =searcher.search_tags_single(v,t)
                 results_cats[t] = nns
-        results_tmp = self.to_json(results_cats,'/img/reuters/','/img/tate/',self.name+'_cats',self.description,results_tags,self.meta_in,self.meta_out)
+        results_tmp = self.to_json(results_cats,'/img/reuters/','/img/tate/',self.name+'_cats',self.description,results_tags,self.meta_in,self.meta_out,self.captions_in,self.captions_out)
         if not results_tmp:
             results_tmp = results_tags
         #print 'results_tmp=',results_tmp
@@ -287,7 +289,7 @@ class MAPIGenerator(FeatureGenerator):
                 results_faces[f] = resi
                 
         ldb.close()
-        results_faces = self.to_json(results_faces,'/img/reuters/','/img/tate/',self.name,self.description,results_tmp,self.meta_in,self.meta_out)
+        results_faces = self.to_json(results_faces,'/img/reuters/','/img/tate/',self.name,self.description,results_tmp,self.meta_in,self.meta_out,self.captions_in,self.captions_out)
         if not results_faces:
             results_faces = results_tmp
         #print 'results_faces=',results_faces

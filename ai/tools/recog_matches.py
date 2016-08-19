@@ -31,6 +31,7 @@ from text_embedding import TextEmbedding
 from metadata import MetadataExtractor
 from densecap_extractor import DenseCapExtractor
 from mapi_generator import MAPIGenerator
+from caption_generator import CaptionGenerator
 
 from file_utils import list_files
 from generators import generator_lk
@@ -62,7 +63,7 @@ if 'mapi' in args.generators or 'all' in args.generators:
     except:
         pass
 
-def execute_generator(generator,jdataout={},meta_in='',meta_out=''):
+def execute_generator(generator,jdataout={},meta_in='',meta_out='',captions_in='',captions_out=''):
     #print 'jdataout=',jdataout
     generator_conf = generator_lk.get(generator,None)
     if not generator_conf:
@@ -71,20 +72,21 @@ def execute_generator(generator,jdataout={},meta_in='',meta_out=''):
     model_repo = args.models_repo + '/' + generator_conf['name']
     if generator_conf['type'] == 'dnn':
         dnnmodel = DNNModel(name=generator,model_repo=model_repo,nclasses=generator_conf['nclasses'],extract_layer=generator_conf.get('extract_layer',''),best=generator_conf.get('best',0),description=generator_conf['description'])
-        dnnfe = DNNFeatureExtractor(dnnmodel,image_files,args.indexes_repo,batch_size=generator_conf.get('batch_size',args.batch_size),meta_in=meta_in,meta_out=meta_out)
+        dnnfe = DNNFeatureExtractor(dnnmodel,image_files,args.indexes_repo,batch_size=generator_conf.get('batch_size',args.batch_size),meta_in=meta_in,meta_out=meta_out,captions_in=captions_in,captions_out=captions_out)
         return dnnfe.search(jdataout)
     elif generator_conf['type'] == 'w2v':
-        txtembed = TextEmbedding(xml_files,model_repo=model_repo,model_file=generator_conf['file'],index_repo=args.indexes_repo,tate=False,img_files=image_files,reuters_json=False,meta_in=meta_in,meta_out=meta_out)
+        txtembed = TextEmbedding(xml_files,model_repo=model_repo,model_file=generator_conf['file'],index_repo=args.indexes_repo,tate=False,img_files=image_files,reuters_json=False,meta_in=meta_in,meta_out=meta_out,captions_in=captions_in,captions_out=captions_out)
         txtembed.preproc()
         return txtembed.search(jdataout)
     elif generator_conf['type'] == 'densecap':
         nfiles = min(args.nfiles,len(image_files))
         dcap = DenseCapExtractor(images_repo=args.input_imgs,image_files=image_files,nimages=nfiles,model_repo=model_repo,index_repo=args.indexes_repo,name=generator,
-                                 densecap_dir=generator_conf['wdir'],description=generator_conf['description'],meta_in=meta_in,meta_out=meta_out)
+                                 densecap_dir=generator_conf['wdir'],description=generator_conf['description'],meta_in=meta_in,meta_out=meta_out,captions_in=captions_in,captions_out=captions_out)
         dcap.preproc()
+        ##TODO: in box caption generator here
         return dcap.search(jdataout)
     elif generator_conf['type'] == 'mapi' and json_mapi_files and json_mapi_emo_files:
-        mapi = MAPIGenerator(image_files=image_files,json_files=json_mapi_files,json_emo_files=json_mapi_emo_files,index_repo=args.indexes_repo,name=generator,description=generator_conf['description'],meta_in=meta_in,meta_out=meta_out)
+        mapi = MAPIGenerator(image_files=image_files,json_files=json_mapi_files,json_emo_files=json_mapi_emo_files,index_repo=args.indexes_repo,name=generator,description=generator_conf['description'],meta_in=meta_in,meta_out=meta_out,captions_in=captions_in,captions_out=captions_out)
         mapi.preproc()
         return mapi.search(jdataout)
     elif generator_conf['type'] != 'meta':
@@ -139,13 +141,27 @@ metad.preproc()
 metad.index()
 meta_in = args.indexes_repo + '/metadata/names.bin'
 meta_out = args.indexes_repo + '/metadata/out_names.bin'
+captions_in = ''
+captions_out = ''
 
 generators = args.generators
 if generators[0] == 'all':
     generators = generator_lk.keys()
+
+if 'captions' in generator_lk:
+    generator_conf = generator_lk['captions']
+    nfiles = min(args.nfiles,len(image_files))
+    model_repo = args.models_repo + '/captions'
+    captiond = CaptionGenerator(images_repo=args.input_imgs,image_files=image_files,nimages=nfiles,model_repo=model_repo,index_repo=args.indexes_repo,name='captions',nt2_dir=generator_conf['nt2_dir'],description=generator_conf['description'],tate=False)
+    captiond.preproc()
+    captiond.index()
+    captions_in = args.indexes_repo + '/captions/ldata.bin'
+    captions_out = args.indexes_repo + '/captions/out_ldata.bin'
+    generators.remove('captions')
+        
 json_out = {}
 for gen in generators:
-    json_out_tmp = execute_generator(gen,jdataout=json_out,meta_in=meta_in,meta_out=meta_out)
+    json_out_tmp = execute_generator(gen,jdataout=json_out,meta_in=meta_in,meta_out=meta_out,captions_in=captions_in,captions_out=captions_out)
     if json_out_tmp:
         json_out = json_out_tmp
     #print 'json_out output=',json_out
