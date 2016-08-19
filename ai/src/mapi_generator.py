@@ -25,6 +25,7 @@ import os, sys
 import json
 import numpy as np
 import shelve
+import hashlib
 from feature_generator import FeatureGenerator
 from index_search import Indexer, Searcher
 
@@ -91,6 +92,13 @@ class MAPIGenerator(FeatureGenerator):
                 if v_emos.get(e,None):
                     vec[2+pos] = v_emos[e]
         return vec
+
+    def box_hash(self,box):
+        m = hashlib.md5()
+        for c,v in box.iteritems():
+            m.update(str(v))
+        ha = m.hexdigest()
+        return ha
 
     def preproc(self):
         ## prepare fields to be indexed:
@@ -222,28 +230,45 @@ class MAPIGenerator(FeatureGenerator):
                     vec = self.face_vector(fv)
                     nns = searcher.search_single(vec,f)
                     m = 0
+                    in_face_hash = ''
+                    faceR = fv.get('faceRectangle',{})
+                    if faceR:
+                        in_face_hash = self.box_hash(faceR)
                     #print 'nns scores=',nns['nns'][1]
                     for nuri in nns['nns_uris']:
                         if not nuri in resi:
-                            resi[nuri] = {'mapi_out':{'faceRectangles':[],'emotions':[],'genders':[],'ages':[]},
-                                          'mapi_in':{'faceRectangles':[],'emotions':[],'genders':[],'ages':[]},
+                            resi[nuri] = {'mapi_out':{'faceRectangles':[],'emotions':[],'genders':[],'ages':[],'boxids':[]},
+                                          'mapi_in':{'faceRectangles':[],'emotions':[],'genders':[],'ages':[],'boxids':[]},
                                           'score':0.0}
-                        if not fv.get('faceRectangle',{}) in resi[nuri]['mapi_in']['faceRectangles']:
-                            resi[nuri]['mapi_in']['faceRectangles'].append(fv.get('faceRectangle',{}))
-                            resi[nuri]['mapi_in']['emotions'].append(fv.get('emotions',{}))
-                            resi[nuri]['mapi_in']['genders'].append(fv.get('gender',-1))
-                            resi[nuri]['mapi_in']['ages'].append(fv.get('age',-1))
+                        #in_face_hash = ''
+                        #faceR = fv.get('faceRectangle',{})
+                        #if faceR:
+                        #    in_face_hash = self.box_hash(faceR)
+                        #print 'faceR=',faceR,' / in_face_hash=',in_face_hash
+                        if in_face_hash:
+                            if not in_face_hash in resi[nuri]['mapi_in']['faceRectangles']:
+                                resi[nuri]['mapi_in']['faceRectangles'].append(faceR)
+                                resi[nuri]['mapi_in']['emotions'].append(fv.get('emotions',{}))
+                                resi[nuri]['mapi_in']['genders'].append(fv.get('gender',-1))
+                                resi[nuri]['mapi_in']['ages'].append(fv.get('age',-1))
+                                resi[nuri]['mapi_in']['boxids'].append([in_face_hash])
 
                         nn = nns['nns'][0][m]
                         nndata = ldb[str(nn)]
                         nndata0 = nndata[0]
-                        
-                        if not nndata0.get('faceRectangle',{}) in resi[nuri]['mapi_out']['faceRectangles']:
-                            resi[nuri]['mapi_out']['faceRectangles'].append(nndata0.get('faceRectangle',{}))
-                            resi[nuri]['mapi_out']['emotions'].append(nndata0.get('emotions',{}))
-                            resi[nuri]['mapi_out']['genders'].append(nndata0.get('gender',-1))
-                            resi[nuri]['mapi_out']['ages'].append(nndata0.get('age',-1))
-                            resi[nuri]['score'] += 10.0*nns['nns'][1][m] + 0.5
+                        nnfaceR = nndata0.get('faceRectangle',{})
+                        if nnfaceR:
+                            if not nnfaceR in resi[nuri]['mapi_out']['faceRectangles']:
+                                resi[nuri]['mapi_out']['faceRectangles'].append(nnfaceR)
+                                resi[nuri]['mapi_out']['emotions'].append(nndata0.get('emotions',{}))
+                                resi[nuri]['mapi_out']['genders'].append(nndata0.get('gender',-1))
+                                resi[nuri]['mapi_out']['ages'].append(nndata0.get('age',-1))
+                                if in_face_hash:
+                                    resi[nuri]['mapi_out']['boxids'].append([in_face_hash])
+                                resi[nuri]['score'] += 10.0*nns['nns'][1][m] + 0.5
+                            elif in_face_hash:
+                                bidx = resi[nuri]['mapi_out']['faceRectangles'].index(nnfaceR)
+                                resi[nuri]['mapi_out']['boxids'][bidx].append(in_face_hash)
 
                         m = m + 1
 

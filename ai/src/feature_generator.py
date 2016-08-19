@@ -125,12 +125,14 @@ class FeatureGenerator:
                             mdataout['features']['in'][feature_name]['emotions'] = nn[nuri]['mapi_in']['emotions']
                             mdataout['features']['in'][feature_name]['genders'] = nn[nuri]['mapi_in']['genders']
                             mdataout['features']['in'][feature_name]['ages'] = nn[nuri]['mapi_in']['ages']
+                            mdataout['features']['in'][feature_name]['boxids'] = nn[nuri]['mapi_in']['boxids']
                     if 'mapi_out' in nn[nuri]:
                         if feature_name in mdataout['features']['out']:
                             mdataout['features']['out'][feature_name]['faceRectangles'] = nn[nuri]['mapi_out']['faceRectangles']
                             mdataout['features']['out'][feature_name]['emotions'] = nn[nuri]['mapi_out']['emotions']
                             mdataout['features']['out'][feature_name]['genders'] = nn[nuri]['mapi_out']['genders']
                             mdataout['features']['out'][feature_name]['ages'] = nn[nuri]['mapi_out']['ages']
+                            mdataout['features']['out'][feature_name]['boxids'] = nn[nuri]['mapi_out']['boxids']
 
                 dataout['output'].append(mdataout)
                 m = m + 1
