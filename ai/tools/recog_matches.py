@@ -37,6 +37,8 @@ from file_utils import list_files
 from generators import generator_lk
 from ensembling import EnsemblingScores
 
+from copy import deepcopy
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--input-imgs',help='repository with images to be indexed')
 parser.add_argument('--generators',help='list of comma-separated generators',nargs='+',type=str)
@@ -100,6 +102,7 @@ def format_to_array(dict_out,no_tga=False):
     nmatches = args.nmatches
     if args.website:
         nmatches = 1
+
     j = 0
     for k,v in dict_out.iteritems():
         c = 0
@@ -116,6 +119,7 @@ def format_to_array(dict_out,no_tga=False):
             if c < nmatches:
                 out.append(m)
                 if args.website and j > 0:
+                    print 'breaking'
                     break
             if j == 0 and args.website and c < args.nmatches:
                 out_splash.append(m)
@@ -123,7 +127,7 @@ def format_to_array(dict_out,no_tga=False):
         v['output'] = out
         json_out.append(v)
         if j == 0 and args.website:
-            v_splash = v
+            v_splash = deepcopy(v)
             v_splash['output'] = out_splash
             splash_out = v_splash
         j = j + 1
@@ -148,7 +152,7 @@ generators = args.generators
 if generators[0] == 'all':
     generators = generator_lk.keys()
 
-if 'captions' in generator_lk:
+if 'captions' in generators:
     generator_conf = generator_lk['captions']
     nfiles = min(args.nfiles,len(image_files))
     model_repo = args.models_repo + '/captions'
