@@ -403,6 +403,10 @@ body.noscroll{
   color: #0fc;
   border-bottom: 1px solid #0fc;
 }
+.detailFeatures.detailHovered h3.hovered+div h4.notSelected {
+  color: #4a4a4a;
+  border-bottom: 1px solid #4a4a4a;
+}
 
 /*
 .not_hovered {

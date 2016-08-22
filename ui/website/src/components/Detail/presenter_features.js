@@ -211,7 +211,7 @@ class DetailFeatures extends React.Component {
             )
           }}
           >
-            <h4>SUBJECT {index + 1}</h4>
+            <h4 className={duplicates || index == this.props.overHash.index + features.densecap.boxids.length ? 'selected': 'notSelected'}>SUBJECT {index + 1}</h4>
             <table className="table borderless" style={rowStyle} key={'mapiTable' + index}>
               <tbody>
                 <tr><td>AGE:</td><td>{age}</td></tr>
