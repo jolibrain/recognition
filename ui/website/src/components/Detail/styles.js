@@ -107,6 +107,14 @@ const styles = {
   },
   rowHovered: {
     color: '#0FC'
+  },
+  tagsHovered: {
+    color: '#0FC',
+    borderBottom: '1px solid #0FC'
+  },
+  placesHovered: {
+    color: '#0FC',
+    borderBottom: '1px solid #0FC'
   }
 }
 
