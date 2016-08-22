@@ -110,7 +110,7 @@ class DenseCapExtractor(FeatureGenerator):
             c = 0
             #crops = []
             for bb in bboxes:
-                if scores[c] <= 0.0:
+                if scores[c] <= 0.0 or 'UNK' in captions[c]:
                     del bboxes[c:]
                     del captions[c:]
                     del scores[c:]
@@ -184,10 +184,17 @@ class DenseCapExtractor(FeatureGenerator):
                         #print 'feats=',feats
                         nns = searcher.search_single(feats,ldata['img_name'])
                         lbdata = {'box':ldata['boxes'][j],'caption':ldata['captions'][j],'score':ldata['scores'][j]}
+                        if 'UNK' in lbdata['caption']: # leak from dcap index
+                            continue
 
                         # aggregation of the results, that may correspond to different images for every box
                         m = 0
                         for nuri in nns['nns_uris']:
+                            nn = nns['nns'][0][m]
+                            nndata = ldb[str(nn)]
+                            if 'UNK' in nndata['caption']:
+                                continue
+                            
                             nuri = self.images_repo + '/' + nuri # add file path
                             if not nuri in resi:
                                 resi[nuri] = {'dcap_out':{'boxes':[],'captions':[],'scores':[],'boxids':[]},
@@ -200,9 +207,6 @@ class DenseCapExtractor(FeatureGenerator):
                                 resi[nuri]['dcap_in']['scores'].append(lbdata['score'])
                                 resi[nuri]['dcap_in']['boxids'].append([in_box_hash])
                             
-                            nn = nns['nns'][0][m]
-                            nndata = ldb[str(nn)]
-
                             if not nndata['box'] in resi[nuri]['dcap_out']['boxes']:
                                 resi[nuri]['dcap_out']['boxes'].append(nndata['box'])
                                 resi[nuri]['dcap_out']['captions'].append(nndata['caption'])

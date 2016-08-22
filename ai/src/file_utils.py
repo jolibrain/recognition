@@ -29,13 +29,13 @@ import time
 import glob
 import sys
 
-def list_files(repository,ext='.jpg',nfiles=-1,pattern='*',last_hour=False):
+def list_files(repository,ext='.jpg',nfiles=-1,pattern='*',last_hour=-1):
     onlyfiles = []
     fpattern = repository + '/' + pattern + ext
     filenames = glob.glob(fpattern)
-    if last_hour:
+    if last_hour >= 1:
         nfilenames = []
-        past = time.time() - 1*60*60 # 1 hours
+        past = time.time() - last_hour*60*60
         for f in filenames:
             if os.path.getmtime(f) >= past:
                 nfilenames.append(f)

@@ -179,6 +179,7 @@ class DNNFeatureExtractor(FeatureGenerator):
                 predictions = classif['body']['predictions']
                 if len(self.image_files) == 1:
                     predictions = [predictions]
+                #print 'predictions=',predictions
                 for p in predictions:
                     if self.dd_mltype == 'unsupervised':
                         nns = searcher.search_single(p['vals'],p['uri'])
