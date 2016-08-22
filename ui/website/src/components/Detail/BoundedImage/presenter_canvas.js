@@ -47,8 +47,10 @@ class CanvasImage extends React.Component {
 
     // choose box color, depending on hover status
     let colorStyle = 'rgba(225,255,255,1)';
-    if(this.props.overHash.index == index ||
-       duplicates) {
+    if( typeof this.props.overHash.index != 'undefined' &&
+        this.props.overHash.index == index) {
+      colorStyle = 'rgba(0,225,204,1)';
+    } else if(duplicates) {
       colorStyle = 'rgba(0,225,204,1)';
     }
 
@@ -86,7 +88,8 @@ class CanvasImage extends React.Component {
     ctx.lineTo(x + 9 * width / 10, y + height);
     ctx.stroke();
 
-    /*
+    /* DEBUG */
+  /*
     ctx.font = "30px Arial";
     ctx.fillStyle = 'rgba(225,0,0,1)';
     ctx.fillText(this.props.boxids[index].map(i => i.slice(0, 2)).join(','), x,y+height);
@@ -205,6 +208,9 @@ class CanvasImage extends React.Component {
   }
 
   render() {
+    /* DEBUG
+      <p>hash {this.props.overHash.hash} - index {this.props.overHash.index}</p>
+      */
     return (<div>
       <canvas ref="canvasImage"/>
     </div>);

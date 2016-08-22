@@ -388,7 +388,7 @@ body.noscroll{
 }
 */
 
-.detailFeatures h4, .detailFeatures h3.hovered h4 {
+.detailFeatures h4 {
   display: inline;
   font-family: 'MaisonNeue';
   font-size:12px;
@@ -398,9 +398,14 @@ body.noscroll{
   color: #4a4a4a;
   border-bottom: 1px solid #4a4a4a;
 }
-.detailFeatures h3.hovered h4 {
-  color: #fff;
-  border-bottom: 1px solid #fff;
+.detailFeatures.detailHovered h3.hovered+div h4,
+.detailFeatures.detailHovered h3.hovered+div table.faceSelected {
+  color: #0fc;
+  border-bottom: 1px solid #0fc;
+}
+.detailFeatures.detailHovered h3.hovered+div h4.notSelected {
+  color: #4a4a4a;
+  border-bottom: 1px solid #4a4a4a;
 }
 
 /*
