@@ -73,12 +73,15 @@ class FeatureGenerator:
                     except:
                         print 'failed metad acquisition'
                         pass
+                
+                #print 'captions_out=',captions_out
                 if captions_out:
                     try:
                         captions_outd = captions_out_s[str(os.path.basename(nn['uri']))]
                     except:
                         print 'failed captions_outd acquisition'
                         pass
+                #print 'captions_outd=',captions_outd
                 dataout = {'timestamp':datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S'),
                            'status':'none',
                            'input':{'img':img_reuters_repo + os.path.basename(nn['uri']),'meta':metad},
@@ -111,6 +114,8 @@ class FeatureGenerator:
                     captions_ind = ''
                     if captions_in:
                         captions_ind = captions_in_s.get(str(os.path.basename(nuri)),'')
+                        if captions_ind == '':
+                            print 'failed acquiring in caption for img=',os.path.basename(nuri)
                     mdataout = {'meta':metad,'features':{'score':0,'in':{feature_name:{},'captions':{'caption':captions_outd}},'out':{feature_name:{'description':feature_description,'score':score},'captions':{'caption':captions_ind}}},'img':nuri_rebase}
                 else:
                     mdataout['features']['out'][feature_name] = {'description':feature_description,'score':score}
