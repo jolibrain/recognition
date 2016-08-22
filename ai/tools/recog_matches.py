@@ -52,7 +52,7 @@ parser.add_argument('--sort-best',help='final ordering is best top match first',
 parser.add_argument('--website',help='generates splash.json in addition to a version of matches without candidates',action='store_true')
 parser.add_argument('--medium',help='filters out all photographs and undefined medium in art from Tate',action='store_true')
 parser.add_argument('--no-tga',help='filter out images from TGA archive',action='store_true')
-parser.add_argument('--last-hour',help='select images from last hour',action='store_true')
+parser.add_argument('--last-hour',help='select images from last hour',default=-1,type=int)
 args = parser.parse_args()
 
 image_files = list_files(args.input_imgs,ext='.JPG',nfiles=args.nfiles,pattern='*_2_*',last_hour=args.last_hour)
@@ -120,7 +120,6 @@ def format_to_array(dict_out,no_tga=False):
             if c < nmatches:
                 out.append(m)
                 if args.website and j > 0:
-                    print 'breaking'
                     break
             if j == 0 and args.website and c < args.nmatches:
                 out_splash.append(m)
@@ -166,7 +165,12 @@ if 'captions' in generators:
         
 json_out = {}
 for gen in generators:
-    json_out_tmp = execute_generator(gen,jdataout=json_out,meta_in=meta_in,meta_out=meta_out,captions_in=captions_in,captions_out=captions_out)
+    json_out_tmp = ''
+    try:
+        json_out_tmp = execute_generator(gen,jdataout=json_out,meta_in=meta_in,meta_out=meta_out,captions_in=captions_in,captions_out=captions_out)
+    except:
+        log.error('Failed processing with generator ' + gen)
+        pass
     if json_out_tmp:
         json_out = json_out_tmp
     #print 'json_out output=',json_out
