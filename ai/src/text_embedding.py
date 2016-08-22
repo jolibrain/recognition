@@ -170,7 +170,7 @@ class TextEmbedding(FeatureGenerator):
 
     def search(self,jdataout={}):
         results = {}
-        with Searcher(self.index_repo) as searcher:
+        with Searcher(self.index_repo,search_size=1000) as searcher:
             searcher.load_index()
             for u,v in self.embeddings.iteritems():
                 nns = searcher.search_single(v,u)

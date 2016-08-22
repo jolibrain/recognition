@@ -23,7 +23,7 @@ under the License.
 
 class EnsemblingScores:
     def __init__(self):
-        self.factors = {'composition':0.3,'places_composition':0.3,'places':0.2,'categories':0.1,'densecap':0.5,'mapi_tags':0.1,'mapi_cats':0.1,'mapi':0.05,'txtembed':0.1}
+        self.factors = {'composition_high_1':1.0,'composition':0.3,'places_composition':0.3,'places':0.2,'categories':0.1,'densecap':0.25,'mapi_tags':0.1,'mapi_cats':0.1,'mapi':0.05,'txtembed':0.1}
         self.summary_map = {'composition':'composition','places_composition':'composition','places':'context','categories':'context','densecap':'objects','mapi_cats':'context','mapi_tags':'context','mapi':'faces','txtembed':'context'}
         return
 
@@ -43,7 +43,12 @@ class EnsemblingScores:
                         if fa in g:
                             factor = fv
                             break
-                    if 'composition' in g:
+                    if g == 'composition_high_1':
+                        #comp_num += 1.0
+                        #comp_score += 3.0*v['score']#(1.0/comp_num) * factor*v['score']
+                        final_score += self.factors[g]*v['score']
+                        summary['scores'][self.summary_map['composition']] += 1.0
+                    elif 'composition' in g:
                         comp_num += 1.0
                         comp_score += factor*v['score']#(1.0/comp_num) * factor*v['score']
                         summary['scores'][self.summary_map['composition']] += 1.0
@@ -53,6 +58,8 @@ class EnsemblingScores:
                         if 'score' in v: # typically, captions have no score at the moment
                             final_score += factor*v['score']
                             summary['scores'][self.summary_map[g]] += 1.0
+                        else:
+                            summary_sum -= 1.0
                     summary_sum += 1.0
                 if comp_num > 0.0:
                     final_score += comp_score / comp_num
