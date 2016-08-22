@@ -163,13 +163,16 @@ if 'captions' in generators:
     captions_out = args.indexes_repo + '/captions/out_ldata.bin'
     generators.remove('captions')
         
+
+errors = 0
 json_out = {}
 for gen in generators:
     json_out_tmp = ''
     try:
         json_out_tmp = execute_generator(gen,jdataout=json_out,meta_in=meta_in,meta_out=meta_out,captions_in=captions_in,captions_out=captions_out)
     except:
-        log.error('Failed processing with generator ' + gen)
+        logger.error('Failed processing with generator ' + gen)
+        errors += 1
         pass
     if json_out_tmp:
         json_out = json_out_tmp
@@ -182,3 +185,4 @@ with open(args.json_output,'w') as fout:
 if splash_out:
     with open('splash.json','w') as fout:
         json.dump(splash_out,fout)
+sys.exit(errors)
