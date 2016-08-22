@@ -77,6 +77,9 @@ const styles = {
     width: '100%',
     pointerEvents: 'none'
   },
+  actionnable: {
+    pointerEvents: 'all'
+  },
   json: {
     backgroundColor: 'rgba(0,0,0,0.1)',
     color: '#FFF',

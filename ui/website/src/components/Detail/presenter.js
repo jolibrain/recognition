@@ -35,13 +35,13 @@ class Detail extends React.Component {
   handleLeftOver(parent, overHash, overIndex) {
     parent.setState({
       overLeft: {hash: overHash, index: -1},
-      overRight: {hash: [], index: overIndex}
+      overRight: {hash: overHash, index: overIndex}
     });
   }
 
   handleRightOver(parent, overHash, overIndex) {
     parent.setState({
-      overLeft: {hash: [], index: overIndex},
+      overLeft: {hash: overHash, index: overIndex},
       overRight: {hash: overHash, index: -1}
     });
   }
