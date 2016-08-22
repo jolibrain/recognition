@@ -22,6 +22,21 @@ const styles = {
     padding: '20px 0',
     cursor: 'pointer'
   },
+  fullHeight: {
+    row: {
+      height: "100vh",
+    },
+    col: {
+      height: "100%",
+      textAlign:"center"
+    },
+    img: {
+      maxHeight: "95vh",
+      verticalAlign: "top",
+      maxWidth: "100%",
+      margin: '0 auto'
+    }
+  },
   descriptionColumn: {
     color: '#4a4a4a'
   },

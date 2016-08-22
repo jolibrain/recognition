@@ -21,6 +21,8 @@ import styles from './styles.js';
 @Radium
 class DetailFeatures extends React.Component {
 
+  state = {tags: false, places: false};
+
   getIconUrl(obj, hovered, objHovered) {
     let state = '';
     if(hovered)
@@ -55,10 +57,10 @@ class DetailFeatures extends React.Component {
     if(features.categories_3) tags = tags.concat(features.categories_3.tags);
     if(features.mapi_cats)    tags = tags.concat(features.mapi_cats.tags);
 
-    let hovered = false;
-    let objHovered = '';
+    let hovered = this.state.tags || this.state.places;
+    let objHovered = hovered ? 'context' : '';
 
-    if(features.densecap && features.densecap.captions.some((caption, index) => {
+    if(typeof features.densecap != 'undefined' && features.densecap.captions.some((caption, index) => {
 
       let duplicates = false;
       if(this.props.overHash.hash.length > 0) {
@@ -74,7 +76,7 @@ class DetailFeatures extends React.Component {
     }) || (typeof this.props.overHash.index != 'undefined' && this.props.overHash.index != -1 && this.props.overHash.index < features.densecap.boxids.length)) {
       hovered = true;
       objHovered = 'objects';
-    } else if(features.mapi && features.mapi.ages.some((caption, index) => {
+    } else if(typeof features.mapi != 'undefined' && features.mapi.ages.some((caption, index) => {
 
       let duplicates = false;
       if(this.props.overHash.hash.length > 0) {
@@ -87,7 +89,7 @@ class DetailFeatures extends React.Component {
       }
 
       return duplicates;
-    }) || (typeof this.props.overHash.index != 'undefined' && this.props.overHash.index != -1 && this.props.overHash.index < features.mapi.boxids.length)) {
+    }) || (typeof this.props.overHash.index != 'undefined' && this.props.overHash.index != -1 && this.props.overHash.index - features.densecap.boxids.length < features.mapi.boxids.length)) {
       hovered = true;
       objHovered = 'faces';
     }
@@ -140,7 +142,7 @@ class DetailFeatures extends React.Component {
                     }, []).length > 0;
                 }
 
-                if(this.props.overHash.index &&
+                if(typeof this.props.overHash.index != 'undefined' &&
                    this.props.overHash.index == index) {
                   duplicates = true;
                 }
@@ -189,9 +191,9 @@ class DetailFeatures extends React.Component {
       <h3 className={objHovered == 'faces' ? 'hovered' : ''}>
         <img src={this.getIconUrl('faces', hovered, objHovered)}/> FACES {(scores.faces * 100).toFixed(2)}%
       </h3>
-      { features.mapi ? (<div className="table-responsive" style={[styles.tableOverflow]}>
+      { typeof features.mapi != 'undefined' ? (<div className="table-responsive" style={[styles.tableOverflow]}>
       {
-        features.mapi ? (features.mapi.ages.map((age, index) => {
+        features.mapi.ages.map((age, index) => {
 
           let duplicates = false;
           if(this.props.overHash.hash.length > 0) {
@@ -203,7 +205,7 @@ class DetailFeatures extends React.Component {
               }, []).length > 0;
           }
 
-          if(this.props.overHash.index &&
+          if(typeof this.props.overHash.index != 'undefined' &&
              this.props.overHash.index == index + features.densecap.boxids.length) {
             duplicates = true;
           }
@@ -250,7 +252,7 @@ class DetailFeatures extends React.Component {
               </tbody>
             </table>
           </div>);
-        })) : ''
+        })
       }
       </div>) : '' }
 
@@ -261,8 +263,11 @@ class DetailFeatures extends React.Component {
       <h3 className={objHovered == 'context' ? 'hovered' : ''}>
         <img src={this.getIconUrl('context', hovered, objHovered)}/> CONTEXT {(scores.context * 100).toFixed(2)}%
       </h3>
-      { tags.length > 0 ? (<div><h4>TAGS</h4><p>{tags.join(', ')}</p></div>) : ''}
-      { features.places ? (<div><h4>PLACES</h4><p>{features.places.tags.join(', ')}</p></div>) : ''}
+      {
+        tags.length > 0 ? (<div key={'tagsDiv'} style={[styles.rowHover, this.state.tags ? styles.rowHovered: '']}><h4 key={'tagsTitle'} style={[styles.tagsHover, this.state.tags ? styles.rowHovered: '']}>TAGS</h4><p onMouseOver={() => {this.setState({tags: true})}} onMouseOut={() => {this.setState({tags: false})}}>{tags.join(', ')}</p></div>) : ''
+      }
+
+      { (typeof features.places != 'undefined' && features.places.length > 0) ? (<div key={'placesDiv'} style={[styles.rowHover, this.state.places ? styles.placesHovered: '']}><h4 key={'placesTitle'} style={[styles.rowHover, this.state.places ? styles.rowHovered: '']}>PLACES</h4><p onMouseOver={() => {this.setState({places: true})}} onMouseOut={() => {this.setState({places: false})}}>{tags.join(', ')}>{features.places.tags.join(', ')}</p></div>) : ''}
 
     </div>);
   }
