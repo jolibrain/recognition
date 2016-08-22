@@ -28,21 +28,28 @@ Link = Radium(Link);
 class Detail extends React.Component {
 
   state = {
-    overLeft: {hash: [], index: -1},
-    overRight: {hash: [], index: -1}
+    overLeft: {hash: []},
+    overRight: {hash: []}
   };
 
-  handleLeftOver(parent, overHash, overIndex) {
+  handleLeftOver(parent, overHash) {
     parent.setState({
-      overLeft: {hash: overHash, index: -1},
-      overRight: {hash: overHash, index: overIndex}
+      overLeft: {hash: overHash},
+      overRight: {hash: overHash},
     });
   }
 
-  handleRightOver(parent, overHash, overIndex) {
+  handleRightOverCanvas(parent, overHash, overIndex) {
     parent.setState({
-      overLeft: {hash: overHash, index: overIndex},
-      overRight: {hash: overHash, index: -1}
+      overLeft: {hash: [], index: overIndex},
+      overRight: {hash: overHash}
+    });
+  }
+
+  handleRightOverFeatures(parent, overHash, overIndex) {
+    parent.setState({
+      overLeft: {hash: [], index: overIndex},
+      overRight: {hash: overHash}
     });
   }
 
@@ -71,7 +78,7 @@ class Detail extends React.Component {
         <div className="col-md-5 col-md-offset-1">
           <BoundedImage item={selectedOutput}
                         features={selectedOutput.features.out}
-                        onOver={this.handleRightOver}
+                        onOver={this.handleRightOverCanvas}
                         overHash={this.state.overLeft}
                         parent={this}
           />
@@ -97,7 +104,7 @@ class Detail extends React.Component {
                           source={'tate'}
                           features={selectedOutput.features.out}
                           scores={selectedOutput.features.summary.scores}
-                          onOver={this.handleRightOver}
+                          onOver={this.handleRightOverFeatures}
                           overHash={this.state.overLeft}
                           parent={this}
           />

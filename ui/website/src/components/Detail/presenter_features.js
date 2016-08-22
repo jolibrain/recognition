@@ -21,8 +21,6 @@ import styles from './styles.js';
 @Radium
 class DetailFeatures extends React.Component {
 
-  state = {hovered: false, objHovered: ''}
-
   getIconUrl(obj, hovered, objHovered) {
     let state = '';
     if(hovered)
@@ -57,11 +55,10 @@ class DetailFeatures extends React.Component {
     if(features.categories_3) tags = tags.concat(features.categories_3.tags);
     if(features.mapi_cats)    tags = tags.concat(features.mapi_cats.tags);
 
+    let hovered = false;
+    let objHovered = '';
 
-    let hovered = this.state.hovered;
-    let objHovered = this.state.objHovered;
-
-    if(features.densecap.captions.some((caption, index) => {
+    if(features.densecap && features.densecap.captions.some((caption, index) => {
 
       let duplicates = false;
       if(this.props.overHash.hash.length > 0) {
@@ -73,13 +70,11 @@ class DetailFeatures extends React.Component {
           }, []).length > 0;
       }
 
-      return duplicates || index == this.props.overHash.index;
-    })) {
+      return duplicates;
+    }) || (typeof this.props.overHash.index != 'undefined' && this.props.overHash.index != -1 && this.props.overHash.index < features.densecap.boxids.length)) {
       hovered = true;
       objHovered = 'objects';
-    }
-
-    if(features.mapi.ages.some((caption, index) => {
+    } else if(features.mapi && features.mapi.ages.some((caption, index) => {
 
       let duplicates = false;
       if(this.props.overHash.hash.length > 0) {
@@ -91,15 +86,18 @@ class DetailFeatures extends React.Component {
           }, []).length > 0;
       }
 
-      return duplicates || index + features.densecap.captions.length == this.props.overHash.index;
-    })) {
+      return duplicates;
+    }) || (typeof this.props.overHash.index != 'undefined' && this.props.overHash.index != -1 && this.props.overHash.index < features.mapi.boxids.length)) {
       hovered = true;
       objHovered = 'faces';
     }
 
+    /* DEBUG
+      <p>{hovered ? 1 : 0} - {objHovered}</p>
+      */
+
     return(<div className={hovered ? 'detailFeatures detailHovered' : 'detailFeatures'}
       style={[styles.detailColumn, hovered ? styles.columnHovered : '']}>
-      <p>{hovered ? 1 : 0} - {objHovered}</p>
       <div className="table-responsive" style={[styles.tableOverflow]}>
         <table className="table borderless">
           <tbody>
@@ -142,14 +140,24 @@ class DetailFeatures extends React.Component {
                     }, []).length > 0;
                 }
 
+                if(this.props.overHash.index &&
+                   this.props.overHash.index == index) {
+                  duplicates = true;
+                }
+
                 const rowStyle = [
                   styles.rowHover,
-                  duplicates || index == this.props.overHash.index ? styles.rowHovered: ''
+                  duplicates ? styles.rowHovered: ''
                 ]
 
                 return (<tr key={'densecap-' + index}
                             style={[rowStyle]}
                             onMouseOver={() => {
+                              this.props.source == 'reuters' ?
+                              this.props.onOver(
+                                this.props.parent,
+                                features.densecap.boxids[index]
+                              ) :
                               this.props.onOver(
                                 this.props.parent,
                                 features.densecap.boxids[index],
@@ -157,6 +165,11 @@ class DetailFeatures extends React.Component {
                               )
                             }}
                             onMouseOut={() => {
+                              this.props.source == 'reuters' ?
+                              this.props.onOver(
+                                this.props.parent,
+                                features.densecap.boxids[index]
+                              ) :
                               this.props.onOver(
                                 this.props.parent,
                                 [],
@@ -176,7 +189,7 @@ class DetailFeatures extends React.Component {
       <h3 className={objHovered == 'faces' ? 'hovered' : ''}>
         <img src={this.getIconUrl('faces', hovered, objHovered)}/> FACES {(scores.faces * 100).toFixed(2)}%
       </h3>
-      <div className="table-responsive" style={[styles.tableOverflow]}>
+      { features.mapi ? (<div className="table-responsive" style={[styles.tableOverflow]}>
       {
         features.mapi ? (features.mapi.ages.map((age, index) => {
 
@@ -190,20 +203,37 @@ class DetailFeatures extends React.Component {
               }, []).length > 0;
           }
 
+          if(this.props.overHash.index &&
+             this.props.overHash.index == index + features.densecap.boxids.length) {
+            duplicates = true;
+          }
+
           const rowStyle = [
             styles.rowHover,
-            duplicates || index == this.props.overHash.index + features.densecap.boxids.length ? styles.rowHovered: ''
+            duplicates ? styles.rowHovered: ''
           ]
+
+          const mapiIndex = features.densecap ? index + features.densecap.boxids.length : idex;
 
           return(<div key={'mapi' + index}
           onMouseOver={() => {
+            this.props.source == 'reuters' ?
+            this.props.onOver(
+              this.props.parent,
+              features.mapi.boxids[index]
+            ) :
             this.props.onOver(
               this.props.parent,
               features.mapi.boxids[index],
-              index + features.densecap.boxids.length
+              mapiIndex
             )
           }}
           onMouseOut={() => {
+            this.props.source == 'reuters' ?
+            this.props.onOver(
+              this.props.parent,
+              []
+            ) :
             this.props.onOver(
               this.props.parent,
               [],
@@ -211,7 +241,7 @@ class DetailFeatures extends React.Component {
             )
           }}
           >
-            <h4 className={duplicates || index == this.props.overHash.index + features.densecap.boxids.length ? 'selected': 'notSelected'}>SUBJECT {index + 1}</h4>
+            <h4 className={duplicates ? 'selected': 'notSelected'}>SUBJECT {index + 1}</h4>
             <table className="table borderless" style={rowStyle} key={'mapiTable' + index}>
               <tbody>
                 <tr><td>AGE:</td><td>{age}</td></tr>
@@ -222,7 +252,7 @@ class DetailFeatures extends React.Component {
           </div>);
         })) : ''
       }
-      </div>
+      </div>) : '' }
 
       <h3 className={objHovered == 'composition' ? 'hovered' : ''}>
         <img src={this.getIconUrl('composition', hovered, objHovered)}/> COMPOSITION {(scores.composition * 100).toFixed(2)}%
