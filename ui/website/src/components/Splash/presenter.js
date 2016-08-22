@@ -17,11 +17,11 @@ import React from 'react';
 import Radium from 'radium';
 import moment from 'moment';
 import styles from './styles.js';
-import ShareModal from '../ShareModal';
+import IntroOverlay from '../Intro';
 import ReactInterval from 'react-interval';
 import Scrollchor from 'react-scrollchor';
-import {Overlay} from 'react-overlays';
 import {Preload} from 'react-preload';
+
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -31,7 +31,6 @@ class Splash extends React.Component {
 
   state = {
     outputIndex: 0,
-    introOverlay: false,
     hasInterval: false
   }
 
@@ -47,14 +46,6 @@ class Splash extends React.Component {
     if(match) {
 
       const selectedOutput = match.output[this.state.outputIndex];
-
-      if(this.state.introOverlay) {
-        document.body.classList.toggle('noscroll', true);
-        document.getElementById("app").classList.toggle('blurred', this.state.introOverlay);
-      } else {
-        document.body.classList.remove('noscroll');
-        document.getElementById("app").classList.remove('blurred');
-      }
 
       return (<div className="splashComponent">
 
@@ -72,31 +63,7 @@ class Splash extends React.Component {
           mountChildren={false}
         />
 
-        <Overlay
-          show={this.state.introOverlay}
-          onHide={() => this.setState({ introOverlay: false })}
-        >
-          <div className="introOverlay" style={{...OverlayStyle}}>
-            <nav style={[styles.navbar, styles.gradientBackground]} className="navbar navbar-default navbar-fixed-top">
-              <div className="container-fluid">
-
-                <div className="navbar-header">
-                  <p>Recognition<br/>Winner of IK Prize 2016</p>
-                </div>
-
-                <div className="collapse navbar-collapse" id="bs-navbar-collapse">
-                  <ul className="nav navbar-nav navbar-right">
-                    <li><a style={[styles.menuItem]} onClick={() => {this.setState({introOverlay: false})}}>Skip Intro</a></li>
-                  </ul>
-                </div>
-
-              </div>
-            </nav>
-            <div className="content">
-              Overlay
-            </div>
-          </div>
-        </Overlay>
+        <IntroOverlay />
 
         <div className="container splashContainer" style={[styles.fullHeight]}>
           <div className="row" style={styles.fullHeight.row}>

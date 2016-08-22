@@ -46,10 +46,10 @@ class Match extends React.Component {
     });
   }
 
-
   render() {
 
     if(!this.props.item) return null;
+        console.log(this.props);
 
     const item = this.props.item;
     const selectedOutput = item.output.filter(item => item.selected)[0];
@@ -64,157 +64,159 @@ class Match extends React.Component {
     const arr = rx.exec(item.input.img);
     const itemId = arr[1];
 
+    let orientedComponent;
+
     switch (inputOrientation) {
 
       case "horizontal":
         switch (outputOrientation) {
           case "horizontal":
-            return (<div className="container-fluid">
-              <div className="row">
-                <div className="col-md-5">
-                  <Titles input={item.input} output={selectedOutput}/>
-                  <BoundedImage
-                    item={item.input}
-                    itemId={itemId}
-                    features={selectedOutput.features.in}
-                    onOver={this.handleLeftOver}
-                    overHash={this.state.overRight}
-                    parent={this}
-                  />
-                  <p style={styles.imgDescription}>{item.input.meta.origin}</p>
-                </div>
-                <div className="col-md-5">
-                  <BoundedImage
-                    item={selectedOutput}
-                    itemId={itemId}
-                    features={selectedOutput.features.out}
-                    onOver={this.handleRightOver}
-                    overHash={this.state.overLeft}
-                    parent={this}
-                  />
-                  <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
-                </div>
-                <div className="col-md-2">
-                  <Description id={itemId}
-                               descriptionIn={selectedOutput.features.in.captions.caption}
-                               descriptionOut={selectedOutput.features.out.captions.caption}/>
-                </div>
+            orientedComponent = (<div className="row">
+              <div className="col-md-5">
+                <Titles input={item.input} output={selectedOutput}/>
+                <BoundedImage
+                  item={item.input}
+                  itemId={itemId}
+                  features={selectedOutput.features.in}
+                  onOver={this.handleLeftOver}
+                  overHash={this.state.overRight}
+                  parent={this}
+                />
+                <p style={styles.imgDescription}>{item.input.meta.origin}</p>
+              </div>
+              <div className="col-md-5">
+                <BoundedImage
+                  item={selectedOutput}
+                  itemId={itemId}
+                  features={selectedOutput.features.out}
+                  onOver={this.handleRightOver}
+                  overHash={this.state.overLeft}
+                  parent={this}
+                />
+                <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
+              </div>
+              <div className="col-md-2">
+                <Description id={itemId}
+                             descriptionIn={selectedOutput.features.in.captions.caption}
+                             descriptionOut={selectedOutput.features.out.captions.caption}/>
               </div>
             </div>);
-            <MatchHH itemId={itemId} input={item.input} output={selectedOutput}/>
-          break;
+            break;
           case "vertical":
-            return (<div className="container-fluid">
-              <div className="row">
-                <div className="col-md-5">
-                  <BoundedImage
-                    item={item.input}
-                    itemId={itemId}
-                    features={selectedOutput.features.in}
-                    onOver={this.handleLeftOver}
-                    overHash={this.state.overRight}
-                    parent={this}
-                  />
-                  <p style={styles.imgDescription}>{item.input.meta.origin}</p>
-                  <Titles input={item.input} output={selectedOutput}/>
-                </div>
-                <div className="col-md-5">
-                  <BoundedImage
-                    item={selectedOutput}
-                    itemId={itemId}
-                    features={selectedOutput.features.out}
-                    onOver={this.handleRightOver}
-                    overHash={this.state.overLeft}
-                    parent={this}
-                  />
-                  <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
-                </div>
-                <div className="col-md-2">
-                  <Description id={itemId}
-                               descriptionIn={selectedOutput.features.in.captions.caption}
-                               descriptionOut={selectedOutput.features.out.captions.caption}/>
-                </div>
+            orientedComponent = (<div className="row">
+              <div className="col-md-5">
+                <BoundedImage
+                  item={item.input}
+                  itemId={itemId}
+                  features={selectedOutput.features.in}
+                  onOver={this.handleLeftOver}
+                  overHash={this.state.overRight}
+                  parent={this}
+                />
+                <p style={styles.imgDescription}>{item.input.meta.origin}</p>
+                <Titles input={item.input} output={selectedOutput}/>
+              </div>
+              <div className="col-md-5">
+                <BoundedImage
+                  item={selectedOutput}
+                  itemId={itemId}
+                  features={selectedOutput.features.out}
+                  onOver={this.handleRightOver}
+                  overHash={this.state.overLeft}
+                  parent={this}
+                />
+                <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
+              </div>
+              <div className="col-md-2">
+                <Description id={itemId}
+                             descriptionIn={selectedOutput.features.in.captions.caption}
+                             descriptionOut={selectedOutput.features.out.captions.caption}/>
               </div>
             </div>);
-          break;
+            break;
         }
       break;
 
       case "vertical":
         switch (outputOrientation) {
           case "horizontal":
-            return (<div className="container-fluid">
-              <div className="row">
-                <div className="col-md-2">
-                  <Titles input={item.input} output={selectedOutput}/>
-                </div>
-                <div className="col-md-5">
-                  <BoundedImage
-                    item={item.input}
-                    itemId={itemId}
-                    features={selectedOutput.features.in}
-                    onOver={this.handleLeftOver}
-                    overHash={this.state.overRight}
-                    parent={this}
-                  />
-                  <p style={styles.imgDescription}>{item.input.meta.origin}</p>
-                </div>
-                <div className="col-md-5">
-                  <BoundedImage
-                    item={selectedOutput}
-                    itemId={itemId}
-                    features={selectedOutput.features.out}
-                    onOver={this.handleRightOver}
-                    overHash={this.state.overLeft}
-                    parent={this}
-                  />
-                  <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
-                  <Description id={itemId}
-                               descriptionIn={selectedOutput.features.in.captions.caption}
-                               descriptionOut={selectedOutput.features.out.captions.caption}/>
-                </div>
+            orientedComponent = (<div className="row">
+              <div className="col-md-2">
+                <Titles input={item.input} output={selectedOutput}/>
+              </div>
+              <div className="col-md-5">
+                <BoundedImage
+                  item={item.input}
+                  itemId={itemId}
+                  features={selectedOutput.features.in}
+                  onOver={this.handleLeftOver}
+                  overHash={this.state.overRight}
+                  parent={this}
+                />
+                <p style={styles.imgDescription}>{item.input.meta.origin}</p>
+              </div>
+              <div className="col-md-5">
+                <BoundedImage
+                  item={selectedOutput}
+                  itemId={itemId}
+                  features={selectedOutput.features.out}
+                  onOver={this.handleRightOver}
+                  overHash={this.state.overLeft}
+                  parent={this}
+                />
+                <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
+                <Description id={itemId}
+                             descriptionIn={selectedOutput.features.in.captions.caption}
+                             descriptionOut={selectedOutput.features.out.captions.caption}/>
               </div>
             </div>);
-          break;
+            break;
           case "vertical":
-            return (<div className="container-fluid">
-              <div className="row">
-                <div className="col-md-2">
-                  <Titles input={item.input} output={selectedOutput}/>
-                  <Description id={itemId}
-                               descriptionIn={selectedOutput.features.in.captions.caption}
-                               descriptionOut={selectedOutput.features.out.captions.caption}/>
-                </div>
-                <div className="col-md-5">
-                  <BoundedImage
-                    item={item.input}
-                    itemId={itemId}
-                    features={selectedOutput.features.in}
-                    onOver={this.handleLeftOver}
-                    overHash={this.state.overRight}
-                    parent={this}
-                  />
-                  <p style={styles.imgDescription}>{item.input.meta.origin}</p>
-                </div>
-                <div className="col-md-5">
-                  <BoundedImage
-                    item={selectedOutput}
-                    itemId={itemId}
-                    features={selectedOutput.features.out}
-                    onOver={this.handleRightOver}
-                    overHash={this.state.overLeft}
-                    parent={this}
-                  />
-                  <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
-                </div>
+            orientedComponent = (<div className="row">
+              <div className="col-md-2">
+                <Titles input={item.input} output={selectedOutput}/>
+                <Description id={itemId}
+                             descriptionIn={selectedOutput.features.in.captions.caption}
+                             descriptionOut={selectedOutput.features.out.captions.caption}/>
+              </div>
+              <div className="col-md-5">
+                <BoundedImage
+                  item={item.input}
+                  itemId={itemId}
+                  features={selectedOutput.features.in}
+                  onOver={this.handleLeftOver}
+                  overHash={this.state.overRight}
+                  parent={this}
+                />
+                <p style={styles.imgDescription}>{item.input.meta.origin}</p>
+              </div>
+              <div className="col-md-5">
+                <BoundedImage
+                  item={selectedOutput}
+                  itemId={itemId}
+                  features={selectedOutput.features.out}
+                  onOver={this.handleRightOver}
+                  overHash={this.state.overLeft}
+                  parent={this}
+                />
+                <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
               </div>
             </div>);
-          break;
+            break;
         }
       break;
     }
 
-    return <MatchHH itemId={itemId} input={item.input} output={selectedOutput}/>;
+    return (<div>
+      <div className="container-fluid">
+        {orientedComponent}
+      </div>
+      { this.props.followingMatches ?
+          (this.props.followingMatches.map((item, key) => {
+            return <Match key={key} item={item} follower={true} />
+          })) : ''
+      }
+    </div>);
   }
 }
 

@@ -21,6 +21,8 @@ import Match from './presenter';
 
 const mapStateToProps = (state, ownProps = {}) => {
 
+  let props = {}
+
   if(state.matches.length > 0) {
 
     let matchId = null;
@@ -30,13 +32,16 @@ const mapStateToProps = (state, ownProps = {}) => {
       matchId = state.routing.locationBeforeTransitions.pathname.split("/").pop();
     }
 
-    return {
-      item: state.matches.filter(item => item.input.img.indexOf(matchId) != -1)[0]
-    };
+    const matchingIndex = state.matches.findIndex(item => item.input.img.indexOf(matchId) != -1);
+
+    props.item = state.matches[matchingIndex];
+
+    if(!ownProps.params || !ownProps.params.follower)
+      props.followingMatches = state.matches.slice(matchingIndex + 1);
 
   }
 
-  return {};
+  return props;
 }
 
 const mapDispatchToProps = (dispatch) => {

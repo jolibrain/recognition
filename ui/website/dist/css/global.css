@@ -13,6 +13,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+body {
+  background-color: #000 !important;
+}
+
 html, body, #app {
   font-family: 'MaisonNeue';
   color: #fff;
@@ -207,16 +211,55 @@ canvas {
   width: 100vw;
   height: 100vh;
   color: #fff;
-  background-color: rgba(255,0,0,0.8);
   text-align: center;
   z-index: 10;
   -webkit-filter: none;
   filter: none;
 }
 
-.blurred {
+.introOverlay-step0 {
+  -webkit-filter: blur(8px);
+  filter: blur(8px);
+}
+.introOverlay-step0 .introOverlay {
+  background-color: rgba(0,0,0,0.8);
+}
+
+.introOverlay-step1 {
+  -webkit-filter: blur(6px);
+  filter: blur(6px);
+}
+.introOverlay-step1 .introOverlay {
+  background-color: rgba(0,0,0,0.75);
+}
+
+.introOverlay-step2 {
+  -webkit-filter: blur(4px);
+  filter: blur(4px);
+}
+.introOverlay-step2 .introOverlay {
+  background-color: rgba(0,0,0,0.7);
+}
+
+.introOverlay-step3 {
   -webkit-filter: blur(2px);
   filter: blur(2px);
+}
+.introOverlay-step3 .introOverlay {
+  background-color: rgba(0,0,0,0.65);
+}
+
+.introOverlay-step4 {
+  -webkit-filter: blur(1px);
+  filter: blur(1px);
+}
+.introOverlay-step4 .introOverlay {
+  background-color: rgba(0,0,0,0.6);
+}
+
+.blurred {
+  -webkit-filter: blur(8px);
+  filter: blur(8px);
 }
 
 body.noscroll{
@@ -224,9 +267,73 @@ body.noscroll{
   overflow:hidden;
 }
 
+.introOverlay nav {
+  height: 150px;
+  border: 0;
+  z-index: 5;
+  background: -moz-linear-gradient(top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.8) 55%, rgba(0,0,0,0) 100%);
+  background: -webkit-linear-gradient(top, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.8) 55%,rgba(0,0,0,0) 100%);
+  background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.8) 55%,rgba(0,0,0,0) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#00000000',GradientType=0 );
+}
+
+.introOverlay .navbar-header {
+  margin: 10px 10px 0 0;
+}
+
+.introOverlay .navbar-header p {
+  color: #4a4a4a;
+  font-family: 'TateNewPro';
+  font-size:13px;
+  margin: 5px 0 0 50px;
+}
+
+.introOverlay .navbar-default .navbar-nav>li>a {
+  color: #fff;
+  font-family: 'TateNewPro';
+  font-size:13px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color:#fff;
+}
+
+.introOverlay .navbar-default .navbar-nav>li>a:hover {
+  color:#fff;
+}
+
+.introOverlay .navbar-right a:hover {
+  color: #0FC;
+}
+
+
 .introOverlay .content {
+  font-family: 'TateNewPro';
+  font-size: 24px;
   position: relative;
-  top: 50%;
+  top: 30%;
+  width: 800px;
+  margin: 0 auto;
+}
+
+.introOverlay .content a,
+.introOverlay .content a:hover {
+  text-decoration: none;
+}
+
+.introOverlay .content img {
+  margin-bottom: 30px;
+}
+
+.introOverlay .icon--i_arrow-down {
+  display:block;
+  margin-top: 50px;
+  color: #fff;
+  cursor:pointer;
+}
+
+.introOverlay a:hover .icon--i_arrow-down {
+  text-decoration: none;
+  color: #fff;
 }
 
 .react-autosuggest__input {

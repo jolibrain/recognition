@@ -87,7 +87,6 @@ const styles = {
     },
     galleryLink: {
       color: '#FFF',
-      textDecoration: 'none',
       ':hover': {
         textDecoration: 'none',
         color: '#00ffcc'
