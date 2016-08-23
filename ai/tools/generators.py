@@ -50,7 +50,7 @@ generator_lk = {
         'nclasses': 1000,
         'best':5,
         'description':'general categories',
-        'batch_size':8
+        'batch_size':4
         },
     'composition_high_3': {
         'type': 'dnn',
