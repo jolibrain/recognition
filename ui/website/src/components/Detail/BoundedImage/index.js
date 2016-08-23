@@ -24,9 +24,10 @@ const mapStateToProps = (state, ownProps) => {
   let boxes = [];
   let boxids = [];
 
-  if(features) {
+  if(typeof features != 'undefined' ) {
 
-    if(features.densecap &&
+    if(typeof features.densecap != 'undefined' &&
+      typeof features.densecap.boxes != 'undefined' &&
       features.densecap.boxes.length > 0) {
 
       const img_h = ownProps.item.meta.height;
@@ -54,8 +55,8 @@ const mapStateToProps = (state, ownProps) => {
       boxids = boxids.concat(features.densecap.boxids);
     }
 
-    if(features.mapi &&
-      features.mapi.faceRectangles &&
+    if(typeof features.mapi != 'undefined' &&
+      typeof features.mapi.faceRectangles != 'undefined' &&
       features.mapi.faceRectangles.length > 0) {
       boxes = boxes.concat(features.mapi.faceRectangles.map(emotion => {
         return [
