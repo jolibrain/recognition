@@ -103,7 +103,8 @@ generator_lk = {
         'type': 'densecap',
         'name': 'densecap',
         'description': 'object detection',
-        'wdir':  '/home/recog/tate/apps/densecap/'
+        'wdir':  '/home/recog/tate/apps/densecap/',
+        'thpath': '/home/recog/tate/apps/torch/install/bin/th'
     },
     'mapi': {
         'type': 'mapi',
@@ -114,6 +115,7 @@ generator_lk = {
         'type': 'captions',
         'name': 'captions',
         'description': 'captions',
-        'nt2_dir': '/home/recog/tate/apps/neuraltalk2/'
+        'nt2_dir': '/home/recog/tate/apps/neuraltalk2/',
+        'thpath': '/home/recog/tate/apps/torch/install/bin/th'
     }
 }

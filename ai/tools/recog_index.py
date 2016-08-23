@@ -68,7 +68,7 @@ def execute_generator(generator):
         metad.index()
     elif generator_conf['type'] == 'densecap':
         dcap = DenseCapExtractor(images_repo=args.input_imgs,image_files=image_files,nimages=len(image_files),model_repo=model_repo,index_repo=args.indexes_repo,name=generator,
-                                 densecap_dir=generator_conf['wdir'],description=generator_conf['description'])
+                                 densecap_dir=generator_conf['wdir'],th_path=generator_conf['thpath'],description=generator_conf['description'])
         dcap.preproc()
         dcap.index()
     elif generator_conf['type'] == 'mapi':
@@ -76,7 +76,7 @@ def execute_generator(generator):
         mapi.preproc()
         mapi.index()
     elif generator_conf['type'] == 'captions':
-        capt = CaptionGenerator(images_repo=args.input_imgs,image_files=image_files,nimages=len(image_files),model_repo=model_repo,index_repo=args.indexes_repo,nt2_dir=generator_conf['nt2_dir'],name=generator,description=generator_conf['description'],tate=True)
+        capt = CaptionGenerator(images_repo=args.input_imgs,image_files=image_files,nimages=len(image_files),model_repo=model_repo,index_repo=args.indexes_repo,nt2_dir=generator_conf['nt2_dir'],th_path=generator_conf['thpath'],name=generator,description=generator_conf['description'],tate=True)
         capt.preproc()
         capt.index()
     else:

@@ -40,7 +40,7 @@ logger.setLevel(logging.INFO)
 
 class DenseCapExtractor(FeatureGenerator):
     
-    def __init__(self,images_repo,image_files,nimages,model_repo,index_repo,densecap_dir,name,description,meta_in='',meta_out='',captions_in='',captions_out=''):
+    def __init__(self,images_repo,image_files,nimages,model_repo,index_repo,densecap_dir,th_path,name,description,meta_in='',meta_out='',captions_in='',captions_out=''):
         self.name = name
         self.description = description
         self.images_repo = images_repo
@@ -60,6 +60,7 @@ class DenseCapExtractor(FeatureGenerator):
             pass
         self.dcap_tmp = ''
         self.densecap_dir = densecap_dir
+        self.th_path = th_path
         self.rec_per_img = []
         self.dim = 4096 # from VGG densecap
         return
@@ -82,10 +83,11 @@ class DenseCapExtractor(FeatureGenerator):
         logger.info('Detecting objects')
         pout = ''
         try:
-            pout = subprocess.check_output('LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64 th run_model.lua' + dcap_args, cwd=self.densecap_dir, shell=True)
+            pout = subprocess.check_output('LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64 ' + self.th_path + ' run_model.lua' + dcap_args, cwd=self.densecap_dir, shell=True)
         except:
             logger.error('Failed densecap call: ' + pout)
-            return
+            #return
+            raise Exception('Failed denseecap call')
         logger.info('Successfully ran object detection')
         print 'pout=',pout
         

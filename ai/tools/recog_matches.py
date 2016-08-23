@@ -84,9 +84,8 @@ def execute_generator(generator,jdataout={},meta_in='',meta_out='',captions_in='
     elif generator_conf['type'] == 'densecap':
         nfiles = min(args.nfiles,len(image_files))
         dcap = DenseCapExtractor(images_repo=args.input_imgs,image_files=image_files,nimages=nfiles,model_repo=model_repo,index_repo=args.indexes_repo,name=generator,
-                                 densecap_dir=generator_conf['wdir'],description=generator_conf['description'],meta_in=meta_in,meta_out=meta_out,captions_in=captions_in,captions_out=captions_out)
+                                 densecap_dir=generator_conf['wdir'],th_path=generator_conf['thpath'],description=generator_conf['description'],meta_in=meta_in,meta_out=meta_out,captions_in=captions_in,captions_out=captions_out)
         dcap.preproc()
-        ##TODO: in box caption generator here
         return dcap.search(jdataout)
     elif generator_conf['type'] == 'mapi' and json_mapi_files and json_mapi_emo_files:
         mapi = MAPIGenerator(image_files=image_files,json_files=json_mapi_files,json_emo_files=json_mapi_emo_files,index_repo=args.indexes_repo,name=generator,description=generator_conf['description'],meta_in=meta_in,meta_out=meta_out,captions_in=captions_in,captions_out=captions_out)
@@ -156,20 +155,23 @@ if 'captions' in generators:
     generator_conf = generator_lk['captions']
     nfiles = min(args.nfiles,len(image_files))
     model_repo = args.models_repo + '/captions'
-    captiond = CaptionGenerator(images_repo=args.input_imgs,image_files=image_files,nimages=nfiles,model_repo=model_repo,index_repo=args.indexes_repo,name='captions',nt2_dir=generator_conf['nt2_dir'],description=generator_conf['description'],tate=False)
+    captiond = CaptionGenerator(images_repo=args.input_imgs,image_files=image_files,nimages=nfiles,model_repo=model_repo,index_repo=args.indexes_repo,name='captions',nt2_dir=generator_conf['nt2_dir'],th_path=generator_conf['thpath'],description=generator_conf['description'],tate=False)
     captiond.preproc()
     captiond.index()
     captions_in = args.indexes_repo + '/captions/ldata.bin'
     captions_out = args.indexes_repo + '/captions/out_ldata.bin'
     generators.remove('captions')
         
+
+errors = 0
 json_out = {}
 for gen in generators:
     json_out_tmp = ''
     try:
         json_out_tmp = execute_generator(gen,jdataout=json_out,meta_in=meta_in,meta_out=meta_out,captions_in=captions_in,captions_out=captions_out)
     except:
-        log.error('Failed processing with generator ' + gen)
+        logger.error('Failed processing with generator ' + gen)
+        errors += 1
         pass
     if json_out_tmp:
         json_out = json_out_tmp
@@ -182,3 +184,5 @@ with open(args.json_output,'w') as fout:
 if splash_out:
     with open('splash.json','w') as fout:
         json.dump(splash_out,fout)
+print 'errors=',errors
+sys.exit(errors)

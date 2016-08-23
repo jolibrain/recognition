@@ -80,6 +80,7 @@ class DNNFeatureExtractor(FeatureGenerator):
         except:
             #logger.warning('directory ' + self.index_repo + ' may alreay exist')
             pass
+        self.delete_dd_service()
             
     def create_dd_service(self):
         model = {'repository':self.dnnmodel.model_repo}
@@ -175,7 +176,9 @@ class DNNFeatureExtractor(FeatureGenerator):
                 if response_code != 200:
                     print 'response=',classif
                     logger.error('failed batch (search) prediction call to model ' + self.dnnmodel.name + ' via dd')
-                    continue
+                    #continue
+                    self.delete_dd_service()
+                    raise Exception('failed batch (search) prediction call to model ' + self.dnnmodel.name + '. Error=' + classif)
                 predictions = classif['body']['predictions']
                 if len(self.image_files) == 1:
                     predictions = [predictions]

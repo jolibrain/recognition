@@ -36,7 +36,7 @@ logger.setLevel(logging.INFO)
 
 class CaptionGenerator(FeatureGenerator):
 
-    def __init__(self,images_repo,image_files,nimages,model_repo,index_repo,nt2_dir,name,description,tate=False):
+    def __init__(self,images_repo,image_files,nimages,model_repo,index_repo,nt2_dir,th_path,name,description,tate=False):
         self.name = name
         self.description = description
         self.images_repo = images_repo
@@ -50,6 +50,7 @@ class CaptionGenerator(FeatureGenerator):
         except:
             pass
         self.nt2_dir = nt2_dir
+        self.th_path = th_path
         self.batch_size = 32
         self.caption_tmp = ''
         self.nt2_vis_json = ''
@@ -73,7 +74,7 @@ class CaptionGenerator(FeatureGenerator):
         logger.info('Generating image captions')
         pout = ''
         try:
-            pout = subprocess.check_output('LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64 th eval.lua' + nt2_args, cwd=self.nt2_dir, shell=True)
+            pout = subprocess.check_output('LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64 ' + self.th_path + ' eval.lua' + nt2_args, cwd=self.nt2_dir, shell=True)
         except:
             logger.error('Failed nt2 call: ' + pout)
             return
