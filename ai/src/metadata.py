@@ -126,6 +126,7 @@ class MetadataExtractor:
                     meta['width'] = img_loc['@width']
                     meta['date'] = doc['newsMessage']['itemSet']['newsItem']['itemMeta']['firstCreated']
                     meta['title'] = doc['newsMessage']['itemSet']['newsItem']['contentMeta']['slugline']['#text']
+                    meta['author'] = doc['newsMessage']['itemSet']['newsItem']['contentMeta']['by']
                     #print imgid
                     #print meta['date']
                     #print meta['title']['#text']
