@@ -113,7 +113,7 @@ class DetailFeatures extends React.Component {
             </tr>
             <tr>
               <td>AUTHOR:</td>
-              <td>{item.meta['author']}</td>
+              <td>{item.meta['author'][0]}</td>
             </tr>
             <tr>
               <td>SOURCE:</td>
