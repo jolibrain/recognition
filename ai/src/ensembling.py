@@ -23,8 +23,8 @@ under the License.
 
 class EnsemblingScores:
     def __init__(self):
-        self.factors = {'composition_high_1':1.0,'composition':0.3,'places_composition':0.3,'places':0.2,'categories':0.1,'densecap':0.25,'mapi_tags':0.1,'mapi_cats':0.1,'mapi':0.05,'txtembed':0.1}
-        self.summary_map = {'composition':'composition','places_composition':'composition','places':'context','categories':'context','densecap':'objects','mapi_cats':'context','mapi_tags':'context','mapi':'faces','txtembed':'context'}
+        self.factors = {'composition_high_1':0.3,'composition':0.3,'places_composition':0.3,'places':0.2,'categories':0.1,'densecap':0.25,'mapi_tags':0.1,'mapi_cats':0.1,'mapi_people':0.2,'mapi':0.05,'txtembed':0.1}
+        self.summary_map = {'composition':'composition','places_composition':'composition','places':'context','categories':'context','densecap':'objects','mapi_cats':'context','mapi_tags':'context','mapi_people':'faces','mapi':'faces','txtembed':'context'}
         return
 
     # json_out in UI format, simple additive ensembling

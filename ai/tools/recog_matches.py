@@ -88,7 +88,7 @@ def execute_generator(generator,jdataout={},meta_in='',meta_out='',captions_in='
         dcap.preproc()
         return dcap.search(jdataout)
     elif generator_conf['type'] == 'mapi' and json_mapi_files and json_mapi_emo_files:
-        mapi = MAPIGenerator(image_files=image_files,json_files=json_mapi_files,json_emo_files=json_mapi_emo_files,index_repo=args.indexes_repo,name=generator,description=generator_conf['description'],meta_in=meta_in,meta_out=meta_out,captions_in=captions_in,captions_out=captions_out)
+        mapi = MAPIGenerator(image_files=image_files,json_files=json_mapi_files,json_emo_files=json_mapi_emo_files,index_repo=args.indexes_repo,name=generator,description=generator_conf['description'],tate=False,meta_in=meta_in,meta_out=meta_out,captions_in=captions_in,captions_out=captions_out)
         mapi.preproc()
         return mapi.search(jdataout)
     elif generator_conf['type'] != 'meta':

@@ -72,7 +72,7 @@ def execute_generator(generator):
         dcap.preproc()
         dcap.index()
     elif generator_conf['type'] == 'mapi':
-        mapi = MAPIGenerator(image_files=image_files,json_files=json_mapi_files,json_emo_files=json_mapi_emo_files,index_repo=args.indexes_repo,name=generator,description=generator_conf['description'])
+        mapi = MAPIGenerator(image_files=image_files,json_files=json_mapi_files,json_emo_files=json_mapi_emo_files,index_repo=args.indexes_repo,name=generator,description=generator_conf['description'],tate=True)
         mapi.preproc()
         mapi.index()
     elif generator_conf['type'] == 'captions':

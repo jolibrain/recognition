@@ -36,9 +36,10 @@ logger.setLevel(logging.INFO)
 
 class MAPIGenerator(FeatureGenerator):
 
-    def __init__(self,image_files,json_files,json_emo_files,index_repo,name,description,meta_in='',meta_out='',captions_in='',captions_out=''):
+    def __init__(self,image_files,json_files,json_emo_files,index_repo,name,description,tate=False,meta_in='',meta_out='',captions_in='',captions_out=''):
         self.name = name
         self.description = description
+        self.tate = tate
         self.meta_in = meta_in
         self.meta_out = meta_out
         self.captions_in = captions_in
@@ -55,6 +56,7 @@ class MAPIGenerator(FeatureGenerator):
         self.mapi_dominant_colors = {}
         self.mapi_tags = {}
         self.mapi_categories = {}
+        self.mapi_people = {}
         self.mapi_faces = {} # face + gender + age + emotion
         
         self.emotions={'anger':0,'contempt':1,'disgust':2,'fear':3,'happiness':4,'neutral':5,'sadness':6,'surprise':7}
@@ -109,6 +111,10 @@ class MAPIGenerator(FeatureGenerator):
         # - categories + scores -> keep scores > 0.3
         # - faces + age + gender + emotion (from emotion JSON / API) -> encode age + gender + emotion (8 categories) into vector 
 
+        if self.tate:
+            ext = '.jpg'
+        else:
+            ext = ''
         img_bn = ''
         for jf in self.json_files:
             with open(jf,'r') as jfile:
@@ -116,7 +122,7 @@ class MAPIGenerator(FeatureGenerator):
                 if not img_bn:
                     jf = jf.replace('//','/')
                     img_bn = os.path.dirname(os.path.dirname(jf))
-                img_name = img_bn + '/' + os.path.basename(jf).replace('_mapi.json','')
+                img_name = img_bn + '/' + os.path.basename(jf).replace('_mapi.json',ext)
                 if not img_name in self.image_files:
                     continue
                 if json_data.get('color',None):
@@ -134,12 +140,23 @@ class MAPIGenerator(FeatureGenerator):
                         if c['score'] >= 0.3:
                             self.mapi_categories[img_name].append({'cat':c['name'],'prob':c['score']})
                 if json_data.get('faces',None):
+                    npeople = 0
+                    nmales = 0
+                    nfemales = 0
                     self.mapi_faces[img_name] = []
                     jd_faces = json_data['faces']
                     for jf in jd_faces:
                         self.mapi_faces[img_name].append(jf)
+                        npeople += 1
+                        gender = jf.get('gender',None)
+                        if gender == 'Male':
+                            nmales += 1
+                        else:
+                            nfemales += 1
+                    self.mapi_people[img_name] = [npeople,nmales,nfemales]
+                    #print self.mapi_people[img_name]
+                            
                 
-
         for jf in self.json_emo_files:
             with open(jf,'r') as jfile:
                 json_data = json.load(jfile)
@@ -149,9 +166,11 @@ class MAPIGenerator(FeatureGenerator):
                 if len(json_data) == 0:
                     continue
                 if self.mapi_faces.get(img_name,None) == None:
-                    print 'face detected with emotion API but not with Vision API...'
+                    #print 'face detected with emotion API but not with Vision API...'
                     self.mapi_faces[img_name] = json_data
                     continue
+                npeople = 0
+                emosum = [0.0]*len(self.emotions)
                 for r in json_data:
                     n = self.has_box(r,self.mapi_faces[img_name])
                     if n == -1:
@@ -159,11 +178,17 @@ class MAPIGenerator(FeatureGenerator):
                     emo_scores = r['scores']
                     has_emo = False
                     for e,c in self.emotions.iteritems():
+                        emosum[c] += emo_scores[e]
                         if emo_scores[e] > 0.5:
                             if not has_emo:
                                 self.mapi_faces[img_name][n]['emotions'] = {}
                                 has_emo = True
                             self.mapi_faces[img_name][n]['emotions'][e] = emo_scores[e]
+                    npeople = npeople + 1
+                if img_name in self.mapi_people:
+                    self.mapi_people[img_name] = self.mapi_people[img_name] + emosum
+                else:
+                    self.mapi_people[img_name] = [npeople,0.0,0.0] + emosum
         return
 
     def index(self):
@@ -185,6 +210,19 @@ class MAPIGenerator(FeatureGenerator):
             for t,v in self.mapi_categories.iteritems():
                 indexer.index_tags_single(v,t)
 
+        # - number of people and gender
+        # as a vector [npeople, males, females]
+        with Indexer(dim=11,repository=self.index_repo,index_name='people.ann',db_name='people.bin') as indexer:
+            c = 0
+            print 'indexing', len(self.mapi_people),'people'
+            for t,v in self.mapi_people.iteritems():
+                if len(v) < 11:
+                    v = v + [0.0]*len(self.emotions) # if no emotion detected
+                indexer.index_single(c,v,t)
+                c = c + 1
+            indexer.build_index()
+            indexer.save_index()
+
         # - vector for age + gender + emotion + save boxes
         #print 'indexing mapi age, gender, emotion and boxes...'
         c = 0
@@ -203,7 +241,7 @@ class MAPIGenerator(FeatureGenerator):
 
     def search(self,jdataout={}):
         results_tags = {}
-        with Searcher(self.index_repo,search_size=100,db_name='tags.bin') as searcher:
+        with Searcher(self.index_repo,search_size=1000,db_name='tags.bin') as searcher:
             searcher.load_index()
             for t,v in self.mapi_tags.iteritems():   
                 nns =searcher.search_tags_single(v,t)
@@ -212,7 +250,7 @@ class MAPIGenerator(FeatureGenerator):
         #print 'results_tags=',results_tags
        
         results_cats = {}
-        with Searcher(self.index_repo,search_size=100,db_name='cats.bin') as searcher:
+        with Searcher(self.index_repo,search_size=1000,db_name='cats.bin') as searcher:
             searcher.load_index()
             for t,v in self.mapi_categories.iteritems():            
                 nns =searcher.search_tags_single(v,t)
@@ -221,9 +259,24 @@ class MAPIGenerator(FeatureGenerator):
         if not results_tmp:
             results_tmp = results_tags
         #print 'results_tmp=',results_tmp
+        results_cats = results_tmp
+        
+        #results_people = {}
+        #with Searcher(self.index_repo,search_size=200,index_name='people.ann',db_name='people.bin') as searcher:
+        #    searcher.load_index()
+        #    for f,v in self.mapi_people.iteritems():
+        #        if len(v) < 11:
+        #            v = v + [0.0]*8
+        #        nns = searcher.search_single(v,f)
+                #print 'nns=',nns
+        #        results_people[f] = nns
+        #print 'results_people=',results_people
+        #results_tmp = self.to_json(results_people,'/img/reuters','/img/tate/',self.name+'_people',self.description,results_cats,self.meta_in,self.meta_out,self.captions_in,self.captions_out)
+        #if not results_people:
+        results_tmp = results_cats
         
         results_faces = {}
-        with Searcher(self.index_repo,search_size=1000) as searcher:
+        with Searcher(self.index_repo,search_size=10000) as searcher:
             searcher.load_index()
             ldb = shelve.open(self.index_repo + '/ldata.bin')
             for f,v in self.mapi_faces.iteritems():
