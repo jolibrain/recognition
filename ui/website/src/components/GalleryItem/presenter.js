@@ -51,6 +51,8 @@ class GalleryItem extends React.Component {
     const outputOrientation = selectedOutput.meta.height > selectedOutput.meta.width ?
       "vertical" : "horizontal";
 
+    let author = '';
+    if(item.input.meta.author) author = item.input.meta.author[0];
 
     return(<div>
       <div className={classname} style={styles.row}
@@ -119,7 +121,7 @@ class GalleryItem extends React.Component {
               <br/>
             </div>
             )}
-            <span key="item.input.meta.origin" style={styles.input.origin}>reuters/{item.input.meta.author[0]}</span>
+            <span key="item.input.meta.origin" style={styles.input.origin}>reuters/{author}</span>
 
             {this.state.hover ? (
             <div>
