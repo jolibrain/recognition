@@ -16,19 +16,62 @@ limitations under the License.
 import React from 'react';
 import Splash from '../Splash';
 import GalleryItem from '../GalleryItem';
+import InfiniteScroll from 'react-infinite-scroller';
 
 class Gallery extends React.Component {
 
+  constructor(props) {
+    super(props);
+
+    const offset = 3;
+
+    this.state = {
+      items: [],
+      hasMoreItems: true,
+      offset: offset
+    }
+
+    this.loadItems = this.loadItems.bind(this);
+  }
+
+  componentWillReceiveProps() {
+    if(this.state.items.length == 0) this.loadItems();
+  }
+
+  componentDidUpdate() {
+    if(this.state.items.length == 0) this.loadItems();
+  }
+
+  loadItems() {
+    const newOffset = this.state.items.length + this.state.offset;
+
+    this.setState({
+      items: this.props.matches.slice(0, newOffset),
+      hasMoreItems: newOffset < this.props.matches.length
+    });
+  }
+
+  renderItems() {
+    const items = this.state.items.length == 0 ? this.props.matches.slice(0, this.state.offset) : this.state.items;
+    return items.map((item, key) => (<GalleryItem key={key} item={item}/>));
+  }
+
   render() {
+    const loader = <div className="loader">Loading ...</div>;
+    const items = this.renderItems();
 
-      return (<div className="container-fluid gallery" id="gallery">
-        {
-          this.props.matches.map((item, key) => {
-            return <GalleryItem key={key} item={item}/>
-          })
-        }
-      </div>);
+    if(items.length == 0) return null;
 
+    return (<InfiniteScroll
+      pageStart={0}
+      loadMore={this.loadItems}
+      hasMore={this.state.hasMoreItems}
+      loader={loader}>
+
+      <div className="container-fluid gallery" id="gallery">
+        {items}
+      </div>
+    </InfiniteScroll>);
   }
 }
 

@@ -21,16 +21,29 @@ import Titles from './presenter_titles';
 import Description from './presenter_description';
 import BoundedImage from './BoundedImage'
 
+import InfiniteScroll from 'react-infinite-scroller';
+
 let {Link} = require('react-router');
 Link = Radium(Link);
 
 @Radium
 class Match extends React.Component {
 
-  state = {
-    overLeft: {hash: [], index: -1},
-    overRight: {hash: [], index: -1}
-  };
+  constructor(props) {
+    super(props);
+
+    const offset = 3;
+
+    this.state = {
+      items: [],
+      hasMoreItems: true,
+      offset: offset,
+      overLeft: {hash: [], index: -1},
+      overRight: {hash: [], index: -1}
+    }
+
+    this.loadItems = this.loadItems.bind(this);
+  }
 
   handleLeftOver(parent, overHash, overIndex) {
     parent.setState({
@@ -45,6 +58,31 @@ class Match extends React.Component {
       overRight: {hash: overHash, index: -1}
     });
   }
+
+  componentWillReceiveProps() {
+    if(this.state.items.length == 0) this.loadItems();
+  }
+
+  componentDidUpdate() {
+    if(this.state.items.length == 0) this.loadItems();
+  }
+
+  loadItems() {
+    const newOffset = this.state.items.length + this.state.offset;
+
+    if(this.props.followingMatches) {
+      this.setState({
+        items: this.props.followingMatches.slice(0, newOffset),
+        hasMoreItems: newOffset < this.props.followingMatches.length
+      });
+    }
+  }
+
+  renderItems() {
+    const items = (this.state.items.length == 0 && this.props.folowingMatches) ? this.props.followingMatches.slice(0, this.state.offset) : this.state.items;
+    return items.map((item, key) => (<Match key={key} item={item} follower={true}/>));
+  }
+
 
   render() {
 
@@ -65,6 +103,9 @@ class Match extends React.Component {
     const itemId = arr[1];
 
     let orientedComponent;
+
+    const loader = <div className="loader">Loading ...</div>;
+    const followingMatches = this.renderItems();
 
     switch (inputOrientation) {
 
@@ -212,9 +253,13 @@ class Match extends React.Component {
         {orientedComponent}
       </div>
       { this.props.followingMatches ?
-          (this.props.followingMatches.map((item, key) => {
-            return <Match key={key} item={item} follower={true} />
-          })) : ''
+          (<InfiniteScroll
+            pageStart={0}
+            loadMore={this.loadItems}
+            hasMore={this.state.hasMoreItems}
+            loader={loader}>
+            {followingMatches}
+          </InfiniteScroll>) : ''
       }
     </div>);
   }

@@ -54,7 +54,7 @@ class SubscribeModal extends React.Component {
             <fieldset>
               <label for="email">Email address</label>
               <br/>
-              <input type="email" name="email" id="email" placeholder="Email address" style={styles.input}/>
+              <input type="email" name="email" id="email" placeholder="" style={styles.input}/>
               <button type="submit" style={styles.button}>Ok</button>
             </fieldset>
           </form>
