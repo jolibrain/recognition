@@ -60,7 +60,10 @@ class DetailFeatures extends React.Component {
     let hovered = this.state.tags || this.state.places;
     let objHovered = hovered ? 'context' : '';
 
-    if(typeof features.densecap != 'undefined' && features.densecap.captions.some((caption, index) => {
+    if(typeof features.densecap != 'undefined' &&
+       typeof features.densecap.captions != 'undefined' &&
+       features.densecap.captions.length > 0 &&
+       features.densecap.captions.some((caption, index) => {
 
       let duplicates = false;
       if(this.props.overHash.hash.length > 0) {
@@ -73,10 +76,15 @@ class DetailFeatures extends React.Component {
       }
 
       return duplicates;
-    }) || (typeof this.props.overHash.index != 'undefined' && this.props.overHash.index != -1 && this.props.overHash.index < features.densecap.boxids.length)) {
+    }) || (typeof this.props.overHash.index != 'undefined' &&
+      this.props.overHash.index != -1 &&
+      this.props.overHash.index < features.densecap.boxids.length)) {
       hovered = true;
       objHovered = 'objects';
-    } else if(typeof features.mapi != 'undefined' && features.mapi.ages.some((caption, index) => {
+    } else if(typeof features.mapi != 'undefined' &&
+              typeof features.mapi.ages != 'undefined' &&
+              features.mapi.ages.length > 0 &&
+              features.mapi.ages.some((caption, index) => {
 
       let duplicates = false;
       if(this.props.overHash.hash.length > 0) {
@@ -89,7 +97,9 @@ class DetailFeatures extends React.Component {
       }
 
       return duplicates;
-    }) || (typeof this.props.overHash.index != 'undefined' && this.props.overHash.index != -1 && this.props.overHash.index - features.densecap.boxids.length < features.mapi.boxids.length)) {
+    }) || (typeof this.props.overHash.index != 'undefined' &&
+      this.props.overHash.index != -1 &&
+      this.props.overHash.index - features.densecap.boxids.length < features.mapi.boxids.length)) {
       hovered = true;
       objHovered = 'faces';
     }
@@ -97,6 +107,24 @@ class DetailFeatures extends React.Component {
     /* DEBUG
       <p>{hovered ? 1 : 0} - {objHovered}</p>
       */
+
+    let author = '';
+    if(item.meta.author)
+      author = item.meta.author[0];
+
+    let densecap_captions = [];
+    if(typeof features != 'undefined' &&
+       typeof features.densecap != 'undefined' &&
+       typeof features.densecap.captions != 'undefined' &&
+       features.densecap.captions.length > 0)
+        densecap_captions = features.densecap.captions;
+
+    let mapi_ages = [];
+    if(typeof features != 'undefined' &&
+       typeof features.mapi != 'undefined' &&
+       typeof features.mapi.ages != 'undefined' &&
+       features.mapi.ages.length > 0)
+        mapi_ages = features.mapi.ages;
 
     return(<div className={hovered ? 'detailFeatures detailHovered' : 'detailFeatures'}
       style={[styles.detailColumn, hovered ? styles.columnHovered : '']}>
@@ -113,7 +141,7 @@ class DetailFeatures extends React.Component {
             </tr>
             <tr>
               <td>AUTHOR:</td>
-              <td>{item.meta['author'][0]}</td>
+              <td>{author}</td>
             </tr>
             <tr>
               <td>SOURCE:</td>
@@ -130,7 +158,7 @@ class DetailFeatures extends React.Component {
         <table className="table borderless">
           <tbody>
             {
-              features.densecap.captions.map((caption, index) => {
+              densecap_captions.map((caption, index) => {
 
                 let duplicates = false;
                 if(this.props.overHash.hash.length > 0) {
@@ -193,7 +221,7 @@ class DetailFeatures extends React.Component {
       </h3>
       { typeof features.mapi != 'undefined' ? (<div className="table-responsive" style={[styles.tableOverflow]}>
       {
-        features.mapi.ages.map((age, index) => {
+        mapi_ages.map((age, index) => {
 
           let duplicates = false;
           if(this.props.overHash.hash.length > 0) {
@@ -215,7 +243,14 @@ class DetailFeatures extends React.Component {
             duplicates ? styles.rowHovered: ''
           ]
 
-          const mapiIndex = features.densecap ? index + features.densecap.boxids.length : idex;
+          let densecapLength = 0;
+          if(typeof features != 'undefined' &&
+             typeof features.densecap != 'undefined' &&
+             typeof features.densecap.captions != 'undefined' &&
+             features.densecap.captions.length > 0)
+              densecapLength = features.densecap.boxids.length;
+
+          const mapiIndex = index + densecapLength;
 
           return(<div key={'mapi' + index}
           onMouseOver={() => {

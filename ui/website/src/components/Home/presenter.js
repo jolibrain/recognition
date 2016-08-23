@@ -14,20 +14,18 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import * as actions from '../../actions';
-import Home from './presenter';
+import Splash from '../Splash';
+import Gallery from '../Gallery';
 
-const mapStateToProps = (state, ownProps = {}) => {
-  return {
-    matches: state.matches.slice(1)
+class Home extends React.Component {
+
+  render() {
+
+    return (<div>
+      <Splash/>
+      <Gallery/>
+    </div>);
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;
