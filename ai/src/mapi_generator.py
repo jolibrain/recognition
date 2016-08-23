@@ -289,35 +289,35 @@ class MAPIGenerator(FeatureGenerator):
                     faceR = fv.get('faceRectangle',{})
                     if faceR:
                         in_face_hash = self.box_hash(faceR)
+                    age_in = fv.get('age',-1)
                     #print 'nns scores=',nns['nns'][1]
                     for nuri in nns['nns_uris']:
                         if not nuri in resi:
                             resi[nuri] = {'mapi_out':{'faceRectangles':[],'emotions':[],'genders':[],'ages':[],'boxids':[]},
                                           'mapi_in':{'faceRectangles':[],'emotions':[],'genders':[],'ages':[],'boxids':[]},
                                           'score':0.0}
-                        #in_face_hash = ''
-                        #faceR = fv.get('faceRectangle',{})
-                        #if faceR:
-                        #    in_face_hash = self.box_hash(faceR)
-                        #print 'faceR=',faceR,' / in_face_hash=',in_face_hash
                         if in_face_hash:
-                            if not in_face_hash in resi[nuri]['mapi_in']['faceRectangles']:
+                            if not faceR in resi[nuri]['mapi_in']['faceRectangles']:
                                 resi[nuri]['mapi_in']['faceRectangles'].append(faceR)
                                 resi[nuri]['mapi_in']['emotions'].append(fv.get('emotions',{}))
                                 resi[nuri]['mapi_in']['genders'].append(fv.get('gender',-1))
-                                resi[nuri]['mapi_in']['ages'].append(fv.get('age',-1))
+                                resi[nuri]['mapi_in']['ages'].append(age_in)
                                 resi[nuri]['mapi_in']['boxids'].append([in_face_hash])
 
                         nn = nns['nns'][0][m]
                         nndata = ldb[str(nn)]
                         nndata0 = nndata[0]
+                        age_out = nndata0.get('age',-1)
+                        if not age_in-5<=age_out<=age_in+5:
+                            #print 'discarding based on age, age_in=',age_in,' / age_out=',age_out
+                            continue
                         nnfaceR = nndata0.get('faceRectangle',{})
                         if nnfaceR:
                             if not nnfaceR in resi[nuri]['mapi_out']['faceRectangles']:
                                 resi[nuri]['mapi_out']['faceRectangles'].append(nnfaceR)
                                 resi[nuri]['mapi_out']['emotions'].append(nndata0.get('emotions',{}))
                                 resi[nuri]['mapi_out']['genders'].append(nndata0.get('gender',-1))
-                                resi[nuri]['mapi_out']['ages'].append(nndata0.get('age',-1))
+                                resi[nuri]['mapi_out']['ages'].append(age_out)
                                 if in_face_hash:
                                     resi[nuri]['mapi_out']['boxids'].append([in_face_hash])
                                 resi[nuri]['score'] += 10.0*nns['nns'][1][m] + 0.5
