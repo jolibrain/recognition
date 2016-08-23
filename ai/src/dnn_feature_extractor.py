@@ -64,6 +64,7 @@ class DNNFeatureExtractor(FeatureGenerator):
         self.meta_out = meta_out
         self.captions_in = captions_in
         self.captions_out = captions_out
+        self.gpuid = 1
         self.dnnmodel = dnnmodel
         if self.dnnmodel.extract_layer:
             self.dd_mltype = 'unsupervised'
@@ -85,7 +86,7 @@ class DNNFeatureExtractor(FeatureGenerator):
     def create_dd_service(self):
         model = {'repository':self.dnnmodel.model_repo}
         parameters_input = {'connector':'image','width':self.dnnmodel.img_width,'height':self.dnnmodel.img_height}
-        parameters_mllib = {'nclasses':self.dnnmodel.nclasses,'gpu':True}
+        parameters_mllib = {'nclasses':self.dnnmodel.nclasses,'gpu':True,'gpuid':self.gpuid}
         parameters_output = {}
         screate = self.dd.put_service(self.dnnmodel.name,model,self.dd_description,self.dd_mllib,
                                       parameters_input,parameters_mllib,parameters_output,self.dd_mltype)
@@ -108,7 +109,7 @@ class DNNFeatureExtractor(FeatureGenerator):
         feature_vectors = []
         uris = []
         parameters_input = {}
-        parameters_mllib = {'gpu':True,'extract_layer':self.dnnmodel.extract_layer}
+        parameters_mllib = {'gpu':True,'gpuid':self.gpuid,'extract_layer':self.dnnmodel.extract_layer}
 
         if self.dd_mltype == 'unsupervised':
             parameters_output = {'binarized':self.binarized}
@@ -121,7 +122,6 @@ class DNNFeatureExtractor(FeatureGenerator):
                 logger.error('failed (index) initial prediction call to model ' + self.dnnmodel.name + ' via dd')
                 self.delete_dd_service()
                 return
-                
             dim = len(classif['body']['predictions']['vals'])
         else:
             parameters_output = {'best':self.dnnmodel.best}
@@ -158,7 +158,7 @@ class DNNFeatureExtractor(FeatureGenerator):
     def search(self,jdataout={}):
         self.create_dd_service()
         parameters_input = {}
-        parameters_mllib = {'gpu':True,'extract_layer':self.dnnmodel.extract_layer}
+        parameters_mllib = {'gpu':True,'gpuid':self.gpuid,'extract_layer':self.dnnmodel.extract_layer}
 
         if self.dd_mltype == 'unsupervised':
             parameters_output = {'binarized':self.binarized}
