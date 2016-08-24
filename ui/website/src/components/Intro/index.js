@@ -17,25 +17,28 @@ import React from 'react';
 import Radium from 'radium';
 import {Overlay} from 'react-overlays';
 import { browserHistory } from 'react-router';
-import ScrollListener from 'react-scroll-listener';
+import Scroll from 'react-scroll';
+
+var Events     = Scroll.Events;
 
 class IntroOverlay extends React.Component {
 
   state = {
     introOverlay: true,
-    introStep: 0,
-    scrollListener: new ScrollListener()
+    introStep: 0
   }
 
   componentDidMount() {
-    this.state.scrollListener.addScrollHandler('some-id', () => {}, () => {
-      console.log('logs when no scroll-events occurred in the last 300ms(default)');
+
+    Events.scrollEvent.register('end', function(to, element) {
+      console.log("end", arguments);
       if(this.state.introStep < 4) {
         this.setState({introStep: this.state.introStep + 1});
       } else {
         this.setState({introOverlay: false});
       }
     });
+
   }
 
   render() {
