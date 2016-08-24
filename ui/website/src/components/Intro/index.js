@@ -17,9 +17,7 @@ import React from 'react';
 import Radium from 'radium';
 import {Overlay} from 'react-overlays';
 import { browserHistory } from 'react-router';
-import Scroll from 'react-scroll';
-
-const Events = Scroll.Events;
+import {debounce} from 'throttle-debounce';
 
 const steps = [
   {icon: "/img/loading/intro.png", text: (<p><b>RECOGNITION</b> is an artificial intelligence<br/>comparing up-to-the-minute photojournalism<br/>with British art from the Tate collection</p>)},
@@ -29,26 +27,33 @@ const steps = [
   {icon: "/img/loading/composition.png", text: (<p><b>Composition recognition</b>is a process for identifying prominent shapes  and structures, visual layout, and colours.</p>)},
   {icon: "/img/loading/context.png", text: (<p><b>Context recognition</b> is a process which analyses the titles, dates, tags, and descriptions associated with each image. By reading this text, it's also how recognition learns how to write a caption for each match.</p>)},
   {icon: "/img/loading/empty.png", text: (<p>Images with close similarity in these four categories are selected as a match, and displayed in RECOGNITION's gallery.</p>)}
-]
+];
 
 class IntroOverlay extends React.Component {
 
-  state = {
-    introStep: 0
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      stepIndex: 0
+    };
+
+    this.scroll = debounce(200, this.scroll);
   }
 
-  componentDidMount() {
+  scroll(deltaY) {
+    if(deltaY > 0){
+      this.setState({stepIndex: this.state.stepIndex + 1});
+    }
+  }
 
-    Events.scrollEvent.register('end', function(to, element) {
-      console.log("end", arguments);
-      this.setState({introStep: this.state.introStep + 1});
-    });
-
+  callScroll(e) {
+    this.scroll(e.deltaY);
   }
 
   render() {
 
-    if(this.state.introStep < steps.length) {
+    if(this.state.stepIndex < steps.length) {
       document.body.classList.toggle('noscroll', true);
       document.getElementById("app").classList.toggle('introOverlay-app', true);
     } else {
@@ -56,13 +61,14 @@ class IntroOverlay extends React.Component {
       document.getElementById("app").classList.remove('introOverlay-app');
     }
 
-    if(this.state.introStep >= steps.length) return null;
+    if(this.state.stepIndex >= steps.length) return null;
 
-    return (<Overlay show={this.state.introStep < steps.length}
-                     onHide={() => this.setState({ introStep: 10 })}>
+    return (<Overlay show={this.state.stepIndex < steps.length}
+                     onHide={() => this.setState({ stepIndex: 10 })}
+      >
         <div className="introOverlay"
-             style={{backgroundColor: 'rgba(0,0,0,' + (1.0 - this.state.introStep * 0.15) + ')'}}
-        >
+             style={{backgroundColor: 'rgba(0,0,0,' + (1.0 - this.state.stepIndex * 0.1) + ')'}}
+                     onWheel={this.callScroll.bind(this)}        >
           <nav className="navbar navbar-default navbar-fixed-top">
             <div className="container-fluid">
 
@@ -73,17 +79,17 @@ class IntroOverlay extends React.Component {
 
               <div className="collapse navbar-collapse" id="bs-navbar-collapse">
                 <ul className="nav navbar-nav navbar-right">
-                  <li><a onClick={() => {this.setState({introStep: 10})}}>Skip Intro</a></li>
+                  <li><a onClick={() => {this.setState({stepIndex: 10})}}>Skip Intro</a></li>
                 </ul>
               </div>
 
             </div>
           </nav>
           <div className="content">
-            <img src={steps[this.state.introStep].icon}/>
-            {steps[this.state.introStep].text}
+            <img src={steps[this.state.stepIndex].icon}/>
+            {steps[this.state.stepIndex].text}
             <a style={{position: 'fixed', bottom: '20px'}} onClick={() => {
-              this.setState({introStep: this.state.introStep + 1});
+              this.setState({stepIndex: this.state.stepIndex + 1});
             }}><span className="icon--i_arrow-down"/></a>
           </div>
         </div>
