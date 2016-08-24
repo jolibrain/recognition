@@ -24,6 +24,12 @@ class App extends React.Component {
     displayIntro: true
   }
 
+  componentWillMount() {
+    const path = this.props.location.pathname;
+    const segment = path.split('/')[1] || 'root';
+    this.setState({displayIntro: segment == 'root'});
+  }
+
   componentDidUpdate() {
     this.setState({displayIntro: false});
   }

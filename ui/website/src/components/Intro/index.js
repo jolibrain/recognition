@@ -58,11 +58,10 @@ class IntroOverlay extends React.Component {
 
     if(this.state.introStep >= steps.length) return null;
 
-console.log('rgba(0,0,0,' + (1.0 - this.state.introStep * 0.1) + ')');
     return (<Overlay show={this.state.introStep < steps.length}
                      onHide={() => this.setState({ introStep: 10 })}>
         <div className="introOverlay"
-             style={{backgroundColor: 'rgba(0,0,0,' + (1.0 - this.state.introStep * 0.1) + ')'}}
+             style={{backgroundColor: 'rgba(0,0,0,' + (1.0 - this.state.introStep * 0.15) + ')'}}
         >
           <nav className="navbar navbar-default navbar-fixed-top">
             <div className="container-fluid">
