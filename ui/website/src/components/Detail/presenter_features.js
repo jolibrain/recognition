@@ -60,6 +60,8 @@ class DetailFeatures extends React.Component {
     let hovered = this.state.tags || this.state.places;
     let objHovered = hovered ? 'context' : '';
 
+    hovered = hovered || this.props.hovered;
+
     if(typeof features.densecap != 'undefined' &&
        typeof features.densecap.captions != 'undefined' &&
        features.densecap.captions.length > 0 &&

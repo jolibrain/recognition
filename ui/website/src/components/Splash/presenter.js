@@ -61,10 +61,10 @@ class Splash extends React.Component {
 
         <div className="container splashContainer" style={[styles.fullHeight]}>
           <div className="row" style={styles.fullHeight.row}>
-            <div className="col-md-6" style={styles.fullHeight.col}>
+            <div className="col-sm-6" style={styles.fullHeight.col}>
 
               <div className="row">
-                <div className="col-md-12">
+                <div className="col-sm-12">
                   <table className="table borderless" style={styles.table}>
                     <tbody>
                       <tr style={styles.table.header}>
@@ -94,7 +94,7 @@ class Splash extends React.Component {
               </div>
 
               <div className="row">
-                <div className="col-md-12" style={{textAlign: "center"}}>
+                <div className="col-sm-12" style={{textAlign: "center"}}>
 
                   <img
                     src={match.input.img}
@@ -114,10 +114,10 @@ class Splash extends React.Component {
 
             </div>
 
-            <div className="col-md-6 nopadding">
+            <div className="col-sm-6 nopadding">
 
               <div className="row"  style={styles.fullHeight.row}>
-                <div className="col-md-10 col-md-offset-1" style={styles.fullHeight.col}>
+                <div className="col-sm-10 col-sm-offset-1" style={styles.fullHeight.col}>
 
                   <img
                     style={[styles.fullHeight.img, {maxHeight: "75vh"}]}
