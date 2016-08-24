@@ -89,6 +89,7 @@ const styles = {
   },
   link: {
     color: '#FFF',
+    display: 'inline-block',
     marginBottom: '20px',
     textTransform: 'uppercase',
     pointerEvents: 'all'
@@ -97,7 +98,7 @@ const styles = {
     marginTop: '20px',
   },
   rightDetails: {
-    marginTop: '60px',
+    marginTop: '40px',
   },
   rowHover: {
     ':hover': {
