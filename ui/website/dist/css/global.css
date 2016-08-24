@@ -349,6 +349,32 @@ body.noscroll{
   outline: none;
 }
 
+ul.react-autosuggest__suggestions-list .paddingRight {
+  padding-left: 20px;
+}
+
+ul.react-autosuggest__suggestions-list {
+  width: 180px;
+  padding: 0;
+  list-style: none;
+  background-color: #000;
+}
+
+ul.react-autosuggest__suggestions-list li {
+  padding: 20px;
+ border-bottom: 2px dashed #333;
+}
+
+ul.react-autosuggest__suggestions-list a {
+  color: #fff;
+  text-decoration: none;
+}
+
+ul.react-autosuggest__suggestions-list a:hover {
+  color: #0fc;
+  text-decoration: none;
+}
+
 .detailFeatures {
   width: 30%;
   font-family: 'MaisonNeue';

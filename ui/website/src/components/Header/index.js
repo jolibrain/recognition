@@ -14,60 +14,20 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import React from 'react';
-import Radium from 'radium';
-import styles from './styles.js';
-import SubscribeModal from '../Modals/SubscribeModal';
-import SearchInput from './searchInput';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
+import Header from './presenter';
 
-let {Link} = require('react-router');
-Link = Radium(Link);
-
-@Radium
-class Header extends React.Component {
-
-  state = {
-    displaySearch: false
-  }
-
-  render() {
-
-    const searchStyles = [
-      styles.menuItem,
-      styles.searchIcon,
-      this.state.displaySearch ? styles.searchIconActivated : ''
-    ]
-
-    return <div>
-      <nav style={[styles.navbar, styles.gradientBackground]} className="navbar navbar-default navbar-fixed-top">
-        <div className="container-fluid">
-
-          <div className="navbar-header">
-            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse" aria-expanded="false">
-              <span className="sr-only">Toggle navigation</span>
-              <span className="icon-bar"/>
-              <span className="icon-bar"/>
-              <span className="icon-bar"/>
-            </button>
-            <Link style={[styles.brand]} className="navbar-brand" to='/'><span style={[styles.brand.re]}>re]</span>[cognition</Link>
-          </div>
-
-          <div className="collapse navbar-collapse" id="bs-navbar-collapse">
-            <ul className="nav navbar-nav navbar-right">
-              <li className={this.props.path == '/gallery' ? 'menuSelected' : ''}><Link style={[styles.menuItem]} to='/gallery'>Gallery</Link></li>
-              <li><Link style={[styles.menuItem]} to='/exhibition'>Exhibition</Link></li>
-              <li className={this.props.path == '/info' ? 'menuSelected' : ''}><Link style={[styles.menuItem]} to='/info'>Info</Link></li>
-              <li><SubscribeModal/></li>
-              <li><span style={searchStyles} className='icon--i_search' onClick={() => {
-                this.setState({displaySearch: !this.state.displaySearch})
-              }}/></li>
-              { this.state.displaySearch ? <SearchInput/> : ''}
-            </ul>
-          </div>
-
-        </div>
-      </nav>
-    </div>;
+const mapStateToProps = (state, ownProps = {}) => {
+  return {
+    matches: state.matches
   }
 }
 
-export default Header;
+const mapDispatchToProps = (dispatch) => {
+  return {
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

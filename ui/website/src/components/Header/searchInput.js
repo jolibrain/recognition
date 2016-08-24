@@ -14,47 +14,41 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import React from 'react';
+import Radium from 'radium';
 import Autosuggest from 'react-autosuggest';
 import theme from './searchInput.css';
+import Fuse from 'fuse.js';
+import moment from 'moment';
 
-const matches = [
-  {
-    reuters: {date: '01/08/2016', description: 'Traffic on Golden Gate Bridge'},
-    tate: {date: '01/08/2016', description: 'Traffic on Golden Gate Bridge'}
-  }
-]
+let {Link} = require('react-router');
+Link = Radium(Link);
 
-function getSuggestions(value) {
-  const inputValue = value.trim().toLowerCase();
-  const inputLength = inputValue.length;
-
-  return inputLength === 0 ? [] : matches.filter(match =>
-    match.reuters.description.toLowerCase().slice(0, inputLength) === inputValue
-  );
-}
-
-function getSuggestionValue(suggestion) {
-  return suggestion.name;
-}
-
-function renderSuggestion(suggestion) {
-  return (
-    <span>{suggestion.name}</span>
-  );
-}
-
+@Radium
 class SearchInput extends React.Component {
 
   constructor() {
     super();
 
     this.state = {
+      matches: [],
       value: '',
-      suggestions: getSuggestions('')
+      suggestions: []
     };
+
+    this.getSuggestions = this.getSuggestions.bind(this);
+    this.getSuggestionValue = this.getSuggestionValue.bind(this);
+    this.renderSuggestion = this.renderSuggestion.bind(this);
 
     this.onChange = this.onChange.bind(this);
     this.onSuggestionsUpdateRequested = this.onSuggestionsUpdateRequested.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(this.state.matches.length == 0) this.setState({matches: nextProps.matches});
+  }
+
+  componentWillUpdate(nextProps) {
+    if(this.state.matches.length == 0) this.setState({matches: nextProps.matches});
   }
 
   onChange(event, { newValue }) {
@@ -65,8 +59,64 @@ class SearchInput extends React.Component {
 
   onSuggestionsUpdateRequested({ value }) {
     this.setState({
-      suggestions: getSuggestions(value)
+      suggestions: this.getSuggestions(value)
     });
+  }
+
+  getSuggestions(value) {
+    const inputValue = value.trim().toLowerCase();
+    const inputLength = inputValue.length;
+
+    const options = {
+      caseSensitive: false,
+      shouldSort: true,
+      tokenize: false,
+      threshold: 0.6,
+      location: 0,
+      distance: 100,
+      maxPatternLength: 32,
+      keys: [
+        'input.meta.caption',
+        'input.meta.date',
+        'input.meta.title',
+        'input.meta.author',
+        'output.meta.caption',
+        'output.meta.date',
+        'output.meta.title',
+        'output.meta.author',
+        'output.meta.tags',
+        'output.features.in.captions.caption',
+        'output.features.out.captions.caption'
+      ]
+    };
+
+    const fuse = new Fuse(this.state.matches, options);
+
+console.log("fuseSearch");
+    return inputLength < 3 ? [] : fuse.search(value);
+  }
+
+  getSuggestionValue(suggestion) {
+    return suggestion.name;
+  }
+
+  renderSuggestion(suggestion) {
+
+    const input = suggestion.input;
+    const output = suggestion.output[0];
+
+    const rx = /Z_\d+_(.*?)_/g;
+    const arr = rx.exec(input.img);
+    const itemId = arr[1];
+
+    return (
+      <Link to={`/details/${itemId}`}>
+        <p>{moment(input.meta.date).format('DD/MM/YYYY')}<br/>
+        <span className="paddingRight">{input.meta.caption}</span><br/>
+        {output.meta.date}<br/>
+        <span className="paddingRight"><em>{output.meta.title}</em> by {output.meta.author[0]}</span></p>
+      </Link>
+    );
   }
 
   render() {
@@ -82,8 +132,8 @@ class SearchInput extends React.Component {
     return <li>
       <Autosuggest suggestions={suggestions}
                    onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested}
-                   getSuggestionValue={getSuggestionValue}
-                   renderSuggestion={renderSuggestion}
+                   getSuggestionValue={this.getSuggestionValue}
+                   renderSuggestion={this.renderSuggestion}
                    inputProps={inputProps}
       />
     </li>
