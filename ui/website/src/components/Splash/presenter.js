@@ -17,11 +17,9 @@ import React from 'react';
 import Radium from 'radium';
 import moment from 'moment';
 import styles from './styles.js';
-import IntroOverlay from '../Intro';
 import ReactInterval from 'react-interval';
 import Scrollchor from 'react-scrollchor';
 import {Preload} from 'react-preload';
-
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -35,9 +33,6 @@ class Splash extends React.Component {
   }
 
   render() {
-
-    const OverlayStyle = {
-    }
 
     const match = this.props.match;
 
@@ -63,7 +58,6 @@ class Splash extends React.Component {
           mountChildren={false}
         />
 
-        <IntroOverlay />
 
         <div className="container splashContainer" style={[styles.fullHeight]}>
           <div className="row" style={styles.fullHeight.row}>

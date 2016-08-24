@@ -16,11 +16,16 @@ limitations under the License.
 import React from 'react';
 import Header from '../Header';
 import Footer from '../Footer';
+import IntroOverlay from '../Intro';
 
 class App extends React.Component {
 
   state = {
-    displayIntro: false
+    displayIntro: true
+  }
+
+  componentDidUpdate() {
+    this.setState({displayIntro: false});
   }
 
   render() {
@@ -32,6 +37,7 @@ class App extends React.Component {
 
     return <div className="appComponent">
       <Header path={path} displayIntro={this.state.displayIntro}/>
+      { this.state.displayIntro ? (<IntroOverlay />) : ''}
       {this.props.children}
       <Footer/>
     </div>;

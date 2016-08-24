@@ -16,6 +16,7 @@ limitations under the License.
 import React from 'react';
 import Radium from 'radium';
 import {Overlay} from 'react-overlays';
+import { browserHistory } from 'react-router';
 
 class IntroOverlay extends React.Component {
 

@@ -19,7 +19,7 @@ import Autosuggest from 'react-autosuggest';
 import theme from './searchInput.css';
 import Fuse from 'fuse.js';
 import moment from 'moment';
-import { browserHistory } from 'react-router'
+import { browserHistory } from 'react-router';
 
 let {Link} = require('react-router');
 Link = Radium(Link);
