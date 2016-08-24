@@ -217,44 +217,9 @@ canvas {
   filter: none;
 }
 
-.introOverlay-step0 {
-  -webkit-filter: blur(8px);
-  filter: blur(8px);
-}
-.introOverlay-step0 .introOverlay {
-  background-color: rgba(0,0,0,0.8);
-}
-
-.introOverlay-step1 {
-  -webkit-filter: blur(6px);
-  filter: blur(6px);
-}
-.introOverlay-step1 .introOverlay {
-  background-color: rgba(0,0,0,0.75);
-}
-
-.introOverlay-step2 {
-  -webkit-filter: blur(4px);
-  filter: blur(4px);
-}
-.introOverlay-step2 .introOverlay {
-  background-color: rgba(0,0,0,0.7);
-}
-
-.introOverlay-step3 {
-  -webkit-filter: blur(2px);
-  filter: blur(2px);
-}
-.introOverlay-step3 .introOverlay {
-  background-color: rgba(0,0,0,0.65);
-}
-
-.introOverlay-step4 {
-  -webkit-filter: blur(1px);
-  filter: blur(1px);
-}
-.introOverlay-step4 .introOverlay {
-  background-color: rgba(0,0,0,0.6);
+.introOverlay-app {
+  -webkit-filter: blur(16px);
+  filter: blur(16px);
 }
 
 .blurred {

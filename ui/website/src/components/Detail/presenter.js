@@ -28,26 +28,36 @@ Link = Radium(Link);
 class Detail extends React.Component {
 
   state = {
+    overImg: false,
     overLeft: {hash: []},
     overRight: {hash: []}
   };
 
-  handleLeftOver(parent, overHash) {
+  handleLeftOverFeatures(parent, overHash) {
     parent.setState({
       overLeft: {hash: overHash},
       overRight: {hash: overHash},
     });
   }
 
-  handleRightOverCanvas(parent, overHash, overIndex) {
+  handleRightOverFeatures(parent, overHash, overIndex) {
     parent.setState({
       overLeft: {hash: [], index: overIndex},
       overRight: {hash: overHash}
     });
   }
 
-  handleRightOverFeatures(parent, overHash, overIndex) {
+  handleLeftOverCanvas(parent, overHash, overIndex, overImg) {
     parent.setState({
+      overImg: overImg,
+      overLeft: {hash: overHash},
+      overRight: {hash: overHash},
+    });
+  }
+
+  handleRightOverCanvas(parent, overHash, overIndex, overImg) {
+    parent.setState({
+      overImg: overImg,
       overLeft: {hash: [], index: overIndex},
       overRight: {hash: overHash}
     });
@@ -67,15 +77,15 @@ class Detail extends React.Component {
     return(<div className="container-fluid">
       <div className="row" style={styles.rowImg}>
 
-        <div className="col-md-5 col-md-offset-1"style={[styles.leftImg]} >
+        <div className="col-sm-5 col-sm-offset-1"style={[styles.leftImg]} >
           <BoundedImage item={item.input}
                         features={selectedOutput.features.in}
-                        onOver={this.handleLeftOver}
+                        onOver={this.handleLeftOverCanvas}
                         overHash={this.state.overRight}
                         parent={this}
           />
         </div>
-        <div className="col-md-5 col-md-offset-1">
+        <div className="col-sm-5 col-sm-offset-1">
           <BoundedImage item={selectedOutput}
                         features={selectedOutput.features.out}
                         onOver={this.handleRightOverCanvas}
@@ -87,25 +97,27 @@ class Detail extends React.Component {
       </div>
       <div className="row" style={styles.dataRow}>
 
-        <div className="col-md-6">
+        <div className="col-sm-6">
           <Link style={[styles.link]} to={`/gallery/${itemId}`}><span className='icon--i_arrow-left'/> Back to article</Link>
           <DetailFeatures item={item.input}
                           source={'reuters'}
                           features={selectedOutput.features.in}
                           scores={selectedOutput.features.summary.scores}
-                          onOver={this.handleLeftOver}
+                          onOver={this.handleLeftOverFeatures}
                           overHash={this.state.overRight}
+                          overImg={this.state.overImg}
                           parent={this}
           />
         </div>
 
-        <div className="col-md-6" style={[styles.rightDetails]}>
+        <div className="col-sm-6" style={[styles.rightDetails]}>
           <DetailFeatures item={selectedOutput}
                           source={'tate'}
                           features={selectedOutput.features.out}
                           scores={selectedOutput.features.summary.scores}
                           onOver={this.handleRightOverFeatures}
                           overHash={this.state.overLeft}
+                          overImg={this.state.overImg}
                           parent={this}
           />
         </div>

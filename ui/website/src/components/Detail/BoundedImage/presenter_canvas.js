@@ -179,13 +179,13 @@ class CanvasImage extends React.Component {
           });
 
         // Draw the rectangles by Z (ASC)
-        this.props.onOver(this.props.parent, this.state.hoverHash, this.state.hoverIndex);
+        this.props.onOver(this.props.parent, this.state.hoverHash, this.state.hoverIndex, true);
         this.renderBoxes();
       });
 
       canvas.onmouseout = ((e) => {
         this.setState({hoverIndex: -1, hoverHash: []});
-        this.props.onOver(this.props.parent, this.state.hoverHash, this.state.hoverIndex);
+        this.props.onOver(this.props.parent, this.state.hoverHash, this.state.hoverIndex, false);
         this.renderBoxes();
       });
 

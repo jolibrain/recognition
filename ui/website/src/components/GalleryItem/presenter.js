@@ -67,11 +67,11 @@ class GalleryItem extends React.Component {
         }}
       >
 
-        <div className="col-md-9">
+        <div className="col-sm-9">
 
           <div className="container-fluid" style={[styles.fullHeight]}>
             <div className="row" style={styles.fullHeight.row}>
-              <div className="col-md-6" style={styles.fullHeight.col}>
+              <div className="col-sm-6" style={styles.fullHeight.col}>
                 <img
                   src={item.input.img}
                   style={[styles.fullHeight.img]}
@@ -79,7 +79,7 @@ class GalleryItem extends React.Component {
                   sizes="(min-width: 40em) 80vw, 100vw"
                 />
               </div>
-              <div className="col-md-6" style={styles.fullHeight.col}>
+              <div className="col-sm-6" style={styles.fullHeight.col}>
                 <img
                   style={[styles.fullHeight.img]}
                   srcSet={selectedOutput.img.replace('tate/', 'tate/responsive_375/') + " 375w, " + selectedOutput.img.replace('tate/', 'tate/responsive_480/') + " 480w, " + selectedOutput.img.replace('tate/', 'tate/responsive_757/') + " 757w"}
@@ -91,7 +91,7 @@ class GalleryItem extends React.Component {
 
         </div>
 
-        <div className="col-md-3" style={styles.descriptionColumn}>
+        <div className="col-sm-3" style={styles.descriptionColumn}>
 
           <p>No {itemId}</p>
 

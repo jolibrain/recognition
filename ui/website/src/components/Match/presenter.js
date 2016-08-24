@@ -113,7 +113,7 @@ class Match extends React.Component {
         switch (outputOrientation) {
           case "horizontal":
             orientedComponent = (<div className="row">
-              <div className="col-md-5">
+              <div className="col-sm-5">
                 <Titles input={item.input} output={selectedOutput}/>
                 <BoundedImage
                   item={item.input}
@@ -125,7 +125,7 @@ class Match extends React.Component {
                 />
                 <p style={styles.imgDescription}>{item.input.meta.origin}</p>
               </div>
-              <div className="col-md-5">
+              <div className="col-sm-5">
                 <BoundedImage
                   item={selectedOutput}
                   itemId={itemId}
@@ -136,7 +136,7 @@ class Match extends React.Component {
                 />
                 <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
               </div>
-              <div className="col-md-2">
+              <div className="col-sm-2">
                 <Description id={itemId}
                              descriptionIn={selectedOutput.features.in.captions.caption}
                              descriptionOut={selectedOutput.features.out.captions.caption}/>
@@ -145,7 +145,7 @@ class Match extends React.Component {
             break;
           case "vertical":
             orientedComponent = (<div className="row">
-              <div className="col-md-5">
+              <div className="col-sm-5">
                 <BoundedImage
                   item={item.input}
                   itemId={itemId}
@@ -157,7 +157,7 @@ class Match extends React.Component {
                 <p style={styles.imgDescription}>{item.input.meta.origin}</p>
                 <Titles input={item.input} output={selectedOutput}/>
               </div>
-              <div className="col-md-5">
+              <div className="col-sm-5">
                 <BoundedImage
                   item={selectedOutput}
                   itemId={itemId}
@@ -168,7 +168,7 @@ class Match extends React.Component {
                 />
                 <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
               </div>
-              <div className="col-md-2">
+              <div className="col-sm-2">
                 <Description id={itemId}
                              descriptionIn={selectedOutput.features.in.captions.caption}
                              descriptionOut={selectedOutput.features.out.captions.caption}/>
@@ -182,10 +182,10 @@ class Match extends React.Component {
         switch (outputOrientation) {
           case "horizontal":
             orientedComponent = (<div className="row">
-              <div className="col-md-2">
+              <div className="col-sm-2">
                 <Titles input={item.input} output={selectedOutput}/>
               </div>
-              <div className="col-md-5">
+              <div className="col-sm-5">
                 <BoundedImage
                   item={item.input}
                   itemId={itemId}
@@ -196,7 +196,7 @@ class Match extends React.Component {
                 />
                 <p style={styles.imgDescription}>{item.input.meta.origin}</p>
               </div>
-              <div className="col-md-5">
+              <div className="col-sm-5">
                 <BoundedImage
                   item={selectedOutput}
                   itemId={itemId}
@@ -214,13 +214,13 @@ class Match extends React.Component {
             break;
           case "vertical":
             orientedComponent = (<div className="row">
-              <div className="col-md-2">
+              <div className="col-sm-2">
                 <Titles input={item.input} output={selectedOutput}/>
                 <Description id={itemId}
                              descriptionIn={selectedOutput.features.in.captions.caption}
                              descriptionOut={selectedOutput.features.out.captions.caption}/>
               </div>
-              <div className="col-md-5">
+              <div className="col-sm-5">
                 <BoundedImage
                   item={item.input}
                   itemId={itemId}
@@ -231,7 +231,7 @@ class Match extends React.Component {
                 />
                 <p style={styles.imgDescription}>{item.input.meta.origin}</p>
               </div>
-              <div className="col-md-5">
+              <div className="col-sm-5">
                 <BoundedImage
                   item={selectedOutput}
                   itemId={itemId}

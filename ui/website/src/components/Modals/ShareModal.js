@@ -122,7 +122,7 @@ class ShareModal extends React.Component {
 
           <div className="fluid-container">
             <div className="row">
-              <div className="col-md-3">
+              <div className="col-sm-3">
 
                 <FacebookShareButton
                   url={url}
@@ -136,7 +136,7 @@ class ShareModal extends React.Component {
                 </FacebookShareButton>
 
               </div>
-              <div className="col-md-3">
+              <div className="col-sm-3">
 
                 <TwitterShareButton
                   url={url}
@@ -150,7 +150,7 @@ class ShareModal extends React.Component {
                 </TwitterShareButton>
 
               </div>
-              <div className="col-md-3">
+              <div className="col-sm-3">
 
                 <PinterestShareButton
                   url={url}
@@ -164,7 +164,7 @@ class ShareModal extends React.Component {
                 </PinterestShareButton>
 
               </div>
-              <div className="col-md-3">
+              <div className="col-sm-3">
 
                 <GooglePlusShareButton
                   url={url}
