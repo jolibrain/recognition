@@ -19,12 +19,21 @@ import {Overlay} from 'react-overlays';
 import { browserHistory } from 'react-router';
 import Scroll from 'react-scroll';
 
-var Events     = Scroll.Events;
+const Events = Scroll.Events;
+
+const steps = [
+  {icon: "/img/loading/intro.png", text: (<p><b>RECOGNITION</b> is an artificial intelligence<br/>comparing up-to-the-minute photojournalism<br/>with British art from the Tate collection</p>)},
+  {icon: "/img/loading/empty.png", text: (<p><b>RECOGNITION</b> has four different ways of looking at an image:</p>)},
+  {icon: "/img/loading/object.png", text: (<p><b>Object recognition</b> is a process for identifying specific objects.  Its algorithms rely on matching, learning, or pattern recognition using appearance-based or feature-based analysis.</p>)},
+  {icon: "/img/loading/face.png", text: (<p><b>Facial recognition</b> is a process for identifying human faces. In addition to locating the human faces in an image, it determines the age, gender, and emotional state of each subject it finds.</p>)},
+  {icon: "/img/loading/composition.png", text: (<p><b>Composition recognition</b>is a process for identifying prominent shapes  and structures, visual layout, and colours.</p>)},
+  {icon: "/img/loading/context.png", text: (<p><b>Context recognition</b> is a process which analyses the titles, dates, tags, and descriptions associated with each image. By reading this text, it's also how recognition learns how to write a caption for each match.</p>)},
+  {icon: "/img/loading/empty.png", text: (<p>Images with close similarity in these four categories are selected as a match, and displayed in RECOGNITION's gallery.</p>)}
+]
 
 class IntroOverlay extends React.Component {
 
   state = {
-    introOverlay: true,
     introStep: 0
   }
 
@@ -32,37 +41,29 @@ class IntroOverlay extends React.Component {
 
     Events.scrollEvent.register('end', function(to, element) {
       console.log("end", arguments);
-      if(this.state.introStep < 4) {
-        this.setState({introStep: this.state.introStep + 1});
-      } else {
-        this.setState({introOverlay: false});
-      }
+      this.setState({introStep: this.state.introStep + 1});
     });
 
   }
 
   render() {
 
-    const steps = [
-      {icon: "/img/loading/intro.png", text: (<p><b>RECOGNITION</b> is an artificial intelligence<br/>comparing up-to-the-minute photojournalism<br/>with British art from the Tate collection</p>)},
-      {icon: "/img/loading/object.png", text: (<p><b>RECOGNITION</b> has four different ways of looking at an image:<br/><br/><b>Object recognition</b> is a process for identifying specific objects.  Its algorithms rely on matching, learning, or pattern recognition using appearance-based or feature-based analysis.</p>)},
-      {icon: "/img/loading/face.png", text: (<p><b>RECOGNITION</b> has four different ways of looking at an image:<br/><b>Facial recognition</b> is a process for identifying human faces. In addition to locating the human faces in an image, it determines the age, gender, and emotional state of each subject it finds.</p>)},
-      {icon: "/img/loading/composition.png", text: (<p><b>RECOGNITION</b> has four different ways of looking at an image:<br/><br/><b>Composition recognition</b>is a process for identifying prominent shapes  and structures, visual layout, and colours.</p>)},
-      {icon: "/img/loading/context.png", text: (<p><b>RECOGNITION</b> has four different ways of looking at an image:<br/><br/><b>Context recognition</b> is a process which analyses the titles, dates, tags, and descriptions associated with each image. By reading this text, it's also how recognition learns how to write a caption for each match.</p>)}
-    ]
-
-    if(this.state.introOverlay) {
+    if(this.state.introStep < steps.length) {
       document.body.classList.toggle('noscroll', true);
-      document.getElementById("app").classList.remove('introOverlay-step0', 'introOverlay-step1', 'introOverlay-step2', 'introOverlay-step3', 'introOverlay-step4');
-      document.getElementById("app").classList.add('introOverlay-step' + this.state.introStep);
+      document.getElementById("app").classList.toggle('introOverlay-app', true);
     } else {
       document.body.classList.remove('noscroll');
-      document.getElementById("app").classList.remove('introOverlay-step0', 'introOverlay-step1', 'introOverlay-step2', 'introOverlay-step3', 'introOverlay-step4');
+      document.getElementById("app").classList.remove('introOverlay-app');
     }
 
-    return (<Overlay show={this.state.introOverlay}
-                     onHide={() => this.setState({ introOverlay: false })}>
-        <div className="introOverlay">
+    if(this.state.introStep >= steps.length) return null;
+
+console.log('rgba(0,0,0,' + (1.0 - this.state.introStep * 0.1) + ')');
+    return (<Overlay show={this.state.introStep < steps.length}
+                     onHide={() => this.setState({ introStep: 10 })}>
+        <div className="introOverlay"
+             style={{backgroundColor: 'rgba(0,0,0,' + (1.0 - this.state.introStep * 0.1) + ')'}}
+        >
           <nav className="navbar navbar-default navbar-fixed-top">
             <div className="container-fluid">
 
@@ -73,7 +74,7 @@ class IntroOverlay extends React.Component {
 
               <div className="collapse navbar-collapse" id="bs-navbar-collapse">
                 <ul className="nav navbar-nav navbar-right">
-                  <li><a onClick={() => {this.setState({introOverlay: false})}}>Skip Intro</a></li>
+                  <li><a onClick={() => {this.setState({introStep: 10})}}>Skip Intro</a></li>
                 </ul>
               </div>
 
@@ -82,12 +83,8 @@ class IntroOverlay extends React.Component {
           <div className="content">
             <img src={steps[this.state.introStep].icon}/>
             {steps[this.state.introStep].text}
-            <a onClick={() => {
-              if(this.state.introStep < 4) {
-                this.setState({introStep: this.state.introStep + 1});
-              } else {
-                this.setState({introOverlay: false});
-              }
+            <a style={{position: 'fixed', bottom: '20px'}} onClick={() => {
+              this.setState({introStep: this.state.introStep + 1});
             }}><span className="icon--i_arrow-down"/></a>
           </div>
         </div>
