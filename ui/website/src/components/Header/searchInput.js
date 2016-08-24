@@ -19,6 +19,7 @@ import Autosuggest from 'react-autosuggest';
 import theme from './searchInput.css';
 import Fuse from 'fuse.js';
 import moment from 'moment';
+import { browserHistory } from 'react-router'
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -35,12 +36,14 @@ class SearchInput extends React.Component {
       suggestions: []
     };
 
+    this.shouldRenderSuggestions = this.shouldRenderSuggestions.bind(this);
     this.getSuggestions = this.getSuggestions.bind(this);
     this.getSuggestionValue = this.getSuggestionValue.bind(this);
     this.renderSuggestion = this.renderSuggestion.bind(this);
 
     this.onChange = this.onChange.bind(this);
     this.onSuggestionsUpdateRequested = this.onSuggestionsUpdateRequested.bind(this);
+    this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -51,10 +54,27 @@ class SearchInput extends React.Component {
     if(this.state.matches.length == 0) this.setState({matches: nextProps.matches});
   }
 
+  shouldRenderSuggestions(value) {
+    return (typeof value != 'undefined' && value.trim().length > 2);
+  }
+
   onChange(event, { newValue }) {
     this.setState({
       value: newValue
     });
+  }
+
+  onSuggestionSelected(event, { suggestion, suggestionValue, sectionIndex, method }) {
+    if(method == 'click') {
+      const input = suggestion.input;
+
+      const rx = /Z_\d+_(.*?)_/g;
+      const arr = rx.exec(input.img);
+      const itemId = arr[1];
+
+      this.setState({value: '', suggestions: []});
+      browserHistory.push(`/gallery/${itemId}`);
+    }
   }
 
   onSuggestionsUpdateRequested({ value }) {
@@ -92,8 +112,7 @@ class SearchInput extends React.Component {
 
     const fuse = new Fuse(this.state.matches, options);
 
-console.log("fuseSearch");
-    return inputLength < 3 ? [] : fuse.search(value);
+    return fuse.search(value);
   }
 
   getSuggestionValue(suggestion) {
@@ -131,6 +150,8 @@ console.log("fuseSearch");
 
     return <li>
       <Autosuggest suggestions={suggestions}
+                   shouldRenderSuggestions={this.shouldRenderSuggestions}
+                   onSuggestionSelected={this.onSuggestionSelected}
                    onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested}
                    getSuggestionValue={this.getSuggestionValue}
                    renderSuggestion={this.renderSuggestion}
