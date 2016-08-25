@@ -50,9 +50,9 @@ class CanvasImage extends React.Component {
       y = lineWidth / 2;
 
     if((x + width) > (item.meta.width + lineWidth / 2))
-      width = item.meta.width + lineWidth / 2 - x;
+      width = item.meta.width - lineWidth - x;
     if((y + height) > (item.meta.height + lineWidth / 2))
-      height = item.meta.height + lineWidth / 2 - y;
+      height = item.meta.height - lineWidth - y;
 
     // Left segment
     ctx.strokeStyle = colorStyle;
