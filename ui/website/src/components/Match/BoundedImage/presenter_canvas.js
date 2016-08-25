@@ -116,24 +116,6 @@ class CanvasImage extends React.Component {
     background.onload = (() => {
       ctx.drawImage(background,0,0);
 
-      const gradientWidth = item.meta.width * 0.3;
-      ctx.beginPath();
-      // put stroke color to transparent
-      ctx.strokeStyle = "transparent"
-      // draw rectablge towards right hand side
-      ctx.rect(0,0,gradientWidth,item.meta.height);
-      // create linear gradient
-      let grdLinear = ctx.createLinearGradient(0, 0, gradientWidth, 0);
-      // Important bit here is to use rgba()
-      grdLinear.addColorStop(0, "rgba(0, 0, 0, 0.85)");
-      grdLinear.addColorStop(1, 'rgba(0, 0, 0, 0)');
-      // add gradient to rectangle
-      ctx.fillStyle = grdLinear;
-      // step below are pretty much standard to finish drawing an object to canvas
-      ctx.fill();
-      ctx.stroke();
-      ctx.closePath();
-
       this.renderBoxes()
 
       canvas.onclick = ((e) => browserHistory.push(`/details/${this.props.itemId}`));
