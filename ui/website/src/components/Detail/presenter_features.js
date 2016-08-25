@@ -110,9 +110,7 @@ class DetailFeatures extends React.Component {
       <p>{hovered ? 1 : 0} - {objHovered}</p>
       */
 
-    let author = '';
-    if(item.meta.author)
-      author = item.meta.author[0];
+    const author = Array.isArray(item.meta.author) ? item.meta.author[0] : item.meta.author;
 
     let densecap_captions = [];
     if(typeof features != 'undefined' &&
@@ -134,17 +132,16 @@ class DetailFeatures extends React.Component {
         <table className="table borderless">
           <tbody>
             <tr>
-              <td>DATE:</td>
-              <td>{date}</td>
+              <td colSpan="2">{date}</td>
             </tr>
             <tr>
-              <td>TITLE:</td>
-              <td>{title}</td>
+              <td colSpan="2">{title}</td>
             </tr>
-            <tr>
+            { typeof author != 'undefined' && author.length > 0 ?
+            (<tr>
               <td>AUTHOR:</td>
               <td>{author}</td>
-            </tr>
+            </tr>) : '' }
             <tr>
               <td>SOURCE:</td>
               <td>{this.props.source}</td>
