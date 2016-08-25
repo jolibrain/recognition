@@ -22,6 +22,7 @@ import Description from './presenter_description';
 import BoundedImage from './BoundedImage'
 
 import InfiniteScroll from 'react-infinite-scroller';
+import GoogleTagManager from '../GoogleTagManager';
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -87,7 +88,6 @@ class Match extends React.Component {
   render() {
 
     if(!this.props.item) return null;
-        console.log(this.props);
 
     const item = this.props.item;
     const selectedOutput = item.output.filter(item => item.selected)[0];
@@ -261,6 +261,7 @@ class Match extends React.Component {
             {followingMatches}
           </InfiniteScroll>) : ''
       }
+      <GoogleTagManager dataLayerName={'Match-' + itemId} />
     </div>);
   }
 }

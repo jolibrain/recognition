@@ -16,6 +16,7 @@ limitations under the License.
 import React from 'react';
 import Splash from '../Splash';
 import Gallery from '../Gallery';
+import GoogleTagManager from '../GoogleTagManager';
 
 class Home extends React.Component {
 
@@ -24,6 +25,7 @@ class Home extends React.Component {
     return (<div>
       <Splash/>
       <Gallery/>
+      <GoogleTagManager dataLayerName='Home'/>
     </div>);
   }
 }

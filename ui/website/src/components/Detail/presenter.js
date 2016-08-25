@@ -20,6 +20,7 @@ import styles from './styles.js';
 import { browserHistory } from 'react-router'
 import DetailFeatures from './presenter_features'
 import BoundedImage from './BoundedImage'
+import GoogleTagManager from '../GoogleTagManager';
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -123,7 +124,7 @@ class Detail extends React.Component {
         </div>
 
       </div>
-
+      <GoogleTagManager dataLayerName={'Detail-' + itemId} />
     </div>);
   }
 }

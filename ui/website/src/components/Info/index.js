@@ -16,6 +16,7 @@ limitations under the License.
 import React from 'react';
 import Radium from 'radium';
 import styles from './styles.js';
+import GoogleTagManager from '../GoogleTagManager';
 
 @Radium
 class Info extends React.Component {
@@ -75,6 +76,7 @@ class Info extends React.Component {
           <p>Recognition is autonomously...</p>
         </div>
       </div>
+      <GoogleTagManager dataLayerName='Info' />
     </div>;
   }
 }
