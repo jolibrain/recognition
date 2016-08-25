@@ -15,8 +15,10 @@ set daemon 120
 set logfile syslog facility log_daemon
 
 set mailserver smtp.gmail.com port 587
-    using tlsv1 with timeout 30 seconds
-    username "monit.recognition@gmail.com" password "password"
+    username "monit.recognition@gmail.com"
+    password "password"
+    using tlsv1
+    with timeout 30 seconds
 set alert recognition@alexgirard.com with reminder on 15 cycles
 set alert beniz@droidnik.fr with reminder on 15 cycles
 
