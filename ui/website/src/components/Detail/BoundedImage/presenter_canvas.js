@@ -54,11 +54,11 @@ class CanvasImage extends React.Component {
       colorStyle = 'rgba(0,225,204,1)';
     }
 
-    let lineWidth = 1;
+    let lineWidth = 2;
     if(canvas.width > 600)
-      lineWidth = 2;
+      lineWidth = 3;
     if(canvas.width > 1000)
-      lineWidth = 4;
+      lineWidth = 5;
 
     if(x < lineWidth / 2)
       x = lineWidth / 2;
