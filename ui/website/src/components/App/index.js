@@ -17,6 +17,7 @@ import React from 'react';
 import Header from '../Header';
 import Footer from '../Footer';
 import IntroOverlay from '../Intro';
+import ReactCSSTransitionGroup  from 'react-addons-css-transition-group';
 
 class App extends React.Component {
 
@@ -35,12 +36,24 @@ class App extends React.Component {
     const path = this.props.location.pathname;
     const segment = path.split('/')[1] || 'root';
 
-    const transitionName = segment === 'root' ? 'pageSwap' : 'pageSliderDown';
+    let transitionEnabled = false;
+    let transitionName = '';
+    if(segment === 'details') {
+      transitionEnabled = true;
+      transitionName = 'fade';
+    } else if(segment === 'gallery' && path.split('/').length == 3) {
+      transitionEnabled = true;
+      transitionName = 'fade';
+    }
 
     return <div className="appComponent">
       <Header path={path}/>
       { this.state.displayIntro ? (<IntroOverlay />) : ''}
-      {this.props.children}
+      <ReactCSSTransitionGroup transitionName={transitionName} transitionEnterTimeout={600} transitionLeaveTimeout={600} transitionEnter={transitionEnabled} transitionLeave={transitionEnabled}>
+        {
+          React.cloneElement(this.props.children,{ key: path, displayIntro: this.state.displayIntro })
+        }
+      </ReactCSSTransitionGroup>
       <Footer/>
     </div>;
   }
