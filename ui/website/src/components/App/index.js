@@ -30,10 +30,6 @@ class App extends React.Component {
     this.setState({displayIntro: segment == 'root'});
   }
 
-  componentDidUpdate() {
-    this.setState({displayIntro: false});
-  }
-
   render() {
 
     const path = this.props.location.pathname;
@@ -42,7 +38,7 @@ class App extends React.Component {
     const transitionName = segment === 'root' ? 'pageSwap' : 'pageSliderDown';
 
     return <div className="appComponent">
-      <Header path={path} displayIntro={this.state.displayIntro}/>
+      <Header path={path}/>
       { this.state.displayIntro ? (<IntroOverlay />) : ''}
       {this.props.children}
       <Footer/>
