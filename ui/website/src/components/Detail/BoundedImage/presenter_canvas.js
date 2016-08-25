@@ -71,9 +71,9 @@ class CanvasImage extends React.Component {
     if(y < lineWidth / 2)
       y = lineWidth / 2;
 
-    if((x + width) > (item.meta.width + lineWidth / 2))
+    if((x + width) > item.meta.width)
       width = item.meta.width - lineWidth - x;
-    if((y + height) > (item.meta.height + lineWidth / 2))
+    if((y + height) > item.meta.height)
       height = item.meta.height - lineWidth - y;
 
     // Left segment
