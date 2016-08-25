@@ -46,7 +46,13 @@ class CanvasImage extends React.Component {
     }
 
     // choose box color, depending on hover status
-    let colorStyle = 'rgba(225,255,255,1)';
+    let colorStyle = 'rgba(255,255,255,1)';
+
+    if( this.props.overHash.hash.length > 0 || this.props.overHash.index >= 0 ||
+      this.state.hoverHash.length > 0 || this.state.hoverIndex >= 0) {
+      colorStyle = 'rgba(100,100,100,1)';
+    }
+
     if( typeof this.props.overHash.index != 'undefined' &&
         this.props.overHash.index == index) {
       colorStyle = 'rgba(0,225,204,1)';
