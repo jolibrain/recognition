@@ -249,7 +249,7 @@ class Match extends React.Component {
     }
 
     return (<div>
-      <div className="container-fluid">
+      <div className="container-fluid" style={styles.matchContainer}>
         {orientedComponent}
       </div>
       { this.props.followingMatches ?

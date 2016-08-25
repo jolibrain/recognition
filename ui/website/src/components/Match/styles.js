@@ -14,6 +14,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 const styles = {
+  matchContainer: {
+    height: '100vh'
+  },
   hover: {
     color: '#0fc',
   },
