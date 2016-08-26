@@ -259,16 +259,40 @@ canvas {
 }
 
 .introOverlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
   color: #fff;
-  text-align: center;
-  z-index: 10;
   -webkit-filter: none;
   filter: none;
+  position: fixed;
+  z-index: 1040;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+
+.introOverlay .overlayBackground {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: auto;
+  opacity: 0.5;
+  background-color: rgb(0, 0, 0);
+}
+
+.introOverlay .container {
+  position: absolute;
+  width: 800px;
+  padding: 10px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  outline: none;
+}
+
+.introOverlay .container.visible-xs {
+  width: 80%;
 }
 
 .introOverlay-app {
@@ -296,8 +320,12 @@ body.noscroll{
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#00000000',GradientType=0 );
 }
 
-.introOverlay .navbar-header {
-  margin: 10px 10px 0 0;
+.introOverlay .container-fluid {
+  padding:0;
+}
+
+.introOverlay .container-fluid>.navbar-header {
+  margin: 10px 0 0 5px;
 }
 
 .introOverlay .navbar-header p {
@@ -325,21 +353,22 @@ body.noscroll{
 }
 
 
-.introOverlay .content {
+.introOverlay .container {
   font-family: 'TateNewPro';
   font-size: 24px;
-  position: relative;
-  top: 30%;
-  width: 800px;
-  margin: 0 auto;
 }
 
-.introOverlay .content a,
-.introOverlay .content a:hover {
+.introOverlay a.bottom,
+.introOverlay a.bottom:hover {
+  font-family: 'TateNewPro';
+  font-size: 24px;
+  position: fixed;
+  left: 50%;
+  bottom: 50px;
   text-decoration: none;
 }
 
-.introOverlay .content img {
+.introOverlay .container img {
   margin-bottom: 30px;
 }
 

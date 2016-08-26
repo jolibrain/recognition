@@ -58,12 +58,11 @@ class Splash extends React.Component {
           mountChildren={false}
         />
 
-
         <div className="container splashContainer" style={[styles.fullHeight]}>
           <div className="row" style={styles.fullHeight.row}>
-            <div className="col-sm-6" style={styles.fullHeight.col}>
+            <div className="col-xs-6" style={styles.fullHeight.col}>
 
-              <div className="row">
+              <div className="row hidden-xs">
                 <div className="col-sm-12">
                   <table className="table borderless" style={styles.table}>
                     <tbody>
@@ -114,7 +113,7 @@ class Splash extends React.Component {
 
             </div>
 
-            <div className="col-sm-6 nopadding">
+            <div className="col-xs-6 nopadding">
 
               <div className="row"  style={styles.fullHeight.row}>
                 <div className="col-sm-10 col-sm-offset-1" style={styles.fullHeight.col}>

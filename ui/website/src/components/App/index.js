@@ -51,7 +51,7 @@ class App extends React.Component {
       { this.state.displayIntro ? (<IntroOverlay />) : ''}
       <ReactCSSTransitionGroup transitionName={transitionName} transitionEnterTimeout={600} transitionLeaveTimeout={600} transitionEnter={transitionEnabled} transitionLeave={transitionEnabled}>
         {
-          React.cloneElement(this.props.children,{ key: path, displayIntro: this.state.displayIntro })
+          React.cloneElement(this.props.children, { key: path })
         }
       </ReactCSSTransitionGroup>
       <Footer/>
