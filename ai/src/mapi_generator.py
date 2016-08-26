@@ -58,6 +58,7 @@ class MAPIGenerator(FeatureGenerator):
         self.mapi_categories = {}
         self.mapi_people = {}
         self.mapi_faces = {} # face + gender + age + emotion
+        self.mapi_captions = {}
         
         self.emotions={'anger':0,'contempt':1,'disgust':2,'fear':3,'happiness':4,'neutral':5,'sadness':6,'surprise':7}
 
@@ -155,7 +156,12 @@ class MAPIGenerator(FeatureGenerator):
                             nfemales += 1
                     self.mapi_people[img_name] = [npeople,nmales,nfemales]
                     #print self.mapi_people[img_name]
-                            
+                if json_data.get('description',None):
+                    caption = json_data['description'].get('captions',None)
+                    if caption:
+                        caption = caption[0]['text']
+                        self.mapi_captions[img_name] = caption
+
                 
         for jf in self.json_emo_files:
             with open(jf,'r') as jfile:
@@ -214,7 +220,7 @@ class MAPIGenerator(FeatureGenerator):
         # as a vector [npeople, males, females]
         with Indexer(dim=11,repository=self.index_repo,index_name='people.ann',db_name='people.bin') as indexer:
             c = 0
-            print 'indexing', len(self.mapi_people),'people'
+            #print 'indexing', len(self.mapi_people),'people'
             for t,v in self.mapi_people.iteritems():
                 if len(v) < 11:
                     v = v + [0.0]*len(self.emotions) # if no emotion detected
@@ -237,6 +243,15 @@ class MAPIGenerator(FeatureGenerator):
             ldb.close()
             indexer.build_index()
             indexer.save_index()
+
+        # save captions
+        dbname = '/out_captions.bin'
+        if self.tate:
+            dbname = '/in_captions.bin'
+        ldb = shelve.open(self.index_repo + dbname)
+        for i,c in self.mapi_captions.iteritems():
+            ldb[os.path.basename(str(i))] = c
+        ldb.close()
         return
 
     def search(self,jdataout={}):

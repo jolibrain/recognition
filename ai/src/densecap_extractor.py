@@ -172,7 +172,7 @@ class DenseCapExtractor(FeatureGenerator):
             nboxes = npfeats.shape[1]
             print 'nimages=',nimages
             print 'nboxes=',nboxes
-            with Searcher(self.index_repo,search_size=10000) as searcher:     
+            with Searcher(self.index_repo,search_size=2000) as searcher:     
                 ldb = shelve.open(self.index_repo + '/ldata.bin')
                 searcher.load_index()
                 for i in range(0,nimages):
@@ -180,6 +180,7 @@ class DenseCapExtractor(FeatureGenerator):
                     ldata = self.rec_per_img[i]
                     #print 'ldata=',ldata
                     tnboxes = min(len(ldata['boxes']),nboxes)
+                    tnboxes = min(tnboxes,6)
                     #print 'tnboxes=',tnboxes
                     for j in range(0,tnboxes):
                         feats = npfeats[i,j]
