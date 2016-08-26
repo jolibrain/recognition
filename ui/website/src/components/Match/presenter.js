@@ -158,14 +158,16 @@ class Match extends React.Component {
                 <Titles input={item.input} output={selectedOutput}/>
               </div>
               <div className="col-sm-5">
-                <BoundedImage
-                  item={selectedOutput}
-                  itemId={itemId}
-                  features={selectedOutput.features.out}
-                  onOver={this.handleRightOver}
-                  overHash={this.state.overLeft}
-                  parent={this}
-                />
+                <div className="text-center">
+                  <BoundedImage
+                    item={selectedOutput}
+                    itemId={itemId}
+                    features={selectedOutput.features.out}
+                    onOver={this.handleRightOver}
+                    overHash={this.state.overLeft}
+                    parent={this}
+                  />
+                </div>
                 <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
               </div>
               <div className="col-sm-2">
@@ -186,14 +188,16 @@ class Match extends React.Component {
                 <Titles input={item.input} output={selectedOutput}/>
               </div>
               <div className="col-sm-5">
-                <BoundedImage
-                  item={item.input}
-                  itemId={itemId}
-                  features={selectedOutput.features.in}
-                  onOver={this.handleLeftOver}
-                  overHash={this.state.overRight}
-                  parent={this}
-                />
+                <div className="text-center">
+                  <BoundedImage
+                    item={item.input}
+                    itemId={itemId}
+                    features={selectedOutput.features.in}
+                    onOver={this.handleLeftOver}
+                    overHash={this.state.overRight}
+                    parent={this}
+                  />
+                </div>
                 <p style={styles.imgDescription}>{item.input.meta.origin}</p>
               </div>
               <div className="col-sm-5">
@@ -221,25 +225,29 @@ class Match extends React.Component {
                              descriptionOut={selectedOutput.features.out.captions.caption}/>
               </div>
               <div className="col-sm-5">
-                <BoundedImage
-                  item={item.input}
-                  itemId={itemId}
-                  features={selectedOutput.features.in}
-                  onOver={this.handleLeftOver}
-                  overHash={this.state.overRight}
-                  parent={this}
-                />
+                <div className="text-center">
+                  <BoundedImage
+                    item={item.input}
+                    itemId={itemId}
+                    features={selectedOutput.features.in}
+                    onOver={this.handleLeftOver}
+                    overHash={this.state.overRight}
+                    parent={this}
+                  />
+                </div>
                 <p style={styles.imgDescription}>{item.input.meta.origin}</p>
               </div>
               <div className="col-sm-5">
-                <BoundedImage
-                  item={selectedOutput}
-                  itemId={itemId}
-                  features={selectedOutput.features.out}
-                  onOver={this.handleRightOver}
-                  overHash={this.state.overLeft}
-                  parent={this}
-                />
+                <div className="text-center">
+                  <BoundedImage
+                    item={selectedOutput}
+                    itemId={itemId}
+                    features={selectedOutput.features.out}
+                    onOver={this.handleRightOver}
+                    overHash={this.state.overLeft}
+                    parent={this}
+                  />
+                </div>
                 <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
               </div>
             </div>);

@@ -21,18 +21,18 @@ class Footer extends React.Component {
 
     const footerStyle= {
       position: 'fixed',
-      bottom: 0,
+      bottom: '3px',
       width: '100%',
-      height: '30px'
+      height: '15px'
     };
 
     const footerContainer = {
-      margin: 0
+      margin: '0px'
     };
 
     const footerLink = {
       color: '#aaa',
-      marginRight: '20px',
+      marginRight: '10px',
       textTransform: 'uppercase',
       textDecoration: 'none',
       ':hover': {

@@ -58,12 +58,11 @@ class Splash extends React.Component {
           mountChildren={false}
         />
 
-
         <div className="container splashContainer" style={[styles.fullHeight]}>
           <div className="row" style={styles.fullHeight.row}>
-            <div className="col-sm-6" style={styles.fullHeight.col}>
+            <div className="col-xs-6" style={styles.fullHeight.col}>
 
-              <div className="row">
+              <div className="row hidden-xs">
                 <div className="col-sm-12">
                   <table className="table borderless" style={styles.table}>
                     <tbody>
@@ -94,16 +93,24 @@ class Splash extends React.Component {
               </div>
 
               <div className="row">
-                <div className="col-sm-12" style={{textAlign: "center"}}>
+                <div className="col-sm-12" style={{textAlign: "center", padding: 0}}>
 
                   <img
+                    className="hidden-xs"
                     src={match.input.img}
                     style={[styles.fullHeight.img]}
                     srcSet={match.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + match.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w, " + match.input.img.replace('reuters/', 'reuters/responsive_757/').replace("_2_", "_3_") + " 757w, " + match.input.img.replace('reuters/', 'reuters/responsive_1920/').replace("_2_", "_3_") + " 1920w"}
                     sizes="(min-width: 40em) 80vw, 100vw"
                   />
+                  <img
+                    className="visible-xs"
+                    src={match.input.img}
+                    style={[styles.fullHeight.img, {position:"relative", top: "20%"}]}
+                    srcSet={match.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + match.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w"}
+                    sizes="(min-width: 40em) 80vw, 100vw"
+                  />
 
-                  <p style={styles.imgDescription}>
+                  <p className="hidden-xs" style={styles.imgDescription}>
                     {match.input.meta.date}<br/>
                     {match.input.meta.caption}<br/>
                     {match.input.meta.origin}
@@ -114,19 +121,27 @@ class Splash extends React.Component {
 
             </div>
 
-            <div className="col-sm-6 nopadding">
+            <div className="col-xs-6 nopadding">
 
               <div className="row"  style={styles.fullHeight.row}>
-                <div className="col-sm-10 col-sm-offset-1" style={styles.fullHeight.col}>
+                <div className="col-sm-10 col-sm-offset-1" style={[styles.fullHeight.col, {padding: 0}]}>
 
                   <img
+                    className="hidden-xs"
                     style={[styles.fullHeight.img, {maxHeight: "75vh"}]}
                     src={selectedOutput.img}
                     srcSet={selectedOutput.img.replace('tate/', 'tate/responsive_375/') + " 375w, " + selectedOutput.img.replace('tate/', 'tate/responsive_480/') + " 480w, " + selectedOutput.img.replace('tate/', 'tate/responsive_757/') + " 757w"}
                     sizes="(min-width: 40em) 80vw, 100vw"
                   />
+                  <img
+                    className="visible-xs"
+                    style={[styles.fullHeight.img, {position:"relative", top: "20%"}]}
+                    src={selectedOutput.img}
+                    srcSet={selectedOutput.img.replace('tate/', 'tate/responsive_375/') + " 375w, " + selectedOutput.img.replace('tate/', 'tate/responsive_480/') + " 480w"}
+                    sizes="(min-width: 40em) 80vw, 100vw"
+                  />
 
-                  <p style={styles.imgDescription}>
+                  <p className="hidden-xs" style={styles.imgDescription}>
                     {selectedOutput.meta.date}<br/>
                     {selectedOutput.meta.title}<br/>
                     {selectedOutput.meta.origin}

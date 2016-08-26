@@ -67,8 +67,7 @@ class IntroOverlay extends React.Component {
                      onHide={() => this.setState({ stepIndex: 10 })}
       >
         <div className="introOverlay"
-             style={{backgroundColor: 'rgba(0,0,0,' + (1.0 - this.state.stepIndex * 0.1) + ')'}}
-                     onWheel={this.callScroll.bind(this)}        >
+             onWheel={this.callScroll.bind(this)}        >
           <nav className="navbar navbar-default navbar-fixed-top">
             <div className="container-fluid">
 
@@ -77,21 +76,35 @@ class IntroOverlay extends React.Component {
                 <p>Winner of IK Prize 2016</p>
               </div>
 
-              <div className="collapse navbar-collapse" id="bs-navbar-collapse">
-                <ul className="nav navbar-nav navbar-right">
-                  <li><a onClick={() => {this.setState({stepIndex: 10})}}>Skip Intro</a></li>
-                </ul>
-              </div>
+              <ul className="nav navbar-nav navbar-right hidden-xs">
+                <li><a onClick={() => {this.setState({stepIndex: 10})}}>Skip Intro</a></li>
+              </ul>
 
             </div>
           </nav>
-          <div className="content">
-            <img src={steps[this.state.stepIndex].icon}/>
-            {steps[this.state.stepIndex].text}
-            <a style={{position: 'fixed', bottom: '20px'}} onClick={() => {
-              this.setState({stepIndex: this.state.stepIndex + 1});
-            }}><span className="icon--i_arrow-down"/></a>
+
+          <div className="overlayBackground hidden-xs" style={{opacity: 1.0 - this.state.stepIndex * 0.1}}/>
+          <div className="overlayBackground visible-xs" style={{opacity: 0.5}}/>
+
+          <div className="container hidden-xs">
+            <div className="row"><div className="col-sm-12 text-center">
+              <img src={steps[this.state.stepIndex].icon}/>
+              {steps[this.state.stepIndex].text}
+            </div></div>
           </div>
+          <div className="container visible-xs">
+            <div className="row"><div className="col-sm-12 text-center">
+              <p>an artificial intelligence matching British art with real-time news</p>
+            </div></div>
+          </div>
+
+          <a className="bottom hidden-xs" onClick={() => {
+            this.setState({stepIndex: this.state.stepIndex + 1});
+          }}><span className="icon--i_arrow-down"/></a>
+          <a className="bottom visible-xs" onClick={() => {
+            this.setState({stepIndex: 10});
+          }}><span className="icon--i_arrow-down"/></a>
+
         </div>
       </Overlay>
     );
