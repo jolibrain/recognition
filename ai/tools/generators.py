@@ -34,7 +34,7 @@ generator_lk = {
         'nclasses': 1000,
         'extract_layer':'fc1000',
         'description':'general composition',
-        'batch_size':16
+        'batch_size':1
         },
 #    'composition_low_2': {
 #        'type': 'dnn',
@@ -50,7 +50,7 @@ generator_lk = {
         'nclasses': 1000,
         'best':5,
         'description':'general categories',
-        'batch_size':4
+        'batch_size':1
         },
     'composition_high_3': {
         'type': 'dnn',
