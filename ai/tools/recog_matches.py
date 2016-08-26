@@ -104,7 +104,7 @@ json_out = ''
 metad = MetadataExtractor(xml_files,index_repo=args.indexes_repo,tate=False,reuters_json=False)
 metad.preproc()
 metad.index()
-meta_in = args.indexes_repo + '/metadata/names.bin'
+meta_in = args.indexes_repo + '/metadata/names.bin' ##TODO: mapi captions if needed
 meta_out = args.indexes_repo + '/metadata/out_names.bin'
 captions_in = ''
 captions_out = ''
@@ -157,7 +157,7 @@ if args.concat:
 
 with open(args.json_output,'w') as fout:
     json.dump(json_out,fout)
-if splash_out:
+if splash_out and splash_out != [{}]:
     with open('splash.json','w') as fout:
         json.dump(splash_out,fout)
 print 'errors=',errors
