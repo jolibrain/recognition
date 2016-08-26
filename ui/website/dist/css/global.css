@@ -258,6 +258,38 @@ canvas {
   color: #00FFCC !important;
 }
 
+.imageOverlay {
+  color: #fff;
+  -webkit-filter: none;
+  filter: none;
+  z-index: 1040;
+  font-family: 'TateNewPro';
+  font-size:14px;
+  color: #4a4a4a;
+  padding: 10px 0;
+}
+
+.imageOverlay .background {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: auto;
+  opacity: 1;
+  background-color: rgb(0, 0, 0);
+}
+
+.imageOverlay .title {
+  color: #fff;
+}
+
+.imageOverlay a,
+.imageOverlay a:hover {
+  text-decoration: none;
+  color: #4a4a4a;
+}
+
 .introOverlay {
   color: #fff;
   -webkit-filter: none;

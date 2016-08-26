@@ -18,6 +18,7 @@ import Radium from 'radium';
 import moment from 'moment';
 import styles from './styles.js';
 import { browserHistory } from 'react-router'
+import ImageOverlay from './imageOverlay'
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -27,7 +28,9 @@ class GalleryItem extends React.Component {
 
   state = {
     hover: false,
-    processVisible: false
+    processVisible: false,
+    showInputOverlay: false,
+    showOutputOverlay: false,
   };
 
   getImagePadding(source, inputOrientation, outputOrientation) {
@@ -80,7 +83,7 @@ class GalleryItem extends React.Component {
     let author = '';
     if(item.input.meta.author) author = item.input.meta.author[0];
 
-    return(<div className="galleryItem">
+    return(<div className="galleryItem" ref="responsiveItem">
       <div className="row visible-xs" style={styles.row}>
         <div className="container-fluid">
           <div className="row">
@@ -95,6 +98,20 @@ class GalleryItem extends React.Component {
                 style={{width: '50vw'}}
                 srcSet={item.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + item.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w"}
                 sizes="50vw"
+                onClick={() => {this.setState({showInputOverlay: true})}}
+              />
+              <ImageOverlay
+                show={this.state.showInputOverlay}
+                img={item.input.img}
+                img_375={item.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_")}
+                img_480={item.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_")}
+                date={moment(item.timestamp).format('DD/MM/YYYY')}
+                description={item.input.meta.caption}
+                source={"REUTERS/" + item.input.meta.author}
+                onHide={() => {this.setState({showInputOverlay: false})}}
+                container={this}
+                placement="top"
+                target={this.refs.responsiveItem}
               />
             </div>
             <div className="col-xs-6">
@@ -103,6 +120,20 @@ class GalleryItem extends React.Component {
                 src={selectedOutput.img}
                 srcSet={selectedOutput.img.replace('tate/', 'tate/responsive_375/') + " 375w, " + selectedOutput.img.replace('tate/', 'tate/responsive_480/') + " 480w"}
                 sizes="50vw"
+                onClick={() => {this.setState({showOutputOverlay: true})}}
+              />
+              <ImageOverlay
+                show={this.state.showOutputOverlay}
+                img={selectedOutput.img}
+                img_375={selectedOutput.img.replace('tate/', 'tate/responsive_375/')}
+                img_480={selectedOutput.img.replace('tate/', 'tate/responsive_480/')}
+                date={selectedOutput.meta.date}
+                description={(<span><em>{selectedOutput.meta.title}</em> by {selectedOutput.meta.author}i</span>)}
+                source="&#169; TATE"
+                onHide={() => {this.setState({showOutputOverlay: false})}}
+                container={this}
+                placement="top"
+                target={props => findDOMNode(this.refs.responsiveItem)}
               />
             </div>
           </div>
