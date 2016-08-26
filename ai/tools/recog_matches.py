@@ -36,6 +36,7 @@ from caption_generator import CaptionGenerator
 from file_utils import list_files
 from generators import generator_lk
 from ensembling import EnsemblingScores
+from filtering import format_and_filter
 
 from copy import deepcopy
 
@@ -53,6 +54,8 @@ parser.add_argument('--website',help='generates splash.json in addition to a ver
 parser.add_argument('--medium',help='filters out all photographs and undefined medium in art from Tate',action='store_true')
 parser.add_argument('--no-tga',help='filter out images from TGA archive',action='store_true')
 parser.add_argument('--last-hour',help='select images from last hour',default=-1,type=int)
+parser.add_argument('--freq-filter',help='artwork daily frequency filtering database, if any',default='',type=str)
+parser.add_argument('--concat',help='concat results with those of existing file',action='store_true')
 args = parser.parse_args()
 
 image_files = list_files(args.input_imgs,ext='.JPG',nfiles=args.nfiles,pattern='*_2_*',last_hour=args.last_hour)
@@ -94,47 +97,6 @@ def execute_generator(generator,jdataout={},meta_in='',meta_out='',captions_in='
     elif generator_conf['type'] != 'meta':
         logger.error('Unknown generator type ' + generator_conf['type'])
     return
-
-# to final format, i.e. an array instead of a dict
-def format_to_array(dict_out,no_tga=False):
-    json_out = []
-    splash_out = {}
-    nmatches = args.nmatches
-    if args.website:
-        nmatches = 1
-
-    j = 0
-    for k,v in dict_out.iteritems():
-        c = 0
-        vout = sorted(v['output'], key=lambda x: x['features']['score'],reverse=True)
-        out = []
-        out_splash = []
-        for m in vout:
-            if no_tga and 'TGA' in m['img']:
-                continue
-            if args.medium:
-                medium = m['meta']['medium']
-                if not medium or 'hotograph' in medium or 'lack and white' in medium:
-                    continue
-            if c < nmatches:
-                out.append(m)
-                if args.website and j > 0:
-                    break
-            if j == 0 and args.website and c < args.nmatches:
-                out_splash.append(m)
-            c = c + 1
-        v['output'] = out
-        json_out.append(v)
-        if j == 0 and args.website:
-            v_splash = deepcopy(v)
-            v_splash['output'] = out_splash
-            splash_out = v_splash
-        j = j + 1
-    if args.sort_best:
-        json_out = sorted(json_out, key=lambda x: x['output'][0]['features']['score'],reverse=True)
-    if args.website:
-        splash_out = [splash_out]
-    return json_out,splash_out
 
 json_out = ''
 
@@ -178,7 +140,21 @@ for gen in generators:
     #print 'json_out output=',json_out
 es = EnsemblingScores()
 json_out = es.ensembling(json_out)
-json_out,splash_out = format_to_array(json_out,no_tga=args.no_tga)
+smatches_file = ''
+if args.freq_filter:
+    smatches_file = args.freq_filter
+json_out,splash_out = format_and_filter(json_out,args.nmatches,smatches_file,args.sort_best,args.website,args.no_tga,args.medium)
+
+if args.concat:
+    json_in = {}
+    try:
+        with open(args.json_output,'r') as fin:
+            json_in = json.load(fin)
+    except:
+        logger.info('cannot load pre-existing JSON file=',args.json_output)
+    for j in json_in:
+        json_out.append(j)
+
 with open(args.json_output,'w') as fout:
     json.dump(json_out,fout)
 if splash_out:

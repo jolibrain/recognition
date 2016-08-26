@@ -64,7 +64,7 @@ class DNNFeatureExtractor(FeatureGenerator):
         self.meta_out = meta_out
         self.captions_in = captions_in
         self.captions_out = captions_out
-        self.gpuid = 1
+        self.gpuid = 0
         self.dnnmodel = dnnmodel
         if self.dnnmodel.extract_layer:
             self.dd_mltype = 'unsupervised'
@@ -93,7 +93,8 @@ class DNNFeatureExtractor(FeatureGenerator):
         outcode = screate['status']['code']
         if outcode != 201 and outcode != 403:
             logger.error('failed creation of DNN service ' + self.dnnmodel.name)
-            return
+            #return
+            raise Exception('failed creating DNN service ' + self.dnnmodel.name)
         return
 
     def delete_dd_service(self):
@@ -167,7 +168,7 @@ class DNNFeatureExtractor(FeatureGenerator):
 
         logger.info('dnn feature prediction and searching for service ' + self.dnnmodel.name)
         results = {}
-        with Searcher(self.index_repo,search_size=1000) as searcher:
+        with Searcher(self.index_repo,search_size=5000) as searcher:
             searcher.load_index()
             for x in batch(self.image_files,self.batch_size):
                 classif = self.dd.post_predict(self.dnnmodel.name,x,
@@ -178,9 +179,10 @@ class DNNFeatureExtractor(FeatureGenerator):
                     logger.error('failed batch (search) prediction call to model ' + self.dnnmodel.name + ' via dd')
                     #continue
                     self.delete_dd_service()
-                    raise Exception('failed batch (search) prediction call to model ' + self.dnnmodel.name + '. Error=' + classif)
+                    print classif
+                    raise Exception('failed batch (search) prediction call to model ' + self.dnnmodel.name)
                 predictions = classif['body']['predictions']
-                if len(self.image_files) == 1:
+                if self.batch_size == 1 or len(self.image_files) == 1:
                     predictions = [predictions]
                 #print 'predictions=',predictions
                 for p in predictions:

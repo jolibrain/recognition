@@ -276,7 +276,7 @@ class MAPIGenerator(FeatureGenerator):
         results_tmp = results_cats
         
         results_faces = {}
-        with Searcher(self.index_repo,search_size=10000) as searcher:
+        with Searcher(self.index_repo,search_size=5000) as searcher:
             searcher.load_index()
             ldb = shelve.open(self.index_repo + '/ldata.bin')
             for f,v in self.mapi_faces.iteritems():
@@ -292,6 +292,14 @@ class MAPIGenerator(FeatureGenerator):
                     age_in = fv.get('age',-1)
                     #print 'nns scores=',nns['nns'][1]
                     for nuri in nns['nns_uris']:
+                        nn = nns['nns'][0][m]
+                        nndata = ldb[str(nn)]
+                        nndata0 = nndata[0]
+                        age_out = nndata0.get('age',-1)
+                        if not age_in-10<=age_out<=age_in+10:
+                            #print 'discarding based on age, age_in=',age_in,' / age_out=',age_out
+                            continue
+                        
                         if not nuri in resi:
                             resi[nuri] = {'mapi_out':{'faceRectangles':[],'emotions':[],'genders':[],'ages':[],'boxids':[]},
                                           'mapi_in':{'faceRectangles':[],'emotions':[],'genders':[],'ages':[],'boxids':[]},
@@ -303,14 +311,10 @@ class MAPIGenerator(FeatureGenerator):
                                 resi[nuri]['mapi_in']['genders'].append(fv.get('gender',-1))
                                 resi[nuri]['mapi_in']['ages'].append(age_in)
                                 resi[nuri]['mapi_in']['boxids'].append([in_face_hash])
+                            else:
+                                bidx = resi[nuri]['mapi_in']['faceRectangles'].index(faceR)
+                                resi[nuri]['mapi_in']['boxids'][bidx].append(in_face_hash)
 
-                        nn = nns['nns'][0][m]
-                        nndata = ldb[str(nn)]
-                        nndata0 = nndata[0]
-                        age_out = nndata0.get('age',-1)
-                        if not age_in-5<=age_out<=age_in+5:
-                            #print 'discarding based on age, age_in=',age_in,' / age_out=',age_out
-                            continue
                         nnfaceR = nndata0.get('faceRectangle',{})
                         if nnfaceR:
                             if not nnfaceR in resi[nuri]['mapi_out']['faceRectangles']:
