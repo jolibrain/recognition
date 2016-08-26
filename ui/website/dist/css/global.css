@@ -586,3 +586,30 @@ ul.react-autosuggest__suggestions-list a:hover {
 
 .share-button { cursor: pointer; }
 .share-button g { fill: white; }
+
+.galleryItem .visible-xs {
+  font-family: 'TateNewPro';
+  font-size: 20px;
+  color: #fff;
+}
+
+.galleryItem .visible-xs .title {
+  font-family: 'MaisonNeue';
+  font-size: 20px;
+  color: #4a4a4a;
+}
+
+.galleryItem .visible-xs .itemSource,
+.galleryItem .visible-xs .processClick,
+.galleryItem .visible-xs .processClick:hover {
+  color: #4a4a4a;
+  text-decoration: none;
+}
+
+.galleryItem .visible-xs .processData {
+  font-family: 'MaisonNeue';
+}
+
+.galleryItem .visible-xs .processData p {
+  margin: 20px 0;
+}

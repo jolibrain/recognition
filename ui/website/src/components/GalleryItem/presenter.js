@@ -25,7 +25,10 @@ Link = Radium(Link);
 @Radium
 class GalleryItem extends React.Component {
 
-  state = {hover: false};
+  state = {
+    hover: false,
+    processVisible: false
+  };
 
   getImagePadding(source, inputOrientation, outputOrientation) {
     if(inputOrientation == 'horizontal') {
@@ -77,8 +80,61 @@ class GalleryItem extends React.Component {
     let author = '';
     if(item.input.meta.author) author = item.input.meta.author[0];
 
-    return(<div>
-      <div className={classname} style={styles.row}
+    return(<div className="galleryItem">
+      <div className="row visible-xs" style={styles.row}>
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-xs-12 title">
+              <p>NO. {itemId}  {moment(item.timestamp).format('DD/MM/YYYY')}</p>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xs-6">
+              <img
+                src={item.input.img}
+                style={{width: '50vw'}}
+                srcSet={item.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + item.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w"}
+                sizes="50vw"
+              />
+            </div>
+            <div className="col-xs-6">
+              <img
+                style={{width: '50vw'}}
+                src={selectedOutput.img}
+                srcSet={selectedOutput.img.replace('tate/', 'tate/responsive_375/') + " 375w, " + selectedOutput.img.replace('tate/', 'tate/responsive_480/') + " 480w"}
+                sizes="50vw"
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xs-12">
+              <p>{moment(item.input.meta.date).format('DD/MM/YYYY')} <span className="itemSource">REUTERS/{item.input.meta.author}</span><br/>
+              {item.input.meta.caption}</p>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xs-12">
+              <p>{selectedOutput.meta.date} <span className="itemSource">&#169; TATE</span><br/><em>{selectedOutput.meta.title}</em> by {selectedOutput.meta.author}</p>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xs-12">
+              <p><a onClick={() => this.setState({processVisible: !this.state.processVisible}) } className="processClick">VIEW RECOGNITION PROCESS { this.state.processVisible ? (<span className="icon--i_arrow-down"/>) : (<span className="icon--i_arrow-right"/>)}</a></p>
+              { this.state.processVisible ?
+                (
+                <div className="processData">
+                  <p><img src="/img/icons/score_objects.png"/> OBJECTS {(selectedOutput.features.summary.scores.objects * 100).toFixed(2)}%</p>
+                  <p><img src="/img/icons/score_faces.png"/> FACES {(selectedOutput.features.summary.scores.faces * 100).toFixed(2)}%</p>
+                  <p><img src="/img/icons/score_composition.png"/> COMPOSITION {(selectedOutput.features.summary.scores.composition * 100).toFixed(2)}%</p>
+                  <p><img src="/img/icons/score_context.png"/> CONTEXT {(selectedOutput.features.summary.scores.context * 100).toFixed(2)}%</p>
+                </div>
+                ) : '' }
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className={classname + " hidden-xs"} style={styles.row}
         onMouseEnter={() => {
           this.setState({hover: true});
         }}
