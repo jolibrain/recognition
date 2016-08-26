@@ -114,8 +114,8 @@ class FeatureGenerator:
                     captions_ind = ''
                     if captions_in:
                         captions_ind = captions_in_s.get(str(os.path.basename(nuri)),'')
-                        if captions_ind == '':
-                            print 'failed acquiring in caption for img=',os.path.basename(nuri)
+                        #if captions_ind == '':
+                        #    print 'failed acquiring in caption for img=',os.path.basename(nuri)
                     mdataout = {'meta':metad,'features':{'score':0,'in':{feature_name:{},'captions':{'caption':captions_outd}},'out':{feature_name:{'description':feature_description,'score':score},'captions':{'caption':captions_ind}}},'img':nuri_rebase}
                 else:
                     mdataout['features']['out'][feature_name] = {'description':feature_description,'score':score}
