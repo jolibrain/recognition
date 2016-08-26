@@ -123,10 +123,10 @@ class GalleryItem extends React.Component {
               { this.state.processVisible ?
                 (
                 <div className="processData">
-                  <p><img src="/img/icons/score_objects.png"/> OBJECTS {(selectedOutput.features.summary.scores.objects * 100).toFixed(2)}%</p>
-                  <p><img src="/img/icons/score_faces.png"/> FACES {(selectedOutput.features.summary.scores.faces * 100).toFixed(2)}%</p>
-                  <p><img src="/img/icons/score_composition.png"/> COMPOSITION {(selectedOutput.features.summary.scores.composition * 100).toFixed(2)}%</p>
-                  <p><img src="/img/icons/score_context.png"/> CONTEXT {(selectedOutput.features.summary.scores.context * 100).toFixed(2)}%</p>
+                  <p><img src="/img/icons/score_objects.svg"/> OBJECTS {(selectedOutput.features.summary.scores.objects * 100).toFixed(2)}%</p>
+                  <p><img src="/img/icons/score_faces.svg"/> FACES {(selectedOutput.features.summary.scores.faces * 100).toFixed(2)}%</p>
+                  <p><img src="/img/icons/score_composition.svg"/> COMPOSITION {(selectedOutput.features.summary.scores.composition * 100).toFixed(2)}%</p>
+                  <p><img src="/img/icons/score_context.svg"/> CONTEXT {(selectedOutput.features.summary.scores.context * 100).toFixed(2)}%</p>
                 </div>
                 ) : '' }
             </div>

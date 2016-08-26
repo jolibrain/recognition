@@ -27,7 +27,7 @@ class DetailFeatures extends React.Component {
     let state = '';
     if(hovered)
       state = objHovered == obj ? '_hover' : '_nothover';
-    return `/img/icons/score_${obj}${state}.png`;
+    return `/img/icons/score_${obj}${state}.svg`;
   }
 
   render() {
