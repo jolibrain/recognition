@@ -220,6 +220,7 @@ class Match extends React.Component {
             orientedComponent = (<div className="row">
               <div className="col-sm-2">
                 <Titles input={item.input} output={selectedOutput}/>
+                <div style={{height: '16px'}}>&nbsp;</div>
                 <Description id={itemId}
                              descriptionIn={selectedOutput.features.in.captions.caption}
                              descriptionOut={selectedOutput.features.out.captions.caption}/>
