@@ -37,7 +37,7 @@ class Header extends React.Component {
       this.state.displaySearch ? styles.searchIconActivated : ''
     ]
 
-    return <div>
+    return <div className='header'>
       <nav style={[styles.navbar, styles.gradientBackground]} className="navbar navbar-default navbar-fixed-top">
         <div className="container-fluid">
 

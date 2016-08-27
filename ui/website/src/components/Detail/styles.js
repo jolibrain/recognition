@@ -21,8 +21,6 @@ const styles = {
     border: 'none !important'
   },
   detailColumn: {
-    fontFamily: 'monospace',
-    fontSize:'12px',
     textTransform: 'uppercase',
   },
   tableOverflow: {

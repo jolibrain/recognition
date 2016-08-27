@@ -211,7 +211,7 @@ class GalleryItem extends React.Component {
 
           <p>No {itemId}</p>
 
-          <p className="timestamp">
+          <p className="timestamp font-data">
             {moment(item.timestamp).format('DD/MM/YYYY')}<br/>
             {moment(item.timestamp).format('hh:mm:ss')}
           </p>

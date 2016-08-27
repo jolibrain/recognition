@@ -685,3 +685,8 @@ ul.react-autosuggest__suggestions-list a:hover {
 .match-first-title {
   padding-bottom: 16px;
 }
+
+.header .navbar-right {
+  font-family: 'TateNewPro';
+  font-size: 13px;
+}
