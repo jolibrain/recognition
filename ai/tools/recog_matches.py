@@ -104,7 +104,7 @@ json_out = ''
 metad = MetadataExtractor(xml_files,index_repo=args.indexes_repo,tate=False,reuters_json=False)
 metad.preproc()
 metad.index()
-meta_in = args.indexes_repo + '/metadata/names.bin'
+meta_in = args.indexes_repo + '/metadata/names.bin' ##TODO: mapi captions if needed
 meta_out = args.indexes_repo + '/metadata/out_names.bin'
 captions_in = ''
 captions_out = ''
@@ -153,11 +153,12 @@ if args.concat:
     except:
         logger.info('cannot load pre-existing JSON file=',args.json_output)
     for j in json_in:
+        ##TODO: check that images are not already in
         json_out.append(j)
 
 with open(args.json_output,'w') as fout:
     json.dump(json_out,fout)
-if splash_out:
+if splash_out and splash_out != [{}]:
     with open('splash.json','w') as fout:
         json.dump(splash_out,fout)
 print 'errors=',errors
