@@ -71,7 +71,7 @@ const styles = {
   },
   dataRow: {
     position: 'absolute',
-    top: '60px',
+    top: '100px',
     width: '100%',
     pointerEvents: 'none'
   },
@@ -115,7 +115,8 @@ const styles = {
     color: '#0FC',
     borderBottom: '1px solid #0FC'
   },
-  categoryBottom: { paddingBottom: '16px' }
+  categoryBottom: { paddingBottom: '16px' },
+  rowImg: {marginTop:'60px'}
 }
 
 export default styles;

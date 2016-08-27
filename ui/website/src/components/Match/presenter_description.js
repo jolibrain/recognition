@@ -32,7 +32,7 @@ class Description extends React.Component {
 
       <h3 className="font-data" style={styles.descriptionTitle}>AI Description</h3>
       <p className="font-data" style={styles.descriptionText}>{this.props.descriptionIn}</p>
-      <p className="font-data" style={styles.descriptionText}>{this.props.descriptionOut}</p>
+      <p className="font-data" style={[styles.descriptionText, {marginBottom: '32px'}]}>{this.props.descriptionOut}</p>
 
       <ShareModal />
     </div>);

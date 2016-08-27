@@ -15,6 +15,7 @@ limitations under the License.
 */
 const styles = {
   matchContainer: {
+    marginTop: '120px',
     height: '100vh'
   },
   hover: {
@@ -30,6 +31,8 @@ const styles = {
   },
   input: {
     date: {
+      fontFamily: 'MaisonNeue',
+      fontSize: '12px',
       color: '#fff',
     },
     title: {
@@ -43,6 +46,8 @@ const styles = {
   },
   output: {
     date: {
+      fontFamily: 'MaisonNeue',
+      fontSize: '12px',
       color: '#fff',
     },
     title: {
