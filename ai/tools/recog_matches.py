@@ -153,6 +153,7 @@ if args.concat:
     except:
         logger.info('cannot load pre-existing JSON file=',args.json_output)
     for j in json_in:
+        ##TODO: check that images are not already in
         json_out.append(j)
 
 with open(args.json_output,'w') as fout:
