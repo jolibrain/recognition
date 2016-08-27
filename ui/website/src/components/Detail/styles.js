@@ -90,7 +90,7 @@ const styles = {
   link: {
     color: '#FFF',
     display: 'inline-block',
-    marginBottom: '20px',
+    paddingBottom: '64px',
     textTransform: 'uppercase',
     pointerEvents: 'all'
   },
@@ -116,7 +116,8 @@ const styles = {
   placesHovered: {
     color: '#0FC',
     borderBottom: '1px solid #0FC'
-  }
+  },
+  categoryBottom: { paddingBottom: '16px' }
 }
 
 export default styles;
