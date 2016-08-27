@@ -43,19 +43,19 @@ class GalleryItem extends React.Component {
       } else {
         //HV
         if(source == 'input') {
-          return {bottom: '0px', paddingBottom: '64px'};
+          return {bottom: '0px', marginBottom: '64px', position: 'absolute'};
         }
       }
     } else {
       if(outputOrientation == 'horizontal') {
         //VH
-        if(source == 'input') {
-          return {paddingTop: '64px'};
+        if(source == 'output') {
+          return {marginTop: '64px'};
         }
       } else {
         //VV
-        if(source == 'output') {
-          return {bottom: '0px', paddingBottom: '64px'};
+        if(source == 'input') {
+          return {marginTop: '64px'};
         }
       }
     }

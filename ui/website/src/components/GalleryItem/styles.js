@@ -28,7 +28,8 @@ const styles = {
     },
     col: {
       height: "100%",
-      textAlign:"center"
+      textAlign:"center",
+      position: 'relative'
     },
     img: {
       maxHeight: "95vh",
