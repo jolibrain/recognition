@@ -26,7 +26,7 @@ class Footer extends React.Component {
     };
 
     const footerContainer = {
-      margin: '32px'
+      margin: '17px'
     };
 
     const footerLink = {
