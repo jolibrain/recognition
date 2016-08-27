@@ -67,7 +67,7 @@ const styles = {
     fontSize: '13px',
     textDecoration: 'none',
     color: '#FFF',
-    marginBottom: '60px',
+    marginBottom: '64px',
     ':hover': {
       color: '#0FC'
     }
@@ -77,7 +77,8 @@ const styles = {
     fontSize: '12px',
     color: '#FFF',
     display: 'inline',
-    borderBottom: '1px solid #FFF'
+    borderBottom: '1px solid #FFF',
+    marginBottom: '32px'
   },
   descriptionText: {
     fontFamily: 'MaisonNeue',

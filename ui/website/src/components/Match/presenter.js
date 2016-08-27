@@ -113,7 +113,7 @@ class Match extends React.Component {
         switch (outputOrientation) {
           case "horizontal":
             orientedComponent = (<div className="row">
-              <div className="col-sm-5">
+              <div className="col-sm-5 horizontal">
                 <Titles input={item.input} output={selectedOutput}/>
                 <BoundedImage
                   item={item.input}
@@ -145,7 +145,7 @@ class Match extends React.Component {
             break;
           case "vertical":
             orientedComponent = (<div className="row">
-              <div className="col-sm-5">
+              <div className="col-sm-5 horizontal">
                 <BoundedImage
                   item={item.input}
                   itemId={itemId}
