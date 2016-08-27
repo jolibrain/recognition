@@ -615,6 +615,16 @@ ul.react-autosuggest__suggestions-list a:hover {
 .share-button { cursor: pointer; }
 .share-button g { fill: white; }
 
+.galleryItem .hidden-xs {
+  padding: 64px 0;
+}
+.galleryItem .hidden-xs .timestamp {
+  padding-bottom: 64px
+}
+.galleryItem .hidden-xs .output-meta {
+  margin-top: 16px;
+}
+
 .galleryItem .visible-xs {
   font-family: 'TateNewPro';
   font-size: 20px;

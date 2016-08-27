@@ -43,14 +43,20 @@ class GalleryItem extends React.Component {
       } else {
         //HV
         if(source == 'input') {
-          return {paddingTop: '217px'};
+          return {bottom: '0px', paddingBottom: '64px'};
         }
       }
     } else {
       if(outputOrientation == 'horizontal') {
         //VH
+        if(source == 'input') {
+          return {paddingTop: '64px'};
+        }
       } else {
         //VV
+        if(source == 'output') {
+          return {bottom: '0px', paddingBottom: '64px'};
+        }
       }
     }
     return {};
@@ -205,7 +211,7 @@ class GalleryItem extends React.Component {
 
           <p>No {itemId}</p>
 
-          <p>
+          <p className="timestamp">
             {moment(item.timestamp).format('DD/MM/YYYY')}<br/>
             {moment(item.timestamp).format('hh:mm:ss')}
           </p>
@@ -234,7 +240,7 @@ class GalleryItem extends React.Component {
             <span key="item.input.meta.origin" style={styles.input.origin}>reuters/{author}</span>
 
             {this.state.hover ? (
-            <div>
+            <div className="output-meta">
               <span key="selectedOutput.meta.date" style={[styles.output.date, styles.hover]}>
                 {selectedOutput.meta.date}
               </span>
@@ -248,7 +254,7 @@ class GalleryItem extends React.Component {
               <br/>
             </div>
             ) : (
-            <div>
+            <div className="output-meta">
               <span key="selectedOutput.meta.date" style={styles.output.date}>
                 {selectedOutput.meta.date}
               </span>
