@@ -43,7 +43,7 @@ class GalleryItem extends React.Component {
       } else {
         //HV
         if(source == 'input') {
-          return {left: '0px', bottom: '0px', marginBottom: '64px', position: 'absolute'};
+          return {left: '0px', bottom: '124px', position: 'absolute'};
         }
       }
     } else {
