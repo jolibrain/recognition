@@ -21,8 +21,8 @@ import GoogleTagManager from '../GoogleTagManager';
 @Radium
 class Info extends React.Component {
   render() {
-    return <div style={styles.uppercase}>
-      <div className="row" style={styles.logoRow}>
+    return <div style={styles.uppercase} className="infoPage">
+      <div style={styles.logoRow} className="row font-subtext logoRow">
         <div className="col-sm-2 col-sm-offset-1">
           <img className="img-responsive" src="/img/logos/tate.png"/>
         </div>
@@ -46,34 +46,25 @@ class Info extends React.Component {
           </div>
         </div>
       </div>
-      <div className="row">
-        <div className="col-sm-4 col-sm-offset-1">
+      <div className="row" style={{marginTop: '30px'}}>
+        <div className="col-sm-4 col-sm-offset-1 font-title">
           <p><b>recognition</b> is an artificial intelligence matching British art with real-time news . Using powerful algorithms to search through Tate’s vast digital collection of British art and archive material, as well as the endless stream of news images online, recognition’s mission is to unearth hidden relationships between how the world has been represented in image form, in the past and present. Anyone will be able to watch the machine at work as it produces a stream of curated images online as a virtual exhibition. In the gallery, visitors will be able to step into an installation to explore this unique virtual collection and find out how the machine understands diverse types of images. recognition encourages us to look afresh at the art of the past through the lens of our world today.</p>
           <p>Tate has partnered with Reuters and Bing whose databases of news images recognition will continually scan in search of up-to-the-minute comparisons with works of British art in the Tate collection.</p>
         </div>
-        <div className="col-sm-2">
-          <h3>Concept and design</h3>
-          <ul>
-            <li>Coralie Gourguechon</li>
-            <li>Angelo Semararo</li>
-            <li>Monica Lanaro</li>
-          </ul>
-          <h3>Website design</h3>
-          <ul>
-            <li>Isaac Vallentin</li>
-          </ul>
-          <h3>AI development</h3>
-          <ul>
-            <li>Emmanuel Benazera</li>
-          </ul>
-          <h3>Website development</h3>
-          <ul>
-            <li>Alexandre Girard</li>
-          </ul>
+        <div className="col-sm-2 font-subtext" style={{color: '#4a4a4a'}}>
+          <p><span style={{color: 'white'}}>Concept and design</span><br/>
+          Coralie Gourguechon<br/>
+          Angelo Semararo<br/>
+          Monica Lanaro</p>
+          <p><span style={{color: 'white'}}>Website design</span><br/>
+          Isaac Vallentin</p>
+          <p><span style={{color: 'white'}}>AI development</span><br/>
+          Emmanuel Benazera</p>
+          <p><span style={{color: 'white'}}>Website development</span><br/>
+          Alexandre Girard</p>
         </div>
         <div className="col-sm-4">
-          <p>Recognition encourages us to look afresh...</p>
-          <p>Recognition is autonomously...</p>
+          <p className="font-subtext">Recognition is an autonomously operating software programme. All reasonable steps have been taken to prevent publication of challenging, offensive or infringing content. Comparisons between artistic works and other material are made by the software programme and are for the purpose of stimulating debate about art and visual representation. Tate hopes to stimulate debate around its collection and invites online discussion about these comparisons.  Tate encourages you to treat copyright material appropriately according to your local law.</p>
         </div>
       </div>
       <GoogleTagManager dataLayerName='Info' />

@@ -690,3 +690,11 @@ ul.react-autosuggest__suggestions-list a:hover {
   font-family: 'TateNewPro';
   font-size: 13px;
 }
+
+.infoPage {
+  margin-top:120px;
+}
+
+.infoPage .logoRow {
+  color: #4a4a4a;
+}
