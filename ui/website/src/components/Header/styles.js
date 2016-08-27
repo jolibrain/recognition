@@ -17,7 +17,7 @@ const styles = {
   navbar: {
     border: 0,
     zIndex: 5,
-    paddingTop: '32px',
+    paddingTop: '17px',
     paddingRight: '32px',
     paddingLeft: '32px'
   },
