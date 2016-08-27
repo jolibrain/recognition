@@ -21,13 +21,12 @@ class Footer extends React.Component {
 
     const footerStyle= {
       position: 'fixed',
-      bottom: '3px',
-      width: '100%',
-      height: '15px'
+      bottom: '0px',
+      width: '100%'
     };
 
     const footerContainer = {
-      margin: '0px'
+      margin: '32px'
     };
 
     const footerLink = {

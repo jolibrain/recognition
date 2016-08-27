@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 body {
-  background-color: #000 !important;
+  background-color: #0d1215 !important;
 }
 
 html, body, #app {
@@ -343,6 +343,7 @@ body.noscroll{
 }
 
 .introOverlay nav {
+  padding: 32px;
   height: 150px;
   border: 0;
   z-index: 5;
@@ -357,7 +358,6 @@ body.noscroll{
 }
 
 .introOverlay .container-fluid>.navbar-header {
-  margin: 10px 0 0 5px;
 }
 
 .introOverlay .navbar-header p {
@@ -661,4 +661,8 @@ ul.react-autosuggest__suggestions-list a:hover {
   font-size: 12px;
   line-height: 18px;
   font-weight: normal;
+}
+
+.splashContainer {
+  padding-top: 30px;
 }
