@@ -56,7 +56,6 @@ class Header extends React.Component {
           <div className="collapse navbar-collapse" id="bs-navbar-collapse">
             <ul className="nav navbar-nav navbar-right">
               <li className={this.props.path == '/gallery' ? 'menuSelected' : ''}><Link style={[styles.menuItem]} to='/gallery'>Gallery</Link></li>
-              <li><Link style={[styles.menuItem]} to='/exhibition'>Exhibition</Link></li>
               <li className={this.props.path == '/info' ? 'menuSelected' : ''}><Link style={[styles.menuItem]} to='/info'>Info</Link></li>
               <li><SubscribeModal/></li>
               <li><span style={searchStyles} className='icon--i_search' onClick={() => {
