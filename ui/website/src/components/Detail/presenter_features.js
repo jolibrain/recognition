@@ -126,7 +126,7 @@ class DetailFeatures extends React.Component {
        features.mapi.ages.length > 0)
         mapi_ages = features.mapi.ages;
 
-    return(<div className={hovered ? 'detailFeatures detailHovered' : 'detailFeatures'}
+    return(<div className={hovered ? 'font-data detailFeatures detailHovered' : 'font-data detailFeatures'}
       style={[styles.detailColumn, hovered ? styles.columnHovered : '']}>
       <div className="table-responsive" style={[styles.tableOverflow, styles.categoryBottom]}>
         <table className="table borderless">

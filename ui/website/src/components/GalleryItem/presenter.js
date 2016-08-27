@@ -201,7 +201,7 @@ class GalleryItem extends React.Component {
 
         </div>
 
-        <div className="col-sm-3" style={styles.descriptionColumn}>
+        <div className="col-sm-3 font-title" style={styles.descriptionColumn}>
 
           <p>No {itemId}</p>
 

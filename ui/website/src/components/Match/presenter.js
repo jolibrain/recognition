@@ -123,7 +123,7 @@ class Match extends React.Component {
                   overHash={this.state.overRight}
                   parent={this}
                 />
-                <p style={styles.imgDescription}>{item.input.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>{item.input.meta.origin}</p>
               </div>
               <div className="col-sm-5">
                 <BoundedImage
@@ -134,7 +134,7 @@ class Match extends React.Component {
                   overHash={this.state.overLeft}
                   parent={this}
                 />
-                <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
               </div>
               <div className="col-sm-2">
                 <Description id={itemId}
@@ -154,7 +154,7 @@ class Match extends React.Component {
                   overHash={this.state.overRight}
                   parent={this}
                 />
-                <p style={styles.imgDescription}>{item.input.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>{item.input.meta.origin}</p>
                 <Titles input={item.input} output={selectedOutput}/>
               </div>
               <div className="col-sm-5">
@@ -168,7 +168,7 @@ class Match extends React.Component {
                     parent={this}
                   />
                 </div>
-                <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
               </div>
               <div className="col-sm-2">
                 <Description id={itemId}
@@ -198,7 +198,7 @@ class Match extends React.Component {
                     parent={this}
                   />
                 </div>
-                <p style={styles.imgDescription}>{item.input.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>{item.input.meta.origin}</p>
               </div>
               <div className="col-sm-5">
                 <BoundedImage
@@ -209,7 +209,7 @@ class Match extends React.Component {
                   overHash={this.state.overLeft}
                   parent={this}
                 />
-                <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
                 <Description id={itemId}
                              descriptionIn={selectedOutput.features.in.captions.caption}
                              descriptionOut={selectedOutput.features.out.captions.caption}/>
@@ -235,7 +235,7 @@ class Match extends React.Component {
                     parent={this}
                   />
                 </div>
-                <p style={styles.imgDescription}>{item.input.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>{item.input.meta.origin}</p>
               </div>
               <div className="col-sm-5">
                 <div className="text-center">
@@ -248,7 +248,7 @@ class Match extends React.Component {
                     parent={this}
                   />
                 </div>
-                <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
               </div>
             </div>);
             break;

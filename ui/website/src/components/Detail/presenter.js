@@ -99,7 +99,7 @@ class Detail extends React.Component {
       <div className="row" style={styles.dataRow}>
 
         <div className="col-sm-6">
-          <Link style={[styles.link]} to={`/gallery/${itemId}`}><span className='icon--i_arrow-left'/> Back to article</Link>
+          <Link className="font-data" style={[styles.link]} to={`/gallery/${itemId}`}><span className='icon--i_arrow-left'/> Back to article</Link>
           <DetailFeatures item={item.input}
                           source={'reuters'}
                           features={selectedOutput.features.in}

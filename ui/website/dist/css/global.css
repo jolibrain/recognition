@@ -386,14 +386,10 @@ body.noscroll{
 
 
 .introOverlay .container {
-  font-family: 'TateNewPro';
-  font-size: 24px;
 }
 
 .introOverlay a.bottom,
 .introOverlay a.bottom:hover {
-  font-family: 'TateNewPro';
-  font-size: 24px;
   position: fixed;
   left: 50%;
   bottom: 50px;
@@ -644,4 +640,25 @@ ul.react-autosuggest__suggestions-list a:hover {
 
 .galleryItem .visible-xs .processData p {
   margin: 20px 0;
+}
+
+.font-title, .font-titles {
+  font-family: 'TateNewPro';
+  font-size: 18px;
+  font-weight:normal;
+  letter-spacing:.2px;
+}
+
+.font-subtext {
+  font-family: 'TateNewPro';
+  font-size: 13px;
+  font-weight:normal;
+  letter-spacing: 1.5px;
+}
+
+.font-data {
+  font-family: 'MaisonNeue';
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: normal;
 }

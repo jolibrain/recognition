@@ -29,7 +29,7 @@ class Titles extends React.Component {
     const input = this.props.input;
     const output = this.props.output;
 
-    return (<div>
+    return (<div className="font-titles">
       <div>
         <span key="item.input.meta.date" style={styles.input.date}>
           {moment(input.meta.date).format('DD/MM/YYYY')}
