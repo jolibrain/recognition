@@ -43,7 +43,7 @@ class GalleryItem extends React.Component {
       } else {
         //HV
         if(source == 'input') {
-          return {bottom: '0px', marginBottom: '64px', position: 'absolute'};
+          return {left: '0px', bottom: '0px', marginBottom: '64px', position: 'absolute'};
         }
       }
     } else {
@@ -237,7 +237,7 @@ class GalleryItem extends React.Component {
               <br/>
             </div>
             )}
-            <span key="item.input.meta.origin" style={styles.input.origin}>reuters/{author}</span>
+            <span key="item.input.meta.origin" style={styles.input.origin}>reuters/{item.input.meta.author}</span>
 
             {this.state.hover ? (
             <div className="output-meta">
