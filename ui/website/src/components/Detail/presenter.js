@@ -130,7 +130,7 @@ class Detail extends React.Component {
         </div>
 
       </div>
-      <GoogleTagManager dataLayerName={'Detail-' + itemId} />
+      <GoogleTagManager dataLayerName={'Detail_' + itemId} />
     </div>);
   }
 }

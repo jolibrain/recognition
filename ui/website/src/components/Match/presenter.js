@@ -276,7 +276,7 @@ class Match extends React.Component {
             loader={loader}>
             {followingMatches}
           </InfiniteScroll>
-          <GoogleTagManager dataLayerName={'Match-' + itemId} />
+          <GoogleTagManager dataLayerName={'Match_' + itemId} />
         </div>) : ''
       }
     </div>);
