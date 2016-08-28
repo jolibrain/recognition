@@ -281,7 +281,7 @@ class MAPIGenerator(FeatureGenerator):
                 nns =searcher.search_tags_single(v,t)
                 nns['tags_out_all'] = []
                 for nn in nns['nns_uris']:
-                    nns['tags_out_all'].append(self.st[str(nn)])
+                    nns['tags_out_all'].append(self.st.get(str(nn),''))
                 results_tags[t] = nns
         results_tags = self.to_json(results_tags,'/img/reuters/','/img/tate/',self.name+'_tags',self.description,jdataout,self.meta_in,self.meta_out,self.captions_in,self.captions_out)
         #print 'results_tags=',results_tags
@@ -293,7 +293,7 @@ class MAPIGenerator(FeatureGenerator):
                 nns =searcher.search_tags_single(v,t)
                 nns['tags_out_all'] = []
                 for nn in nns['nns_uris']:
-                    nns['tags_out_all'].append(self.sc[str(nn)])
+                    nns['tags_out_all'].append(self.sc.get(str(nn),''))
                 results_cats[t] = nns
         results_tmp = self.to_json(results_cats,'/img/reuters/','/img/tate/',self.name+'_cats',self.description,results_tags,self.meta_in,self.meta_out,self.captions_in,self.captions_out)
         if not results_tmp:
@@ -336,8 +336,8 @@ class MAPIGenerator(FeatureGenerator):
                         nndata = ldb[str(nn)]
                         nndata0 = nndata[0]
                         age_out = nndata0.get('age',-1)
-                        if not age_in-10<=age_out<=age_in+10:
-                            #print 'discarding based on age, age_in=',age_in,' / age_out=',age_out
+                        if age_in > 0 and age_out > 0 and not age_in-10<=age_out<=age_in+10:
+                        #    print 'discarding based on age, age_in=',age_in,' / age_out=',age_out
                             continue
                         
                         if not nuri in resi:
