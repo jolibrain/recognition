@@ -277,7 +277,7 @@ canvas {
   right: 0px;
   z-index: auto;
   opacity: 1;
-  background-color: rgb(0, 0, 0);
+  background-color: rgba(100, 0, 0, 0.2);
 }
 
 .imageOverlay .title {
@@ -736,6 +736,10 @@ ul.react-autosuggest__suggestions-list a:hover {
   width: 100%;
 }
 
+#app.noMargin {
+  margin-top: 10px;
+}
+
 @media only screen
 and (max-device-width : 768px) {
 
@@ -749,5 +753,19 @@ and (max-device-width : 768px) {
 
   .mainFooter {
     position: initial;
+  }
+
+  .responsiveImage a.back,
+  .responsiveImage a.back:hover {
+    color:#4a4a4a;
+    text-decoration: none;
+  }
+
+  .responsiveImage img {
+    margin-top:20px;
+  }
+
+  .responsiveImage .info {
+    color:#4a4a4a;
   }
 }

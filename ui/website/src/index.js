@@ -27,6 +27,7 @@ import Gallery from './components/Gallery';
 import Match from './components/Match';
 import Detail from './components/Detail';
 import Info from './components/Info';
+import Image from './components/ResponsiveImage';
 
 require('bootstrap/dist/css/bootstrap.min.css');
 
@@ -43,6 +44,7 @@ fetch('/splash.json').then((response) => { return response.json(); })
         <Route path="/" component={App}>
           <IndexRoute component={Home} />
           <Route path="/gallery" component={Gallery} />
+          <Route path="/image/:source/:itemId" component={Image}/>
           <Route path="/gallery/:matchId" component={Match}/>
           <Route path="/details/:matchId" component={Detail}/>
           <Route path="/info" component={Info}/>
