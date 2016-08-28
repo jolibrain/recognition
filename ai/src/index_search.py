@@ -133,10 +133,12 @@ class Searcher:
     # tags is [{'cat':'category','prob':'probability'}]
     def search_tags_single(self,tags,uri,prob_filter=0.0):
         nns = {}
+        tags_all_in = []
         c = 0
         for t in tags:
             if t['prob'] < prob_filter:
                 continue
+            tags_all_in.append(t['cat'])
             rres = self.s.get(str(t['cat']),None)
             if rres:
                 for res in rres:
@@ -153,7 +155,7 @@ class Searcher:
              
         # sort uris by score and keep X first
         sorted_nns = sorted(nns.items(),key=lambda x: x[1]['out']['score'],reverse=True)
-        all_nns = {'nns':[[],[]],'nns_uris':[],'tags_in':[],'tags_out':[],'uri':uri}
+        all_nns = {'nns':[[],[]],'nns_uris':[],'tags_in':[],'tags_out':[],'tags_all_in':tags_all_in,'uri':uri}
         c = 0
         for nn in sorted_nns:
             all_nns['nns'][1].append(nn[1]['out']['score']) # score
