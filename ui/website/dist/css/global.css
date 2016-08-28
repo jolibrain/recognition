@@ -728,3 +728,26 @@ ul.react-autosuggest__suggestions-list a:hover {
 .infoPage .infoDescription {
   color: #4a4a4a;
   text-transform: none;
+}
+
+.mainFooter {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+}
+
+@media only screen
+and (max-device-width : 768px) {
+
+  .infoPage {
+    margin:0px 10px;
+  }
+
+  .infoPage .row {
+    margin-bottom: 30px;
+  }
+
+  .mainFooter {
+    position: initial;
+  }
+}
