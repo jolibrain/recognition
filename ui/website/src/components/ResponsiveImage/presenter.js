@@ -16,12 +16,15 @@ limitations under the License.
 import React from 'react';
 import Radium from 'radium';
 import { browserHistory } from 'react-router';
+import BoundedImage from './BoundedImage'
 
 let {Link} = require('react-router');
 Link = Radium(Link);
 
 @Radium
 class ResponsiveImage extends React.Component {
+
+  state = {displayOverlay: false};
 
   render() {
 
@@ -35,20 +38,20 @@ class ResponsiveImage extends React.Component {
 
     return (<div className="container responsiveImage">
       <div className="row">
-        <div className="col-xs-6">
+        <div className="col-xs-2">
           <a className="back" onClick={browserHistory.goBack}><span className='icon--i_arrow-left'/></a>
         </div>
-        <div className="col-xs-6">
+        <div className="col-xs-10 text-right">
+          <a className="processOverlay" onClick={() => this.setState({displayOverlay: !this.state.displayOverlay})}>VIEW RECOGNITION OVERLAY</a>
         </div>
       </div>
 
       <div className="row">
         <div className="col-xs-12 text-center">
-          <img
-            src={selectedOutput.img}
-            style={{width: '100%'}}
-            srcSet={selectedOutput.img.replace(source, source + '/responsive_375/').replace("_2_", "_3_") + " 375w, " + selectedOutput.img.replace(source, source + '/responsive_480/').replace("_2_", "_3_") + " 480w"}
-            sizes="100%"
+          <BoundedImage
+            item={selectedOutput}
+            features={source === "reuters" ? selectedOutput.features.in : selectedOutput.features.out}
+            displayOverlay={this.state.displayOverlay}
           />
         </div>
       </div>

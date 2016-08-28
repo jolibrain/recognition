@@ -761,6 +761,12 @@ and (max-device-width : 768px) {
     text-decoration: none;
   }
 
+  .responsiveImage .processOverlay,
+  .responsiveImage .processOverlay:hover {
+    color:#fff;
+    text-decoration: none;
+  }
+
   .responsiveImage img {
     margin-top:20px;
   }
