@@ -209,7 +209,7 @@ class DNNFeatureExtractor(FeatureGenerator):
                         nns['tags_out_all'] = []
                         for nn in nns['nns_uris']:
                             nns['tags_out_all'].append(self.st[str(nn)])
-                            results[p['uri']] = nns
+                    results[p['uri']] = nns
 
         self.delete_dd_service()
         return self.to_json(results,'/img/reuters/','/img/tate/',self.dnnmodel.name,self.dnnmodel.description,jdataout,self.meta_in,self.meta_out,self.captions_in,self.captions_out)
