@@ -698,3 +698,7 @@ ul.react-autosuggest__suggestions-list a:hover {
 .infoPage .logoRow {
   color: #4a4a4a;
 }
+
+.infoPage .infoDescription {
+  color: #4a4a4a;
+  text-transform: none;
