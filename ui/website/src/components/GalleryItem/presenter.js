@@ -209,7 +209,7 @@ class GalleryItem extends React.Component {
                 <img
                   ref='tateImg'
                   onLoad={() => {
-                    this.setState({hvBottom: this.refs.column.clientHeight - this.refs.tateImg.clientHeight - 64});
+                    this.setState({hvBottom: this.refs.column.clientHeight - this.refs.tateImg.clientHeight + 64});
                   }}
                   style={[styles.fullHeight.img, this.getImagePadding('output', inputOrientation, outputOrientation)]}
                   srcSet={selectedOutput.img.replace('tate/', 'tate/responsive_375/') + " 375w, " + selectedOutput.img.replace('tate/', 'tate/responsive_480/') + " 480w, " + selectedOutput.img.replace('tate/', 'tate/responsive_757/') + " 757w"}
