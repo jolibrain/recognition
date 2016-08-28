@@ -31,6 +31,8 @@ class GalleryItem extends React.Component {
     processVisible: false,
     showInputOverlay: false,
     showOutputOverlay: false,
+    hvBottom: 124,
+    itemId: ''
   };
 
   getImagePadding(source, inputOrientation, outputOrientation) {
@@ -43,7 +45,7 @@ class GalleryItem extends React.Component {
       } else {
         //HV
         if(source == 'input') {
-          return {left: '0px', bottom: '124px', position: 'absolute'};
+          return {left: '0px', bottom: this.state.hvBottom + 'px', position: 'absolute'};
         }
       }
     } else {
@@ -62,16 +64,20 @@ class GalleryItem extends React.Component {
     return {};
   }
 
+  componentWillMount() {
+    if(this.props.item){
+      const rx = /Z_\d+_(.*?)_/g;
+      const arr = rx.exec(this.props.item.input.img);
+      this.setState({itemId: arr[1]});
+    }
+  }
+
   render() {
 
     if(!this.props.item) return null;
 
     const item = this.props.item;
     const selectedOutput = item.output.filter(item => item.selected)[0];
-
-    const rx = /Z_\d+_(.*?)_/g;
-    const arr = rx.exec(item.input.img);
-    const itemId = arr[1];
 
     let classname = "row gallery_item";
     if(this.state.hover) {
@@ -94,7 +100,7 @@ class GalleryItem extends React.Component {
         <div className="container-fluid">
           <div className="row">
             <div className="col-xs-12 title">
-              <p>NO. {itemId}  {moment(item.timestamp).format('DD/MM/YYYY')}</p>
+              <p>NO. {this.state.itemId}  {moment(item.timestamp).format('DD/MM/YYYY')}</p>
             </div>
           </div>
           <div className="row">
@@ -183,7 +189,7 @@ class GalleryItem extends React.Component {
           this.setState({hover: false});
         }}
         onClick={() => {
-          browserHistory.push(`/gallery/${itemId}`);
+          browserHistory.push(`/gallery/${this.state.itemId}`);
         }}
       >
 
@@ -199,8 +205,12 @@ class GalleryItem extends React.Component {
                   sizes="(min-width: 40em) 80vw, 100vw"
                 />
               </div>
-              <div className="col-sm-6" style={styles.fullHeight.col}>
+              <div className="col-sm-6" style={styles.fullHeight.col} ref="column">
                 <img
+                  ref='tateImg'
+                  onLoad={() => {
+                    this.setState({hvBottom: this.refs.column.clientHeight - this.refs.tateImg.clientHeight - 64});
+                  }}
                   style={[styles.fullHeight.img, this.getImagePadding('output', inputOrientation, outputOrientation)]}
                   srcSet={selectedOutput.img.replace('tate/', 'tate/responsive_375/') + " 375w, " + selectedOutput.img.replace('tate/', 'tate/responsive_480/') + " 480w, " + selectedOutput.img.replace('tate/', 'tate/responsive_757/') + " 757w"}
                   sizes="(min-width: 40em) 80vw, 100vw"
@@ -213,7 +223,7 @@ class GalleryItem extends React.Component {
 
         <div className="col-sm-3 font-title" style={styles.descriptionColumn}>
 
-          <p>No {itemId}</p>
+          <p>No {this.state.itemId}</p>
 
           <p className="timestamp font-data">
             {moment(item.timestamp).format('DD/MM/YYYY')}<br/>
