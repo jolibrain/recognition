@@ -59,10 +59,23 @@ class MAPIGenerator(FeatureGenerator):
         self.mapi_people = {}
         self.mapi_faces = {} # face + gender + age + emotion
         self.mapi_captions = {}
+
+        self.stm = {}
+        self.st = shelve.open(self.index_repo + '/all_tags.bin')
+        self.scm = {}
+        self.sc = shelve.open(self.index_repo + '/all_cats.bin')
         
         self.emotions={'anger':0,'contempt':1,'disgust':2,'fear':3,'happiness':4,'neutral':5,'sadness':6,'surprise':7}
 
         return
+
+    def __del__(self):
+        for i,t in self.stm.iteritems():
+            self.st[i] = t
+        self.st.close()
+        for i,c in self.stm.iteritems():
+            self.sc[i] = t
+        self.sc.close()
 
     # fuzzy matching of rectangles since M$ API do not return the same exact face rectangles with Vision and Emotion API...
     def equal_box(self,box1,box2):
@@ -209,12 +222,18 @@ class MAPIGenerator(FeatureGenerator):
         with Indexer(dim=1,repository=self.index_repo,db_name='tags.bin') as indexer:
             for t,v in self.mapi_tags.iteritems():
                 indexer.index_tags_single(v,t)
+                self.stm[t] = []
+                for tc in v:
+                    self.stm[t].append(tc['cat'])
 
         # - categories
         #print 'indexing mapi categories...'
         with Indexer(dim=1,repository=self.index_repo,db_name='cats.bin') as indexer:
             for t,v in self.mapi_categories.iteritems():
                 indexer.index_tags_single(v,t)
+                self.scm[t] = []
+                for tc in v:
+                    self.scm[t].append(tc['cat'])
 
         # - number of people and gender
         # as a vector [npeople, males, females]
@@ -260,6 +279,9 @@ class MAPIGenerator(FeatureGenerator):
             searcher.load_index()
             for t,v in self.mapi_tags.iteritems():   
                 nns =searcher.search_tags_single(v,t)
+                nns['tags_out_all'] = []
+                for nn in nns['nns_uris']:
+                    nns['tags_out_all'].append(self.st[str(nn)])
                 results_tags[t] = nns
         results_tags = self.to_json(results_tags,'/img/reuters/','/img/tate/',self.name+'_tags',self.description,jdataout,self.meta_in,self.meta_out,self.captions_in,self.captions_out)
         #print 'results_tags=',results_tags
@@ -269,6 +291,9 @@ class MAPIGenerator(FeatureGenerator):
             searcher.load_index()
             for t,v in self.mapi_categories.iteritems():            
                 nns =searcher.search_tags_single(v,t)
+                nns['tags_out_all'] = []
+                for nn in nns['nns_uris']:
+                    nns['tags_out_all'].append(self.sc[str(nn)])
                 results_cats[t] = nns
         results_tmp = self.to_json(results_cats,'/img/reuters/','/img/tate/',self.name+'_cats',self.description,results_tags,self.meta_in,self.meta_out,self.captions_in,self.captions_out)
         if not results_tmp:
