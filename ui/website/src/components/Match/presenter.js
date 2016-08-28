@@ -23,6 +23,7 @@ import BoundedImage from './BoundedImage'
 
 import InfiniteScroll from 'react-infinite-scroller';
 import GoogleTagManager from '../GoogleTagManager';
+import DocMeta from 'react-doc-meta';
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -106,6 +107,10 @@ class Match extends React.Component {
 
     const loader = <div className="loader">Loading ...</div>;
     const followingMatches = this.renderItems();
+
+    const meta = [
+      {property: 'og:image', content: `http://recognition.tate.org.uk/img/og_image/${itemId}.jpg`}
+    ];
 
     switch (inputOrientation) {
 
@@ -258,6 +263,7 @@ class Match extends React.Component {
     }
 
     return (<div>
+      <DocMeta tags={meta} />
       <div className="container-fluid" style={styles.matchContainer}>
         {orientedComponent}
       </div>
