@@ -21,6 +21,7 @@ import { browserHistory } from 'react-router'
 import DetailFeatures from './presenter_features'
 import BoundedImage from './BoundedImage'
 import GoogleTagManager from '../GoogleTagManager';
+import DocMeta from 'react-doc-meta';
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -75,7 +76,12 @@ class Detail extends React.Component {
     const arr = rx.exec(item.input.img);
     const itemId = arr[1];
 
+    const meta = [
+      {property: 'og:image', content: `http://recognition.tate.org.uk/img/og_image/${itemId}.jpg`}
+    ];
+
     return(<div className="container-fluid">
+      <DocMeta tags={meta} />
       <div className="row" style={styles.rowImg}>
 
         <div className="col-sm-5 col-sm-offset-1"style={[styles.leftImg]} >
@@ -99,7 +105,7 @@ class Detail extends React.Component {
       <div className="row" style={styles.dataRow}>
 
         <div className="col-sm-6">
-          <Link style={[styles.link]} to={`/gallery/${itemId}`}><span className='icon--i_arrow-left'/> Back to article</Link>
+          <Link className="font-data" style={[styles.link]} to={`/gallery/${itemId}`}><span className='icon--i_arrow-left'/> Back to article</Link>
           <DetailFeatures item={item.input}
                           source={'reuters'}
                           features={selectedOutput.features.in}
@@ -124,7 +130,7 @@ class Detail extends React.Component {
         </div>
 
       </div>
-      <GoogleTagManager dataLayerName={'Detail-' + itemId} />
+      <GoogleTagManager dataLayerName={'Detail_' + itemId} />
     </div>);
   }
 }

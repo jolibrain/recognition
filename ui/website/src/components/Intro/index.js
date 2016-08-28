@@ -66,7 +66,7 @@ class IntroOverlay extends React.Component {
     return (<Overlay show={this.state.stepIndex < steps.length}
                      onHide={() => this.setState({ stepIndex: 10 })}
       >
-        <div className="introOverlay"
+        <div className="introOverlay font-titles"
              onWheel={this.callScroll.bind(this)}        >
           <nav className="navbar navbar-default navbar-fixed-top">
             <div className="container-fluid">

@@ -26,7 +26,8 @@ Link = Radium(Link);
 class Header extends React.Component {
 
   state = {
-    displaySearch: false
+    displaySearch: false,
+    displayMenu: false
   }
 
   render() {
@@ -37,35 +38,68 @@ class Header extends React.Component {
       this.state.displaySearch ? styles.searchIconActivated : ''
     ]
 
-    return <div>
-      <nav style={[styles.navbar, styles.gradientBackground]} className="navbar navbar-default navbar-fixed-top">
+    return <div className='header'>
+      <nav style={[styles.navbarNotXs, styles.gradientBackground]} className="navbar navbar-default navbar-fixed-top hidden-xs">
         <div className="container-fluid">
 
           <div className="navbar-header">
-            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse" aria-expanded="false">
-              <span className="sr-only">Toggle navigation</span>
-              <span className="icon-bar"/>
-              <span className="icon-bar"/>
-              <span className="icon-bar"/>
+            <Link style={[styles.brand]} className="navbar-brand" to='/'>
+              <img src="/img/logos/recognition.png" alt="recognition"/>
+            </Link>
+          </div>
+
+          <div>
+            <ul className="nav navbar-nav navbar-right">
+              <li className={this.props.path == '/gallery' ? 'menuSelected' : ''}><Link style={[styles.menuItem]} to='/gallery'>Gallery</Link></li>
+              <li className={this.props.path == '/info' ? 'menuSelected' : ''}><Link style={[styles.menuItem]} to='/info'>Info</Link></li>
+              <li style={{marginTop:'15px', marginLeft: '20px'}}><SubscribeModal/></li>
+              <li><span key="search-not-xs" style={searchStyles} className='icon--i_search' onClick={() => {
+                this.setState({displaySearch: !this.state.displaySearch})
+              }}/></li>
+              { this.state.displaySearch ? <li><SearchInput matches={this.props.matches}/></li> : ''}
+            </ul>
+          </div>
+
+        </div>
+      </nav>
+
+      <nav style={[styles.xsBackground]} className="navbar navbar-default navbar-fixed-top visible-xs">
+        <div className="container-fluid">
+
+          <div className="navbar-header">
+            <button type="button" className="navbar-toggle collapsed" aria-expanded="false" onClick={() => this.setState({displayMenu: !this.state.displayMenu})}>
+            { this.state.displayMenu ?
+              (<img src="/img/icons/close.png" alt="close"/>)
+              :
+              (<div>
+                <span key="toggle-1" className="sr-only">Toggle navigation</span>
+                <span key="toggle-2" className="icon-bar"/>
+                <span key="toggle-3" className="icon-bar"/>
+                <span key="toggle-4" className="icon-bar"/>
+              </div>)
+            }
             </button>
             <Link style={[styles.brand]} className="navbar-brand" to='/'>
               <img src="/img/logos/recognition.png" alt="recognition"/>
             </Link>
           </div>
 
-          <div className="collapse navbar-collapse" id="bs-navbar-collapse">
-            <ul className="nav navbar-nav navbar-right">
-              <li className={this.props.path == '/gallery' ? 'menuSelected' : ''}><Link style={[styles.menuItem]} to='/gallery'>Gallery</Link></li>
-              <li><Link style={[styles.menuItem]} to='/exhibition'>Exhibition</Link></li>
-              <li className={this.props.path == '/info' ? 'menuSelected' : ''}><Link style={[styles.menuItem]} to='/info'>Info</Link></li>
-              <li><SubscribeModal/></li>
-              <li><span style={searchStyles} className='icon--i_search' onClick={() => {
-                this.setState({displaySearch: !this.state.displaySearch})
-              }}/></li>
-              { this.state.displaySearch ? <SearchInput matches={this.props.matches}/> : ''}
-            </ul>
+          <div className={ this.state.displayMenu ? "collapse in" : "hidden" } aria-expanded={this.state.displayMenu ? "true" : "false"}>
+            <div className="row" style={{marginTop:'10px', marginBottom:'10px'}}>
+              <div className="col-xs-3">
+                <span className={this.props.path == '/gallery' ? 'menuSelected' : ''}><Link style={[styles.menuItemXs]} to='/gallery' onClick={() => this.setState({displayMenu: false})}>Gallery</Link></span>
+              </div>
+              <div className="col-xs-3">
+                <span className={this.props.path == '/info' ? 'menuSelected' : ''}><Link style={[styles.menuItemXs]} to='/info' onClick={() => this.setState({displayMenu: false})}>Info</Link></span>
+              </div>
+              <div className="col-xs-3">
+                <SubscribeModal/>
+              </div>
+            </div>
+            <div className="row" style={{paddingLeft: "16px"}}>
+              <SearchInput matches={this.props.matches} displayIcon={true}/>
+            </div>
           </div>
-
         </div>
       </nav>
     </div>;

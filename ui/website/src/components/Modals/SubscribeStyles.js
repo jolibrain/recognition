@@ -15,7 +15,6 @@ limitations under the License.
 */
 const styles = {
   component: {
-    marginTop: '15px'
   },
   modal: {
     position: 'fixed',
@@ -44,7 +43,6 @@ const styles = {
     color: 'rgb(255, 255, 255)',
     textTransform: 'uppercase',
     fontWeight: 'bold',
-    marginLeft: '20px',
     textDecoration: 'none',
     cursor: 'pointer',
     ':hover': {

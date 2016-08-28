@@ -15,29 +15,28 @@ limitations under the License.
 */
 import React from 'react';
 import Radium from 'radium';
+import moment from 'moment';
 import styles from './styles.js';
-
-import ShareModal from '../Modals/ShareModal';
+import { browserHistory } from 'react-router'
+import SvgImage from './presenter_svg';
+import HtmlImage from './presenter_html';
+import CanvasImage from './presenter_canvas';
 
 let {Link} = require('react-router');
 Link = Radium(Link);
 
 @Radium
-class Description extends React.Component {
+class BoundedImage extends React.Component {
 
   render() {
 
-    return (<div>
-      <Link className="font-subtext" style={styles.processLink} to={`/details/${this.props.id}`}>View recognition process <span className="icon--i_arrow-right"/></Link>
+    if(this.props.boxes.length > 0) {
+      return (<CanvasImage {...this.props}/>)
+    } else {
+      return (<HtmlImage img={this.props.item.img}/>)
+    }
 
-      <h3 className="font-data" style={styles.descriptionTitle}>AI Description</h3>
-      <p className="font-data" style={styles.descriptionText}>{this.props.descriptionIn}</p>
-      <p className="font-data" style={[styles.descriptionText, {marginBottom: '32px'}]}>{this.props.descriptionOut}</p>
-
-      <ShareModal />
-    </div>);
   }
 }
 
-export default Description;
-
+export default BoundedImage;

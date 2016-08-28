@@ -126,9 +126,9 @@ class DetailFeatures extends React.Component {
        features.mapi.ages.length > 0)
         mapi_ages = features.mapi.ages;
 
-    return(<div className={hovered ? 'detailFeatures detailHovered' : 'detailFeatures'}
+    return(<div className={hovered ? 'font-data detailFeatures detailHovered' : 'font-data detailFeatures'}
       style={[styles.detailColumn, hovered ? styles.columnHovered : '']}>
-      <div className="table-responsive" style={[styles.tableOverflow]}>
+      <div className="table-responsive" style={[styles.tableOverflow, styles.categoryBottom]}>
         <table className="table borderless">
           <tbody>
             <tr>
@@ -153,7 +153,7 @@ class DetailFeatures extends React.Component {
       <h3 className={objHovered == 'objects' ? 'hovered' : ''}>
         <img src={this.getIconUrl('objects', hovered, objHovered)}/> OBJECTS {(scores.objects * 100).toFixed(2)}%
       </h3>
-      <div className="table-responsive" style={[styles.tableOverflow]}>
+      <div className="table-responsive" style={[styles.tableOverflow, styles.categoryBottom]}>
         <table className="table borderless">
           <tbody>
             {
@@ -218,7 +218,7 @@ class DetailFeatures extends React.Component {
       <h3 className={objHovered == 'faces' ? 'hovered' : ''}>
         <img src={this.getIconUrl('faces', hovered, objHovered)}/> FACES {(scores.faces * 100).toFixed(2)}%
       </h3>
-      { typeof features.mapi != 'undefined' ? (<div className="table-responsive" style={[styles.tableOverflow]}>
+      { typeof features.mapi != 'undefined' ? (<div className="table-responsive" style={[styles.tableOverflow, styles.categoryBottom]}>
       {
         mapi_ages.map((age, index) => {
 
@@ -288,11 +288,12 @@ class DetailFeatures extends React.Component {
           </div>);
         })
       }
-      </div>) : '' }
+      </div>) : (<div style={styles.categoryBottom}>&nbsp;</div>) }
 
-      <h3 className={objHovered == 'composition' ? 'hovered' : ''}>
+      <h3 className={objHovered == 'composition' ? 'hovered' : ''} style={styles.categoryBottom}>
         <img src={this.getIconUrl('composition', hovered, objHovered)}/> COMPOSITION {(scores.composition * 100).toFixed(2)}%
       </h3>
+      <div style={styles.categoryBottom}>&nbsp;</div>
 
       <h3 className={objHovered == 'context' ? 'hovered' : ''}>
         <img src={this.getIconUrl('context', hovered, objHovered)}/> CONTEXT {(scores.context * 100).toFixed(2)}%

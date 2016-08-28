@@ -79,6 +79,7 @@ const styles = {
     marginTop: '20px'
   },
   footer: {
+    zIndex: 1000,
     bottom: '20px',
     position: 'absolute',
     width: '100%',

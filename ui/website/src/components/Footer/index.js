@@ -21,13 +21,12 @@ class Footer extends React.Component {
 
     const footerStyle= {
       position: 'fixed',
-      bottom: '3px',
-      width: '100%',
-      height: '15px'
+      bottom: '0px',
+      width: '100%'
     };
 
     const footerContainer = {
-      margin: '0px'
+      margin: '17px'
     };
 
     const footerLink = {
@@ -41,8 +40,8 @@ class Footer extends React.Component {
       }
     };
 
-    return (<footer className="footer" style={footerStyle}>
-      <div className="container" style={footerContainer}>
+    return (<footer className="footer mainFooter">
+      <div className="fluid-container" style={footerContainer}>
         <p className="text-muted">
           <a style={footerLink} href="http://www.tate.org.uk/about/who-we-are/policies-and-procedures/website-terms-use" target="_blank">Terms</a>
           <a style={footerLink} href="http://www.tate.org.uk/about/who-we-are/policies-and-procedures/website-terms-use/privacy-and-use-cookies" target="_blank">Privacy & Cookies</a>

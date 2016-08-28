@@ -23,6 +23,7 @@ import BoundedImage from './BoundedImage'
 
 import InfiniteScroll from 'react-infinite-scroller';
 import GoogleTagManager from '../GoogleTagManager';
+import DocMeta from 'react-doc-meta';
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -107,13 +108,17 @@ class Match extends React.Component {
     const loader = <div className="loader">Loading ...</div>;
     const followingMatches = this.renderItems();
 
+    const meta = [
+      {property: 'og:image', content: `http://recognition.tate.org.uk/img/og_image/${itemId}.jpg`}
+    ];
+
     switch (inputOrientation) {
 
       case "horizontal":
         switch (outputOrientation) {
           case "horizontal":
             orientedComponent = (<div className="row">
-              <div className="col-sm-5">
+              <div className="col-sm-5 horizontal">
                 <Titles input={item.input} output={selectedOutput}/>
                 <BoundedImage
                   item={item.input}
@@ -123,7 +128,7 @@ class Match extends React.Component {
                   overHash={this.state.overRight}
                   parent={this}
                 />
-                <p style={styles.imgDescription}>{item.input.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>{item.input.meta.origin}</p>
               </div>
               <div className="col-sm-5">
                 <BoundedImage
@@ -134,7 +139,7 @@ class Match extends React.Component {
                   overHash={this.state.overLeft}
                   parent={this}
                 />
-                <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
               </div>
               <div className="col-sm-2">
                 <Description id={itemId}
@@ -145,7 +150,7 @@ class Match extends React.Component {
             break;
           case "vertical":
             orientedComponent = (<div className="row">
-              <div className="col-sm-5">
+              <div className="col-sm-5 horizontal">
                 <BoundedImage
                   item={item.input}
                   itemId={itemId}
@@ -154,7 +159,7 @@ class Match extends React.Component {
                   overHash={this.state.overRight}
                   parent={this}
                 />
-                <p style={styles.imgDescription}>{item.input.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>{item.input.meta.origin}</p>
                 <Titles input={item.input} output={selectedOutput}/>
               </div>
               <div className="col-sm-5">
@@ -168,7 +173,7 @@ class Match extends React.Component {
                     parent={this}
                   />
                 </div>
-                <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
               </div>
               <div className="col-sm-2">
                 <Description id={itemId}
@@ -198,7 +203,7 @@ class Match extends React.Component {
                     parent={this}
                   />
                 </div>
-                <p style={styles.imgDescription}>{item.input.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>{item.input.meta.origin}</p>
               </div>
               <div className="col-sm-5">
                 <BoundedImage
@@ -209,7 +214,7 @@ class Match extends React.Component {
                   overHash={this.state.overLeft}
                   parent={this}
                 />
-                <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
                 <Description id={itemId}
                              descriptionIn={selectedOutput.features.in.captions.caption}
                              descriptionOut={selectedOutput.features.out.captions.caption}/>
@@ -220,6 +225,7 @@ class Match extends React.Component {
             orientedComponent = (<div className="row">
               <div className="col-sm-2">
                 <Titles input={item.input} output={selectedOutput}/>
+                <div style={{height: '16px'}}>&nbsp;</div>
                 <Description id={itemId}
                              descriptionIn={selectedOutput.features.in.captions.caption}
                              descriptionOut={selectedOutput.features.out.captions.caption}/>
@@ -235,7 +241,7 @@ class Match extends React.Component {
                     parent={this}
                   />
                 </div>
-                <p style={styles.imgDescription}>{item.input.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>{item.input.meta.origin}</p>
               </div>
               <div className="col-sm-5">
                 <div className="text-center">
@@ -248,7 +254,7 @@ class Match extends React.Component {
                     parent={this}
                   />
                 </div>
-                <p style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
               </div>
             </div>);
             break;
@@ -261,15 +267,18 @@ class Match extends React.Component {
         {orientedComponent}
       </div>
       { this.props.followingMatches ?
-          (<InfiniteScroll
+        (<div>
+          <DocMeta tags={meta} />
+          <InfiniteScroll
             pageStart={0}
             loadMore={this.loadItems}
             hasMore={this.state.hasMoreItems}
             loader={loader}>
             {followingMatches}
-          </InfiniteScroll>) : ''
+          </InfiniteScroll>
+          <GoogleTagManager dataLayerName={'Match_' + itemId} />
+        </div>) : ''
       }
-      <GoogleTagManager dataLayerName={'Match-' + itemId} />
     </div>);
   }
 }

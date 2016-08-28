@@ -118,7 +118,7 @@ class ShareModal extends React.Component {
         <div style={dialogStyle}>
           <h4 id='modal-label' style={titleStyle}>share</h4>
           <p style={textStyle}>what makes this an interesting match?<br/>
-          could you write a better caption thant the AI?</p>
+          could you write a better caption than the AI?</p>
 
           <div className="fluid-container">
             <div className="row">

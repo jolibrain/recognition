@@ -14,14 +14,21 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 const styles = {
-  navbar: {
+  navbarNotXs: {
     border: 0,
-    zIndex: 5
+    zIndex: 5,
+    paddingTop: '17px',
+    paddingRight: '32px',
+    paddingLeft: '32px'
+  },
+  xsBackground: {
+    background: '#0d1215',
+    border: 0
   },
   gradientBackground: {
-    background: "-moz-linear-gradient(top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.8) 55%, rgba(0,0,0,0) 100%)",
-    background: "-webkit-linear-gradient(top, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.8) 55%,rgba(0,0,0,0) 100%)",
-    background: "linear-gradient(to bottom, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.8) 55%,rgba(0,0,0,0) 100%)",
+    background: "-moz-linear-gradient(rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0) 100%)",
+    background: "-webkit-linear-gradient(rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0) 100%)",
+    background: "linear-gradient(rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0) 100%)",
     filter: "progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#00000000',GradientType=0 )"
   },
   brand: {
@@ -44,6 +51,16 @@ const styles = {
       color: '#0FC'
     }
   },
+  menuItemXs: {
+    color: "#FFF",
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
+    textDecoration: 'none',
+    ':hover': {
+      textDecoration: 'none',
+      color: '#0FC'
+    }
+  },
   searchIcon: {
     position: 'relative',
     top: '15px',
@@ -54,7 +71,7 @@ const styles = {
     color: '#0FC'
   },
   searchInput: {
-    background: '#000',
+    background: '#0d1215',
     borderStyle: 'dotted',
     borderTop: '0',
     borderLeft: '0',

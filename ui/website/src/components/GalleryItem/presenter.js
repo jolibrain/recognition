@@ -18,7 +18,6 @@ import Radium from 'radium';
 import moment from 'moment';
 import styles from './styles.js';
 import { browserHistory } from 'react-router'
-import ImageOverlay from './imageOverlay'
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -31,6 +30,8 @@ class GalleryItem extends React.Component {
     processVisible: false,
     showInputOverlay: false,
     showOutputOverlay: false,
+    hvBottom: 124,
+    itemId: ''
   };
 
   getImagePadding(source, inputOrientation, outputOrientation) {
@@ -43,17 +44,31 @@ class GalleryItem extends React.Component {
       } else {
         //HV
         if(source == 'input') {
-          return {paddingTop: '217px'};
+          return {left: '0px', bottom: this.state.hvBottom + 'px', position: 'absolute'};
         }
       }
     } else {
       if(outputOrientation == 'horizontal') {
         //VH
+        if(source == 'output') {
+          return {marginTop: '64px'};
+        }
       } else {
         //VV
+        if(source == 'input') {
+          return {marginTop: '64px'};
+        }
       }
     }
     return {};
+  }
+
+  componentWillMount() {
+    if(this.props.item){
+      const rx = /Z_\d+_(.*?)_/g;
+      const arr = rx.exec(this.props.item.input.img);
+      this.setState({itemId: arr[1]});
+    }
   }
 
   render() {
@@ -62,10 +77,6 @@ class GalleryItem extends React.Component {
 
     const item = this.props.item;
     const selectedOutput = item.output.filter(item => item.selected)[0];
-
-    const rx = /Z_\d+_(.*?)_/g;
-    const arr = rx.exec(item.input.img);
-    const itemId = arr[1];
 
     let classname = "row gallery_item";
     if(this.state.hover) {
@@ -88,53 +99,30 @@ class GalleryItem extends React.Component {
         <div className="container-fluid">
           <div className="row">
             <div className="col-xs-12 title">
-              <p>NO. {itemId}  {moment(item.timestamp).format('DD/MM/YYYY')}</p>
+              <p>NO. {this.state.itemId}  {moment(item.timestamp).format('DD/MM/YYYY')}</p>
             </div>
           </div>
           <div className="row">
             <div className="col-xs-6">
-              <img
-                src={item.input.img}
-                style={{width: '50vw'}}
-                srcSet={item.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + item.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w"}
-                sizes="50vw"
-                onClick={() => {this.setState({showInputOverlay: true})}}
-              />
-              <ImageOverlay
-                show={this.state.showInputOverlay}
-                img={item.input.img}
-                img_375={item.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_")}
-                img_480={item.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_")}
-                date={moment(item.timestamp).format('DD/MM/YYYY')}
-                description={item.input.meta.caption}
-                source={"REUTERS/" + item.input.meta.author}
-                onHide={() => {this.setState({showInputOverlay: false})}}
-                container={this}
-                placement="top"
-                target={this.refs.responsiveItem}
-              />
+              <Link to={`/image/reuters/${this.state.itemId}`}>
+                <img
+                  src={item.input.img}
+                  style={{width: '50vw'}}
+                  srcSet={item.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + item.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w"}
+                  sizes="50vw"
+                />
+              </Link>
             </div>
             <div className="col-xs-6">
-              <img
-                style={{width: '50vw'}}
-                src={selectedOutput.img}
-                srcSet={selectedOutput.img.replace('tate/', 'tate/responsive_375/') + " 375w, " + selectedOutput.img.replace('tate/', 'tate/responsive_480/') + " 480w"}
-                sizes="50vw"
-                onClick={() => {this.setState({showOutputOverlay: true})}}
-              />
-              <ImageOverlay
-                show={this.state.showOutputOverlay}
-                img={selectedOutput.img}
-                img_375={selectedOutput.img.replace('tate/', 'tate/responsive_375/')}
-                img_480={selectedOutput.img.replace('tate/', 'tate/responsive_480/')}
-                date={selectedOutput.meta.date}
-                description={(<span><em>{selectedOutput.meta.title}</em> by {selectedOutput.meta.author}i</span>)}
-                source="&#169; TATE"
-                onHide={() => {this.setState({showOutputOverlay: false})}}
-                container={this}
-                placement="top"
-                target={props => findDOMNode(this.refs.responsiveItem)}
-              />
+              <Link to={`/image/tate/${this.state.itemId}`}>
+                <img
+                  style={{width: '50vw'}}
+                  src={selectedOutput.img}
+                  srcSet={selectedOutput.img.replace('tate/', 'tate/responsive_375/') + " 375w, " + selectedOutput.img.replace('tate/', 'tate/responsive_480/') + " 480w"}
+                  sizes="50vw"
+                  onClick={() => {this.setState({showOutputOverlay: true})}}
+                />
+              </Link>
             </div>
           </div>
           <div className="row">
@@ -154,10 +142,14 @@ class GalleryItem extends React.Component {
               { this.state.processVisible ?
                 (
                 <div className="processData">
-                  <p><img src="/img/icons/score_objects.svg"/> OBJECTS {(selectedOutput.features.summary.scores.objects * 100).toFixed(2)}%</p>
-                  <p><img src="/img/icons/score_faces.svg"/> FACES {(selectedOutput.features.summary.scores.faces * 100).toFixed(2)}%</p>
-                  <p><img src="/img/icons/score_composition.svg"/> COMPOSITION {(selectedOutput.features.summary.scores.composition * 100).toFixed(2)}%</p>
-                  <p><img src="/img/icons/score_context.svg"/> CONTEXT {(selectedOutput.features.summary.scores.context * 100).toFixed(2)}%</p>
+                  <p><img src="/img/icons/score_objects.svg"/> OBJECTS {(selectedOutput.features.summary.scores.objects * 100).toFixed(2)}%<br/>
+                  <span style={{color: 'white'}}>{new Array(parseInt(selectedOutput.features.summary.scores.objects * 25)).fill('.').join('')}</span><span style={{color: '#4a4a4a'}}>{new Array(25 - parseInt(selectedOutput.features.summary.scores.objects * 25)).fill('.').join('')}</span></p>
+                  <p><img src="/img/icons/score_faces.svg"/> FACES {(selectedOutput.features.summary.scores.faces * 100).toFixed(2)}%<br/>
+                  <span style={{color: 'white'}}>{new Array(parseInt(selectedOutput.features.summary.scores.faces * 25)).fill('.').join('')}</span><span style={{color: '#4a4a4a'}}>{new Array(25 - parseInt(selectedOutput.features.summary.scores.faces * 25)).fill('.').join('')}</span></p>
+                  <p><img src="/img/icons/score_composition.svg"/> COMPOSITION {(selectedOutput.features.summary.scores.composition * 100).toFixed(2)}%<br/>
+                  <span style={{color: 'white'}}>{new Array(parseInt(selectedOutput.features.summary.scores.composition * 25)).fill('.').join('')}</span><span style={{color: '#4a4a4a'}}>{new Array(25 - parseInt(selectedOutput.features.summary.scores.composition * 25)).fill('.').join('')}</span></p>
+                  <p><img src="/img/icons/score_context.svg"/> CONTEXT {(selectedOutput.features.summary.scores.context * 100).toFixed(2)}%<br/>
+                  <span style={{color: 'white'}}>{new Array(parseInt(selectedOutput.features.summary.scores.context * 25)).fill('.').join('')}</span><span style={{color: '#4a4a4a'}}>{new Array(25 - parseInt(selectedOutput.features.summary.scores.context * 25)).fill('.').join('')}</span></p>
                 </div>
                 ) : '' }
             </div>
@@ -173,7 +165,7 @@ class GalleryItem extends React.Component {
           this.setState({hover: false});
         }}
         onClick={() => {
-          browserHistory.push(`/gallery/${itemId}`);
+          browserHistory.push(`/gallery/${this.state.itemId}`);
         }}
       >
 
@@ -189,8 +181,12 @@ class GalleryItem extends React.Component {
                   sizes="(min-width: 40em) 80vw, 100vw"
                 />
               </div>
-              <div className="col-sm-6" style={styles.fullHeight.col}>
+              <div className="col-sm-6" style={styles.fullHeight.col} ref="column">
                 <img
+                  ref='tateImg'
+                  onLoad={() => {
+                    this.setState({hvBottom: this.refs.column.clientHeight - this.refs.tateImg.clientHeight + 64});
+                  }}
                   style={[styles.fullHeight.img, this.getImagePadding('output', inputOrientation, outputOrientation)]}
                   srcSet={selectedOutput.img.replace('tate/', 'tate/responsive_375/') + " 375w, " + selectedOutput.img.replace('tate/', 'tate/responsive_480/') + " 480w, " + selectedOutput.img.replace('tate/', 'tate/responsive_757/') + " 757w"}
                   sizes="(min-width: 40em) 80vw, 100vw"
@@ -201,11 +197,11 @@ class GalleryItem extends React.Component {
 
         </div>
 
-        <div className="col-sm-3" style={styles.descriptionColumn}>
+        <div className="col-sm-3 font-title" style={styles.descriptionColumn}>
 
-          <p>No {itemId}</p>
+          <p style={{fontSize: '12px', fontFamily: 'MaisonNeue'}}>No {this.state.itemId}</p>
 
-          <p>
+          <p className="timestamp font-data">
             {moment(item.timestamp).format('DD/MM/YYYY')}<br/>
             {moment(item.timestamp).format('hh:mm:ss')}
           </p>
@@ -231,10 +227,10 @@ class GalleryItem extends React.Component {
               <br/>
             </div>
             )}
-            <span key="item.input.meta.origin" style={styles.input.origin}>reuters/{author}</span>
+            <span key="item.input.meta.origin" style={[styles.input.origin, {fontSize:'12px', fontFamily: 'MaisonNeue'}]}>reuters/{item.input.meta.author}</span>
 
             {this.state.hover ? (
-            <div>
+            <div className="output-meta">
               <span key="selectedOutput.meta.date" style={[styles.output.date, styles.hover]}>
                 {selectedOutput.meta.date}
               </span>
@@ -248,7 +244,7 @@ class GalleryItem extends React.Component {
               <br/>
             </div>
             ) : (
-            <div>
+            <div className="output-meta">
               <span key="selectedOutput.meta.date" style={styles.output.date}>
                 {selectedOutput.meta.date}
               </span>

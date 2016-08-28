@@ -15,6 +15,7 @@ limitations under the License.
 */
 const styles = {
   matchContainer: {
+    marginTop: '120px',
     height: '100vh'
   },
   hover: {
@@ -30,6 +31,8 @@ const styles = {
   },
   input: {
     date: {
+      fontFamily: 'MaisonNeue',
+      fontSize: '12px',
       color: '#fff',
     },
     title: {
@@ -43,6 +46,8 @@ const styles = {
   },
   output: {
     date: {
+      fontFamily: 'MaisonNeue',
+      fontSize: '12px',
       color: '#fff',
     },
     title: {
@@ -67,7 +72,7 @@ const styles = {
     fontSize: '13px',
     textDecoration: 'none',
     color: '#FFF',
-    marginBottom: '60px',
+    marginBottom: '64px',
     ':hover': {
       color: '#0FC'
     }
@@ -77,7 +82,8 @@ const styles = {
     fontSize: '12px',
     color: '#FFF',
     display: 'inline',
-    borderBottom: '1px solid #FFF'
+    borderBottom: '1px solid #FFF',
+    marginBottom: '32px'
   },
   descriptionText: {
     fontFamily: 'MaisonNeue',

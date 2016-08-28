@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 body {
-  background-color: #000 !important;
+  background-color: #0d1215 !important;
 }
 
 html, body, #app {
@@ -277,7 +277,7 @@ canvas {
   right: 0px;
   z-index: auto;
   opacity: 1;
-  background-color: rgb(0, 0, 0);
+  background-color: rgba(100, 0, 0, 0.2);
 }
 
 .imageOverlay .title {
@@ -343,6 +343,7 @@ body.noscroll{
 }
 
 .introOverlay nav {
+  padding: 17px;
   height: 150px;
   border: 0;
   z-index: 5;
@@ -356,8 +357,20 @@ body.noscroll{
   padding:0;
 }
 
-.introOverlay .container-fluid>.navbar-header {
-  margin: 10px 0 0 5px;
+@media only screen
+and (max-device-width : 768px) {
+  .introOverlay .container-fluid>.navbar-header {
+    padding-left:10px;
+  }
+
+  .react-autosuggest__container {
+    display: inline-block;
+    width:80%;
+  }
+
+  .react-autosuggest__input {
+    width: 100%;
+  }
 }
 
 .introOverlay .navbar-header p {
@@ -386,14 +399,10 @@ body.noscroll{
 
 
 .introOverlay .container {
-  font-family: 'TateNewPro';
-  font-size: 24px;
 }
 
 .introOverlay a.bottom,
 .introOverlay a.bottom:hover {
-  font-family: 'TateNewPro';
-  font-size: 24px;
   position: fixed;
   left: 50%;
   bottom: 50px;
@@ -417,7 +426,7 @@ body.noscroll{
 }
 
 .react-autosuggest__input {
-  background: #000;
+  background: #0d1215;
   border-style: dotted;
   border-top: 0;
   border-left: 0;
@@ -619,6 +628,16 @@ ul.react-autosuggest__suggestions-list a:hover {
 .share-button { cursor: pointer; }
 .share-button g { fill: white; }
 
+.galleryItem .hidden-xs {
+  padding: 64px 0;
+}
+.galleryItem .hidden-xs .timestamp {
+  padding-bottom: 64px
+}
+.galleryItem .hidden-xs .output-meta {
+  margin-top: 16px;
+}
+
 .galleryItem .visible-xs {
   font-family: 'TateNewPro';
   font-size: 20px;
@@ -644,4 +663,115 @@ ul.react-autosuggest__suggestions-list a:hover {
 
 .galleryItem .visible-xs .processData p {
   margin: 20px 0;
+}
+
+.font-title, .font-titles {
+  font-family: 'TateNewPro';
+  font-size: 18px;
+  font-weight:normal;
+  letter-spacing:.2px;
+}
+
+.font-subtext {
+  font-family: 'TateNewPro';
+  font-size: 13px;
+  font-weight:normal;
+  letter-spacing: 1.5px;
+}
+
+.font-data {
+  font-family: 'MaisonNeue';
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: normal;
+}
+
+.splashContainer {
+  padding-top: 30px;
+}
+
+.horizontal .match-titles {
+  padding-bottom: 32px;
+  padding-left: 32px;
+}
+
+.match-first-title {
+  padding-bottom: 16px;
+}
+
+.header .navbar-default .navbar-toggle:focus,
+.header .navbar-default .navbar-toggle:hover {
+  background-color:#0d1215;
+}
+
+.header .navbar-default .navbar-toggle {
+  border:0;
+}
+
+.header .navbar-default .navbar-toggle .icon-bar {
+  background-color: #fff;
+}
+
+.header .navbar-right {
+  font-family: 'TateNewPro';
+  font-size: 13px;
+}
+
+.infoPage {
+  margin-top:120px;
+}
+
+.infoPage .logoRow {
+  color: #4a4a4a;
+}
+
+.infoPage .infoDescription {
+  color: #4a4a4a;
+  text-transform: none;
+}
+
+.mainFooter {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+}
+
+#app.noMargin {
+  margin-top: 10px;
+}
+
+@media only screen
+and (max-device-width : 768px) {
+
+  .infoPage {
+    margin:0px 10px;
+  }
+
+  .infoPage .row {
+    margin-bottom: 30px;
+  }
+
+  .mainFooter {
+    position: initial;
+  }
+
+  .responsiveImage a.back,
+  .responsiveImage a.back:hover {
+    color:#4a4a4a;
+    text-decoration: none;
+  }
+
+  .responsiveImage .processOverlay,
+  .responsiveImage .processOverlay:hover {
+    color:#fff;
+    text-decoration: none;
+  }
+
+  .responsiveImage img {
+    margin-top:20px;
+  }
+
+  .responsiveImage .info {
+    color:#4a4a4a;
+  }
 }

@@ -15,29 +15,18 @@ limitations under the License.
 */
 import React from 'react';
 import Radium from 'radium';
+import moment from 'moment';
 import styles from './styles.js';
 
-import ShareModal from '../Modals/ShareModal';
-
-let {Link} = require('react-router');
-Link = Radium(Link);
-
 @Radium
-class Description extends React.Component {
+class HtmlImage extends React.Component {
 
   render() {
-
     return (<div>
-      <Link className="font-subtext" style={styles.processLink} to={`/details/${this.props.id}`}>View recognition process <span className="icon--i_arrow-right"/></Link>
-
-      <h3 className="font-data" style={styles.descriptionTitle}>AI Description</h3>
-      <p className="font-data" style={styles.descriptionText}>{this.props.descriptionIn}</p>
-      <p className="font-data" style={[styles.descriptionText, {marginBottom: '32px'}]}>{this.props.descriptionOut}</p>
-
-      <ShareModal />
+      <img className="img-responsive" src={this.props.img} />
     </div>);
   }
+
 }
 
-export default Description;
-
+export default HtmlImage;

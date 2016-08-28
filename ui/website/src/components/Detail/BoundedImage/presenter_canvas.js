@@ -27,23 +27,13 @@ class CanvasImage extends React.Component {
     hoverIndex: -1
   };
 
-  renderBox(index, box) {
+  renderBox(index, box, selected) {
 
     let canvas = ReactDOM.findDOMNode(this.refs.canvasImage);
     let ctx = canvas.getContext('2d');
 
     const item = this.props.item;
     let [x, y, width, height] = box;
-
-    let duplicates = false;
-    if(this.props.overHash && this.props.overHash.hash.length > 0) {
-      const mergedBoxids = this.props.boxids[index].concat(this.props.overHash.hash);
-      duplicates  = mergedBoxids.reduce(function(acc, el, i, arr) {
-        if (arr.indexOf(el) !== i && acc.indexOf(el) < 0)
-          acc.push(el);
-          return acc;
-        }, []).length > 0;
-    }
 
     // choose box color, depending on hover status
     let colorStyle = 'rgba(255,255,255,1)';
@@ -53,10 +43,7 @@ class CanvasImage extends React.Component {
       colorStyle = 'rgba(100,100,100,1)';
     }
 
-    if( typeof this.props.overHash.index != 'undefined' &&
-        this.props.overHash.index == index) {
-      colorStyle = 'rgba(0,225,204,1)';
-    } else if(duplicates) {
+    if(selected) {
       colorStyle = 'rgba(0,225,204,1)';
     }
 
@@ -105,7 +92,31 @@ class CanvasImage extends React.Component {
   }
 
   renderBoxes() {
-    this.props.boxes.forEach((box, i) => this.renderBox(i, box));
+    this.props.boxes
+      .map((box, index) => {
+
+        let selected = false;
+
+        if(this.props.overHash && this.props.overHash.hash.length > 0) {
+          const mergedBoxids = this.props.boxids[index].concat(this.props.overHash.hash);
+          selected = mergedBoxids.reduce(function(acc, el, i, arr) {
+            if (arr.indexOf(el) !== i && acc.indexOf(el) < 0)
+              acc.push(el);
+              return acc;
+            }, []).length > 0;
+        }
+
+        if( typeof this.props.overHash.index != 'undefined' &&
+            this.props.overHash.index == index) {
+          selected = true;
+        }
+
+        return {box: box, index: index, selected: selected};
+      })
+      .sort((a, b) => {
+        return a.selected ? 1 : -1;
+      })
+      .forEach(box => this.renderBox(box.index, box.box, box.selected));
   }
 
   createCanvas() {

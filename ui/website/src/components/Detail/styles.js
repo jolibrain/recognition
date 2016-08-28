@@ -21,8 +21,6 @@ const styles = {
     border: 'none !important'
   },
   detailColumn: {
-    fontFamily: 'monospace',
-    fontSize:'12px',
     textTransform: 'uppercase',
   },
   tableOverflow: {
@@ -73,7 +71,7 @@ const styles = {
   },
   dataRow: {
     position: 'absolute',
-    top: '60px',
+    top: '100px',
     width: '100%',
     pointerEvents: 'none'
   },
@@ -90,7 +88,7 @@ const styles = {
   link: {
     color: '#FFF',
     display: 'inline-block',
-    marginBottom: '20px',
+    paddingBottom: '64px',
     textTransform: 'uppercase',
     pointerEvents: 'all'
   },
@@ -116,7 +114,9 @@ const styles = {
   placesHovered: {
     color: '#0FC',
     borderBottom: '1px solid #0FC'
-  }
+  },
+  categoryBottom: { paddingBottom: '16px' },
+  rowImg: {marginTop:'60px'}
 }
 
 export default styles;
