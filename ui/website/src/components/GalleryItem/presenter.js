@@ -223,7 +223,7 @@ class GalleryItem extends React.Component {
 
         <div className="col-sm-3 font-title" style={styles.descriptionColumn}>
 
-          <p>No {this.state.itemId}</p>
+          <p style={{fontSize: '12px'}}>No {this.state.itemId}</p>
 
           <p className="timestamp font-data">
             {moment(item.timestamp).format('DD/MM/YYYY')}<br/>
@@ -251,7 +251,7 @@ class GalleryItem extends React.Component {
               <br/>
             </div>
             )}
-            <span key="item.input.meta.origin" style={styles.input.origin}>reuters/{item.input.meta.author}</span>
+            <span key="item.input.meta.origin" style={[styles.input.origin, {fontSize:'12px'}]}>reuters/{item.input.meta.author}</span>
 
             {this.state.hover ? (
             <div className="output-meta">
