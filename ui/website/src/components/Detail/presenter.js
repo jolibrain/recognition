@@ -21,6 +21,7 @@ import { browserHistory } from 'react-router'
 import DetailFeatures from './presenter_features'
 import BoundedImage from './BoundedImage'
 import GoogleTagManager from '../GoogleTagManager';
+import DocMeta from 'react-doc-meta';
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -75,7 +76,12 @@ class Detail extends React.Component {
     const arr = rx.exec(item.input.img);
     const itemId = arr[1];
 
+    const meta = [
+      {property: 'og:image', content: `http://recognition.tate.org.uk/img/og_image/${itemId}.jpg`}
+    ];
+
     return(<div className="container-fluid">
+      <DocMeta tags={meta} />
       <div className="row" style={styles.rowImg}>
 
         <div className="col-sm-5 col-sm-offset-1"style={[styles.leftImg]} >
