@@ -148,7 +148,8 @@ class SearchInput extends React.Component {
       autoFocus: true
     };
 
-    return <li>
+    return <div>
+      { this.props.displayIcon ? <span className='icon--i_search'/>: ''}
       <Autosuggest suggestions={suggestions}
                    shouldRenderSuggestions={this.shouldRenderSuggestions}
                    onSuggestionSelected={this.onSuggestionSelected}
@@ -157,7 +158,7 @@ class SearchInput extends React.Component {
                    renderSuggestion={this.renderSuggestion}
                    inputProps={inputProps}
       />
-    </li>
+    </div>
   }
 
 }

@@ -357,7 +357,20 @@ body.noscroll{
   padding:0;
 }
 
-.introOverlay .container-fluid>.navbar-header {
+@media only screen
+and (max-device-width : 768px) {
+  .introOverlay .container-fluid>.navbar-header {
+    padding-left:10px;
+  }
+
+  .react-autosuggest__container {
+    display: inline-block;
+    width:80%;
+  }
+
+  .react-autosuggest__input {
+    width: 100%;
+  }
 }
 
 .introOverlay .navbar-header p {
@@ -413,7 +426,7 @@ body.noscroll{
 }
 
 .react-autosuggest__input {
-  background: #000;
+  background: #0d1215;
   border-style: dotted;
   border-top: 0;
   border-left: 0;
@@ -684,6 +697,19 @@ ul.react-autosuggest__suggestions-list a:hover {
 
 .match-first-title {
   padding-bottom: 16px;
+}
+
+.header .navbar-default .navbar-toggle:focus,
+.header .navbar-default .navbar-toggle:hover {
+  background-color:#0d1215;
+}
+
+.header .navbar-default .navbar-toggle {
+  border:0;
+}
+
+.header .navbar-default .navbar-toggle .icon-bar {
+  background-color: #fff;
 }
 
 .header .navbar-right {
