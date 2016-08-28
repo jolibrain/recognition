@@ -205,7 +205,8 @@ class DNNFeatureExtractor(FeatureGenerator):
                     if self.dd_mltype == 'unsupervised':
                         nns = searcher.search_single(p['vals'],p['uri'])
                     else:
-                        nns = searcher.search_tags_single(p['classes'],p['uri'])
+                        puri = str(p['uri'])
+                        nns = searcher.search_tags_single(p['classes'],puri)
                         nns['tags_out_all'] = []
                         for nn in nns['nns_uris']:
                             nns['tags_out_all'].append(self.st[str(nn)])
