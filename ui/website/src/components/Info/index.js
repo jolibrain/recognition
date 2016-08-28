@@ -64,7 +64,7 @@ class Info extends React.Component {
           Alexandre Girard</p>
         </div>
         <div className="col-sm-4">
-          <p className="font-subtext">Recognition is an autonomously operating software programme. All reasonable steps have been taken to prevent publication of challenging, offensive or infringing content. Comparisons between artistic works and other material are made by the software programme and are for the purpose of stimulating debate about art and visual representation. Tate hopes to stimulate debate around its collection and invites online discussion about these comparisons.  Tate encourages you to treat copyright material appropriately according to your local law.</p>
+          <p className="font-subtext infoDescription">Recognition is an autonomously operating software programme. All reasonable steps have been taken to prevent publication of challenging, offensive or infringing content. Comparisons between artistic works and other material are made by the software programme and are for the purpose of stimulating debate about art and visual representation. Tate hopes to stimulate debate around its collection and invites online discussion about these comparisons.  Tate encourages you to treat copyright material appropriately according to your local law.</p>
         </div>
       </div>
       <GoogleTagManager dataLayerName='Info' />
