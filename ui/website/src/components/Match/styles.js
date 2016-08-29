@@ -14,6 +14,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 const styles = {
+  imgDescription: {
+    color: '#4a4a4a',
+    textAlign: 'right'
+    },
   matchContainer: {
     marginTop: '120px',
     height: '100vh'

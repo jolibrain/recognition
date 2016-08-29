@@ -152,7 +152,7 @@ class Match extends React.Component {
                   overHash={this.state.overLeft}
                   parent={this}
                 />
-                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</p>
               </div>
               <div className="col-sm-2">
                 <Description id={itemId}
@@ -186,7 +186,7 @@ class Match extends React.Component {
                     parent={this}
                   />
                 </div>
-                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</p>
               </div>
               <div className="col-sm-2">
                 <Description id={itemId}
@@ -227,7 +227,7 @@ class Match extends React.Component {
                   overHash={this.state.overLeft}
                   parent={this}
                 />
-                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</p>
                 <Description id={itemId}
                              descriptionIn={selectedOutput.features.in.captions.caption}
                              descriptionOut={selectedOutput.features.out.captions.caption}/>
@@ -267,7 +267,7 @@ class Match extends React.Component {
                     parent={this}
                   />
                 </div>
-                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</p>
               </div>
             </div>);
             break;
