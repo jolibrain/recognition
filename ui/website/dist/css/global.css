@@ -775,3 +775,10 @@ and (max-device-width : 768px) {
     color:#4a4a4a;
   }
 }
+
+.tagsHovered .tag {
+  color:#4a4a4a;
+}
+.tagsHovered .tag.containTag {
+  color:#0fc;
+}

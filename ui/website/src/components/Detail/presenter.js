@@ -31,9 +31,14 @@ class Detail extends React.Component {
 
   state = {
     overImg: false,
+    overTags: false,
     overLeft: {hash: []},
     overRight: {hash: []}
   };
+
+  handleOverTags(parent, over) {
+    parent.setState({overTags: over});
+  }
 
   handleLeftOverFeatures(parent, overHash) {
     parent.setState({
@@ -124,8 +129,10 @@ class Detail extends React.Component {
                           features={selectedOutput.features.in}
                           scores={selectedOutput.features.summary.scores}
                           onOver={this.handleLeftOverFeatures}
+                          onOverTags={this.handleOverTags}
                           overHash={this.state.overRight}
                           overImg={this.state.overImg}
+                          overTags={this.state.overTags}
                           parent={this}
           />
         </div>
@@ -136,8 +143,9 @@ class Detail extends React.Component {
                           features={selectedOutput.features.out}
                           scores={selectedOutput.features.summary.scores}
                           onOver={this.handleRightOverFeatures}
+                          onOverTags={this.handleOverTags}
                           overHash={this.state.overLeft}
-                          overImg={this.state.overImg}
+                          overTags={this.state.overTags}
                           parent={this}
           />
         </div>
