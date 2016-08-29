@@ -26,6 +26,8 @@ from feature_generator import FeatureGenerator
 from index_search import Indexer, Searcher
 from dd_client import DD
 
+import shelve
+
 import logging
 logging.basicConfig()
 logger = logging.getLogger(__name__)
@@ -81,7 +83,17 @@ class DNNFeatureExtractor(FeatureGenerator):
         except:
             #logger.warning('directory ' + self.index_repo + ' may alreay exist')
             pass
+        self.st = {} # shelve used for full tags storage
+        self.stm = {} # in memory tmp storage
+        if self.dd_mltype == 'supervised':
+            self.st = shelve.open(self.index_repo + '/tags.bin')
         self.delete_dd_service()
+
+    def __del__(self):
+        if self.dd_mltype == 'supervised':
+            for i,t in self.stm.iteritems():
+                self.st[i] = t
+            self.st.close()
             
     def create_dd_service(self):
         model = {'repository':self.dnnmodel.model_repo}
@@ -141,14 +153,19 @@ class DNNFeatureExtractor(FeatureGenerator):
                     logger.error('failed (index) batch prediction call to model ' + self.dnnmodel.name + ' via dd')
                     continue
                 predictions = classif['body']['predictions']
-                #print 'predictions=',predictions
-                for p in classif['body']['predictions']:
+                if self.batch_size == 1 or len(self.image_files) == 1:
+                    predictions = [predictions]
+                for p in predictions:
                     if self.dd_mltype == 'unsupervised':
                         indexer.index_single(c,p['vals'],p['uri'])
                         if c > 0 and c % self.batch_size == 0:
                             logger.info('indexed ' + str(c) + ' images')
                     else:
+                        puri = str(p['uri'])
                         indexer.index_tags_single(p['classes'],p['uri'])
+                        self.stm[puri] = []
+                        for pc in p['classes']:
+                            self.stm[puri].append(pc['cat'])
                     c = c + 1
                             
             indexer.build_index()
@@ -177,7 +194,6 @@ class DNNFeatureExtractor(FeatureGenerator):
                 if response_code != 200:
                     print 'response=',classif
                     logger.error('failed batch (search) prediction call to model ' + self.dnnmodel.name + ' via dd')
-                    #continue
                     self.delete_dd_service()
                     print classif
                     raise Exception('failed batch (search) prediction call to model ' + self.dnnmodel.name)
@@ -189,7 +205,11 @@ class DNNFeatureExtractor(FeatureGenerator):
                     if self.dd_mltype == 'unsupervised':
                         nns = searcher.search_single(p['vals'],p['uri'])
                     else:
-                        nns = searcher.search_tags_single(p['classes'],p['uri'])
+                        puri = str(p['uri'])
+                        nns = searcher.search_tags_single(p['classes'],puri)
+                        nns['tags_out_all'] = []
+                        for nn in nns['nns_uris']:
+                            nns['tags_out_all'].append(self.st[str(nn)])
                     results[p['uri']] = nns
 
         self.delete_dd_service()

@@ -123,9 +123,11 @@ class FeatureGenerator:
                 if 'tags_out' in nn:
                     if feature_name in mdataout['features']['out']:
                         mdataout['features']['out'][feature_name]['tags'] = nn['tags_out'][m]
+                        mdataout['features']['out'][feature_name]['all_tags'] = nn['tags_out_all'][m]
                 if 'tags_in' in nn:
                     if feature_name in mdataout['features']['in']:
                         mdataout['features']['in'][feature_name]['tags'] = nn['tags_in'][m]
+                        mdataout['features']['in'][feature_name]['all_tags'] = nn['tags_all_in']
                 if nuri in nn:
                     if 'dcap_in' in nn[nuri]:
                         if feature_name in mdataout['features']['in']:

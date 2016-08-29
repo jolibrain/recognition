@@ -52,7 +52,7 @@ def format_and_filter(dict_out,nmatches,smatches_file='',sort_best=False,website
                 continue
             if with_medium:
                 medium = m['meta']['medium']
-                if not medium or 'hotograph' in medium or 'lack and white' in medium or 'creenprint' in medium or 'egative' in medium:
+                if not medium or 'hotograph' in medium or 'lack and white' in medium or 'creenprint' in medium or 'egative' in medium or 'ideo ' in medium:
                     continue
             img = m['img']
             if smatches_file and img in freq_matches:
@@ -60,7 +60,8 @@ def format_and_filter(dict_out,nmatches,smatches_file='',sort_best=False,website
                 del vout[c]
                 skip = True
                 break
-            freq_matches[img] = 1
+            if c == 0:
+                freq_matches[img] = 1
             if c < lnmatches:
                 out.append(m)
                 if website and j > 0:
@@ -68,7 +69,7 @@ def format_and_filter(dict_out,nmatches,smatches_file='',sort_best=False,website
             if j == 0 and website and c < nmatches:
                 out_splash.append(m)
             c = c + 1
-        if not skip:
+        if not skip: ##TODO: we still want splash when skipping
             v['output'] = out
             json_out.append(v)
             if j == 0 and website:
