@@ -18,8 +18,8 @@ const styles = {
     border: 0,
     zIndex: 5,
     paddingTop: '17px',
-    paddingRight: '32px',
-    paddingLeft: '32px'
+    paddingRight: '17px',
+    paddingLeft: '17px'
   },
   xsBackground: {
     background: '#0d1215',
