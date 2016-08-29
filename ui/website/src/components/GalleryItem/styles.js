@@ -44,6 +44,8 @@ const styles = {
   input: {
     date: {
       color: '#fff',
+      fontFamily: 'MaisonNeue',
+      fontSize: '12px',
     },
     title: {
       color: '#fff',
@@ -55,6 +57,8 @@ const styles = {
   },
   output: {
     date: {
+      fontFamily: 'MaisonNeue',
+      fontSize: '12px',
       color: '#fff',
     },
     title: {

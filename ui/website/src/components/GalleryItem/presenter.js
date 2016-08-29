@@ -208,7 +208,7 @@ class GalleryItem extends React.Component {
 
             {this.state.hover ? (
             <div>
-              <span key="item.input.meta.date" style={[styles.input.date, styles.hover]}>
+              <span key="item.input.meta.date" style={[styles.input.date]}>
                 {moment(item.input.meta.date).format('DD/MM/YYYY')}
               </span>
               <br/>
@@ -231,7 +231,7 @@ class GalleryItem extends React.Component {
 
             {this.state.hover ? (
             <div className="output-meta">
-              <span key="selectedOutput.meta.date" style={[styles.output.date, styles.hover]}>
+              <span key="selectedOutput.meta.date" style={[styles.output.date]}>
                 {selectedOutput.meta.date}
               </span>
               <br/>
