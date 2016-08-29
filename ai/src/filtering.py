@@ -69,13 +69,13 @@ def format_and_filter(dict_out,nmatches,smatches_file='',sort_best=False,website
             if j == 0 and website and c < nmatches:
                 out_splash.append(m)
             c = c + 1
-        if not skip: ##TODO: we still want splash when skipping
+        if not skip:
             v['output'] = out
             json_out.append(v)
-            if j == 0 and website:
-                v_splash = deepcopy(v)
-                v_splash['output'] = out_splash
-                splash_out = v_splash
+        if j == 0 and website:
+            v_splash = deepcopy(v)
+            v_splash['output'] = out_splash
+            splash_out = v_splash
         j = j + 1
     if sort_best:
         json_out = sorted(json_out, key=lambda x: x['output'][0]['features']['score'],reverse=True)
