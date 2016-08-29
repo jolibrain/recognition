@@ -144,7 +144,7 @@ class Splash extends React.Component {
                   <p className="hidden-xs" style={styles.imgDescription}>
                     {selectedOutput.meta.date}<br/>
                     {selectedOutput.meta.title}<br/>
-                    {selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}
+                    <span style={{textTransform: 'uppercase'}}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</span>
                   </p>
 
                 </div>
