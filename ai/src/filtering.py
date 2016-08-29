@@ -27,6 +27,7 @@ from copy import deepcopy
 def format_and_filter(dict_out,nmatches,smatches_file='',sort_best=False,website=False,no_tga=False,with_medium=False):
     json_out = []
     splash_out = {}
+    refused = []
     lnmatches = nmatches
     if website:
         lnmatches = 1
@@ -59,6 +60,7 @@ def format_and_filter(dict_out,nmatches,smatches_file='',sort_best=False,website
                 freq_matches[img] += 1
                 del vout[c]
                 skip = True
+                out_splash.append(m)
                 break
             if c == 0:
                 freq_matches[img] = 1
@@ -66,21 +68,26 @@ def format_and_filter(dict_out,nmatches,smatches_file='',sort_best=False,website
                 out.append(m)
                 if website and j > 0:
                     break
-            if j == 0 and website and c < nmatches:
-                out_splash.append(m)
+            #if j == 0 and website and c < nmatches:
+            #    out_splash.append(m)
             c = c + 1
         if not skip:
             v['output'] = out
             json_out.append(v)
-        if j == 0 and website:
-            v_splash = deepcopy(v)
-            v_splash['output'] = out_splash
-            splash_out = v_splash
+        else:
+            vc = deepcopy(v)
+            vc['output'] = out_splash
+            refused.append(vc)
+        #if j == 0 and website:
+        #    v_splash = deepcopy(v)
+        #    v_splash['output'] = out_splash
+        #    splash_out = v_splash
         j = j + 1
+    splash_out = refused
     if sort_best:
         json_out = sorted(json_out, key=lambda x: x['output'][0]['features']['score'],reverse=True)
-    if website:
-        splash_out = [splash_out]
+    #if website:
+    #    splash_out = [splash_out]
     if smatches_file:
         smatches[nowdate] = freq_matches
         smatches.close()
