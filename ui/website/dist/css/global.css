@@ -628,6 +628,11 @@ ul.react-autosuggest__suggestions-list a:hover {
 .share-button { cursor: pointer; }
 .share-button g { fill: white; }
 
+.gallery {
+      scroll-snap-type: mandatory;
+      scroll-snap-points-x: '> .galleryItem';
+}
+
 .galleryItem .hidden-xs {
   padding: 64px 0;
 }

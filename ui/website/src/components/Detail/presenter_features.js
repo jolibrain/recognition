@@ -17,6 +17,7 @@ import React from 'react';
 import Radium from 'radium';
 import moment from 'moment';
 import styles from './styles.js';
+import unique from 'array-unique';
 
 @Radium
 class DetailFeatures extends React.Component {
@@ -64,6 +65,9 @@ class DetailFeatures extends React.Component {
     if(features.categories_2) all_tags = all_tags.concat(features.categories_2.all_tags);
     if(features.categories_3) all_tags = all_tags.concat(features.categories_3.all_tags);
     if(features.mapi_cats)    all_tags = all_tags.concat(features.mapi_cats.all_tags);
+
+    unique(tags);
+    unique(all_tags);
 
     let hovered = this.state.tags || this.state.places || this.props.overTags;
     let objHovered = hovered ? 'context' : '';
