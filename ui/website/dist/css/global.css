@@ -727,7 +727,7 @@ ul.react-autosuggest__suggestions-list a:hover {
 
 .infoPage .infoDescription {
   color: #4a4a4a;
-  text-transform: none;
+  text-transform: uppercase;
 }
 
 .mainFooter {
