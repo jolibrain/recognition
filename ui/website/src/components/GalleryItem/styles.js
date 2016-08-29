@@ -19,15 +19,13 @@ const styles = {
   },
   row: {
     borderBottom: '1px dotted #4a4a4a',
-    padding: '20px 0',
+    padding: '64px 0',
     cursor: 'pointer'
   },
   fullHeight: {
     row: {
-      height: "100vh",
     },
     col: {
-      height: "100%",
       textAlign:"center",
       position: 'relative'
     },

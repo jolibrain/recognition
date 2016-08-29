@@ -113,7 +113,7 @@ class Splash extends React.Component {
                   <p className="hidden-xs" style={styles.imgDescription}>
                     {moment(match.input.meta.date).format('DD/MM/YYYY HH:mm')}<br/>
                     {match.input.meta.caption}<br/>
-                    {match.input.meta.origin}
+                    <span style={{textTransform: 'uppercase'}}>reuters/{match.input.meta.author}</span>
                   </p>
 
                 </div>
@@ -144,7 +144,7 @@ class Splash extends React.Component {
                   <p className="hidden-xs" style={styles.imgDescription}>
                     {selectedOutput.meta.date}<br/>
                     {selectedOutput.meta.title}<br/>
-                    {selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}
+                    <span style={{textTransform: 'uppercase'}}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</span>
                   </p>
 
                 </div>

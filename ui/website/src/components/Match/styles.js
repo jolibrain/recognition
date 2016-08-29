@@ -15,9 +15,10 @@ limitations under the License.
 */
 const styles = {
   imgDescription: {
+    textTransform: 'uppercase',
     color: '#4a4a4a',
-    textAlign: 'right'
-    },
+    textAlign: 'right',
+  },
   matchContainer: {
     marginTop: '120px',
     height: '100vh'

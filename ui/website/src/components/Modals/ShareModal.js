@@ -50,7 +50,7 @@ class ShareModal extends React.Component {
       fontFamily: 'TateNewPro',
       fontSize: '13px',
       letterSpacing: '1.5px',
-      padding: '4px 4px 3px 4px',
+      padding: '4px 6px 5px 6px',
       border: '1px solid',
       textDecoration: 'none',
       cursor: 'pointer',
@@ -106,7 +106,7 @@ class ShareModal extends React.Component {
          onClick={() => {
           this.setState({ showModal: true });
         }}>
-        <img src='/img/icons/share.png'/> Share
+        <img style={{paddingBottom: '3px'}} src='/img/icons/share.png'/> Share
       </a>
 
       <Modal

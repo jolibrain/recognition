@@ -145,25 +145,10 @@ class DetailFeatures extends React.Component {
     return(<div className={hovered ? 'font-data detailFeatures detailHovered' : 'font-data detailFeatures'}
       style={[styles.detailColumn, hovered ? styles.columnHovered : '']}>
       <div className="table-responsive" style={[styles.tableOverflow, styles.categoryBottom]}>
-        <table className="table borderless">
-          <tbody>
-            <tr>
-              <td colSpan="2">{date}</td>
-            </tr>
-            <tr>
-              <td colSpan="2">{title}</td>
-            </tr>
-            { typeof author != 'undefined' && author.length > 0 ?
-            (<tr>
-              <td>AUTHOR:</td>
-              <td>{author}</td>
-            </tr>) : '' }
-            <tr>
-              <td>SOURCE:</td>
-              <td>{this.props.source}</td>
-            </tr>
-          </tbody>
-        </table>
+        <p>{date}<br/>
+        {title}<br/>
+        { typeof author != 'undefined' && author.length > 0 ? (<span>AUTHOR: {author}<br/></span>) : ''}
+        SOURCE: {this.props.source}</p>
       </div>
 
       <h3 className={objHovered == 'objects' ? 'hovered' : ''}>
@@ -294,13 +279,10 @@ class DetailFeatures extends React.Component {
           }}
           >
             <h4 className={duplicates ? 'selected': 'notSelected'}>SUBJECT {index + 1}</h4>
-            <table className="table borderless" style={[rowStyle, {width:'70%'}]} key={'mapiTable' + index}>
-              <tbody>
-                <tr><td>AGE:</td><td>{age}</td></tr>
-                <tr><td>GENDER:</td><td>{features.mapi.genders[index]}</td></tr>
-                {Object.keys(features.mapi.emotions[index]).length != 0 ? (<tr key={'emotion' + index}><td>EMOTION:</td><td></td></tr>) : <tr></tr>}
-              </tbody>
-            </table>
+            <p>AGE: {age}<br/>
+            GENDER: {features.mapi.genders[index]}<br/>
+            {Object.keys(features.mapi.emotions[index]).length != 0 ? (<span>EMOTION: {Object.keys(features.mapi.emotions[index])[0]}</span>) : ''}
+            </p>
           </div>);
         })
       }
