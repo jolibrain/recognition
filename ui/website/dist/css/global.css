@@ -727,7 +727,7 @@ ul.react-autosuggest__suggestions-list a:hover {
 
 .infoPage .infoDescription {
   color: #4a4a4a;
-  text-transform: none;
+  text-transform: uppercase;
 }
 
 .mainFooter {
@@ -774,4 +774,11 @@ and (max-device-width : 768px) {
   .responsiveImage .info {
     color:#4a4a4a;
   }
+}
+
+.tagsHovered .tag {
+  color:#4a4a4a;
+}
+.tagsHovered .tag.containTag {
+  color:#0fc;
 }

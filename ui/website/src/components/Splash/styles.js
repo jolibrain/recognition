@@ -75,8 +75,10 @@ const styles = {
   imgDescription: {
     textAlign: 'left',
     color: '#4a4a4a',
-    fontWeight: 'bold',
-    marginTop: '20px'
+    letterSpacing: '1.5px',
+    fontSize: '13px',
+    fontFamily: 'TateNewPro',
+    fontWeight: 'normal'
   },
   footer: {
     zIndex: 1000,

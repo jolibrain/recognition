@@ -133,7 +133,7 @@ class GalleryItem extends React.Component {
           </div>
           <div className="row">
             <div className="col-xs-12">
-              <p>{selectedOutput.meta.date} <span className="itemSource">&#169; TATE</span><br/><em>{selectedOutput.meta.title}</em> by {selectedOutput.meta.author}</p>
+              <p>{selectedOutput.meta.date} <span className="itemSource">{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</span><br/><em>{selectedOutput.meta.title}</em> by {selectedOutput.meta.author}</p>
             </div>
           </div>
           <div className="row">
@@ -208,7 +208,7 @@ class GalleryItem extends React.Component {
 
             {this.state.hover ? (
             <div>
-              <span key="item.input.meta.date" style={[styles.input.date, styles.hover]}>
+              <span key="item.input.meta.date" style={[styles.input.date]}>
                 {moment(item.input.meta.date).format('DD/MM/YYYY')}
               </span>
               <br/>
@@ -231,7 +231,7 @@ class GalleryItem extends React.Component {
 
             {this.state.hover ? (
             <div className="output-meta">
-              <span key="selectedOutput.meta.date" style={[styles.output.date, styles.hover]}>
+              <span key="selectedOutput.meta.date" style={[styles.output.date]}>
                 {selectedOutput.meta.date}
               </span>
               <br/>
@@ -258,7 +258,7 @@ class GalleryItem extends React.Component {
               <br/>
             </div>
             )}
-            <span style={styles.output.origin}>{selectedOutput.meta.origin}</span>
+            <span style={[{fontSize:'12px', fontFamily: 'MaisonNeue'}]} className="itemSource">{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</span>
 
         </div>
 

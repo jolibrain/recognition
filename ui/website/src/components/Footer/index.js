@@ -30,8 +30,12 @@ class Footer extends React.Component {
     };
 
     const footerLink = {
-      color: '#aaa',
-      marginRight: '10px',
+      fontFamily: 'TateNewPro',
+      fontSize: '13px',
+      letterSpacing: '1.5px',
+      fontWeight: 'normal',
+      color: '#4a4a4a',
+      marginRight: '32px',
       textTransform: 'uppercase',
       textDecoration: 'none',
       ':hover': {

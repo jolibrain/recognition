@@ -31,9 +31,14 @@ class Detail extends React.Component {
 
   state = {
     overImg: false,
+    overTags: false,
     overLeft: {hash: []},
     overRight: {hash: []}
   };
+
+  handleOverTags(parent, over) {
+    parent.setState({overTags: over});
+  }
 
   handleLeftOverFeatures(parent, overHash) {
     parent.setState({
@@ -77,6 +82,19 @@ class Detail extends React.Component {
     const itemId = arr[1];
 
     const meta = [
+      {name:"twitter:card", content:"summary_large_image"},
+      {name:"twitter:url", content:"http://recognition.tate.org.uk/"},
+      {name:"twitter:title", content:"Recognition"},
+      {name:"twitter:description", content:"Recognition is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection"},
+      {name:"twitter:site", content:"@Tate"},
+      {name:"twitter:domain", content:"recognition.tate.org.uk"},
+      {property:"og:site_name", content:"Recognition"},
+      {name:"twitter:image:src", content:"http://recognition.tate.org.uk/img/default_logo.jpg"},
+      {name:"twitter:image:width", content:"1200"},
+      {name:"twitter:image:height", content:"628"},
+      {property:"og:url", content:"http://recognition.tate.org.uk/"},
+      {property:"og:title", content:"Recognition"},
+      {property:"og:description", content:"Recognition is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection"},
       {property: 'og:image', content: `http://recognition.tate.org.uk/img/og_image/${itemId}.jpg`}
     ];
 
@@ -111,8 +129,10 @@ class Detail extends React.Component {
                           features={selectedOutput.features.in}
                           scores={selectedOutput.features.summary.scores}
                           onOver={this.handleLeftOverFeatures}
+                          onOverTags={this.handleOverTags}
                           overHash={this.state.overRight}
                           overImg={this.state.overImg}
+                          overTags={this.state.overTags}
                           parent={this}
           />
         </div>
@@ -123,8 +143,9 @@ class Detail extends React.Component {
                           features={selectedOutput.features.out}
                           scores={selectedOutput.features.summary.scores}
                           onOver={this.handleRightOverFeatures}
+                          onOverTags={this.handleOverTags}
                           overHash={this.state.overLeft}
-                          overImg={this.state.overImg}
+                          overTags={this.state.overTags}
                           parent={this}
           />
         </div>

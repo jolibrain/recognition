@@ -57,8 +57,20 @@ class DetailFeatures extends React.Component {
     if(features.categories_3) tags = tags.concat(features.categories_3.tags);
     if(features.mapi_cats)    tags = tags.concat(features.mapi_cats.tags);
 
-    let hovered = this.state.tags || this.state.places;
+    let all_tags = [];
+    if(features.mapi_tags)    all_tags = all_tags.concat(features.mapi_tags.all_tags);
+    if(features.places)       all_tags = all_tags.concat(features.places.all_tags);
+    if(features.categories_1) all_tags = all_tags.concat(features.categories_1.all_tags);
+    if(features.categories_2) all_tags = all_tags.concat(features.categories_2.all_tags);
+    if(features.categories_3) all_tags = all_tags.concat(features.categories_3.all_tags);
+    if(features.mapi_cats)    all_tags = all_tags.concat(features.mapi_cats.all_tags);
+
+    let hovered = this.state.tags || this.state.places || this.props.overTags;
     let objHovered = hovered ? 'context' : '';
+
+    if(this.props.overTags) {
+      objHovered = 'context';
+    }
 
     hovered = hovered || this.props.overImg;
 
@@ -278,7 +290,7 @@ class DetailFeatures extends React.Component {
           }}
           >
             <h4 className={duplicates ? 'selected': 'notSelected'}>SUBJECT {index + 1}</h4>
-            <table className="table borderless" style={rowStyle} key={'mapiTable' + index}>
+            <table className="table borderless" style={[rowStyle, {width:'70%'}]} key={'mapiTable' + index}>
               <tbody>
                 <tr><td>AGE:</td><td>{age}</td></tr>
                 <tr><td>GENDER:</td><td>{features.mapi.genders[index]}</td></tr>
@@ -299,7 +311,27 @@ class DetailFeatures extends React.Component {
         <img src={this.getIconUrl('context', hovered, objHovered)}/> CONTEXT {(scores.context * 100).toFixed(2)}%
       </h3>
       {
-        tags.length > 0 ? (<div key={'tagsDiv'} style={[styles.rowHover, this.state.tags ? styles.rowHovered: '']}><h4 key={'tagsTitle'} style={[styles.tagsHover, this.state.tags ? styles.rowHovered: '']}>TAGS</h4><p onMouseOver={() => {this.setState({tags: true})}} onMouseOut={() => {this.setState({tags: false})}}>{tags.join(', ')}</p></div>) : ''
+        all_tags.length > 0 ? (
+        <div key={'tagsDiv'} style={[styles.rowHover, this.state.tags || this.props.overTags ? styles.rowHovered: '']}>
+          <h4 key={'tagsTitle'} style={[styles.tagsHover, this.state.tags || this.props.overTags ? styles.rowHovered: '']} onMouseOver={() => {
+            this.setState({tags: true});
+            this.props.onOverTags(this.props.parent, true);
+          }} onMouseOut={() => {
+            this.setState({tags: false});
+            this.props.onOverTags(this.props.parent, false);
+          }}>TAGS</h4>
+          <p onMouseOver={() => {
+            this.setState({tags: true});
+            this.props.onOverTags(this.props.parent, true);
+          }} onMouseOut={() => {
+            this.setState({tags: false});
+            this.props.onOverTags(this.props.parent, false);
+          }} className={this.state.tags || this.props.overTags ? 'tagsHovered' : ''}>
+            {all_tags.map(tag => {
+              return (<span className={tags.indexOf(tag) != -1 ? 'tag containTag' : 'tag'}>{tag}, </span>);
+            })}
+          </p>
+        </div>) : ''
       }
 
       { (typeof features.places != 'undefined' && features.places.length > 0) ? (<div key={'placesDiv'} style={[styles.rowHover, this.state.places ? styles.placesHovered: '']}><h4 key={'placesTitle'} style={[styles.rowHover, this.state.places ? styles.rowHovered: '']}>PLACES</h4><p onMouseOver={() => {this.setState({places: true})}} onMouseOut={() => {this.setState({places: false})}}>{tags.join(', ')}>{features.places.tags.join(', ')}</p></div>) : ''}

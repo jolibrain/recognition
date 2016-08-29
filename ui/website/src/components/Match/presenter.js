@@ -109,6 +109,19 @@ class Match extends React.Component {
     const followingMatches = this.renderItems();
 
     const meta = [
+      {name:"twitter:card", content:"summary_large_image"},
+      {name:"twitter:url", content:"http://recognition.tate.org.uk/"},
+      {name:"twitter:title", content:"Recognition"},
+      {name:"twitter:description", content:"Recognition is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection"},
+      {name:"twitter:site", content:"@Tate"},
+      {name:"twitter:domain", content:"recognition.tate.org.uk"},
+      {property:"og:site_name", content:"Recognition"},
+      {name:"twitter:image:src", content:"http://recognition.tate.org.uk/img/default_logo.jpg"},
+      {name:"twitter:image:width", content:"1200"},
+      {name:"twitter:image:height", content:"628"},
+      {property:"og:url", content:"http://recognition.tate.org.uk/"},
+      {property:"og:title", content:"Recognition"},
+      {property:"og:description", content:"Recognition is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection"},
       {property: 'og:image', content: `http://recognition.tate.org.uk/img/og_image/${itemId}.jpg`}
     ];
 
@@ -139,7 +152,7 @@ class Match extends React.Component {
                   overHash={this.state.overLeft}
                   parent={this}
                 />
-                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</p>
               </div>
               <div className="col-sm-2">
                 <Description id={itemId}
@@ -173,7 +186,7 @@ class Match extends React.Component {
                     parent={this}
                   />
                 </div>
-                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</p>
               </div>
               <div className="col-sm-2">
                 <Description id={itemId}
@@ -214,7 +227,7 @@ class Match extends React.Component {
                   overHash={this.state.overLeft}
                   parent={this}
                 />
-                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</p>
                 <Description id={itemId}
                              descriptionIn={selectedOutput.features.in.captions.caption}
                              descriptionOut={selectedOutput.features.out.captions.caption}/>
@@ -254,7 +267,7 @@ class Match extends React.Component {
                     parent={this}
                   />
                 </div>
-                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</p>
               </div>
             </div>);
             break;
