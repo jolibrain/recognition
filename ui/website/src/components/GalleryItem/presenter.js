@@ -171,23 +171,25 @@ class GalleryItem extends React.Component {
 
         <div className="col-sm-9">
 
-          <div className="container-fluid" style={[styles.fullHeight]}>
-            <div className="row" style={styles.fullHeight.row}>
-              <div className="col-sm-6" style={styles.fullHeight.col}>
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-sm-6">
                 <img
+                  className="img-responsive"
                   src={item.input.img}
-                  style={[styles.fullHeight.img, this.getImagePadding('input', inputOrientation, outputOrientation)]}
+                  style={[this.getImagePadding('input', inputOrientation, outputOrientation)]}
                   srcSet={item.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + item.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w, " + item.input.img.replace('reuters/', 'reuters/responsive_757/').replace("_2_", "_3_") + " 757w, " + item.input.img.replace('reuters/', 'reuters/responsive_1920/').replace("_2_", "_3_") + " 1920w"}
                   sizes="(min-width: 40em) 80vw, 100vw"
                 />
               </div>
-              <div className="col-sm-6" style={styles.fullHeight.col} ref="column">
+              <div className="col-sm-6" ref="column">
                 <img
                   ref='tateImg'
+                  className="img-responsive"
                   onLoad={() => {
                     this.setState({hvBottom: this.refs.column.clientHeight - this.refs.tateImg.clientHeight + 64});
                   }}
-                  style={[styles.fullHeight.img, this.getImagePadding('output', inputOrientation, outputOrientation)]}
+                  style={[this.getImagePadding('output', inputOrientation, outputOrientation)]}
                   srcSet={selectedOutput.img.replace('tate/', 'tate/responsive_375/') + " 375w, " + selectedOutput.img.replace('tate/', 'tate/responsive_480/') + " 480w, " + selectedOutput.img.replace('tate/', 'tate/responsive_757/') + " 757w"}
                   sizes="(min-width: 40em) 80vw, 100vw"
                 />
