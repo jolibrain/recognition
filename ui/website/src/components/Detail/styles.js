@@ -90,7 +90,15 @@ const styles = {
     display: 'inline-block',
     paddingBottom: '64px',
     textTransform: 'uppercase',
-    pointerEvents: 'all'
+    pointerEvents: 'all',
+    fontFamily: 'TateNewPro',
+    fontSize: '13px',
+    letterSpacing: '1.5px',
+    fontWeight: 'normal',
+    ':hover': {
+      color: '#0FC',
+      textDecoration: 'none'
+    }
   },
   leftImg: {
     marginTop: '20px',

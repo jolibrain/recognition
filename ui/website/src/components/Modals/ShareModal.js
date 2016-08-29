@@ -46,7 +46,10 @@ class ShareModal extends React.Component {
     const linkStyle = {
       color: 'rgb(255, 255, 255)',
       textTransform: 'uppercase',
-      fontWeight: 'bold',
+      fontWeight: 'normal',
+      fontFamily: 'TateNewPro',
+      fontSize: '13px',
+      letterSpacing: '1.5px',
       padding: '4px 4px 3px 4px',
       border: '1px solid',
       textDecoration: 'none',
