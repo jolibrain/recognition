@@ -53,8 +53,8 @@ check filesystem rootfs with path /dev/md2
 
 check system recog_web
   if memory > 85% 2 times within 3 cycles then alert
-  if cpu(user) > 75% for 2 cycles then alert
-  if cpu(system) > 65% for 2 cycles then alert
+  if cpu(user) > 95% for 5 cycles then alert
+  if cpu(system) > 85% for 5 cycles then alert
 ```
 
 # Restart monit
