@@ -172,8 +172,8 @@ class GalleryItem extends React.Component {
         <div className="col-sm-9">
 
           <div className="container-fluid">
-            <div className="row">
-              <div className="col-sm-6">
+            <div className="row" style={styles.fullHeight.row}>
+              <div className="col-sm-6" style={styles.fullHeight.col}>
                 <img
                   className="img-responsive"
                   src={item.input.img}
@@ -182,7 +182,7 @@ class GalleryItem extends React.Component {
                   sizes="(min-width: 40em) 80vw, 100vw"
                 />
               </div>
-              <div className="col-sm-6" ref="column">
+              <div className="col-sm-6" style={styles.fullHeight.col} ref="column">
                 <img
                   ref='tateImg'
                   className="img-responsive"
