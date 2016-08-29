@@ -227,7 +227,7 @@ class GalleryItem extends React.Component {
               <br/>
             </div>
             )}
-            <span key="item.input.meta.origin" style={[styles.input.origin, {fontSize:'12px', fontFamily: 'MaisonNeue'}]}>reuters/{item.input.meta.author}</span>
+            <span key="item.input.meta.origin" style={[styles.input.origin, {fontSize:'12px', fontFamily: 'MaisonNeue', textTransform: 'uppercase'}]}>reuters/{item.input.meta.author}</span>
 
             {this.state.hover ? (
             <div className="output-meta">

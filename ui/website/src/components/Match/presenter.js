@@ -141,7 +141,7 @@ class Match extends React.Component {
                   overHash={this.state.overRight}
                   parent={this}
                 />
-                <p className="font-subtext" style={styles.imgDescription}>{item.input.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>reuters/{item.input.meta.author}</p>
               </div>
               <div className="col-sm-5">
                 <BoundedImage
@@ -172,7 +172,7 @@ class Match extends React.Component {
                   overHash={this.state.overRight}
                   parent={this}
                 />
-                <p className="font-subtext" style={styles.imgDescription}>{item.input.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>reuters/{item.input.meta.author}</p>
                 <Titles input={item.input} output={selectedOutput}/>
               </div>
               <div className="col-sm-5">
@@ -216,7 +216,7 @@ class Match extends React.Component {
                     parent={this}
                   />
                 </div>
-                <p className="font-subtext" style={styles.imgDescription}>{item.input.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>reuters/{item.input.meta.author}</p>
               </div>
               <div className="col-sm-5">
                 <BoundedImage
@@ -254,7 +254,7 @@ class Match extends React.Component {
                     parent={this}
                   />
                 </div>
-                <p className="font-subtext" style={styles.imgDescription}>{item.input.meta.origin}</p>
+                <p className="font-subtext" style={styles.imgDescription}>reuters/{item.input.meta.author}</p>
               </div>
               <div className="col-sm-5">
                 <div className="text-center">
