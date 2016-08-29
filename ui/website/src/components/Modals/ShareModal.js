@@ -96,7 +96,7 @@ class ShareModal extends React.Component {
     };
 
     const url = encodeURI(this.props.url || "http://recognition.tate.org.uk");
-    const text = encodeURI(this.props.text || "RECOGNITION");
+    const text = encodeURI(this.props.text || "#recognition #ikprize");
 
     return (<div className="shareModal">
       <a style={linkStyle}
