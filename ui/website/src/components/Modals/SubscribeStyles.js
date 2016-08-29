@@ -42,7 +42,8 @@ const styles = {
   link: {
     color: 'rgb(255, 255, 255)',
     textTransform: 'uppercase',
-    fontWeight: 'bold',
+    fontWeight: 'normal',
+    letterSpacing: '1.5px',
     textDecoration: 'none',
     cursor: 'pointer',
     ':hover': {

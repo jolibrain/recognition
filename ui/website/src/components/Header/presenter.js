@@ -52,7 +52,7 @@ class Header extends React.Component {
             <ul className="nav navbar-nav navbar-right">
               <li className={this.props.path == '/gallery' ? 'menuSelected' : ''}><Link style={[styles.menuItem]} to='/gallery'>Gallery</Link></li>
               <li className={this.props.path == '/info' ? 'menuSelected' : ''}><Link style={[styles.menuItem]} to='/info'>Info</Link></li>
-              <li style={{marginTop:'15px', marginLeft: '20px'}}><SubscribeModal/></li>
+              <li style={{marginTop:'16px', marginLeft: '32px'}}><SubscribeModal/></li>
               <li><span key="search-not-xs" style={searchStyles} className='icon--i_search' onClick={() => {
                 this.setState({displaySearch: !this.state.displaySearch})
               }}/></li>

@@ -45,8 +45,9 @@ const styles = {
   menuItem: {
     color: "#FFF",
     textTransform: 'uppercase',
-    fontWeight: 'bold',
-    marginLeft: '20px',
+    fontWeight: 'normal',
+    marginLeft: '32px',
+    letterSpacing: '1.5px',
     ':hover': {
       color: '#0FC'
     }
