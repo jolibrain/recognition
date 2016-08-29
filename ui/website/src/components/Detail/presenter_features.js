@@ -278,7 +278,7 @@ class DetailFeatures extends React.Component {
           }}
           >
             <h4 className={duplicates ? 'selected': 'notSelected'}>SUBJECT {index + 1}</h4>
-            <table className="table borderless" style={rowStyle} key={'mapiTable' + index}>
+            <table className="table borderless" style={[rowStyle, {width:'70%'}]} key={'mapiTable' + index}>
               <tbody>
                 <tr><td>AGE:</td><td>{age}</td></tr>
                 <tr><td>GENDER:</td><td>{features.mapi.genders[index]}</td></tr>
