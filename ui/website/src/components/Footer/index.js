@@ -50,9 +50,9 @@ class Footer extends React.Component {
     return (<footer className="footer mainFooter">
       <div className="fluid-container" style={footerContainer}>
         <p className="text-muted">
-          <a style={footerLink} href="http://www.tate.org.uk/about/who-we-are/policies-and-procedures/website-terms-use" target="_blank">Terms</a>
-          <a style={footerLink} href="http://www.tate.org.uk/about/who-we-are/policies-and-procedures/website-terms-use/privacy-and-use-cookies" target="_blank">Privacy & Cookies</a>
-          <a style={footerLink} href="http://www.tate.org.uk/about/contact-us" target="_blank">Contact</a>
+          <a style={footerLink} href="http://www.tate.org.uk/about/who-we-are/policies-and-procedures/website-terms-use" target="_blank" rel="noopener noreferrer">Terms</a>
+          <a style={footerLink} href="http://www.tate.org.uk/about/who-we-are/policies-and-procedures/website-terms-use/privacy-and-use-cookies" target="_blank" rel="noopener noreferrer">Privacy & Cookies</a>
+          <a style={footerLink} href="http://www.tate.org.uk/about/contact-us" target="_blank" rel="noopener noreferrer">Contact</a>
         </p>
       </div>
     </footer>);

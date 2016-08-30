@@ -51,6 +51,7 @@ class Header extends React.Component {
           <div>
             <ul className="nav navbar-nav navbar-right">
               <li className={this.props.path == '/gallery' ? 'menuSelected' : ''}><Link style={[styles.menuItem]} to='/gallery'>Gallery</Link></li>
+              <li><a key="tate-link-header" href="http://www.tate.org.uk/recognition" style={[styles.menuItem]} target="_blank" rel="noopener noreferrer">AT TATE BRITAIN</a></li>
               <li className={this.props.path == '/info' ? 'menuSelected' : ''}><Link style={[styles.menuItem]} to='/info'>Info</Link></li>
               <li style={{marginTop:'16px', marginLeft: '32px'}}><SubscribeModal/></li>
               <li><span key="search-not-xs" style={searchStyles} className='icon--i_search' onClick={() => {
@@ -91,6 +92,9 @@ class Header extends React.Component {
               </div>
               <div className="col-xs-3">
                 <span className={this.props.path == '/info' ? 'menuSelected' : ''}><Link style={[styles.menuItemXs]} to='/info' onClick={() => this.setState({displayMenu: false})}>Info</Link></span>
+              </div>
+              <div className="col-xs-3">
+                <a key="tate-link-header-xs" href="http://www.tate.org.uk/recognition" style={[styles.menuItem]} target="_blank" rel="noopener noreferrer">AT TATE BRITAIN</a>
               </div>
               <div className="col-xs-3">
                 <SubscribeModal/>

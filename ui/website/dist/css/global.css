@@ -721,8 +721,21 @@ ul.react-autosuggest__suggestions-list a:hover {
   margin-top:120px;
 }
 
+.infoPage hr {
+  border-top-style: dashed;
+}
+
+.infoPage a {
+  color:#AAA;
+  text-decoration: none;
+}
+
 .infoPage .logoRow {
   color: #4a4a4a;
+}
+
+.infoPage .infoTitle p {
+  text-transform: none;
 }
 
 .infoPage .infoDescription {

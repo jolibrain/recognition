@@ -24,8 +24,10 @@ const styles = {
   },
   fullHeight: {
     row: {
+      height: "100vh",
     },
     col: {
+      height: "100%",
       textAlign:"center",
       position: 'relative'
     },
