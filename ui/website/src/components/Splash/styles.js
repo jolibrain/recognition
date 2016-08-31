@@ -78,7 +78,9 @@ const styles = {
     letterSpacing: '1.5px',
     fontSize: '13px',
     fontFamily: 'TateNewPro',
-    fontWeight: 'normal'
+    fontWeight: 'normal',
+    textTransform: 'uppercase',
+    paddingTop: '8px'
   },
   footer: {
     zIndex: 1000,

@@ -133,7 +133,7 @@ class Match extends React.Component {
           case "horizontal":
             orientedComponent = (<div className="row">
               <div className="col-sm-5 horizontal">
-                <a className="font-data backGallery" style={{paddingLeft:'32px'}} onClick={browserHistory.goBack}><span className='icon--i_arrow-left'/> Back to gallery</a>
+                <a className="font-data backGallery" style={{paddingLeft:'32px'}} onClick={browserHistory.push('/gallery/' + itemId)}><span className='icon--i_arrow-left'/> Back to gallery</a>
                 <Titles input={item.input} output={selectedOutput}/>
                 <BoundedImage
                   item={item.input}
@@ -166,7 +166,7 @@ class Match extends React.Component {
           case "vertical":
             orientedComponent = (<div className="row">
               <div className="col-sm-5 horizontal">
-                <a className="font-data backGallery" style={{paddingLeft:'32px'}} onClick={browserHistory.goBack}><span className='icon--i_arrow-left'/> Back to gallery</a>
+                <a className="font-data backGallery" style={{paddingLeft:'32px'}} onClick={browserHistory.push('/gallery/' + itemId)}><span className='icon--i_arrow-left'/> Back to gallery</a>
                 <BoundedImage
                   item={item.input}
                   itemId={itemId}
@@ -206,7 +206,7 @@ class Match extends React.Component {
           case "horizontal":
             orientedComponent = (<div className="row">
               <div className="col-sm-2">
-                <a className="font-data backGallery" onClick={browserHistory.goBack}><span className='icon--i_arrow-left'/> Back to gallery</a>
+                <a className="font-data backGallery" onClick={browserHistory.push('/gallery/' + itemId)}><span className='icon--i_arrow-left'/> Back to gallery</a>
                 <Titles input={item.input} output={selectedOutput}/>
               </div>
               <div className="col-sm-5">
@@ -241,7 +241,7 @@ class Match extends React.Component {
           case "vertical":
             orientedComponent = (<div className="row">
               <div className="col-sm-2">
-                <a className="font-data backGallery" onClick={browserHistory.goBack}><span className='icon--i_arrow-left'/> Back to gallery</a>
+                <a className="font-data backGallery" onClick={browserHistory.push('/gallery/' + itemId)}><span className='icon--i_arrow-left'/> Back to gallery</a>
                 <Titles input={item.input} output={selectedOutput}/>
                 <div style={{height: '16px'}}>&nbsp;</div>
                 <Description id={itemId}
@@ -284,19 +284,6 @@ class Match extends React.Component {
       <div className="container-fluid" style={styles.matchContainer}>
         {orientedComponent}
       </div>
-      { this.props.followingMatches ?
-        (<div>
-          <DocMeta tags={meta} />
-          <InfiniteScroll
-            pageStart={0}
-            loadMore={this.loadItems}
-            hasMore={this.state.hasMoreItems}
-            loader={loader}>
-            {followingMatches}
-          </InfiniteScroll>
-          <GoogleTagManager dataLayerName={'Match_' + itemId} />
-        </div>) : ''
-      }
     </div>);
   }
 }
