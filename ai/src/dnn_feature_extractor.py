@@ -57,7 +57,7 @@ class DNNModel:
 class DNNFeatureExtractor(FeatureGenerator):
 
     def __init__(self,dnnmodel,image_files,index_repo,
-                 batch_size=32,dd_host='localhost',dd_port=8080,dd_description='image classification',meta_in='',meta_out='',captions_in='',captions_out=''):
+                 batch_size=32,dd_host='localhost',dd_port=8080,dd_description='image classification',meta_in='',meta_out='',captions_in='',captions_out='',mapi_in='',mapi_out=''):
         self.dd_host = dd_host
         self.dd_port = dd_port
         self.dd_description = dd_description
@@ -66,6 +66,8 @@ class DNNFeatureExtractor(FeatureGenerator):
         self.meta_out = meta_out
         self.captions_in = captions_in
         self.captions_out = captions_out
+        self.mapi_in = mapi_in
+        self.mapi_out = mapi_out
         self.gpuid = 0
         self.dnnmodel = dnnmodel
         if self.dnnmodel.extract_layer:
@@ -213,4 +215,4 @@ class DNNFeatureExtractor(FeatureGenerator):
                     results[p['uri']] = nns
 
         self.delete_dd_service()
-        return self.to_json(results,'/img/reuters/','/img/tate/',self.dnnmodel.name,self.dnnmodel.description,jdataout,self.meta_in,self.meta_out,self.captions_in,self.captions_out)
+        return self.to_json(results,'/img/reuters/','/img/tate/',self.dnnmodel.name,self.dnnmodel.description,jdataout,self.meta_in,self.meta_out,self.captions_in,self.captions_out,self.mapi_in,self.mapi_out)

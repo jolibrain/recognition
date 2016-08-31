@@ -219,49 +219,60 @@ class MAPIGenerator(FeatureGenerator):
                 
         # - tags
         #print 'indexing mapi tags...'
-        with Indexer(dim=1,repository=self.index_repo,db_name='tags.bin') as indexer:
-            for t,v in self.mapi_tags.iteritems():
-                indexer.index_tags_single(v,t)
-                self.stm[t] = []
-                for tc in v:
-                    self.stm[t].append(tc['cat'])
+        if self.tate:
+            with Indexer(dim=1,repository=self.index_repo,db_name='tags.bin') as indexer:
+                for t,v in self.mapi_tags.iteritems():
+                    indexer.index_tags_single(v,t)
+                    self.stm[t] = []
+                    for tc in v:
+                        self.stm[t].append(tc['cat'])
 
         # - categories
         #print 'indexing mapi categories...'
-        with Indexer(dim=1,repository=self.index_repo,db_name='cats.bin') as indexer:
-            for t,v in self.mapi_categories.iteritems():
-                indexer.index_tags_single(v,t)
-                self.scm[t] = []
-                for tc in v:
-                    self.scm[t].append(tc['cat'])
+        if self.tate:
+            with Indexer(dim=1,repository=self.index_repo,db_name='cats.bin') as indexer:
+                for t,v in self.mapi_categories.iteritems():
+                    indexer.index_tags_single(v,t)
+                    self.scm[t] = []
+                    for tc in v:
+                        self.scm[t].append(tc['cat'])
 
         # - number of people and gender
         # as a vector [npeople, males, females]
-        with Indexer(dim=11,repository=self.index_repo,index_name='people.ann',db_name='people.bin') as indexer:
-            c = 0
-            #print 'indexing', len(self.mapi_people),'people'
-            for t,v in self.mapi_people.iteritems():
-                if len(v) < 11:
-                    v = v + [0.0]*len(self.emotions) # if no emotion detected
-                indexer.index_single(c,v,t)
-                c = c + 1
-            indexer.build_index()
-            indexer.save_index()
+        if self.tate:
+            with Indexer(dim=11,repository=self.index_repo,index_name='people.ann',db_name='people.bin') as indexer:
+                c = 0
+                #print 'indexing', len(self.mapi_people),'people'
+                for t,v in self.mapi_people.iteritems():
+                    if len(v) < 11:
+                        v = v + [0.0]*len(self.emotions) # if no emotion detected
+                    indexer.index_single(c,v,t)
+                    c = c + 1
+                indexer.build_index()
+                indexer.save_index()
 
         # - vector for age + gender + emotion + save boxes
         #print 'indexing mapi age, gender, emotion and boxes...'
-        c = 0
-        with Indexer(dim=10,repository=self.index_repo) as indexer:
-            ldb = shelve.open(self.index_repo + '/ldata.bin')
+        if self.tate:
+            c = 0
+            with Indexer(dim=10,repository=self.index_repo) as indexer:
+                ldb = shelve.open(self.index_repo + '/ldata.bin')
+                for f,v in self.mapi_faces.iteritems():
+                    for fv in v:
+                        vec = self.face_vector(fv)
+                        indexer.index_single(c,vec,f)
+                        ldb[str(c)] = (fv,f)
+                        c = c + 1
+                ldb.close()
+                indexer.build_index()
+                indexer.save_index()
+        else:
+            ldb = shelve.open(self.index_repo + '/out_ldata.bin')
             for f,v in self.mapi_faces.iteritems():
                 for fv in v:
-                    vec = self.face_vector(fv)
-                    indexer.index_single(c,vec,f)
-                    ldb[str(c)] = (fv,f)
-                    c = c + 1
+                    ldb[f] = fv
+                    #print f,fv
             ldb.close()
-            indexer.build_index()
-            indexer.save_index()
 
         # save captions
         dbname = '/out_captions.bin'
@@ -277,13 +288,13 @@ class MAPIGenerator(FeatureGenerator):
         results_tags = {}
         with Searcher(self.index_repo,search_size=1000,db_name='tags.bin') as searcher:
             searcher.load_index()
-            for t,v in self.mapi_tags.iteritems():   
+            for t,v in self.mapi_tags.iteritems():
                 nns =searcher.search_tags_single(v,t)
                 nns['tags_out_all'] = []
                 for nn in nns['nns_uris']:
                     nns['tags_out_all'].append(self.st.get(str(nn),''))
                 results_tags[t] = nns
-        results_tags = self.to_json(results_tags,'/img/reuters/','/img/tate/',self.name+'_tags',self.description,jdataout,self.meta_in,self.meta_out,self.captions_in,self.captions_out)
+        results_tags = self.to_json(results_tags,'/img/reuters/','/img/tate/',self.name+'_tags',self.description,jdataout,self.meta_in,self.meta_out,self.captions_in,self.captions_out,mapi_in=self.index_repo + '/ldata.bin',mapi_out=self.index_repo + '/out_ldata.bin')
         #print 'results_tags=',results_tags
        
         results_cats = {}
@@ -295,7 +306,7 @@ class MAPIGenerator(FeatureGenerator):
                 for nn in nns['nns_uris']:
                     nns['tags_out_all'].append(self.sc.get(str(nn),''))
                 results_cats[t] = nns
-        results_tmp = self.to_json(results_cats,'/img/reuters/','/img/tate/',self.name+'_cats',self.description,results_tags,self.meta_in,self.meta_out,self.captions_in,self.captions_out)
+        results_tmp = self.to_json(results_cats,'/img/reuters/','/img/tate/',self.name+'_cats',self.description,results_tags,self.meta_in,self.meta_out,self.captions_in,self.captions_out,mapi_in=self.index_repo + '/ldata.bin',mapi_out=self.index_repo + '/out_ldata.bin')
         if not results_tmp:
             results_tmp = results_tags
         #print 'results_tmp=',results_tmp
@@ -311,7 +322,7 @@ class MAPIGenerator(FeatureGenerator):
                 #print 'nns=',nns
         #        results_people[f] = nns
         #print 'results_people=',results_people
-        #results_tmp = self.to_json(results_people,'/img/reuters','/img/tate/',self.name+'_people',self.description,results_cats,self.meta_in,self.meta_out,self.captions_in,self.captions_out)
+        #results_tmp = self.to_json(results_people,'/img/reuters','/img/tate/',self.name+'_people',self.description,results_cats,self.meta_in,self.meta_out,self.captions_in,self.captions_out,mapi_in=self.index_repo + '/ldata.bin',mapi_out=self.index_repo + '/out_ldata.bin')
         #if not results_people:
         results_tmp = results_cats
         
@@ -386,7 +397,7 @@ class MAPIGenerator(FeatureGenerator):
                 results_faces[f] = resi
                 
         ldb.close()
-        results_faces = self.to_json(results_faces,'/img/reuters/','/img/tate/',self.name,self.description,results_tmp,self.meta_in,self.meta_out,self.captions_in,self.captions_out)
+        results_faces = self.to_json(results_faces,'/img/reuters/','/img/tate/',self.name,self.description,results_tmp,self.meta_in,self.meta_out,self.captions_in,self.captions_out,mapi_in=self.index_repo + '/ldata.bin',mapi_out=self.index_repo + '/out_ldata.bin')
         if not results_faces:
             results_faces = results_tmp
         #print 'results_faces=',results_faces
