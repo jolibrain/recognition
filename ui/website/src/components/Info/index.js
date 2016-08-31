@@ -28,7 +28,6 @@ class Info extends React.Component {
             <img className="img-responsive" src="/img/logos/tate.png"/>
           </div>
           <div className="col-sm-2">
-            <p>In partnership with</p>
             <img className="img-responsive" src="/img/logos/microsoft.png"/>
           </div>
           <div className="col-sm-2">
@@ -37,18 +36,11 @@ class Info extends React.Component {
           </div>
           <div className="col-sm-2">
             <p>Content providers</p>
-            <div className="row">
-              <div className="col-sm-6">
-                <img className="img-responsive" src="/img/logos/reuters.png"/>
-              </div>
-              <div className="col-sm-6">
-                <img className="img-responsive" src="/img/logos/bing.png"/>
-              </div>
-            </div>
+            <img className="img-responsive" src="/img/logos/reuters.png"/>
           </div>
         </div>
-        <div className="row" style={{marginTop: '30px'}}>
-          <div className="col-sm-4 col-sm-offset-1 font-title infoTitle">
+        <div className="row" style={{marginTop: '30px', paddingBottom: '64px'}}>
+          <div className="col-sm-5 col-sm-offset-1 font-title infoTitle">
             <p>Can a machine make us look afresh at great art through the lens of today’s world?</p>
 
             <p><em>Recognition</em>, winner of IK Prize 2016 for digital innovation, is an artificial intelligence program that compares up-to-the-minute photojournalism with British art from the Tate collection.</p>
@@ -65,7 +57,7 @@ class Info extends React.Component {
 
             <ul><li>Object recognition</li></ul>
 
-            <p>Developed by JoliBrain using <a href="http://www.deepdetect.com" target="_blank" rel="noopener noreferrer">DeepDetect</a> and Densecap. A deep neural network finds objects from the image, then tries to label them by crafting a short sentence. A similarity search engine then looks for the top object matches among Tate artworks.</p>
+            <p>Developed by <a href="http://www.jolibrain.com" target="_blank" rel="noopener noreferrer">JoliBrain</a> using <a href="http://www.deepdetect.com" target="_blank" rel="noopener noreferrer">DeepDetect</a> and Densecap. A deep neural network finds objects from the image, then tries to label them by crafting a short sentence. A similarity search engine then looks for the top object matches among Tate artworks.</p>
 
             <ul><li>Facial recognition</li></ul>
 
@@ -73,29 +65,29 @@ class Info extends React.Component {
 
             <ul><li>Composition analysis</li></ul>
 
-            <p>Developed by JoliBrain using DeepDetect. A set of deep neural networks reads the image pixels and extracts a high number of salient features. These features are then fed into a search engine that looks for the nearest per feature matches from the Tate archive.</p>
+            <p>Developed by <a href="http://www.jolibrain.com" target="_blank" rel="noopener noreferrer">JoliBrain</a> using <a href="http://www.deepdetect.com" target="_blank" rel="noopener noreferrer">DeepDetect</a>. A set of deep neural networks reads the image pixels and extracts a high number of salient features. These features are then fed into a search engine that looks for the nearest per feature matches from the Tate archive.</p>
 
             <ul><li>Context analysis</li></ul>
 
-            <p>Developed by JoliBrain using DeepDetect and word2vec. A variety of deep neural networks process both the images and their captions and tries to find inner relations, either based on location or semantic matching among words and sentences.</p>
+            <p>Developed by <a href="http://www.jolibrain.com" target="_blank" rel="noopener noreferrer">JoliBrain</a> using <a href="http://www.deepdetect.com" target="_blank" rel="noopener noreferrer">DeepDetect</a> and word2vec. A variety of deep neural networks process both the images and their captions and tries to find inner relations, either based on location or semantic matching among words and sentences.</p>
           </div>
-          <div className="col-sm-2 font-subtext" style={{color: '#4a4a4a'}}>
-            <p><span style={{color: 'white'}}>Concept and design</span><br/>
+          <div className="col-sm-2 font-subtext" style={{color: 'white'}}>
+            <p><span style={{color: '#4a4a4a'}}>Concept and design</span><br/>
             Coralie Gourguechon<br/>
-            Angelo Semararo<br/>
-            Monica Lanaro</p>
-            <p><span style={{color: 'white'}}>Website design</span><br/>
+            Monica Lanaro<br/>
+            Angelo Semararo</p>
+            <p><span style={{color: '#4a4a4a'}}>Website design</span><br/>
             Isaac Vallentin</p>
-            <p><span style={{color: 'white'}}>AI development</span><br/>
+            <p><span style={{color: '#4a4a4a'}}>AI development</span><br/>
             Emmanuel Benazera</p>
-            <p><span style={{color: 'white'}}>Website development</span><br/>
+            <p><span style={{color: '#4a4a4a'}}>Website development</span><br/>
             Alexandre Girard</p>
-            <p><span style={{color: 'white'}}>Producer (TATE)</span><br/>
+            <p><span style={{color: '#4a4a4a'}}>Producer (TATE)</span><br/>
             Tony Guillan</p>
-            <p><span style={{color: 'white'}}>Thanks to</span><br/>
+            <p><span style={{color: '#4a4a4a'}}>Thanks to</span><br/>
             Sam Baron<br/>Carlo Tunioli</p>
           </div>
-          <div className="col-sm-4">
+          <div className="col-sm-3">
             <p className="font-subtext infoDescription">Recognition is an autonomously operating software programme. All reasonable steps have been taken to prevent publication of challenging, offensive or infringing content. Comparisons between artistic works and other material are made by the software programme and are for the purpose of stimulating debate about art, expression and representation. Tate invites online discussion about these comparisons and encourages users to treat copyright material appropriately according to their local law.</p>
             <p className="font-subtext infoDescription">If you would like to contact Tate regarding content on this site, email <a href="mailto:recognition@tate.org.uk">recognition@tate.org.uk</a></p>
           </div>
@@ -110,7 +102,6 @@ class Info extends React.Component {
         </div>
         <div className="row font-subtext logoRow">
           <div className="col-sm-12">
-            <p>In partnership with</p>
             <img className="img-responsive" src="/img/logos/microsoft.png"/>
           </div>
         </div>
@@ -144,7 +135,7 @@ class Info extends React.Component {
 
             <ul><li>Object recognition</li></ul>
 
-            <p>Developed by JoliBrain using <a href="http://www.deepdetect.com" target="_blank" rel="noopener noreferrer">DeepDetect</a> and Densecap. A deep neural network finds objects from the image, then tries to label them by crafting a short sentence. A similarity search engine then looks for the top object matches among Tate artworks.</p>
+            <p>Developed by <a href="http://www.jolibrain.com" target="_blank" rel="noopener noreferrer">JoliBrain</a> using <a href="http://www.deepdetect.com" target="_blank" rel="noopener noreferrer">DeepDetect</a> and Densecap. A deep neural network finds objects from the image, then tries to label them by crafting a short sentence. A similarity search engine then looks for the top object matches among Tate artworks.</p>
 
             <ul><li>Facial recognition</li></ul>
 
@@ -152,28 +143,28 @@ class Info extends React.Component {
 
             <ul><li>Composition analysis</li></ul>
 
-            <p>Developed by JoliBrain using DeepDetect. A set of deep neural networks reads the image pixels and extracts a high number of salient features. These features are then fed into a search engine that looks for the nearest per feature matches from the Tate archive.</p>
+            <p>Developed by <a href="http://www.jolibrain.com" target="_blank" rel="noopener noreferrer">JoliBrain</a> using <a href="http://www.deepdetect.com" target="_blank" rel="noopener noreferrer">DeepDetect</a>. A set of deep neural networks reads the image pixels and extracts a high number of salient features. These features are then fed into a search engine that looks for the nearest per feature matches from the Tate archive.</p>
 
             <ul><li>Context analysis</li></ul>
 
-            <p>Developed by JoliBrain using DeepDetect and word2vec. A variety of deep neural networks process both the images and their captions and tries to find inner relations, either based on location or semantic matching among words and sentences.</p>
+            <p>Developed by <a href="http://www.jolibrain.com" target="_blank" rel="noopener noreferrer">JoliBrain</a> using <a href="http://www.deepdetect.com" target="_blank" rel="noopener noreferrer">DeepDetect</a> and word2vec. A variety of deep neural networks process both the images and their captions and tries to find inner relations, either based on location or semantic matching among words and sentences.</p>
           </div>
         </div>
         <div className="row">
-          <div className="col-xs-6 font-subtext" style={{color: '#4a4a4a'}}>
-            <p><span style={{color: 'white'}}>Concept and design</span><br/>
+          <div className="col-xs-6 font-subtext" style={{color: 'white'}}>
+            <p><span style={{color: '#4a4a4a'}}>Concept and design</span><br/>
             Coralie Gourguechon<br/>
-            Angelo Semararo<br/>
-            Monica Lanaro</p>
-            <p><span style={{color: 'white'}}>Website design</span><br/>
+            Monica Lanaro<br/>
+            Angelo Semararo</p>
+            <p><span style={{color: '#4a4a4a'}}>Website design</span><br/>
             Isaac Vallentin</p>
           </div>
           <div className="col-xs-6 font-subtext" style={{color: '#4a4a4a'}}>
-            <p><span style={{color: 'white'}}>AI development</span><br/>
+            <p><span style={{color: '#4a4a4a'}}>AI development</span><br/>
             Emmanuel Benazera</p>
-            <p><span style={{color: 'white'}}>Website development</span><br/>
+            <p><span style={{color: '#4a4a4a'}}>Website development</span><br/>
             Alexandre Girard</p>
-            <p><span style={{color: 'white'}}>Producer (TATE)</span><br/>
+            <p><span style={{color: '#4a4a4a'}}>Producer (TATE)</span><br/>
             Tony Guillan</p>
             <p>Thanks to Sam Baron and Carlo Tunioli</p>
           </div>

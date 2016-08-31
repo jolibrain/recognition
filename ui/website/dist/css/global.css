@@ -311,6 +311,9 @@ canvas {
   z-index: auto;
   opacity: 0.5;
   background-color: rgb(0, 0, 0);
+  transition: opacity .25s ease-in-out;
+  -moz-transition: opacity .25s ease-in-out;
+  -webkit-transition: opacity .25s ease-in-out;
 }
 
 .introOverlay .container {
@@ -730,6 +733,11 @@ ul.react-autosuggest__suggestions-list a:hover {
   text-decoration: none;
 }
 
+.infoPage a:hover {
+  color: #0FC;
+  text-decoration: 'none';
+}
+
 .infoPage .logoRow {
   color: #4a4a4a;
 }
@@ -741,6 +749,13 @@ ul.react-autosuggest__suggestions-list a:hover {
 .infoPage .infoDescription {
   color: #4a4a4a;
   text-transform: uppercase;
+}
+
+.infoPage li {
+  font-family: 'TateNewPro';
+  font-size: 13px;
+  letter-spacing:1.5px;
+  padding-top: 32px;
 }
 
 .mainFooter {
