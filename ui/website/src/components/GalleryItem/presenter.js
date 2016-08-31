@@ -46,7 +46,7 @@ class GalleryItem extends React.Component {
       } else {
         //HV
         if(source == 'input') {
-          return {left: '0px', top: this.state.hvTop + 'px', position: 'absolute'};
+          return {left: '0px', top: this.state.hvTop + 'px', position: 'absolute', paddingLeft: '15px' paddingRight: '15px'};
         }
       }
     } else {
@@ -272,7 +272,7 @@ class GalleryItem extends React.Component {
               <br/>
             </div>
             )}
-            <span style={[{fontSize:'12px', fontFamily: 'MaisonNeue'}]} className="itemSource">{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</span>
+            <span style={[{fontSize:'12px', fontFamily: 'MaisonNeue', textTransform: 'uppercase'}]} className="itemSource">{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</span>
 
         </div>
 

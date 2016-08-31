@@ -653,6 +653,10 @@ ul.react-autosuggest__suggestions-list a:hover {
   color: #4a4a4a;
 }
 
+.galleryItem .visible-xs .itemSource {
+  text-transform: uppercase;
+}
+
 .galleryItem .visible-xs .itemSource,
 .galleryItem .visible-xs .processClick,
 .galleryItem .visible-xs .processClick:hover {
@@ -687,6 +691,10 @@ ul.react-autosuggest__suggestions-list a:hover {
   font-size: 12px;
   line-height: 18px;
   font-weight: normal;
+}
+
+.splashComponent a:hover .icon--i_arrow-down {
+  color: #0FC;
 }
 
 .splashContainer {
