@@ -79,7 +79,7 @@ class ShareModal extends React.Component {
       backgroundColor: '#0d1215',
       border: '1px solid #4a4a4a',
       boxShadow: '0 5px 15px rgba(0,0,0,.5)',
-      padding: 10,
+      padding: 32,
       top: '50%', left: '50%',
       transform: 'translate(-50%, -50%)',
       outline: 'none'
@@ -119,9 +119,8 @@ class ShareModal extends React.Component {
         }}
       >
         <div style={dialogStyle}>
-          <h4 id='modal-label' style={titleStyle}>share</h4>
-          <p style={textStyle}>what makes this an interesting match?<br/>
-          could you write a better caption than the AI?</p>
+          <h4 id='modal-label' style={titleStyle}>comment and share</h4>
+          <p style={textStyle}>what makes this an interesting match?</p>
 
           <div className="fluid-container">
             <div className="row">
@@ -129,7 +128,8 @@ class ShareModal extends React.Component {
 
                 <FacebookShareButton
                   url={url}
-                  title={text}
+                  title="Recognition"
+                  description="#recognition #ikprize"
                   className="share-button">
                   <FacebookIcon
                     logoFillColor="white"
@@ -143,7 +143,7 @@ class ShareModal extends React.Component {
 
                 <TwitterShareButton
                   url={url}
-                  title={text}
+                  title="Recognition #recognition #ikprize"
                   className="share-button">
                   <TwitterIcon
                     logoFillColor="white"
@@ -157,7 +157,7 @@ class ShareModal extends React.Component {
 
                 <PinterestShareButton
                   url={url}
-                  title={text}
+                  description="#recognition #ikprize"
                   className="share-button">
                   <PinterestIcon
                     logoFillColor="white"
@@ -171,7 +171,6 @@ class ShareModal extends React.Component {
 
                 <GooglePlusShareButton
                   url={url}
-                  title={text}
                   className="share-button">
                   <GooglePlusIcon
                     logoFillColor="white"

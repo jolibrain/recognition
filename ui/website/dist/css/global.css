@@ -302,6 +302,16 @@ canvas {
   right: 0px;
 }
 
+.introOverlay .navbar-brand {
+  color: rgb(255, 255, 255);
+  font-weight: normal;
+}
+
+.introOverlay .navbar-brand span {
+  position: relative;
+  top: -3px;
+}
+
 .introOverlay .overlayBackground {
   position: fixed;
   top: 0px;

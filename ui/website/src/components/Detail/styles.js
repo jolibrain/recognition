@@ -73,7 +73,8 @@ const styles = {
     position: 'absolute',
     top: '100px',
     width: '100%',
-    pointerEvents: 'none'
+    pointerEvents: 'none',
+    marginBottom: '64px'
   },
   actionnable: {
     pointerEvents: 'all'
@@ -102,9 +103,6 @@ const styles = {
   },
   leftImg: {
     marginTop: '20px',
-  },
-  rightDetails: {
-    marginTop: '40px',
   },
   rowHover: {
     ':hover': {
