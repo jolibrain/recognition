@@ -15,6 +15,7 @@ limitations under the License.
 */
 import React from 'react';
 import Radium from 'radium';
+import Router from 'react-router';
 import { browserHistory } from 'react-router';
 import styles from './styles.js';
 
@@ -38,6 +39,7 @@ class Match extends React.Component {
     const offset = 3;
 
     this.state = {
+      itemId: null,
       items: [],
       hasMoreItems: true,
       offset: offset,
@@ -46,6 +48,11 @@ class Match extends React.Component {
     }
 
     this.loadItems = this.loadItems.bind(this);
+    this.handleBackGallery = this.handleBackGallery.bind(this);
+  }
+
+  handleBackGallery() {
+    console.log(Router.History);
   }
 
   handleLeftOver(parent, overHash, overIndex) {
@@ -86,6 +93,14 @@ class Match extends React.Component {
     return items.map((item, key) => (<Match key={key} item={item} follower={true}/>));
   }
 
+  componentWillMount() {
+    if(this.props.item){
+      const rx = /Z_\d+_(.*?)_/g;
+      const arr = rx.exec(this.props.item.input.img);
+      this.setState({itemId: arr[1]});
+    }
+  }
+
 
   render() {
 
@@ -99,10 +114,6 @@ class Match extends React.Component {
 
     const outputOrientation = selectedOutput.meta.height > selectedOutput.meta.width ?
       "vertical" : "horizontal";
-
-    const rx = /Z_\d+_(.*?)_/g;
-    const arr = rx.exec(item.input.img);
-    const itemId = arr[1];
 
     let orientedComponent;
 
@@ -123,7 +134,7 @@ class Match extends React.Component {
       {property:"og:url", content:"http://recognition.tate.org.uk/"},
       {property:"og:title", content:"Recognition"},
       {property:"og:description", content:"Recognition is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection"},
-      {property: 'og:image', content: `http://recognition.tate.org.uk/img/og_image/${itemId}.jpg`}
+      {property: 'og:image', content: `http://recognition.tate.org.uk/img/og_image/${this.state.itemId}.jpg`}
     ];
 
     switch (inputOrientation) {
@@ -133,11 +144,11 @@ class Match extends React.Component {
           case "horizontal":
             orientedComponent = (<div className="row">
               <div className="col-sm-5 horizontal">
-                <a className="font-data backGallery" style={{paddingLeft:'32px'}} onClick={() => browserHistory.push('/gallery/' + itemId)}><span className='icon--i_arrow-left'/> Back to gallery</a>
+                <a className="font-data backGallery" style={{paddingLeft:'32px'}} onClick={this.handleBackGallery}><span className='icon--i_arrow-left'/> Back to gallery</a>
                 <Titles input={item.input} output={selectedOutput}/>
                 <BoundedImage
                   item={item.input}
-                  itemId={itemId}
+                  itemId={this.state.itemId}
                   features={selectedOutput.features.in}
                   onOver={this.handleLeftOver}
                   overHash={this.state.overRight}
@@ -148,7 +159,7 @@ class Match extends React.Component {
               <div className="col-sm-5">
                 <BoundedImage
                   item={selectedOutput}
-                  itemId={itemId}
+                  itemId={this.state.itemId}
                   features={selectedOutput.features.out}
                   onOver={this.handleRightOver}
                   overHash={this.state.overLeft}
@@ -157,7 +168,7 @@ class Match extends React.Component {
                 <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</p>
               </div>
               <div className="col-sm-2" style={{paddingLeft: 0, paddingRight: 0}}>
-                <Description id={itemId}
+                <Description id={this.state.itemId}
                              descriptionIn={selectedOutput.features.in.captions.caption}
                              descriptionOut={selectedOutput.features.out.captions.caption}/>
               </div>
@@ -166,10 +177,10 @@ class Match extends React.Component {
           case "vertical":
             orientedComponent = (<div className="row">
               <div className="col-sm-5 horizontal">
-                <a className="font-data backGallery" style={{paddingLeft:'32px'}} onClick={() => browserHistory.push('/gallery/' + itemId)}><span className='icon--i_arrow-left'/> Back to gallery</a>
+                <a className="font-data backGallery" style={{paddingLeft:'32px'}} onClick={this.handleBackGallery}><span className='icon--i_arrow-left'/> Back to gallery</a>
                 <BoundedImage
                   item={item.input}
-                  itemId={itemId}
+                  itemId={this.state.itemId}
                   features={selectedOutput.features.in}
                   onOver={this.handleLeftOver}
                   overHash={this.state.overRight}
@@ -182,7 +193,7 @@ class Match extends React.Component {
                 <div className="text-center">
                   <BoundedImage
                     item={selectedOutput}
-                    itemId={itemId}
+                    itemId={this.state.itemId}
                     features={selectedOutput.features.out}
                     onOver={this.handleRightOver}
                     overHash={this.state.overLeft}
@@ -192,7 +203,7 @@ class Match extends React.Component {
                 <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</p>
               </div>
               <div className="col-sm-2" style={{paddingLeft: 0, paddingRight: 0}}>
-                <Description id={itemId}
+                <Description id={this.state.itemId}
                              descriptionIn={selectedOutput.features.in.captions.caption}
                              descriptionOut={selectedOutput.features.out.captions.caption}/>
               </div>
@@ -206,14 +217,14 @@ class Match extends React.Component {
           case "horizontal":
             orientedComponent = (<div className="row">
               <div className="col-sm-2">
-                <a className="font-data backGallery" onClick={() => browserHistory.push('/gallery/' + itemId)}><span className='icon--i_arrow-left'/> Back to gallery</a>
+                <a className="font-data backGallery" onClick={this.handleBackGallery}><span className='icon--i_arrow-left'/> Back to gallery</a>
                 <Titles input={item.input} output={selectedOutput}/>
               </div>
               <div className="col-sm-5">
                 <div className="text-center">
                   <BoundedImage
                     item={item.input}
-                    itemId={itemId}
+                    itemId={this.state.itemId}
                     features={selectedOutput.features.in}
                     onOver={this.handleLeftOver}
                     overHash={this.state.overRight}
@@ -225,14 +236,14 @@ class Match extends React.Component {
               <div className="col-sm-5">
                 <BoundedImage
                   item={selectedOutput}
-                  itemId={itemId}
+                  itemId={this.state.itemId}
                   features={selectedOutput.features.out}
                   onOver={this.handleRightOver}
                   overHash={this.state.overLeft}
                   parent={this}
                 />
                 <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</p>
-                <Description id={itemId}
+                <Description id={this.state.itemId}
                              descriptionIn={selectedOutput.features.in.captions.caption}
                              descriptionOut={selectedOutput.features.out.captions.caption}/>
               </div>
@@ -241,10 +252,10 @@ class Match extends React.Component {
           case "vertical":
             orientedComponent = (<div className="row">
               <div className="col-sm-2">
-                <a className="font-data backGallery" onClick={() => browserHistory.push('/gallery/' + itemId)}><span className='icon--i_arrow-left'/> Back to gallery</a>
+                <a className="font-data backGallery" onClick={this.handleBackGallery}><span className='icon--i_arrow-left'/> Back to gallery</a>
                 <Titles input={item.input} output={selectedOutput}/>
                 <div style={{height: '16px'}}>&nbsp;</div>
-                <Description id={itemId}
+                <Description id={this.state.itemId}
                              descriptionIn={selectedOutput.features.in.captions.caption}
                              descriptionOut={selectedOutput.features.out.captions.caption}/>
               </div>
@@ -252,7 +263,7 @@ class Match extends React.Component {
                 <div className="text-center">
                   <BoundedImage
                     item={item.input}
-                    itemId={itemId}
+                    itemId={this.state.itemId}
                     features={selectedOutput.features.in}
                     onOver={this.handleLeftOver}
                     overHash={this.state.overRight}
@@ -265,7 +276,7 @@ class Match extends React.Component {
                 <div className="text-center">
                   <BoundedImage
                     item={selectedOutput}
-                    itemId={itemId}
+                    itemId={this.state.itemId}
                     features={selectedOutput.features.out}
                     onOver={this.handleRightOver}
                     overHash={this.state.overLeft}

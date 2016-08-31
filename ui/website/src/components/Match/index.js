@@ -32,7 +32,10 @@ const mapStateToProps = (state, ownProps = {}) => {
       matchId = state.routing.locationBeforeTransitions.pathname.split("/").pop();
     }
 
-    const filteredMatchesTPX = state.matches.filter(item => item.input.meta.TPX);
+    let filteredMatchesTPX = state.matches.filter(item => item.input.meta.TPX);
+    if(filteredMatchesTPX == 0) {
+      filteredMatchesTPX = state.matches;
+    }
 
     const matchingIndex = filteredMatchesTPX.findIndex(item => item.input.img.indexOf(matchId) != -1);
 

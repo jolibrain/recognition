@@ -20,8 +20,14 @@ import * as actions from '../../actions';
 import Gallery from './presenter';
 
 const mapStateToProps = (state, ownProps = {}) => {
+
+  let matches = state.matches.filter(item => item.input.meta.TPX)
+  if(matches.length == 0) {
+    matches = state.matches;
+  }
+
   return {
-    matches: state.matches.filter(item => item.input.meta.TPX)
+    matches: matches
   }
 }
 
