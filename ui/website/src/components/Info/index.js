@@ -102,7 +102,7 @@ class Info extends React.Component {
         </div>
         <div className="row font-subtext logoRow">
           <div className="col-sm-12">
-            <img className="img-responsive" src="/img/logos/microsoft.png"/>
+            <img style={{maxHeight: '30px'}} className="img-responsive" src="/img/logos/microsoft.png"/>
           </div>
         </div>
         <div className="row font-subtext logoRow">
@@ -114,7 +114,7 @@ class Info extends React.Component {
         <div className="row font-subtext logoRow">
           <div className="col-sm-12">
             <p>Content provider</p>
-            <img className="img-responsive" src="/img/logos/reuters.png"/>
+            <img style={{maxHeight: '23px'}} className="img-responsive" src="/img/logos/reuters.png"/>
           </div>
         </div>
         <div className="row">
