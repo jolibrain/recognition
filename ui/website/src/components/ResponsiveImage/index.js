@@ -31,6 +31,7 @@ const mapStateToProps = (state, ownProps = {}) => {
     }
 
     return {
+      itemId: itemId,
       item: state.matches.filter(item => item.input.img.indexOf(itemId) != -1)[0]
     };
 

@@ -311,6 +311,9 @@ canvas {
   z-index: auto;
   opacity: 0.5;
   background-color: rgb(0, 0, 0);
+  transition: opacity .25s ease-in-out;
+  -moz-transition: opacity .25s ease-in-out;
+  -webkit-transition: opacity .25s ease-in-out;
 }
 
 .introOverlay .container {
@@ -721,13 +724,44 @@ ul.react-autosuggest__suggestions-list a:hover {
   margin-top:120px;
 }
 
+.infoPage hr {
+  margin: 64px 0;
+  border-top-style: dashed;
+}
+
+.infoPage a {
+  color:#AAA;
+  text-decoration: none;
+}
+
+.infoPage a:hover {
+  color: #0FC;
+  text-decoration: 'none';
+}
+
 .infoPage .logoRow {
   color: #4a4a4a;
+}
+
+.infoPage .infoTitle p {
+  text-transform: none;
 }
 
 .infoPage .infoDescription {
   color: #4a4a4a;
   text-transform: uppercase;
+}
+
+.infoPage ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+.infoPage li {
+  font-family: 'TateNewPro';
+  font-size: 13px;
+  letter-spacing:1.5px;
+  padding-top: 32px;
 }
 
 .mainFooter {
@@ -781,4 +815,20 @@ and (max-device-width : 768px) {
 }
 .tagsHovered .tag.containTag {
   color:#0fc;
+}
+
+a.backGallery {
+  color: #FFF;
+  display: inline-block;
+  text-transform: uppercase;
+  font-family: 'TateNewPro';
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  font-weight: normal;
+  padding-bottom: 32px;
+}
+
+a.backGallery:hover {
+  color: #0FC;
+  text-decoration: none;
 }

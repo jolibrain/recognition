@@ -16,7 +16,7 @@ limitations under the License.
 import React from 'react';
 import Radium from 'radium';
 import { browserHistory } from 'react-router';
-import BoundedImage from './BoundedImage'
+import BoundedImage from './BoundedImage';
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -36,39 +36,65 @@ class ResponsiveImage extends React.Component {
       selectedOutput = selectedOutput.output.filter(item => item.selected)[0];
     }
 
-    return (<div className="container responsiveImage">
-      <div className="row">
-        <div className="col-xs-2">
-          <a className="back" onClick={browserHistory.goBack}><span className='icon--i_arrow-left'/></a>
+    return (<div>
+      <nav style={{background: '#0d1215', border: 0}} className="navbar navbar-default navbar-fixed-top visible-xs">
+        <div className="container-fluid">
+          <div className="navbar-header">
+            <Link className="navbar-brand" to='/'>
+              <img src="/img/logos/recognition.png" alt="recognition"/>
+            </Link>
+            <p className="text-right" style={{padding: '15px'}}>
+              <Link className="navbar-link" to={`/gallery/${this.props.itemId}`}>
+                <img src="/img/icons/close.png" alt="close"/>
+              </Link>
+            </p>
+          </div>
         </div>
-        <div className="col-xs-10 text-right">
-          <a className="processOverlay" onClick={() => this.setState({displayOverlay: !this.state.displayOverlay})}>VIEW RECOGNITION OVERLAY</a>
-        </div>
-      </div>
-
-      <div className="row">
-        <div className="col-xs-12 text-center">
-          <BoundedImage
-            item={selectedOutput}
-            features={source === "reuters" ? selectedOutput.features.in : selectedOutput.features.out}
-            displayOverlay={this.state.displayOverlay}
-          />
-        </div>
-      </div>
-
-      <div className="row">
-        <div className="col-xs-12 font-titles info">
-          { source === 'reuters' ?
-          (<div>
-            <p>{moment(selectedOutput.meta.date).format('DD/MM/YYYY')}<br/>
-            {selectedOutput.meta.caption}<br/>
-            REUTERS/{selectedOutput.meta.author}</p>
-          </div>) :
-          (<div>
-            <p>{selectedOutput.meta.date}<br/>
-            {selectedOutput.meta.title}<br/>
-            {selectedOutput.meta.copyright}</p>
+      </nav>
+      <div className="container responsiveImage">
+        <div className="row">
+          { source === "reuters" ? (<div>
+            <div className="col-xs-10">
+              <a className="processOverlay" onClick={() => this.setState({displayOverlay: !this.state.displayOverlay})}>VIEW RECOGNITION OVERLAY</a>
+            </div>
+            <div className="col-xs-2 text-right">
+              <Link className="back" to={`/image/tate/${this.props.itemId}`}><span className='icon--i_arrow-right'/></Link>
+            </div>
+          </div>) : (<div>
+            <div className="col-xs-2">
+              <Link className="back" to={`/image/reuters/${this.props.itemId}`}><span className='icon--i_arrow-left'/></Link>
+            </div>
+            <div className="col-xs-10 text-right">
+              <a className="processOverlay" onClick={() => this.setState({displayOverlay: !this.state.displayOverlay})}>VIEW RECOGNITION OVERLAY</a>
+            </div>
           </div>)}
+
+        </div>
+
+        <div className="row">
+          <div className="col-xs-12 text-center">
+            <BoundedImage
+              item={selectedOutput}
+              features={source === "reuters" ? selectedOutput.features.in : selectedOutput.features.out}
+              displayOverlay={this.state.displayOverlay}
+            />
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-xs-12 font-titles info">
+            { source === 'reuters' ?
+            (<div>
+              <p>{moment(selectedOutput.meta.date).format('DD/MM/YYYY')}<br/>
+              {selectedOutput.meta.caption}<br/>
+              REUTERS/{selectedOutput.meta.author}</p>
+            </div>) :
+            (<div>
+              <p>{selectedOutput.meta.date}<br/>
+              {selectedOutput.meta.title}<br/>
+              {selectedOutput.meta.copyright}</p>
+            </div>)}
+          </div>
         </div>
       </div>
     </div>);

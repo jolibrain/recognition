@@ -21,7 +21,7 @@ import Gallery from './presenter';
 
 const mapStateToProps = (state, ownProps = {}) => {
   return {
-    matches: state.matches
+    matches: state.matches.filter(item => item.input.meta.TPX)
   }
 }
 

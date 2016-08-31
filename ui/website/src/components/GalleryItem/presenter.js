@@ -30,7 +30,9 @@ class GalleryItem extends React.Component {
     processVisible: false,
     showInputOverlay: false,
     showOutputOverlay: false,
-    hvBottom: 124,
+    reutersLoaded: false,
+    tateLoaded: false,
+    hvTop: 0,
     itemId: ''
   };
 
@@ -44,7 +46,7 @@ class GalleryItem extends React.Component {
       } else {
         //HV
         if(source == 'input') {
-          return {left: '0px', bottom: this.state.hvBottom + 'px', position: 'absolute'};
+          return {left: '0px', top: this.state.hvTop + 'px', position: 'absolute'};
         }
       }
     } else {
@@ -106,9 +108,9 @@ class GalleryItem extends React.Component {
             <div className="col-xs-6">
               <Link to={`/image/reuters/${this.state.itemId}`}>
                 <img
-                  src={item.input.img}
+                  src={item.input.img.replace("_2_", "_3_")}
                   style={{width: '50vw'}}
-                  srcSet={item.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + item.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w"}
+                  srcSet={item.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + item.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w, " + item.input.img.replace('reuters/', 'reuters/responsive_757/').replace("_2_", "_3_") + " 757w, " + item.input.img.replace('reuters/', 'reuters/responsive_1920/').replace("_2_", "_3_") + " 1920w"}
                   sizes="50vw"
                 />
               </Link>
@@ -169,15 +171,22 @@ class GalleryItem extends React.Component {
         }}
       >
 
-        <div className="col-sm-9">
+        <div className="col-sm-6 col-sm-offset-1">
 
-          <div className="container-fluid">
+          <div className="container-fluid" style={[styles.fullHeight]}>
             <div className="row" style={styles.fullHeight.row}>
               <div className="col-sm-6" style={styles.fullHeight.col}>
                 <img
+                  ref='reutersImg'
                   className="img-responsive"
-                  src={item.input.img}
-                  style={[this.getImagePadding('input', inputOrientation, outputOrientation)]}
+                  onLoad={() => {
+                    this.setState({reutersLoaded: true});
+                    if(this.state.tateLoaded) {
+                      this.setState({hvTop: this.refs.tateImg.clientHeight - 64 - this.refs.reutersImg.clientHeight});
+                    }
+                  }}
+                  src={item.input.img.replace("_2_", "_3_")}
+                  style={[styles.fullHeight.img, this.getImagePadding('input', inputOrientation, outputOrientation)]}
                   srcSet={item.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + item.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w, " + item.input.img.replace('reuters/', 'reuters/responsive_757/').replace("_2_", "_3_") + " 757w, " + item.input.img.replace('reuters/', 'reuters/responsive_1920/').replace("_2_", "_3_") + " 1920w"}
                   sizes="(min-width: 40em) 80vw, 100vw"
                 />
@@ -187,9 +196,12 @@ class GalleryItem extends React.Component {
                   ref='tateImg'
                   className="img-responsive"
                   onLoad={() => {
-                    this.setState({hvBottom: this.refs.column.clientHeight - this.refs.tateImg.clientHeight + 64});
+                    this.setState({tateLoaded: true});
+                    if(this.state.reutersLoaded) {
+                      this.setState({hvTop: this.refs.tateImg.clientHeight - 64 - this.refs.reutersImg.clientHeight});
+                    }
                   }}
-                  style={[this.getImagePadding('output', inputOrientation, outputOrientation)]}
+                  style={[styles.fullHeight.img, this.getImagePadding('output', inputOrientation, outputOrientation)]}
                   srcSet={selectedOutput.img.replace('tate/', 'tate/responsive_375/') + " 375w, " + selectedOutput.img.replace('tate/', 'tate/responsive_480/') + " 480w, " + selectedOutput.img.replace('tate/', 'tate/responsive_757/') + " 757w"}
                   sizes="(min-width: 40em) 80vw, 100vw"
                 />
@@ -199,7 +211,7 @@ class GalleryItem extends React.Component {
 
         </div>
 
-        <div className="col-sm-3 font-title" style={styles.descriptionColumn}>
+        <div className="col-sm-3 col-sm-offset-1 font-title" style={styles.descriptionColumn}>
 
           <p style={{fontSize: '12px', fontFamily: 'MaisonNeue'}}>No {this.state.itemId}</p>
 

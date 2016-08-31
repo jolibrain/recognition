@@ -28,13 +28,14 @@ Link = Radium(Link);
 class Splash extends React.Component {
 
   state = {
-    outputIndex: 0,
+    splashIndex: 0,
+    outputIndex: 1,
     hasInterval: false
   }
 
   render() {
 
-    const match = this.props.match;
+    const match = this.props.splash[this.state.splashIndex];
 
     const imagesToLoad = match.output.map(item => item.img);
 
@@ -45,9 +46,19 @@ class Splash extends React.Component {
       return (<div className="splashComponent">
 
         <ReactInterval timeout={1000} enabled={this.state.hasInterval}
-          callback={() => this.setState({
-            outputIndex: this.state.outputIndex >= (this.props.match.output.length - 1) ? 0 : this.state.outputIndex + 1
-          })} />
+          callback={() => {
+              if(this.state.outputIndex == 9) {
+                this.setState({
+                  splashIndex: this.state.splashIndex >= (this.props.splash.length - 1) ? 0 : this.state.splashIndex + 1,
+                  outputIndex: 0
+                });
+              } else {
+                this.setState({
+                  outputIndex: this.state.outputIndex + 1
+                });
+              }
+            }
+          } />
 
         <Preload
           children={<div></div>}
@@ -97,16 +108,16 @@ class Splash extends React.Component {
 
                   <img
                     className="hidden-xs"
-                    src={match.input.img}
+                    src={match.input.img.replace("_2_", "_3_")}
                     style={[styles.fullHeight.img]}
                     srcSet={match.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + match.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w, " + match.input.img.replace('reuters/', 'reuters/responsive_757/').replace("_2_", "_3_") + " 757w, " + match.input.img.replace('reuters/', 'reuters/responsive_1920/').replace("_2_", "_3_") + " 1920w"}
                     sizes="(min-width: 40em) 80vw, 100vw"
                   />
                   <img
                     className="visible-xs"
-                    src={match.input.img}
+                    src={match.input.img.replace("_2_", "_3_")}
                     style={[styles.fullHeight.img, {position:"relative", top: "20%"}]}
-                    srcSet={match.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + match.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w"}
+                    srcSet={match.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + match.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w, " + match.input.img.replace('reuters/', 'reuters/responsive_757/').replace("_2_", "_3_") + " 757w, " + match.input.img.replace('reuters/', 'reuters/responsive_1920/').replace("_2_", "_3_") + " 1920w"}
                     sizes="(min-width: 40em) 80vw, 100vw"
                   />
 

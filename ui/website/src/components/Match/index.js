@@ -32,12 +32,14 @@ const mapStateToProps = (state, ownProps = {}) => {
       matchId = state.routing.locationBeforeTransitions.pathname.split("/").pop();
     }
 
-    const matchingIndex = state.matches.findIndex(item => item.input.img.indexOf(matchId) != -1);
+    const filteredMatchesTPX = state.matches.filter(item => item.input.meta.TPX);
 
-    props.item = state.matches[matchingIndex];
+    const matchingIndex = filteredMatchesTPX.findIndex(item => item.input.img.indexOf(matchId) != -1);
+
+    props.item = filteredMatchesTPX[matchingIndex];
 
     if(!ownProps.params || !ownProps.params.follower)
-      props.followingMatches = state.matches.slice(matchingIndex + 1);
+      props.followingMatches = filteredMatchesTPX.slice(matchingIndex + 1);
 
   }
 
