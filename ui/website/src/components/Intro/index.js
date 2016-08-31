@@ -20,7 +20,7 @@ import { browserHistory } from 'react-router';
 import {debounce} from 'throttle-debounce';
 
 const steps = [
-  {icon: "/img/loading/intro.png", text: (<p><b>RECOGNITION</b> is an artificial intelligence<br/>comparing up-to-the-minute photojournalism<br/>with British art from the Tate collection</p>)},
+  {icon: "/img/loading/intro.png", text: (<p><b>RECOGNITION</b> is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection</p>)},
   {icon: "/img/loading/empty.png", text: (<p><b>RECOGNITION</b> has four different ways of looking at an image:</p>)},
   {icon: "/img/loading/object.png", text: (<p><b>Object recognition</b> is a process for identifying specific objects.  Its algorithms rely on matching, learning, or pattern recognition using appearance-based or feature-based analysis.</p>)},
   {icon: "/img/loading/face.png", text: (<p><b>Facial recognition</b> is a process for identifying human faces. In addition to locating the human faces in an image, it determines the age, gender, and emotional state of each subject it finds.</p>)},
@@ -87,14 +87,14 @@ class IntroOverlay extends React.Component {
           <div className="overlayBackground visible-xs" style={{opacity: 0.5}}/>
 
           <div className="container hidden-xs">
-            <div className="row"><div className="col-sm-12 text-center">
+            <div className="row"><div className="col-sm-6 col-sm-offset-3 text-center" style={{letterSpacing: '1.5px'}}>
               <img src={steps[this.state.stepIndex].icon}/>
               {steps[this.state.stepIndex].text}
             </div></div>
           </div>
           <div className="container visible-xs">
             <div className="row"><div className="col-sm-12 text-center">
-              <p>an artificial intelligence matching British art with real-time news</p>
+              <p style={{letterSpacing: '1.5px'}}>an artificial intelligence matching British art with real-time news</p>
             </div></div>
           </div>
 
