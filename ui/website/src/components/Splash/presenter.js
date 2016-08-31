@@ -28,8 +28,8 @@ Link = Radium(Link);
 class Splash extends React.Component {
 
   state = {
-    splashIndex: 1,
-    outputIndex: 0,
+    splashIndex: 0,
+    outputIndex: 1,
     hasInterval: false
   }
 
