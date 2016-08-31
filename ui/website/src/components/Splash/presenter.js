@@ -47,14 +47,16 @@ class Splash extends React.Component {
 
         <ReactInterval timeout={1000} enabled={this.state.hasInterval}
           callback={() => {
-              if(this.state.outputIndex % 10 == 0) {
+              if(this.state.outputIndex == 9) {
                 this.setState({
                   splashIndex: this.state.splashIndex >= (this.props.splash.length - 1) ? 0 : this.state.splashIndex + 1,
+                  outputIndex: 0
                 });
-              }
+              } else {
                 this.setState({
                   outputIndex: this.state.outputIndex + 1
                 });
+              }
             }
           } />
 
