@@ -34,6 +34,7 @@ const styles = {
     textAlign: 'right',
   },
   matchContainer: {
+    paddingBottom: '32px',
     marginTop: '120px',
     height: '100vh'
   },
@@ -56,7 +57,6 @@ const styles = {
     },
     title: {
       color: '#fff',
-      fontWeight: 'bold',
       fontSize: '18px',
     },
     origin: {
@@ -72,12 +72,10 @@ const styles = {
     title: {
       color: '#fff',
       fontStyle: 'italic',
-      fontWeight: 'bold',
       fontSize: '18px',
     },
     author: {
       color: '#fff',
-      fontWeight: 'bold',
       fontSize: '18px',
     },
     origin: {
