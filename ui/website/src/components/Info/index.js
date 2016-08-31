@@ -28,15 +28,15 @@ class Info extends React.Component {
             <img className="img-responsive" src="/img/logos/tate.png"/>
           </div>
           <div className="col-sm-2">
-            <img className="img-responsive" src="/img/logos/microsoft.png"/>
+            <img style={{maxHeight: '30px', marginTop: '14px'}} className="img-responsive" src="/img/logos/microsoft.png"/>
           </div>
           <div className="col-sm-2">
             <p>Created by</p>
-            <img className="img-responsive" src="/img/logos/fabrica.png"/>
+            <img style={{marginTop: '16px'}} className="img-responsive" src="/img/logos/fabrica.png"/>
           </div>
           <div className="col-sm-2">
             <p>Content provider</p>
-            <img className="img-responsive" src="/img/logos/reuters.png"/>
+            <img style={{maxHeight: '23px'}} className="img-responsive" src="/img/logos/reuters.png"/>
           </div>
         </div>
         <div className="row" style={{marginTop: '30px', paddingBottom: '64px'}}>
