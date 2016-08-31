@@ -137,7 +137,8 @@ class Detail extends React.Component {
           />
         </div>
 
-        <div className="col-sm-6" style={[styles.rightDetails]}>
+        <div className="col-sm-6">
+          <p style={{marginBottom:'64px'}}>&nbsp;</p>
           <DetailFeatures item={selectedOutput}
                           source={'tate'}
                           features={selectedOutput.features.out}
