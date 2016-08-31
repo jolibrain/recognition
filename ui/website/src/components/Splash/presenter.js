@@ -28,13 +28,14 @@ Link = Radium(Link);
 class Splash extends React.Component {
 
   state = {
+    splashIndex: 0,
     outputIndex: 0,
     hasInterval: false
   }
 
   render() {
 
-    const match = this.props.match;
+    const match = this.props.splash[this.state.splashIndex];
 
     const imagesToLoad = match.output.map(item => item.img);
 
@@ -45,9 +46,15 @@ class Splash extends React.Component {
       return (<div className="splashComponent">
 
         <ReactInterval timeout={1000} enabled={this.state.hasInterval}
-          callback={() => this.setState({
-            outputIndex: this.state.outputIndex >= (this.props.match.output.length - 1) ? 0 : this.state.outputIndex + 1
-          })} />
+          callback={() => {
+              if(this.state.outputIndex % 10 == 0) {
+                this.setState({
+                  splashIndex: this.state.splashIndex >= (this.props.splash.length - 1) ? 0 : this.state.splashIndex + 1,
+                  outputIndex: this.state.outputIndex + 1
+                });
+              }
+            }
+          } />
 
         <Preload
           children={<div></div>}
