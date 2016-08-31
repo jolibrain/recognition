@@ -77,7 +77,7 @@ class IntroOverlay extends React.Component {
               </div>
 
               <ul className="nav navbar-nav navbar-right hidden-xs">
-                <li><a onClick={() => {this.setState({stepIndex: 10})}}>Skip Intro</a></li>
+                <li><a onClick={() => {this.setState({stepIndex: 10})}} style={{letterSpacing: '1.5px'}}>Skip Intro</a></li>
               </ul>
 
             </div>
@@ -87,14 +87,14 @@ class IntroOverlay extends React.Component {
           <div className="overlayBackground visible-xs" style={{opacity: 0.5}}/>
 
           <div className="container hidden-xs">
-            <div className="row"><div className="col-sm-6 col-sm-offset-3 text-center" style={{letterSpacing: '1.5px'}}>
+            <div className="row"><div className="col-sm-8 col-sm-offset-2 text-center">
               <img src={steps[this.state.stepIndex].icon}/>
               {steps[this.state.stepIndex].text}
             </div></div>
           </div>
           <div className="container visible-xs">
             <div className="row"><div className="col-sm-12 text-center">
-              <p style={{letterSpacing: '1.5px'}}>an artificial intelligence matching British art with real-time news</p>
+              <p>an artificial intelligence matching British art with real-time news</p>
             </div></div>
           </div>
 

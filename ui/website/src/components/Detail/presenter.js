@@ -122,7 +122,7 @@ class Detail extends React.Component {
       </div>
       <div className="row" style={styles.dataRow}>
 
-        <div className="col-sm-6" style={{paddingLeft: '30px'}}>
+        <div className="col-sm-6" style={{paddingLeft: '30px', paddingTop: '20px'}}>
           <Link className="font-data" style={[styles.link]} to={`/gallery/${itemId}`}><span className='icon--i_arrow-left'/> Back to match</Link>
           <DetailFeatures item={item.input}
                           source={'reuters'}
@@ -145,6 +145,7 @@ class Detail extends React.Component {
                           scores={selectedOutput.features.summary.scores}
                           onOver={this.handleRightOverFeatures}
                           onOverTags={this.handleOverTags}
+                          overImg={this.state.overImg}
                           overHash={this.state.overLeft}
                           overTags={this.state.overTags}
                           parent={this}

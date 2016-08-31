@@ -158,6 +158,7 @@ class DetailFeatures extends React.Component {
         <table className="table borderless">
           <tbody>
             {
+              densecap_captions.length == 0 ? (<tr><td>No objects found</td></tr>) :
               densecap_captions.map((caption, index) => {
 
                 let duplicates = false;
@@ -221,6 +222,7 @@ class DetailFeatures extends React.Component {
       </h3>
       { typeof features.mapi != 'undefined' ? (<div className="table-responsive" style={[styles.tableOverflow, styles.categoryBottom]}>
       {
+        mapi_ages.length == 0 ? (<p>No faces found</p>) :
         mapi_ages.map((age, index) => {
 
           let duplicates = false;

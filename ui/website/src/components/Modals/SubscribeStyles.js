@@ -34,7 +34,7 @@ const styles = {
     backgroundColor: '#0d1215',
     border: '1px solid #4a4a4a',
     boxShadow: '0 5px 15px rgba(0,0,0,.5)',
-    padding: 10,
+    padding: 32,
     top: '50%', left: '50%',
     transform: 'translate(-50%, -50%)',
     outline: 'none'

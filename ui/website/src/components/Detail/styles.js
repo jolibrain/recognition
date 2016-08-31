@@ -104,9 +104,6 @@ const styles = {
   leftImg: {
     marginTop: '20px',
   },
-  rightDetails: {
-    marginTop: '40px',
-  },
   rowHover: {
     ':hover': {
       color: '#0FC'

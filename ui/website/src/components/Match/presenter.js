@@ -156,7 +156,7 @@ class Match extends React.Component {
                 />
                 <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</p>
               </div>
-              <div className="col-sm-2">
+              <div className="col-sm-2" style={{paddingLeft: 0, paddingRight: 0}}>
                 <Description id={itemId}
                              descriptionIn={selectedOutput.features.in.captions.caption}
                              descriptionOut={selectedOutput.features.out.captions.caption}/>
@@ -191,7 +191,7 @@ class Match extends React.Component {
                 </div>
                 <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</p>
               </div>
-              <div className="col-sm-2">
+              <div className="col-sm-2" style={{paddingLeft: 0, paddingRight: 0}}>
                 <Description id={itemId}
                              descriptionIn={selectedOutput.features.in.captions.caption}
                              descriptionOut={selectedOutput.features.out.captions.caption}/>
