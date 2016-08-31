@@ -56,6 +56,9 @@ class FeatureGenerator:
             captions_in_s = shelve.open(captions_in)
         if captions_out:
             captions_out_s = shelve.open(captions_out)
+
+        #print 'captions_in=',captions_in
+        #print 'captions_out=',captions_out
         mapi_in_s = None
         mapi_out_s = None
         if mapi_in:
@@ -91,6 +94,7 @@ class FeatureGenerator:
             #print 'captions_out=',captions_out
             if captions_out:
                 try:
+                    #print 'caption out lookup:',str(os.path.basename(nn['uri']))
                     captions_outd = captions_out_s[str(os.path.basename(nn['uri']))]
                 except:
                     print 'failed captions_outd acquisition'
@@ -132,9 +136,15 @@ class FeatureGenerator:
                         metad = meta_in_s.get(str(os.path.basename(nuri)),'')
                     captions_ind = ''
                     if captions_in:
-                        captions_ind = captions_in_s.get(str(os.path.basename(nuri)),'')
-                        #if captions_ind == '':
-                        #    print 'failed acquiring in caption for img=',os.path.basename(nuri)
+                        #print 'caption in lookup:',str(os.path.basename(nuri))
+                        try:
+                            captions_ind = captions_in_s.get(str(os.path.basename(nuri)),'')
+                            #if captions_ind == '':
+                            #    print 'failed acquiring in caption for img=',os.path.basename(nuri)
+                            #print 'captions_ind=',captions_ind
+                        except:
+                            print 'failed acquiring in caption for img=',os.path.basename(nuri)
+                            pass
                     mapid = {}
                     #print 'nuri=',nuri
                     #print 'mapi_in=',mapi_in

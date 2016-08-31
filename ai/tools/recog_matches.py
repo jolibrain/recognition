@@ -122,21 +122,23 @@ generators = args.generators
 if generators[0] == 'all':
     generators = generator_lk.keys()
 
-if 'captions' in generators:
-    generator_conf = generator_lk['captions']
-    nfiles = min(args.nfiles,len(image_files))
-    model_repo = args.models_repo + '/captions'
-    captiond = CaptionGenerator(images_repo=args.input_imgs,image_files=image_files,nimages=nfiles,model_repo=model_repo,index_repo=args.indexes_repo,name='captions',nt2_dir=generator_conf['nt2_dir'],th_path=generator_conf['thpath'],description=generator_conf['description'],tate=False)
-    captiond.preproc()
-    captiond.index()
-    captions_in = args.indexes_repo + '/captions/ldata.bin'
-    captions_out = args.indexes_repo + '/captions/out_ldata.bin'
-    generators.remove('captions')
+#if 'captions' in generators:
+#    generator_conf = generator_lk['captions']
+#    nfiles = min(args.nfiles,len(image_files))
+#    model_repo = args.models_repo + '/captions'
+#    captiond = CaptionGenerator(images_repo=args.input_imgs,image_files=image_files,nimages=nfiles,model_repo=model_repo,index_repo=args.indexes_repo,name='captions',nt2_dir=generator_conf['nt2_dir'],th_path=generator_conf['thpath'],description=generator_conf['description'],tate=False)
+#    captiond.preproc()
+#    captiond.index()
+#    captions_in = args.indexes_repo + '/captions/ldata.bin'
+#    captions_out = args.indexes_repo + '/captions/out_ldata.bin'
+#    generators.remove('captions')
 mapid = {}
 if 'mapi' in generators:
     mapid = execute_generator('mapi',meta_in=meta_in,meta_out=meta_out,captions_in=captions_in,captions_out=captions_out)
     mapi_in = args.indexes_repo + '/mapi/ldata.bin'
     mapi_out = args.indexes_repo + '/mapi/out_ldata.bin'
+    captions_in = args.indexes_repo + '/mapi/in_captions.bin'
+    captions_out = args.indexes_repo + '/mapi/out_captions.bin'
     generators.remove('mapi')
         
 #sys.exit()

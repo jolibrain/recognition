@@ -52,7 +52,11 @@ class MAPIGenerator(FeatureGenerator):
             os.mkdir(self.index_repo)
         except:
             pass
-        
+        if self.captions_in == '':
+            self.captions_in = self.index_repo + '/in_captions.bin'
+        if self.captions_out == '':
+            self.captions_out = self.index_repo + '/out_captions.bin'
+
         self.mapi_dominant_colors = {}
         self.mapi_tags = {}
         self.mapi_categories = {}
@@ -281,6 +285,7 @@ class MAPIGenerator(FeatureGenerator):
         ldb = shelve.open(self.index_repo + dbname)
         for i,c in self.mapi_captions.iteritems():
             ldb[os.path.basename(str(i))] = c
+            print 'indexing',os.path.basename(i),' / ',c
         ldb.close()
         return
 

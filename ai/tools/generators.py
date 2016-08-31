@@ -110,12 +110,12 @@ generator_lk = {
         'type': 'mapi',
         'name': 'mapi',
         'description': 'vision'
-    },
-    'captions': {
-        'type': 'captions',
-        'name': 'captions',
-        'description': 'captions',
-        'nt2_dir': '/home/recog/tate/apps/neuraltalk2/',
-        'thpath': '/home/recog/tate/apps/torch/install/bin/th'
-    }
+    }#,
+#    'captions': {
+#        'type': 'captions',
+#        'name': 'captions',
+#        'description': 'captions',
+#        'nt2_dir': '/home/recog/tate/apps/neuraltalk2/',
+#        'thpath': '/home/recog/tate/apps/torch/install/bin/th'
+#    }
 }
