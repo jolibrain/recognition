@@ -50,9 +50,11 @@ class Splash extends React.Component {
               if(this.state.outputIndex % 10 == 0) {
                 this.setState({
                   splashIndex: this.state.splashIndex >= (this.props.splash.length - 1) ? 0 : this.state.splashIndex + 1,
-                  outputIndex: this.state.outputIndex + 1
                 });
               }
+                this.setState({
+                  outputIndex: this.state.outputIndex + 1
+                });
             }
           } />
 
