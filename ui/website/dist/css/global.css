@@ -751,6 +751,11 @@ ul.react-autosuggest__suggestions-list a:hover {
   text-transform: uppercase;
 }
 
+.infoPage ul {
+  padding-left: 0;
+  list-style: none;
+}
+
 .infoPage li {
   font-family: 'TateNewPro';
   font-size: 13px;

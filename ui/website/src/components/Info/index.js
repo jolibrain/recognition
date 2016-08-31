@@ -28,7 +28,7 @@ class Info extends React.Component {
             <img className="img-responsive" src="/img/logos/tate.png"/>
           </div>
           <div className="col-sm-2">
-            <img style={{maxHeight: '30px', marginTop: '14px'}} className="img-responsive" src="/img/logos/microsoft.png"/>
+            <img style={{maxHeight: '30px', marginTop: '20px'}} className="img-responsive" src="/img/logos/microsoft.png"/>
           </div>
           <div className="col-sm-2">
             <p>Created by</p>
