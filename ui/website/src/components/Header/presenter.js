@@ -44,7 +44,7 @@ class Header extends React.Component {
 
           <div className="navbar-header">
             <Link style={[styles.brand]} className="navbar-brand" to='/'>
-              <img src="/img/logos/recognition.png" alt="recognition"/>
+              <span style={[styles.brand.re]}>re]</span>[cognition
             </Link>
           </div>
 

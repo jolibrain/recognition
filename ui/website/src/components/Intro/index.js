@@ -72,7 +72,7 @@ class IntroOverlay extends React.Component {
             <div className="container-fluid">
 
               <div className="navbar-header">
-                <img src="/img/logos/recognition.png" alt="recognition"/>
+                <p className="navbar-brand"><span>re]</span>[cognition</p>
                 <p>Winner of IK Prize 2016</p>
               </div>
 
