@@ -123,7 +123,7 @@ const styles = {
     color: '#0FC',
     borderBottom: '1px solid #0FC'
   },
-  categoryBottom: { paddingBottom: '16px' },
+  categoryBottom: { paddingBottom: '8px' },
   rowImg: {marginTop:'60px'}
 }
 
