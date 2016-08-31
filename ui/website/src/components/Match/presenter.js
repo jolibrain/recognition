@@ -284,19 +284,6 @@ class Match extends React.Component {
       <div className="container-fluid" style={styles.matchContainer}>
         {orientedComponent}
       </div>
-      { this.props.followingMatches ?
-        (<div>
-          <DocMeta tags={meta} />
-          <InfiniteScroll
-            pageStart={0}
-            loadMore={this.loadItems}
-            hasMore={this.state.hasMoreItems}
-            loader={loader}>
-            {followingMatches}
-          </InfiniteScroll>
-          <GoogleTagManager dataLayerName={'Match_' + itemId} />
-        </div>) : ''
-      }
     </div>);
   }
 }

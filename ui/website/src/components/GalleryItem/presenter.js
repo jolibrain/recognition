@@ -46,7 +46,7 @@ class GalleryItem extends React.Component {
       } else {
         //HV
         if(source == 'input') {
-          return {left: '0px', top: this.state.hvTop + 'px', position: 'absolute', paddingLeft: '15px' paddingRight: '15px'};
+          return {left: '0px', top: this.state.hvTop + 'px', position: 'absolute', paddingLeft: '15px', paddingRight: '15px'};
         }
       }
     } else {
