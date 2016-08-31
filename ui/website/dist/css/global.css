@@ -825,6 +825,7 @@ a.backGallery {
   font-size: 13px;
   letter-spacing: 1.5px;
   font-weight: normal;
+  padding-bottom: 32px;
 }
 
 a.backGallery:hover {
