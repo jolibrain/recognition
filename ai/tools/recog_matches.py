@@ -66,10 +66,16 @@ if 'mapi' in args.generators or 'all' in args.generators:
     try:
         json_mapi_files = list_files(args.input_imgs + '/mapi/',ext='.json')
         json_mapi_emo_files = list_files(args.input_imgs + '/mapi_emo/',ext='.json')
+        print 'json_mapi_files=',len(json_mapi_files)
+        print 'json_mapi_emo_files=',len(json_mapi_emo_files)
     except:
         pass
 
-def execute_generator(generator,jdataout={},meta_in='',meta_out='',captions_in='',captions_out=''):
+if len(image_files) == 0:
+    print 'no new images'
+    sys.exit(0)
+
+def execute_generator(generator,jdataout={},meta_in='',meta_out='',captions_in='',captions_out='',mapi_in='',mapi_out=''):
     #print 'jdataout=',jdataout
     generator_conf = generator_lk.get(generator,None)
     if not generator_conf:
@@ -78,21 +84,22 @@ def execute_generator(generator,jdataout={},meta_in='',meta_out='',captions_in='
     model_repo = args.models_repo + '/' + generator_conf['name']
     if generator_conf['type'] == 'dnn':
         dnnmodel = DNNModel(name=generator,model_repo=model_repo,nclasses=generator_conf['nclasses'],extract_layer=generator_conf.get('extract_layer',''),best=generator_conf.get('best',0),description=generator_conf['description'])
-        dnnfe = DNNFeatureExtractor(dnnmodel,image_files,args.indexes_repo,batch_size=generator_conf.get('batch_size',args.batch_size),meta_in=meta_in,meta_out=meta_out,captions_in=captions_in,captions_out=captions_out)
+        dnnfe = DNNFeatureExtractor(dnnmodel,image_files,args.indexes_repo,batch_size=generator_conf.get('batch_size',args.batch_size),meta_in=meta_in,meta_out=meta_out,captions_in=captions_in,captions_out=captions_out,mapi_in=mapi_in,mapi_out=mapi_out)
         return dnnfe.search(jdataout)
     elif generator_conf['type'] == 'w2v':
-        txtembed = TextEmbedding(xml_files,model_repo=model_repo,model_file=generator_conf['file'],index_repo=args.indexes_repo,tate=False,img_files=image_files,reuters_json=False,meta_in=meta_in,meta_out=meta_out,captions_in=captions_in,captions_out=captions_out)
+        txtembed = TextEmbedding(xml_files,model_repo=model_repo,model_file=generator_conf['file'],index_repo=args.indexes_repo,tate=False,img_files=image_files,reuters_json=False,meta_in=meta_in,meta_out=meta_out,captions_in=captions_in,captions_out=captions_out,mapi_in=mapi_in,mapi_out=mapi_out)
         txtembed.preproc()
         return txtembed.search(jdataout)
     elif generator_conf['type'] == 'densecap':
         nfiles = min(args.nfiles,len(image_files))
         dcap = DenseCapExtractor(images_repo=args.input_imgs,image_files=image_files,nimages=nfiles,model_repo=model_repo,index_repo=args.indexes_repo,name=generator,
-                                 densecap_dir=generator_conf['wdir'],th_path=generator_conf['thpath'],description=generator_conf['description'],meta_in=meta_in,meta_out=meta_out,captions_in=captions_in,captions_out=captions_out)
+                                 densecap_dir=generator_conf['wdir'],th_path=generator_conf['thpath'],description=generator_conf['description'],meta_in=meta_in,meta_out=meta_out,captions_in=captions_in,captions_out=captions_out,mapi_in=mapi_in,mapi_out=mapi_out)
         dcap.preproc()
         return dcap.search(jdataout)
     elif generator_conf['type'] == 'mapi' and json_mapi_files and json_mapi_emo_files:
         mapi = MAPIGenerator(image_files=image_files,json_files=json_mapi_files,json_emo_files=json_mapi_emo_files,index_repo=args.indexes_repo,name=generator,description=generator_conf['description'],tate=False,meta_in=meta_in,meta_out=meta_out,captions_in=captions_in,captions_out=captions_out)
         mapi.preproc()
+        mapi.index()
         return mapi.search(jdataout)
     elif generator_conf['type'] != 'meta':
         logger.error('Unknown generator type ' + generator_conf['type'])
@@ -108,6 +115,8 @@ meta_in = args.indexes_repo + '/metadata/names.bin' ##TODO: mapi captions if nee
 meta_out = args.indexes_repo + '/metadata/out_names.bin'
 captions_in = ''
 captions_out = ''
+mapi_in = ''
+mapi_out = ''
 
 generators = args.generators
 if generators[0] == 'all':
@@ -123,18 +132,25 @@ if 'captions' in generators:
     captions_in = args.indexes_repo + '/captions/ldata.bin'
     captions_out = args.indexes_repo + '/captions/out_ldata.bin'
     generators.remove('captions')
+mapid = {}
+if 'mapi' in generators:
+    mapid = execute_generator('mapi',meta_in=meta_in,meta_out=meta_out,captions_in=captions_in,captions_out=captions_out)
+    mapi_in = args.indexes_repo + '/mapi/ldata.bin'
+    mapi_out = args.indexes_repo + '/mapi/out_ldata.bin'
+    generators.remove('mapi')
         
+#sys.exit()
 
 errors = 0
-json_out = {}
+json_out = mapid
 for gen in generators:
     json_out_tmp = ''
-    try:
-        json_out_tmp = execute_generator(gen,jdataout=json_out,meta_in=meta_in,meta_out=meta_out,captions_in=captions_in,captions_out=captions_out)
-    except:
-        logger.error('Failed processing with generator ' + gen)
-        errors += 1
-        pass
+    #try:
+    json_out_tmp = execute_generator(gen,jdataout=json_out,meta_in=meta_in,meta_out=meta_out,captions_in=captions_in,captions_out=captions_out,mapi_in=mapi_in,mapi_out=mapi_out)
+    #except:
+    #    logger.error('Failed processing with generator ' + gen)
+    #    errors += 1
+    #    pass
     if json_out_tmp:
         json_out = json_out_tmp
     #print 'json_out output=',json_out

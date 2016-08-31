@@ -42,7 +42,7 @@ class FeatureGenerator:
         return
 
     def to_json(self,results,img_reuters_repo,img_tate_repo,feature_name='',feature_description='',jdataout={},
-                meta_in='',meta_out='',captions_in='',captions_out=''):
+                meta_in='',meta_out='',captions_in='',captions_out='',mapi_in='',mapi_out=''):
         #print 'feature_name=',feature_name,' / jdataout=',jdataout
         meta_in_s = None
         meta_out_s = None
@@ -56,6 +56,12 @@ class FeatureGenerator:
             captions_in_s = shelve.open(captions_in)
         if captions_out:
             captions_out_s = shelve.open(captions_out)
+        mapi_in_s = None
+        mapi_out_s = None
+        if mapi_in:
+            mapi_in_s = shelve.open(mapi_in)
+        if mapi_out:
+            mapi_out_s = shelve.open(mapi_out)
         ts = time.time()
         for img in results:
             nn = results[img]
@@ -64,9 +70,11 @@ class FeatureGenerator:
             #print 'nn=',nn
             #print 'img=',img
             captions_outd = ''
+            mapid_out = {}
             dataout = jdataout.get(img,None)
             if not dataout:
                 metad = {}
+                #print 'meta_out=',meta_out
                 if meta_out:
                     try:
                         metad = meta_out_s[str(os.path.basename(nn['uri']))]
@@ -74,19 +82,30 @@ class FeatureGenerator:
                         print 'failed metad acquisition'
                         pass
                 
-                #print 'captions_out=',captions_out
-                if captions_out:
-                    try:
-                        captions_outd = captions_out_s[str(os.path.basename(nn['uri']))]
-                    except:
-                        print 'failed captions_outd acquisition'
-                        pass
-                #print 'captions_outd=',captions_outd
                 dataout = {'timestamp':datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S'),
                            'status':'published', # out of published, moderated and pending
                            'input':{'img':img_reuters_repo + os.path.basename(nn['uri']),'meta':metad},
                            'output':[]
                 }
+
+            #print 'captions_out=',captions_out
+            if captions_out:
+                try:
+                    captions_outd = captions_out_s[str(os.path.basename(nn['uri']))]
+                except:
+                    print 'failed captions_outd acquisition'
+                    pass
+                #print 'captions_outd=',captions_outd
+                
+                #print 'nn uri=',nn['uri']
+                #print 'mapi_out=',mapi_out
+            if mapi_out:
+                try:
+                    mapid_out = mapi_out_s[nn['uri']]
+                except:
+                    #print 'failed mapi_out acquisition'
+                    pass
+
             m = 0
             #print 'nns_uris=',nn['nns_uris']
             #print 'nn=',nn
@@ -116,7 +135,20 @@ class FeatureGenerator:
                         captions_ind = captions_in_s.get(str(os.path.basename(nuri)),'')
                         #if captions_ind == '':
                         #    print 'failed acquiring in caption for img=',os.path.basename(nuri)
-                    mdataout = {'meta':metad,'features':{'score':0,'in':{feature_name:{},'captions':{'caption':captions_outd}},'out':{feature_name:{'description':feature_description,'score':score},'captions':{'caption':captions_ind}}},'img':nuri_rebase}
+                    mapid = {}
+                    #print 'nuri=',nuri
+                    #print 'mapi_in=',mapi_in
+                    #print 'nuri_rebase=',nuri_rebase
+                    if mapi_in:
+                        mapid = mapi_in_s.get(str(nuri),{})
+                    #print 'nuri=',nuri,' / mapid=',mapid
+
+                    if feature_name != 'mapi':
+                        mdataout = {'meta':metad,'features':{'score':0,'in':{feature_name:{},'mapi':mapid_out,'captions':{'caption':captions_outd}},'out':{feature_name:{'description':feature_description,'score':score},'captions':{'caption':captions_ind},'mapi':mapid}},'img':nuri_rebase}
+                    else:
+                        mapid['description'] = feature_description
+                        mapid['score'] = score
+                        mdataout = {'meta':metad,'features':{'score':0,'in':{'mapi':mapid_out,'captions':{'caption':captions_outd}},'out':{'mapi':mapid,'captions':{'caption':captions_ind}}},'img':nuri_rebase}
                 else:
                     mdataout['features']['out'][feature_name] = {'description':feature_description,'score':score}
                     mdataout['features']['in'][feature_name] = {}
