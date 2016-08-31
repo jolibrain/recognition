@@ -725,6 +725,7 @@ ul.react-autosuggest__suggestions-list a:hover {
 }
 
 .infoPage hr {
+  margin: 64px 0;
   border-top-style: dashed;
 }
 
