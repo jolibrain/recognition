@@ -97,16 +97,16 @@ class Splash extends React.Component {
 
                   <img
                     className="hidden-xs"
-                    src={match.input.img}
+                    src={match.input.img.replace("_2_", "_3_")}
                     style={[styles.fullHeight.img]}
                     srcSet={match.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + match.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w, " + match.input.img.replace('reuters/', 'reuters/responsive_757/').replace("_2_", "_3_") + " 757w, " + match.input.img.replace('reuters/', 'reuters/responsive_1920/').replace("_2_", "_3_") + " 1920w"}
                     sizes="(min-width: 40em) 80vw, 100vw"
                   />
                   <img
                     className="visible-xs"
-                    src={match.input.img}
+                    src={match.input.img.replace("_2_", "_3_")}
                     style={[styles.fullHeight.img, {position:"relative", top: "20%"}]}
-                    srcSet={match.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + match.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w"}
+                    srcSet={match.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + match.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w, " + match.input.img.replace('reuters/', 'reuters/responsive_757/').replace("_2_", "_3_") + " 757w, " + match.input.img.replace('reuters/', 'reuters/responsive_1920/').replace("_2_", "_3_") + " 1920w"}
                     sizes="(min-width: 40em) 80vw, 100vw"
                   />
 

@@ -106,9 +106,9 @@ class GalleryItem extends React.Component {
             <div className="col-xs-6">
               <Link to={`/image/reuters/${this.state.itemId}`}>
                 <img
-                  src={item.input.img}
+                  src={item.input.img.replace("_2_", "_3_")}
                   style={{width: '50vw'}}
-                  srcSet={item.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + item.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w"}
+                  srcSet={item.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + item.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w, " + match.input.img.replace('reuters/', 'reuters/responsive_757/').replace("_2_", "_3_") + " 757w, " + match.input.img.replace('reuters/', 'reuters/responsive_1920/').replace("_2_", "_3_") + " 1920w"}
                   sizes="50vw"
                 />
               </Link>
@@ -176,7 +176,7 @@ class GalleryItem extends React.Component {
               <div className="col-sm-6" style={styles.fullHeight.col}>
                 <img
                   className="img-responsive"
-                  src={item.input.img}
+                  src={item.input.img.replace("_2_", "_3_")}
                   style={[styles.fullHeight.img, this.getImagePadding('input', inputOrientation, outputOrientation)]}
                   srcSet={item.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + item.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w, " + item.input.img.replace('reuters/', 'reuters/responsive_757/').replace("_2_", "_3_") + " 757w, " + item.input.img.replace('reuters/', 'reuters/responsive_1920/').replace("_2_", "_3_") + " 1920w"}
                   sizes="(min-width: 40em) 80vw, 100vw"
