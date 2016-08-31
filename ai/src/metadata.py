@@ -68,6 +68,7 @@ class MetadataExtractor:
                     meta['title'] = json_data_s['title']
                     meta['medium'] = json_data_s['medium']
                     meta['date'] = json_data_s['dateText']
+                    meta['link'] = json_data_s['canonicalUrl']
                     #content[img_id] = title.lower()
                     meta['author'] = []
                     for co in json_data_s['contributors']:
