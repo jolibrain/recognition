@@ -35,7 +35,7 @@ class Info extends React.Component {
             <img className="img-responsive" src="/img/logos/fabrica.png"/>
           </div>
           <div className="col-sm-2">
-            <p>Content providers</p>
+            <p>Content provider</p>
             <img className="img-responsive" src="/img/logos/reuters.png"/>
           </div>
         </div>
@@ -113,7 +113,7 @@ class Info extends React.Component {
         </div>
         <div className="row font-subtext logoRow">
           <div className="col-sm-12">
-            <p>Content providers</p>
+            <p>Content provider</p>
             <img className="img-responsive" src="/img/logos/reuters.png"/>
           </div>
         </div>
