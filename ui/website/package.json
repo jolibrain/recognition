@@ -64,6 +64,7 @@
     "react-scroll-listener": "^0.4.1",
     "react-scrollchor": "^2.0.0",
     "react-share": "^1.9.0",
+    "react-swiper": "^0.1.5",
     "redux": "^3.5.2",
     "redux-logger": "^2.6.1",
     "style-loader": "^0.13.1",

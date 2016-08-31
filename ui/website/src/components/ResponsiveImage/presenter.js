@@ -17,6 +17,7 @@ import React from 'react';
 import Radium from 'radium';
 import { browserHistory } from 'react-router';
 import BoundedImage from './BoundedImage';
+import moment from 'moment';
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -24,16 +25,52 @@ Link = Radium(Link);
 @Radium
 class ResponsiveImage extends React.Component {
 
-  state = {displayOverlay: false};
+  constructor(props) {
+    super(props);
+
+    const offset = 3;
+
+    this.state = {
+      displayOverlay: false,
+      source: '',
+      itemId: null
+    }
+
+    this.handleLeftSwipe = this.handleLeftSwipe.bind(this);
+    this.handleRightSwipe = this.handleRightSwipe.bind(this);
+  }
+
+  handleLeftSwipe() {
+    if(this.state.source == 'tate') {
+      browserHistory.push(`/image/reuters/${this.state.itemId}`);
+    }
+  }
+
+  handleRightSwipe() {
+    if(this.state.source == 'reuters') {
+      browserHistory.push(`/image/tate/${this.state.itemId}`);
+    }
+  }
+
+  componentWillMount() {
+    this.setState({
+      source: this.props.params.source,
+      itemId: this.props.itemId
+    });
+  }
 
   render() {
 
     if(!this.props.item) return null;
-    const source = this.props.params.source;
 
-    let selectedOutput = this.props.item;
-    if(source == "tate") {
-      selectedOutput = selectedOutput.output.filter(item => item.selected)[0];
+    let item = null;
+    let features = null;
+    if(this.state.source == "tate") {
+      item = this.props.item.output.filter(item => item.selected)[0];
+      features = item.features.out;
+    } else {
+      item = this.props.item.input;
+      features = this.props.item.output.filter(item => item.selected)[0].features.in;
     }
 
     return (<div>
@@ -44,59 +81,61 @@ class ResponsiveImage extends React.Component {
               <img src="/img/logos/recognition.png" alt="recognition"/>
             </Link>
             <p className="text-right" style={{padding: '15px'}}>
-              <Link className="navbar-link" to={`/gallery/${this.props.itemId}`}>
+              <Link className="navbar-link" to={`/gallery/${this.state.itemId}`}>
                 <img src="/img/icons/close.png" alt="close"/>
               </Link>
             </p>
           </div>
         </div>
       </nav>
-      <div className="container responsiveImage">
-        <div className="row">
-          { source === "reuters" ? (<div>
-            <div className="col-xs-10">
-              <a className="processOverlay" onClick={() => this.setState({displayOverlay: !this.state.displayOverlay})}>VIEW RECOGNITION OVERLAY</a>
-            </div>
-            <div className="col-xs-2 text-right">
-              <Link className="back" to={`/image/tate/${this.props.itemId}`}><span className='icon--i_arrow-right'/></Link>
-            </div>
-          </div>) : (<div>
-            <div className="col-xs-2">
-              <Link className="back" to={`/image/reuters/${this.props.itemId}`}><span className='icon--i_arrow-left'/></Link>
-            </div>
-            <div className="col-xs-10 text-right">
-              <a className="processOverlay" onClick={() => this.setState({displayOverlay: !this.state.displayOverlay})}>VIEW RECOGNITION OVERLAY</a>
-            </div>
-          </div>)}
 
-        </div>
-
-        <div className="row">
-          <div className="col-xs-12 text-center">
-            <BoundedImage
-              item={selectedOutput}
-              features={source === "reuters" ? selectedOutput.features.in : selectedOutput.features.out}
-              displayOverlay={this.state.displayOverlay}
-            />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-xs-12 font-titles info">
-            { source === 'reuters' ?
-            (<div>
-              <p>{moment(selectedOutput.meta.date).format('DD/MM/YYYY')}<br/>
-              {selectedOutput.meta.caption}<br/>
-              REUTERS/{selectedOutput.meta.author}</p>
-            </div>) :
-            (<div>
-              <p>{selectedOutput.meta.date}<br/>
-              {selectedOutput.meta.title}<br/>
-              {selectedOutput.meta.copyright}</p>
+        <div className="container responsiveImage">
+          <div className="row">
+            { this.state.source === "reuters" ? (<div>
+              <div className="col-xs-10">
+                <a className="processOverlay" onClick={() => this.setState({displayOverlay: !this.state.displayOverlay})}>VIEW RECOGNITION OVERLAY</a>
+              </div>
+              <div className="col-xs-2 text-right">
+                <Link className="back" to={`/image/tate/${this.state.itemId}`}><span className='icon--i_arrow-right'/></Link>
+              </div>
+            </div>) : (<div>
+              <div className="col-xs-2">
+                <Link className="back" to={`/image/reuters/${this.state.itemId}`}><span className='icon--i_arrow-left'/></Link>
+              </div>
+              <div className="col-xs-10 text-right">
+                <a className="processOverlay" onClick={() => this.setState({displayOverlay: !this.state.displayOverlay})}>VIEW RECOGNITION OVERLAY</a>
+              </div>
             </div>)}
+
+          </div>
+
+          <div className="row">
+            <div className="col-xs-12 text-center">
+              <BoundedImage
+                item={item}
+                features={features}
+                displayOverlay={this.state.displayOverlay}
+              />
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-xs-12 font-titles info">
+              { this.state.source === 'reuters' ?
+              (<div>
+                <p>{moment(item.meta.date).format('DD/MM/YYYY')}<br/>
+                {item.meta.caption}<br/>
+                REUTERS/{item.meta.author}</p>
+              </div>) :
+              (<div>
+                <p>{item.meta.date}<br/>
+                {item.meta.title}<br/>
+                {item.meta.copyright}</p>
+              </div>)}
+            </div>
           </div>
         </div>
-      </div>
+
     </div>);
   }
 }
