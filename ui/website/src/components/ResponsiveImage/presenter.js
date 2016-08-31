@@ -16,7 +16,7 @@ limitations under the License.
 import React from 'react';
 import Radium from 'radium';
 import { browserHistory } from 'react-router';
-import BoundedImage from './BoundedImage'
+import BoundedImage from './BoundedImage';
 
 let {Link} = require('react-router');
 Link = Radium(Link);

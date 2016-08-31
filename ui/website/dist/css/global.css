@@ -795,3 +795,18 @@ and (max-device-width : 768px) {
 .tagsHovered .tag.containTag {
   color:#0fc;
 }
+
+a.backGallery {
+  color: #FFF;
+  display: inline-block;
+  text-transform: uppercase;
+  font-family: 'TateNewPro';
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  font-weight: normal;
+}
+
+a.backGallery:hover {
+  color: #0FC;
+  text-decoration: none;
+}

@@ -14,6 +14,20 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 const styles = {
+  link: {
+    color: '#FFF',
+    display: 'inline-block',
+    textTransform: 'uppercase',
+    pointerEvents: 'all',
+    fontFamily: 'TateNewPro',
+    fontSize: '13px',
+    letterSpacing: '1.5px',
+    fontWeight: 'normal',
+    ':hover': {
+      color: '#0FC',
+      textDecoration: 'none'
+    }
+  },
   imgDescription: {
     textTransform: 'uppercase',
     color: '#4a4a4a',

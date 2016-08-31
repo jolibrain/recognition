@@ -15,6 +15,7 @@ limitations under the License.
 */
 import React from 'react';
 import Radium from 'radium';
+import { browserHistory } from 'react-router';
 import styles from './styles.js';
 
 import Titles from './presenter_titles';
@@ -132,6 +133,7 @@ class Match extends React.Component {
           case "horizontal":
             orientedComponent = (<div className="row">
               <div className="col-sm-5 horizontal">
+                <a className="font-data backGallery" style={{paddingLeft:'32px'}} onClick={browserHistory.goBack}><span className='icon--i_arrow-left'/> Back to gallery</a>
                 <Titles input={item.input} output={selectedOutput}/>
                 <BoundedImage
                   item={item.input}
@@ -164,6 +166,7 @@ class Match extends React.Component {
           case "vertical":
             orientedComponent = (<div className="row">
               <div className="col-sm-5 horizontal">
+                <a className="font-data backGallery" style={{paddingLeft:'32px'}} onClick={browserHistory.goBack}><span className='icon--i_arrow-left'/> Back to gallery</a>
                 <BoundedImage
                   item={item.input}
                   itemId={itemId}
@@ -203,6 +206,7 @@ class Match extends React.Component {
           case "horizontal":
             orientedComponent = (<div className="row">
               <div className="col-sm-2">
+                <a className="font-data backGallery" onClick={browserHistory.goBack}><span className='icon--i_arrow-left'/> Back to gallery</a>
                 <Titles input={item.input} output={selectedOutput}/>
               </div>
               <div className="col-sm-5">
@@ -237,6 +241,7 @@ class Match extends React.Component {
           case "vertical":
             orientedComponent = (<div className="row">
               <div className="col-sm-2">
+                <a className="font-data backGallery" onClick={browserHistory.goBack}><span className='icon--i_arrow-left'/> Back to gallery</a>
                 <Titles input={item.input} output={selectedOutput}/>
                 <div style={{height: '16px'}}>&nbsp;</div>
                 <Description id={itemId}
