@@ -56,20 +56,18 @@ def format_and_filter(dict_out,nmatches,smatches_file='',sort_best=False,website
                 if not medium or 'hotograph' in medium or 'lack and white' in medium or 'creenprint' in medium or 'egative' in medium or 'ideo ' in medium:
                     continue
             img = m['img']
-            if smatches_file and img in freq_matches:
+            if c == 0 and smatches_file and img in freq_matches:
                 freq_matches[img] += 1
                 del vout[c]
                 skip = True
-                out_splash.append(m)
-                break
-            if c == 0:
+            elif c == 0 and smatches_file:
                 freq_matches[img] = 1
-            if c < lnmatches:
+            if not skip and c < lnmatches:
                 out.append(m)
-                if website and j > 0:
-                    break
-            #if j == 0 and website and c < nmatches:
-            #    out_splash.append(m)
+            elif skip and c < nmatches:
+                out_splash.append(m)
+            if c > nmatches:
+                break
             c = c + 1
         if not skip:
             v['output'] = out
@@ -78,16 +76,10 @@ def format_and_filter(dict_out,nmatches,smatches_file='',sort_best=False,website
             vc = deepcopy(v)
             vc['output'] = out_splash
             refused.append(vc)
-        #if j == 0 and website:
-        #    v_splash = deepcopy(v)
-        #    v_splash['output'] = out_splash
-        #    splash_out = v_splash
         j = j + 1
     splash_out = refused
     if sort_best:
         json_out = sorted(json_out, key=lambda x: x['output'][0]['features']['score'],reverse=True)
-    #if website:
-    #    splash_out = [splash_out]
     if smatches_file:
         smatches[nowdate] = freq_matches
         smatches.close()
