@@ -171,8 +171,13 @@ if args.concat:
     except:
         logger.info('cannot load pre-existing JSON file=',args.json_output)
     for j in json_in:
-        ##TODO: check that images are not already in
-        json_out.append(j)
+        skip = False
+        for ji in json_out:
+            if ji['input']['img'] == j['input']['img']:
+                skip = True
+                break
+        if not skip:    
+            json_out.append(j)
 
 with open(args.json_output,'w') as fout:
     json.dump(json_out,fout)
