@@ -28,7 +28,7 @@ class Description extends React.Component {
   render() {
 
     return (<div>
-      <Link className="font-subtext" style={styles.processLink} to={`/details/${this.props.id}`}>View recognition process <span className="icon--i_arrow-right"/></Link>
+      <Link className="font-subtext matchLinkRecog" style={styles.processLink} to={`/details/${this.props.id}`}>View recognition process <span className="icon--i_arrow-right"/></Link>
 
       <h3 className="font-data" style={styles.descriptionTitle}>AI Description</h3>
       <p className="font-data" style={styles.descriptionText}>{this.props.descriptionIn}</p>

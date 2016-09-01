@@ -873,3 +873,37 @@ a.backGallery:hover {
   color: #0FC;
   text-decoration: none;
 }
+
+.matchLinkRecog {
+  -webkit-animation: color-change 1s infinite;
+  -moz-animation: color-change 1s infinite;
+  -o-animation: color-change 1s infinite;
+  -ms-animation: color-change 1s infinite;
+  animation: color-change 1s infinite;
+}
+
+@-webkit-keyframes color-change {
+    0% { color: #fff; }
+    50% { color: #aaa; }
+    100% { color: #fff; }
+}
+@-moz-keyframes color-change {
+    0% { color: #fff; }
+    50% { color: #aaa; }
+    100% { color: #fff; }
+}
+@-ms-keyframes color-change {
+    0% { color: #fff; }
+    50% { color: #aaa; }
+    100% { color: #fff; }
+}
+@-o-keyframes color-change {
+    0% { color: #fff; }
+    50% { color: #aaa; }
+    100% { color: #fff; }
+}
+@keyframes color-change {
+    0% { color: #fff; }
+    50% { color: #aaa; }
+    100% { color: #fff; }
+}
