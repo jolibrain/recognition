@@ -62,10 +62,12 @@ class IntroOverlay extends React.Component {
     } else {
       document.body.classList.remove('noscroll');
       document.getElementById("app").classList.remove('introOverlay-app');
-      const elements = document.getElementById("splashComponent").getElementsByClassName("to_hide");
-      for(let i = 0; i < elements.length; i++) {
-        elements[i].classList.remove('visible-xs');
-        elements[i].classList.toggle('hidden', true);
+      if( document.getElementById("splashComponent")) {
+        const elements = document.getElementById("splashComponent").getElementsByClassName("to_hide");
+        for(let i = 0; i < elements.length; i++) {
+          elements[i].classList.remove('visible-xs');
+          elements[i].classList.toggle('hidden', true);
+        }
       }
     }
 
