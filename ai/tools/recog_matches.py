@@ -55,6 +55,7 @@ parser.add_argument('--medium',help='filters out all photographs and undefined m
 parser.add_argument('--no-tga',help='filter out images from TGA archive',action='store_true')
 parser.add_argument('--last-hour',help='select images from last hour',default=-1,type=int)
 parser.add_argument('--freq-filter',help='artwork daily frequency filtering database, if any',default='',type=str)
+parser.add_argument('--event-filter',help='whether to filter events, one match per event',action='store_true')
 parser.add_argument('--concat',help='concat results with those of existing file',action='store_true')
 parser.add_argument('--gallery-output',help='JSON gallery output',default='gallery.json',type=str)
 parser.add_argument('--splash-output',help='JSON splash output',default='splash.json',type=str)
@@ -179,7 +180,7 @@ json_out = es.ensembling(json_out)
 smatches_file = ''
 if args.freq_filter:
     smatches_file = args.freq_filter
-json_out,gallery_out,splash_out = format_and_filter(json_out,args.nmatches,smatches_file,args.sort_best,args.website,args.no_tga,args.medium)
+json_out,gallery_out,splash_out = format_and_filter(json_out,args.nmatches,smatches_file,args.sort_best,args.website,args.no_tga,args.medium,args.event_filter)
 
 if args.concat:
     concat(args.json_output,json_out) # concats json_out at the top of json_in (existing json_output file), into json_out
