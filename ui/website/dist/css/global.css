@@ -660,7 +660,7 @@ ul.react-autosuggest__suggestions-list a:hover {
   padding: 64px 0;
 }
 .galleryItem .hidden-xs .timestamp {
-  padding-bottom: 64px
+  padding-bottom: 32px
 }
 .galleryItem .hidden-xs .output-meta {
   margin-top: 16px;
