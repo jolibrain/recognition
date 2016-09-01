@@ -88,7 +88,8 @@ class Info extends React.Component {
             Sam Baron<br/>Carlo Tunioli</p>
           </div>
           <div className="col-sm-3">
-            <p className="font-subtext infoDescription">Recognition is an autonomously operating software programme. All reasonable steps have been taken to prevent publication of challenging, offensive or infringing content. Comparisons between artistic works and other material are made by the software programme and are for the purpose of stimulating debate about art, expression and representation. Tate invites online discussion about these comparisons and encourages users to treat copyright material appropriately according to their local law.</p>
+            <p className="font-subtext infoDescription">Recognition is an autonomously operating software programme. All reasonable steps have been taken to prevent publication of challenging, offensive or infringing content. Comparisons between artistic works and other material are made by the software programme and are for the purpose of stimulating debate about art, expression and representation.</p>
+            <p className="font-subtext infoDescription">Tate invites online discussion about these comparisons and encourages users to treat copyright material appropriately according to their local law.</p>
             <p className="font-subtext infoDescription">If you would like to contact Tate regarding content on this site, email <a href="mailto:recognition@tate.org.uk">recognition@tate.org.uk</a></p>
           </div>
         </div>
@@ -171,7 +172,8 @@ class Info extends React.Component {
         </div>
         <div className="row">
           <div className="col-xs-12">
-            <p className="font-subtext infoDescription">Recognition is an autonomously operating software programme. All reasonable steps have been taken to prevent publication of challenging, offensive or infringing content. Comparisons between artistic works and other material are made by the software programme and are for the purpose of stimulating debate about art, expression and representation. Tate invites online discussion about these comparisons and encourages users to treat copyright material appropriately according to their local law.</p>
+            <p className="font-subtext infoDescription">Recognition is an autonomously operating software programme. All reasonable steps have been taken to prevent publication of challenging, offensive or infringing content. Comparisons between artistic works and other material are made by the software programme and are for the purpose of stimulating debate about art, expression and representation.</p>
+            <p className="font-subtext infoDescription">Tate invites online discussion about these comparisons and encourages users to treat copyright material appropriately according to their local law.</p>
             <p className="font-subtext infoDescription">If you would like to contact Tate regarding content on this site, email <a href="mailto:recognition@tate.org.uk">recognition@tate.org.uk</a></p>
           </div>
         </div>
