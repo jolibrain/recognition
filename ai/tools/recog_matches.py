@@ -184,7 +184,7 @@ json_out,gallery_out,splash_out = format_and_filter(json_out,args.nmatches,smatc
 
 if args.concat:
     concat(args.json_output,json_out) # concats json_out at the top of json_in (existing json_output file), into json_out
-    concat(args.gallery_output,json_out)
+    concat(args.gallery_output,gallery_out)
 
 with open(args.json_output,'w') as fout:
     json.dump(json_out,fout)
