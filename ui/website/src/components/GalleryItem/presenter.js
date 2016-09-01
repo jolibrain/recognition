@@ -101,11 +101,11 @@ class GalleryItem extends React.Component {
         <div className="container-fluid" style={{fontSize: '13px', letterSpacing: '1.5px'}}>
           <div className="row">
             <div className="col-xs-12 title">
-              <p>NO. {this.state.itemId}  {moment(item.timestamp).format('DD/MM/YYYY')}</p>
+              <p style={{fontSize: '13px', letterSpacing: '1.5px'}}>NO. {this.state.itemId}  {moment(item.timestamp).format('DD/MM/YYYY')}</p>
             </div>
           </div>
           <div className="row">
-            <div className="col-xs-6">
+            <div className="col-xs-6" style={{paddingRight: 0}}>
               <Link to={`/image/reuters/${this.state.itemId}`}>
                 <img
                   className="img-responsive"
@@ -114,7 +114,7 @@ class GalleryItem extends React.Component {
                 />
               </Link>
             </div>
-            <div className="col-xs-6">
+            <div className="col-xs-6" style={{paddingRight: 0}}>
               <Link to={`/image/tate/${this.state.itemId}`}>
                 <img
                   className="img-responsive"
@@ -125,30 +125,30 @@ class GalleryItem extends React.Component {
               </Link>
             </div>
           </div>
-          <div className="row">
+          <div className="row" style={{paddingTop: '32px'}}>
             <div className="col-xs-12">
               <p>{moment(item.input.meta.date).format('DD/MM/YYYY')} <span className="itemSource">REUTERS/{item.input.meta.author}</span><br/>
-              <span style={{fontSize: '15px'}}>{item.input.meta.caption}</span></p>
+              <span style={{fontSize: '18px', letterSpacing: 0}}>{item.input.meta.caption}</span></p>
             </div>
           </div>
-          <div className="row">
+          <div className="row" style={{paddingTop: '32px'}}>
             <div className="col-xs-12">
-              <p>{selectedOutput.meta.date} <span className="itemSource">{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</span><br/><span style={{fontSize: '15px'}}><em>{selectedOutput.meta.title}</em> by {selectedOutput.meta.author}</span></p>
+              <p>{selectedOutput.meta.date} <span className="itemSource">{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</span><br/><span style={{fontSize: '18px', letterSpacing: 0}}><em>{selectedOutput.meta.title}</em> by {selectedOutput.meta.author}</span></p>
             </div>
           </div>
-          <div className="row">
+          <div className="row" style={{paddingTop: '16px'}}>
             <div className="col-xs-12">
               <p><a onClick={() => this.setState({processVisible: !this.state.processVisible}) } className="processClick">VIEW RECOGNITION PROCESS { this.state.processVisible ? (<span className="icon--i_arrow-down"/>) : (<span className="icon--i_arrow-right"/>)}</a></p>
               { this.state.processVisible ?
                 (
-                <div className="processData">
-                  <p><img src="/img/icons/score_objects.svg"/> OBJECTS {(selectedOutput.features.summary.scores.objects * 100).toFixed(2)}%<br/>
+                <div className="processData" style={{paddingTop: '1px'}}>
+                  <p><img src="/img/icons/score_objects.svg" style={{paddingTop: '2px'}}/> OBJECTS {(selectedOutput.features.summary.scores.objects * 100).toFixed(2)}%<br/>
                   <span style={{color: 'white'}}>{new Array(parseInt(selectedOutput.features.summary.scores.objects * 25)).fill('.').join('')}</span><span style={{color: '#4a4a4a'}}>{new Array(25 - parseInt(selectedOutput.features.summary.scores.objects * 25)).fill('.').join('')}</span></p>
-                  <p><img src="/img/icons/score_faces.svg"/> FACES {(selectedOutput.features.summary.scores.faces * 100).toFixed(2)}%<br/>
+                  <p><img src="/img/icons/score_faces.svg" style={{paddingTop: '2px'}}/> FACES {(selectedOutput.features.summary.scores.faces * 100).toFixed(2)}%<br/>
                   <span style={{color: 'white'}}>{new Array(parseInt(selectedOutput.features.summary.scores.faces * 25)).fill('.').join('')}</span><span style={{color: '#4a4a4a'}}>{new Array(25 - parseInt(selectedOutput.features.summary.scores.faces * 25)).fill('.').join('')}</span></p>
-                  <p><img src="/img/icons/score_composition.svg"/> COMPOSITION {(selectedOutput.features.summary.scores.composition * 100).toFixed(2)}%<br/>
+                  <p><img src="/img/icons/score_composition.svg" style={{paddingTop: '2px'}}/> COMPOSITION {(selectedOutput.features.summary.scores.composition * 100).toFixed(2)}%<br/>
                   <span style={{color: 'white'}}>{new Array(parseInt(selectedOutput.features.summary.scores.composition * 25)).fill('.').join('')}</span><span style={{color: '#4a4a4a'}}>{new Array(25 - parseInt(selectedOutput.features.summary.scores.composition * 25)).fill('.').join('')}</span></p>
-                  <p><img src="/img/icons/score_context.svg"/> CONTEXT {(selectedOutput.features.summary.scores.context * 100).toFixed(2)}%<br/>
+                  <p><img src="/img/icons/score_context.svg" style={{paddingTop: '2px'}}/> CONTEXT {(selectedOutput.features.summary.scores.context * 100).toFixed(2)}%<br/>
                   <span style={{color: 'white'}}>{new Array(parseInt(selectedOutput.features.summary.scores.context * 25)).fill('.').join('')}</span><span style={{color: '#4a4a4a'}}>{new Array(25 - parseInt(selectedOutput.features.summary.scores.context * 25)).fill('.').join('')}</span></p>
                 </div>
                 ) : '' }
