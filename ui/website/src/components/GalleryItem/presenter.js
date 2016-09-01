@@ -108,20 +108,18 @@ class GalleryItem extends React.Component {
             <div className="col-xs-6">
               <Link to={`/image/reuters/${this.state.itemId}`}>
                 <img
+                  className="img-responsive"
                   src={item.input.img.replace("_2_", "_3_")}
-                  style={{width: '50vw'}}
                   srcSet={item.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + item.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w, " + item.input.img.replace('reuters/', 'reuters/responsive_757/').replace("_2_", "_3_") + " 757w, " + item.input.img.replace('reuters/', 'reuters/responsive_1920/').replace("_2_", "_3_") + " 1920w"}
-                  sizes="50vw"
                 />
               </Link>
             </div>
             <div className="col-xs-6">
               <Link to={`/image/tate/${this.state.itemId}`}>
                 <img
-                  style={{width: '50vw'}}
+                  className="img-responsive"
                   src={selectedOutput.img}
                   srcSet={selectedOutput.img.replace('tate/', 'tate/responsive_375/') + " 375w, " + selectedOutput.img.replace('tate/', 'tate/responsive_480/') + " 480w"}
-                  sizes="50vw"
                   onClick={() => {this.setState({showOutputOverlay: true})}}
                 />
               </Link>
