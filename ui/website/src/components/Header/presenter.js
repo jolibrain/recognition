@@ -86,7 +86,7 @@ class Header extends React.Component {
           </div>
 
           <div className={ this.state.displayMenu ? "collapse in" : "hidden" } aria-expanded={this.state.displayMenu ? "true" : "false"}>
-            <ul class="nav navbar-nav" style={{listStyle: 'none', fontFamily: 'TateNewPro', paddingLeft: '30px', fontSize: '13px'}}>
+            <ul className="nav navbar-nav" style={{listStyle: 'none', fontFamily: 'TateNewPro', paddingLeft: '30px', fontSize: '13px'}}>
               <li className={this.props.path == '/gallery' ? 'menuSelected' : ''}><Link style={[styles.menuItemXs]} to='/gallery' onClick={() => this.setState({displayMenu: false})}>Gallery</Link></li>
               <li className={this.props.path == '/info' ? 'menuSelected' : ''}><Link style={[styles.menuItemXs]} to='/info' onClick={() => this.setState({displayMenu: false})}>Info</Link></li>
               <li><a key="tate-link-header-xs" href="http://www.tate.org.uk/whats-on/tate-britain/exhibition/recognition" style={[styles.menuItemXs]} target="_blank" rel="noopener noreferrer">AT TATE BRITAIN</a></li>
