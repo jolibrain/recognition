@@ -107,7 +107,6 @@ class Match extends React.Component {
 
   render() {
 
-    console.log("match");
     if(!this.props.item) return null;
 
     const item = this.props.item;

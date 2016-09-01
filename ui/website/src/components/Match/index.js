@@ -32,7 +32,6 @@ const mapStateToProps = (state, ownProps = {}) => {
       matchId = state.routing.locationBeforeTransitions.pathname.split("/").pop();
     }
 
-    console.log(matchId);
     //let filteredMatchesTPX = state.matches.filter(item => item.input.meta.TPX);
     //if(filteredMatchesTPX == 0) {
     //  filteredMatchesTPX = state.matches;
