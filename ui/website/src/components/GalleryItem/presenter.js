@@ -97,9 +97,9 @@ class GalleryItem extends React.Component {
     if(item.input.meta.author) author = item.input.meta.author[0];
 
     return(<div className="galleryItem" ref="responsiveItem">
-      <div className="row visible-xs" style={styles.row}>
+      <div className="row visible-xs" style={styles.rowXs}>
         <div className="container-fluid" style={{fontSize: '13px', letterSpacing: '1.5px'}}>
-          <div className="row">
+          <div className="row" style={{paddingBottom: '16px'}}>
             <div className="col-xs-12 title">
               <p style={{fontSize: '13px', letterSpacing: '1.5px'}}>NO. {this.state.itemId}  {moment(item.timestamp).format('DD/MM/YYYY')}</p>
             </div>
@@ -114,7 +114,7 @@ class GalleryItem extends React.Component {
                 />
               </Link>
             </div>
-            <div className="col-xs-6" style={{paddingRight: 0}}>
+            <div className="col-xs-6">
               <Link to={`/image/tate/${this.state.itemId}`}>
                 <img
                   className="img-responsive"
@@ -131,7 +131,7 @@ class GalleryItem extends React.Component {
               <span style={{fontSize: '18px', letterSpacing: 0}}>{item.input.meta.caption}</span></p>
             </div>
           </div>
-          <div className="row" style={{paddingTop: '32px'}}>
+          <div className="row" style={{paddingTop: '16px'}}>
             <div className="col-xs-12">
               <p>{selectedOutput.meta.date} <span className="itemSource">{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</span><br/><span style={{fontSize: '18px', letterSpacing: 0}}><em>{selectedOutput.meta.title}</em> by {selectedOutput.meta.author}</span></p>
             </div>

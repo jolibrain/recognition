@@ -22,6 +22,12 @@ const styles = {
     padding: '64px 0',
     cursor: 'pointer'
   },
+  rowXs: {
+    borderBottom: '1px dotted #4a4a4a',
+    paddingTop: '48px',
+    paddingBottom: '32px',
+    cursor: 'pointer'
+  },
   fullHeight: {
     row: {
     },
