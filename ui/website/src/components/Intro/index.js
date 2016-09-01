@@ -72,8 +72,8 @@ class IntroOverlay extends React.Component {
             <div className="container-fluid">
 
               <div className="navbar-header">
-                <p className="navbar-brand"><span>re]</span>[cognition</p>
-                <p>Winner of IK Prize 2016</p>
+                <p className="title"><span className="re">re]</span>[cognition<br/>
+                <span className="subtitle">Winner of IK Prize 2016</span></p>
               </div>
 
               <ul className="nav navbar-nav navbar-right hidden-xs">
