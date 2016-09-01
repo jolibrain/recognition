@@ -98,6 +98,31 @@ class ShareModal extends React.Component {
       fontSize: '18px'
     };
 
+    const dialogStyleXs =  {
+      position: 'absolute',
+      width: '85%',
+      backgroundColor: '#0d1215',
+      border: '1px solid #4a4a4a',
+      boxShadow: '0 5px 15px rgba(0,0,0,.5)',
+      padding: 32,
+      top: '50%', left: '50%',
+      transform: 'translate(-50%, -50%)',
+      outline: 'none'
+    };
+
+    const titleStyleXs = {
+      color: '#FFF',
+      fontFamily: 'TateNewPro-Thin',
+      fontSize: '18px',
+      margin: 0
+    };
+
+    const textStyleXs = {
+      color: '#AAA',
+      fontFamily: 'TateNewPro',
+      fontSize: '13px'
+    };
+
     const url = encodeURI(this.props.url || "http://recognition.tate.org.uk");
     const text = encodeURI(this.props.text || "#recognition #ikprize");
 
@@ -118,128 +143,135 @@ class ShareModal extends React.Component {
           this.setState({ showModal: false });
         }}
       >
-        <div style={dialogStyle}>
-          <h4 id='modal-label' style={titleStyle}>comment and share</h4>
-          <p style={textStyle}>what makes this an interesting match?</p>
+        <div>
+          <div style={dialogStyle} className="hidden-xs">
+            <h4 id='modal-label' style={titleStyle}>comment and share</h4>
+            <p style={textStyle}>what makes this an interesting match?</p>
 
-          <div className="fluid-container hidden-xs">
-            <div className="row">
-              <div className="col-sm-3">
+            <div className="fluid-container">
+              <div className="row">
+                <div className="col-sm-3">
 
-                <FacebookShareButton
-                  url={url}
-                  title="Recognition"
-                  description="#recognition #ikprize"
-                  className="share-button">
-                  <FacebookIcon
-                    logoFillColor="white"
-                    size={32}
-                    iconBgStyle={{fillOpacity: 0}}
-                  />
-                </FacebookShareButton>
+                  <FacebookShareButton
+                    url={url}
+                    title="Recognition"
+                    description="#recognition #ikprize"
+                    className="share-button">
+                    <FacebookIcon
+                      logoFillColor="white"
+                      size={32}
+                      iconBgStyle={{fillOpacity: 0}}
+                    />
+                  </FacebookShareButton>
 
-              </div>
-              <div className="col-sm-3">
+                </div>
+                <div className="col-sm-3">
 
-                <TwitterShareButton
-                  url={url}
-                  title="Recognition #recognition #ikprize"
-                  className="share-button">
-                  <TwitterIcon
-                    logoFillColor="white"
-                    size={32}
-                    iconBgStyle={{fillOpacity: 0}}
-                  />
-                </TwitterShareButton>
+                  <TwitterShareButton
+                    url={url}
+                    title="Recognition #recognition #ikprize"
+                    className="share-button">
+                    <TwitterIcon
+                      logoFillColor="white"
+                      size={32}
+                      iconBgStyle={{fillOpacity: 0}}
+                    />
+                  </TwitterShareButton>
 
-              </div>
-              <div className="col-sm-3">
+                </div>
+                <div className="col-sm-3">
 
-                <PinterestShareButton
-                  url={url}
-                  description="#recognition #ikprize"
-                  className="share-button">
-                  <PinterestIcon
-                    logoFillColor="white"
-                    size={32}
-                    iconBgStyle={{fillOpacity: 0}}
-                  />
-                </PinterestShareButton>
+                  <PinterestShareButton
+                    url={url}
+                    description="#recognition #ikprize"
+                    className="share-button">
+                    <PinterestIcon
+                      logoFillColor="white"
+                      size={32}
+                      iconBgStyle={{fillOpacity: 0}}
+                    />
+                  </PinterestShareButton>
 
-              </div>
-              <div className="col-sm-3">
+                </div>
+                <div className="col-sm-3">
 
-                <GooglePlusShareButton
-                  url={url}
-                  className="share-button">
-                  <GooglePlusIcon
-                    logoFillColor="white"
-                    size={32}
-                    iconBgStyle={{fillOpacity: 0}}
-                  />
-                </GooglePlusShareButton>
+                  <GooglePlusShareButton
+                    url={url}
+                    className="share-button">
+                    <GooglePlusIcon
+                      logoFillColor="white"
+                      size={32}
+                      iconBgStyle={{fillOpacity: 0}}
+                    />
+                  </GooglePlusShareButton>
 
+                </div>
               </div>
             </div>
+
           </div>
+          <div style={dialogStyleXs} className="visible-xs">
+            <h4 id='modal-label' style={titleStyleXs}>comment and share</h4>
+            <p style={textStyleXs}>what makes this an interesting match?</p>
 
-          <div className="fluid-container visible-xs">
-            <div className="row">
-              <div className="col-xs-3">
+            <div className="fluid-container">
+              <div className="row">
+                <div className="col-xs-3">
 
-                <FacebookShareButton
-                  url={url}
-                  title="Recognition"
-                  description="#recognition #ikprize"
-                  className="share-button">
-                  <FacebookIcon
-                    logoFillColor="white"
-                    size={32}
-                    iconBgStyle={{fillOpacity: 0}}
-                  />
-                </FacebookShareButton>
+                  <FacebookShareButton
+                    url={url}
+                    title="Recognition"
+                    description="#recognition #ikprize"
+                    className="share-button">
+                    <FacebookIcon
+                      logoFillColor="white"
+                      size={32}
+                      iconBgStyle={{fillOpacity: 0}}
+                    />
+                  </FacebookShareButton>
 
-              </div>
-              <div className="col-xs-3">
+                </div>
+                <div className="col-xs-3">
 
-                <TwitterShareButton
-                  url={url}
-                  title="Recognition #recognition #ikprize"
-                  className="share-button">
-                  <TwitterIcon
-                    logoFillColor="white"
-                    size={32}
-                    iconBgStyle={{fillOpacity: 0}}
-                  />
-                </TwitterShareButton>
+                  <TwitterShareButton
+                    url={url}
+                    title="Recognition #recognition #ikprize"
+                    className="share-button">
+                    <TwitterIcon
+                      logoFillColor="white"
+                      size={32}
+                      iconBgStyle={{fillOpacity: 0}}
+                    />
+                  </TwitterShareButton>
 
-              </div>
-              <div className="col-xs-3">
+                </div>
+                <div className="col-xs-3">
 
-                <PinterestShareButton
-                  url={url}
-                  description="#recognition #ikprize"
-                  className="share-button">
-                  <PinterestIcon
-                    logoFillColor="white"
-                    size={32}
-                    iconBgStyle={{fillOpacity: 0}}
-                  />
-                </PinterestShareButton>
+                  <PinterestShareButton
+                    url={url}
+                    description="#recognition #ikprize"
+                    className="share-button">
+                    <PinterestIcon
+                      logoFillColor="white"
+                      size={32}
+                      iconBgStyle={{fillOpacity: 0}}
+                    />
+                  </PinterestShareButton>
 
-              </div>
-              <div className="col-xs-3">
+                </div>
+                <div className="col-xs-3">
 
-                <GooglePlusShareButton
-                  url={url}
-                  className="share-button">
-                  <GooglePlusIcon
-                    logoFillColor="white"
-                    size={32}
-                    iconBgStyle={{fillOpacity: 0}}
-                  />
-                </GooglePlusShareButton>
+                  <GooglePlusShareButton
+                    url={url}
+                    className="share-button">
+                    <GooglePlusIcon
+                      logoFillColor="white"
+                      size={32}
+                      iconBgStyle={{fillOpacity: 0}}
+                    />
+                  </GooglePlusShareButton>
 
+                </div>
               </div>
             </div>
 
