@@ -66,7 +66,10 @@ const mapStateToProps = (state, ownProps) => {
           emotion.height
         ];
       }));
-      boxids = boxids.concat(features.mapi.boxids);
+      //boxids = boxids.concat(features.mapi.boxids);
+      boxids = boxids.concat(features.mapi.faceRectangles.map(emotion => {
+        return [emotion.left + '-' + emotion.top + '-' + emotion.width + '-' + emotion.height];
+      }));
     }
 
   }

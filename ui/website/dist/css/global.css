@@ -497,6 +497,9 @@ ul.react-autosuggest__suggestions-list a:hover {
   font-family: 'MaisonNeue';
   font-size:12px;
 }
+.detailFeatures .hoverable {
+  pointer-events: all;
+}
 .detailFeatures a,
 .detailFeatures a:hover {
   text-decoration: none;
@@ -552,6 +555,9 @@ ul.react-autosuggest__suggestions-list a:hover {
 .detailFeatures.detailHovered h3.hovered+div table.faceSelected {
   color: #0fc;
   border-bottom: 1px solid #0fc;
+}
+.detailFeatures.detailHovered h3.hovered+div p.selected {
+  color: #0fc;
 }
 .detailFeatures.detailHovered h3.hovered+div h4.notSelected {
   color: #4a4a4a;
