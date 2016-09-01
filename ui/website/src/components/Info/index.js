@@ -41,15 +41,9 @@ class Info extends React.Component {
         </div>
         <div className="row" style={{marginTop: '30px', paddingBottom: '64px'}}>
           <div className="col-sm-5 col-sm-offset-1 font-title infoTitle">
-            <p>Can a machine make us look afresh at great art through the lens of today’s world?</p>
+            <p><em>Recognition</em>, winner of <a href="http://www.tate.org.uk/ikprize" target="_blank" rel="noopener noreferrer">IK Prize</a> 2016 for digital innovation, is an artificial intelligence program that compares up-to-the-minute photojournalism with British art from the Tate collection. Over three months from 2 September to 27 November, Recognition will create an ever-expanding virtual gallery: a time capsule of the world represented in diverse types of images, past and present.</p>
 
-            <p><em>Recognition</em>, winner of IK Prize 2016 for digital innovation, is an artificial intelligence program that compares up-to-the-minute photojournalism with British art from the Tate collection.</p>
-
-            <p>Over three months from 2 September to 27 November, Recognition will create an ever-expanding virtual gallery by searching through Tate’s collection of British art and archive material online, comparing artworks with news images from Reuters based on visual and thematic similarities twenty-four hours a day. Producing matches when it finds comparable images, Recognition will also attempt to comment on each comparison. The result will be a time capsule of the world represented in diverse types of images, past and present.</p>
-
-            <p>A display at <a href="http://www.tate.org.uk/recognition" target="_blank" rel="noopener noreferrer">Tate Britain</a> accompanies the online project offering visitors the chance to interrupt the machine’s selection process. The results of this experiment – to see if an artificial intelligence can learn from the many personal responses humans have when looking at images – will be presented on this site at the end of the project.</p>
-
-            <p>The IK Prize is presented annually by Tate for an idea that uses digital technology to innovate the way we discover, explore and enjoy British art in the Tate collection.</p>
+            <p>A display at Tate Britain accompanies the online project offering visitors the chance to interrupt the machine’s selection process. The results of this experiment – to see if an artificial intelligence can learn from the many personal responses humans have when looking at images – will be presented on this site at the end of the project.</p>
 
             <hr/>
 
@@ -120,15 +114,9 @@ class Info extends React.Component {
         </div>
         <div className="row">
           <div className="col-xs-12 font-title infoTitle">
-            <p>Can a machine make us look afresh at great art through the lens of today’s world?</p>
+            <p><em>Recognition</em>, winner of <a href="http://www.tate.org.uk/ikprize" target="_blank" rel="noopener noreferrer">IK Prize</a> 2016 for digital innovation, is an artificial intelligence program that compares up-to-the-minute photojournalism with British art from the Tate collection. Over three months from 2 September to 27 November, Recognition will create an ever-expanding virtual gallery: a time capsule of the world represented in diverse types of images, past and present.</p>
 
-            <p><em>Recognition</em>, winner of IK Prize 2016 for digital innovation, is an artificial intelligence program that compares up-to-the-minute photojournalism with British art from the Tate collection.</p>
-
-            <p>Over three months from 2 September to 27 November, Recognition will create an ever-expanding virtual gallery by searching through Tate’s collection of British art and archive material online, comparing artworks with news images from Reuters based on visual and thematic similarities twenty-four hours a day. Producing matches when it finds comparable images, Recognition will also attempt to comment on each comparison. The result will be a time capsule of the world represented in diverse types of images, past and present.</p>
-
-            <p>A display at <a href="http://www.tate.org.uk/recognition" target="_blank" rel="noopener noreferrer">Tate Britain</a> accompanies the online project offering visitors the chance to interrupt the machine’s selection process. The results of this experiment – to see if an artificial intelligence can learn from the many personal responses humans have when looking at images – will be presented on this site at the end of the project.</p>
-
-            <p>The IK Prize is presented annually by Tate for an idea that uses digital technology to innovate the way we discover, explore and enjoy British art in the Tate collection.</p>
+            <p>A display at Tate Britain accompanies the online project offering visitors the chance to interrupt the machine’s selection process. The results of this experiment – to see if an artificial intelligence can learn from the many personal responses humans have when looking at images – will be presented on this site at the end of the project.</p>
 
             <hr/>
 
