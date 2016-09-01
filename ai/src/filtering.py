@@ -26,6 +26,7 @@ from copy import deepcopy
 # to final format, i.e. an array instead of a dict, with filtering
 def format_and_filter(dict_out,nmatches,smatches_file='',sort_best=False,website=False,no_tga=False,with_medium=False):
     json_out = []
+    gallery_out = []
     splash_out = {}
     refused = []
     lnmatches = nmatches
@@ -46,6 +47,7 @@ def format_and_filter(dict_out,nmatches,smatches_file='',sort_best=False,website
         c = 0
         vout = sorted(v['output'], key=lambda x: x['features']['score'],reverse=True)
         out = []
+        outgal = []
         out_splash = []
         skip = False
         for m in vout:
@@ -58,13 +60,15 @@ def format_and_filter(dict_out,nmatches,smatches_file='',sort_best=False,website
             img = m['img']
             if c == 0 and smatches_file and img in freq_matches:
                 freq_matches[img] += 1
-                del vout[c]
+                #del vout[c]
                 skip = True
             elif c == 0 and smatches_file:
                 freq_matches[img] = 1
             if not skip and c < lnmatches:
                 out.append(m)
-            elif skip and c < nmatches:
+            if not skip and c < nmatches:
+                outgal.append(m)
+            if skip and c < 10:#nmatches:
                 out_splash.append(m)
             if c > nmatches:
                 break
@@ -72,7 +76,10 @@ def format_and_filter(dict_out,nmatches,smatches_file='',sort_best=False,website
         if not skip:
             v['output'] = out
             json_out.append(v)
-        else:
+            vgal = deepcopy(v)
+            vgal['output'] = outgal
+            gallery_out.append(vgal)
+        elif len(refused) < 20:
             vc = deepcopy(v)
             vc['output'] = out_splash
             refused.append(vc)
@@ -83,4 +90,4 @@ def format_and_filter(dict_out,nmatches,smatches_file='',sort_best=False,website
     if smatches_file:
         smatches[nowdate] = freq_matches
         smatches.close()
-    return json_out,splash_out
+    return json_out,gallery_out,splash_out

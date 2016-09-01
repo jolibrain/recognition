@@ -56,6 +56,8 @@ parser.add_argument('--no-tga',help='filter out images from TGA archive',action=
 parser.add_argument('--last-hour',help='select images from last hour',default=-1,type=int)
 parser.add_argument('--freq-filter',help='artwork daily frequency filtering database, if any',default='',type=str)
 parser.add_argument('--concat',help='concat results with those of existing file',action='store_true')
+parser.add_argument('--gallery-output',help='JSON gallery output',default='gallery.json',type=str)
+parser.add_argument('--splash-output',help='JSON splash output',default='splash.json',type=str)
 args = parser.parse_args()
 
 image_files = list_files(args.input_imgs,ext='.JPG',nfiles=args.nfiles,pattern='*_2_*',last_hour=args.last_hour)
@@ -104,6 +106,22 @@ def execute_generator(generator,jdataout={},meta_in='',meta_out='',captions_in='
     elif generator_conf['type'] != 'meta':
         logger.error('Unknown generator type ' + generator_conf['type'])
     return
+
+def concat(filein,json_out):
+    json_in = {}
+    try:
+        with open(filein,'r') as fin:
+            json_in = json.load(fin)
+    except:
+        logger.info('cannot load pre-existing JSON file=',filein)
+    for j in json_in:
+        skip = False
+        for ji in json_out:
+            if ji['input']['img'] == j['input']['img']:
+                skip = True
+                break
+        if not skip:    
+            json_out.append(j)
 
 json_out = ''
 
@@ -161,28 +179,18 @@ json_out = es.ensembling(json_out)
 smatches_file = ''
 if args.freq_filter:
     smatches_file = args.freq_filter
-json_out,splash_out = format_and_filter(json_out,args.nmatches,smatches_file,args.sort_best,args.website,args.no_tga,args.medium)
+json_out,gallery_out,splash_out = format_and_filter(json_out,args.nmatches,smatches_file,args.sort_best,args.website,args.no_tga,args.medium)
 
 if args.concat:
-    json_in = {}
-    try:
-        with open(args.json_output,'r') as fin:
-            json_in = json.load(fin)
-    except:
-        logger.info('cannot load pre-existing JSON file=',args.json_output)
-    for j in json_in:
-        skip = False
-        for ji in json_out:
-            if ji['input']['img'] == j['input']['img']:
-                skip = True
-                break
-        if not skip:    
-            json_out.append(j)
+    concat(args.json_output,json_out) # concats json_out at the top of json_in (existing json_output file), into json_out
+    concat(args.gallery_output,json_out)
 
 with open(args.json_output,'w') as fout:
     json.dump(json_out,fout)
+with open(args.gallery_output,'w') as fout:
+    json.dump(gallery_out,fout)
 if splash_out and splash_out != [{}]:
-    with open('splash.json','w') as fout:
+    with open(args.splash_output,'w') as fout:
         json.dump(splash_out,fout)
 print 'errors=',errors
 sys.exit(errors)
