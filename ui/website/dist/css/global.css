@@ -837,12 +837,15 @@ and (max-device-width : 768px) {
 
   .responsiveImage a.back,
   .responsiveImage a.back:hover {
-    color:#4a4a4a;
+    color:#fff;
     text-decoration: none;
   }
 
   .responsiveImage .processOverlay,
   .responsiveImage .processOverlay:hover {
+    font-family: 'TateNewPro';
+    font-size: 13px;
+    letter-spacing: 1.5px;
     color:#fff;
     text-decoration: none;
   }
@@ -852,7 +855,12 @@ and (max-device-width : 768px) {
   }
 
   .responsiveImage .info {
+    padding-top:32px;
+    font-family: 'TateNewPro';
+    font-size: 13px;
+    letter-spacing: 1.5px;
     color:#4a4a4a;
+    text-transform: uppercase;
   }
 }
 
