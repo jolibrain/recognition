@@ -18,6 +18,7 @@ import Radium from 'radium';
 import moment from 'moment';
 import styles from './styles.js';
 import { browserHistory } from 'react-router'
+import ShareModal from '../Modals/ShareModal';
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -150,6 +151,11 @@ class GalleryItem extends React.Component {
                   <span style={{color: 'white'}}>{new Array(parseInt(selectedOutput.features.summary.scores.composition * 25)).fill('.').join('')}</span><span style={{color: '#4a4a4a'}}>{new Array(25 - parseInt(selectedOutput.features.summary.scores.composition * 25)).fill('.').join('')}</span></p>
                   <p><img src="/img/icons/score_context.svg" style={{paddingTop: '2px'}}/> CONTEXT {(selectedOutput.features.summary.scores.context * 100).toFixed(2)}%<br/>
                   <span style={{color: 'white'}}>{new Array(parseInt(selectedOutput.features.summary.scores.context * 25)).fill('.').join('')}</span><span style={{color: '#4a4a4a'}}>{new Array(25 - parseInt(selectedOutput.features.summary.scores.context * 25)).fill('.').join('')}</span></p>
+                  <h3 className="font-data" style={styles.descriptionTitle}>AI Description</h3>
+                  <p className="font-data" style={styles.descriptionText}>{this.props.descriptionIn}</p>
+                  <p className="font-data" style={[styles.descriptionText, {marginBottom: '32px'}]}>{this.props.descriptionOut}</p>
+
+                  <ShareModal />
                 </div>
                 ) : '' }
             </div>

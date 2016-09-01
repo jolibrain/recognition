@@ -39,6 +39,17 @@ const styles = {
     transform: 'translate(-50%, -50%)',
     outline: 'none'
   },
+  dialogXs: {
+    position: 'absolute',
+    width: '85%',
+    backgroundColor: '#0d1215',
+    border: '1px solid #4a4a4a',
+    boxShadow: '0 5px 15px rgba(0,0,0,.5)',
+    padding: 32,
+    top: '50%', left: '50%',
+    transform: 'translate(-50%, -50%)',
+    outline: 'none'
+  },
   link: {
     color: 'rgb(255, 255, 255)',
     textTransform: 'uppercase',
@@ -60,6 +71,17 @@ const styles = {
     color: '#AAA',
     fontFamily: 'TateNewPro',
     fontSize: '18px'
+  },
+  titleXs: {
+    color: '#FFF',
+    fontFamily: 'TateNewPro-Thin',
+    fontSize: '18px',
+    margin: 0
+  },
+  textXs: {
+    color: '#AAA',
+    fontFamily: 'TateNewPro',
+    fontSize: '13px'
   },
   input: {
     color: '#fff',

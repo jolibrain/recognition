@@ -55,8 +55,8 @@ const styles = {
   menuItemXs: {
     color: "#FFF",
     textTransform: 'uppercase',
-    fontWeight: 'bold',
     textDecoration: 'none',
+    letterSpacing: '1.5px',
     ':hover': {
       textDecoration: 'none',
       color: '#0FC'

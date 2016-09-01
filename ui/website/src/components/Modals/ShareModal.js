@@ -122,7 +122,7 @@ class ShareModal extends React.Component {
           <h4 id='modal-label' style={titleStyle}>comment and share</h4>
           <p style={textStyle}>what makes this an interesting match?</p>
 
-          <div className="fluid-container">
+          <div className="fluid-container hidden-xs">
             <div className="row">
               <div className="col-sm-3">
 
@@ -168,6 +168,67 @@ class ShareModal extends React.Component {
 
               </div>
               <div className="col-sm-3">
+
+                <GooglePlusShareButton
+                  url={url}
+                  className="share-button">
+                  <GooglePlusIcon
+                    logoFillColor="white"
+                    size={32}
+                    iconBgStyle={{fillOpacity: 0}}
+                  />
+                </GooglePlusShareButton>
+
+              </div>
+            </div>
+          </div>
+
+          <div className="fluid-container visible-xs">
+            <div className="row">
+              <div className="col-xs-3">
+
+                <FacebookShareButton
+                  url={url}
+                  title="Recognition"
+                  description="#recognition #ikprize"
+                  className="share-button">
+                  <FacebookIcon
+                    logoFillColor="white"
+                    size={32}
+                    iconBgStyle={{fillOpacity: 0}}
+                  />
+                </FacebookShareButton>
+
+              </div>
+              <div className="col-xs-3">
+
+                <TwitterShareButton
+                  url={url}
+                  title="Recognition #recognition #ikprize"
+                  className="share-button">
+                  <TwitterIcon
+                    logoFillColor="white"
+                    size={32}
+                    iconBgStyle={{fillOpacity: 0}}
+                  />
+                </TwitterShareButton>
+
+              </div>
+              <div className="col-xs-3">
+
+                <PinterestShareButton
+                  url={url}
+                  description="#recognition #ikprize"
+                  className="share-button">
+                  <PinterestIcon
+                    logoFillColor="white"
+                    size={32}
+                    iconBgStyle={{fillOpacity: 0}}
+                  />
+                </PinterestShareButton>
+
+              </div>
+              <div className="col-xs-3">
 
                 <GooglePlusShareButton
                   url={url}

@@ -77,6 +77,19 @@ const styles = {
     origin: {
       textTransform: 'uppercase'
     }
+  },
+  descriptionTitle: {
+    fontFamily: 'MaisonNeue',
+    fontSize: '12px',
+    color: '#FFF',
+    display: 'inline',
+    borderBottom: '1px solid #FFF',
+    marginBottom: '32px'
+  },
+  descriptionText: {
+    fontFamily: 'MaisonNeue',
+    fontSize: '12px',
+    color: '#FFF'
   }
 }
 
