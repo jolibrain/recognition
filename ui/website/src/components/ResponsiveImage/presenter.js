@@ -18,6 +18,7 @@ import Radium from 'radium';
 import { browserHistory } from 'react-router';
 import BoundedImage from './BoundedImage';
 import moment from 'moment';
+import Swipeable from 'react-swipeable';
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -63,6 +64,10 @@ class ResponsiveImage extends React.Component {
 
     if(!this.props.item) return null;
 
+    const rx = /Z_\d+_(.*?)_/g;
+    const arr = rx.exec(this.props.item.input.img);
+    const itemId = arr[1];
+
     let item = null;
     let features = null;
     if(this.state.source == "tate") {
@@ -74,20 +79,32 @@ class ResponsiveImage extends React.Component {
     }
 
     return (<div>
-      <nav style={{background: '#0d1215', border: 0}} className="navbar navbar-default navbar-fixed-top visible-xs">
-        <div className="container-fluid">
-          <div className="navbar-header">
-            <Link className="navbar-brand" to='/'>
-              <img src="/img/logos/recognition.png" alt="recognition"/>
-            </Link>
-            <p className="text-right" style={{padding: '15px'}}>
-              <Link className="navbar-link" to={`/gallery/${this.state.itemId}`}>
-                <img src="/img/icons/close.png" alt="close"/>
+      <Swipeable
+        onSwipingLeft={() => {
+          if(this.props.source == 'reuters') {
+            browserHistory.push(`/image/tate/${this.state.itemId}`)
+          }
+        }}
+        onSwipingRight={() => {
+          if(this.props.source == 'tate') {
+            browserHistory.push(`/image/reuters/${this.state.itemId}`)
+          }
+        }}
+      >
+        <nav style={{background: '#0d1215', border: 0}} className="navbar navbar-default navbar-fixed-top visible-xs">
+          <div className="container-fluid">
+            <div className="navbar-header">
+              <Link className="navbar-brand" to='/'>
+                <img src="/img/logos/recognition.png" alt="recognition"/>
               </Link>
-            </p>
+              <p className="text-right" style={{padding: '15px'}}>
+                <Link className="navbar-link" to={`/gallery/${itemId}`}>
+                  <img src="/img/icons/close.png" alt="close"/>
+                </Link>
+              </p>
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
 
         <div className="container responsiveImage">
           <div className="row">
@@ -96,11 +113,11 @@ class ResponsiveImage extends React.Component {
                 <a className="processOverlay" onClick={() => this.setState({displayOverlay: !this.state.displayOverlay})}>{this.state.displayOverlay ? "HIDE" : "VIEW" } RECOGNITION OVERLAY</a>
               </div>
               <div className="col-xs-2 text-right">
-                <Link className="back" to={`/image/tate/${this.state.itemId}`}><span className='icon--i_arrow-right'/></Link>
+                <Link className="back" to={`/image/tate/${itemId}`}><span className='icon--i_arrow-right'/></Link>
               </div>
             </div>) : (<div>
               <div className="col-xs-2">
-                <Link className="back" to={`/image/reuters/${this.state.itemId}`}><span className='icon--i_arrow-left'/></Link>
+                <Link className="back" to={`/image/reuters/${itemId}`}><span className='icon--i_arrow-left'/></Link>
               </div>
               <div className="col-xs-10 text-right">
                 <a className="processOverlay" onClick={() => this.setState({displayOverlay: !this.state.displayOverlay})}>{this.state.displayOverlay ? "HIDE" : "VIEW" } RECOGNITION OVERLAY</a>
@@ -135,7 +152,7 @@ class ResponsiveImage extends React.Component {
             </div>
           </div>
         </div>
-
+      </Swipeable>
     </div>);
   }
 }
