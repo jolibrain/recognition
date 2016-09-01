@@ -52,7 +52,7 @@ class Match extends React.Component {
   }
 
   handleBackGallery() {
-    console.log(Router.History);
+    browserHistory.push('/gallery');
   }
 
   handleLeftOver(parent, overHash, overIndex) {
