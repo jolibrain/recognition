@@ -98,7 +98,7 @@ class GalleryItem extends React.Component {
 
     return(<div className="galleryItem" ref="responsiveItem">
       <div className="row visible-xs" style={styles.row}>
-        <div className="container-fluid">
+        <div className="container-fluid" style={{fontSize: '13px', letterSpacing: '1.5px'}}>
           <div className="row">
             <div className="col-xs-12 title">
               <p>NO. {this.state.itemId}  {moment(item.timestamp).format('DD/MM/YYYY')}</p>
@@ -128,12 +128,12 @@ class GalleryItem extends React.Component {
           <div className="row">
             <div className="col-xs-12">
               <p>{moment(item.input.meta.date).format('DD/MM/YYYY')} <span className="itemSource">REUTERS/{item.input.meta.author}</span><br/>
-              {item.input.meta.caption}</p>
+              <span style={{fontSize: '15px'}}>{item.input.meta.caption}</span></p>
             </div>
           </div>
           <div className="row">
             <div className="col-xs-12">
-              <p>{selectedOutput.meta.date} <span className="itemSource">{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</span><br/><em>{selectedOutput.meta.title}</em> by {selectedOutput.meta.author}</p>
+              <p>{selectedOutput.meta.date} <span className="itemSource">{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</span><br/><span style={{fontSize: '15px'}}><em>{selectedOutput.meta.title}</em> by {selectedOutput.meta.author}</span></p>
             </div>
           </div>
           <div className="row">
