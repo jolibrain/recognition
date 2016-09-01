@@ -107,7 +107,7 @@ class FeatureGenerator:
                 try:
                     mapid_out = mapi_out_s[nn['uri']]
                 except:
-                    #print 'failed mapi_out acquisition'
+                    #print 'failed mapi_out acquisition for img=',nn['uri']
                     pass
 
             m = 0
@@ -151,7 +151,7 @@ class FeatureGenerator:
                     #print 'nuri_rebase=',nuri_rebase
                     if mapi_in:
                         mapid = mapi_in_s.get(str(nuri),{})
-                    #print 'nuri=',nuri,' / mapid=',mapid
+                    #print 'nuri=',nuri,' / in mapid=',mapid
 
                     if feature_name != 'mapi':
                         mdataout = {'meta':metad,'features':{'score':0,'in':{feature_name:{},'mapi':mapid_out,'captions':{'caption':captions_outd}},'out':{feature_name:{'description':feature_description,'score':score},'captions':{'caption':captions_ind},'mapi':mapid}},'img':nuri_rebase}

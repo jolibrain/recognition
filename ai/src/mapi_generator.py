@@ -258,24 +258,44 @@ class MAPIGenerator(FeatureGenerator):
         # - vector for age + gender + emotion + save boxes
         #print 'indexing mapi age, gender, emotion and boxes...'
         if self.tate:
-            c = 0
+            #c = 0
             with Indexer(dim=10,repository=self.index_repo) as indexer:
                 ldb = shelve.open(self.index_repo + '/ldata.bin')
                 for f,v in self.mapi_faces.iteritems():
-                    for fv in v:
-                        vec = self.face_vector(fv)
-                        indexer.index_single(c,vec,f)
-                        ldb[str(c)] = (fv,f)
-                        c = c + 1
+                    if len(v) > 0:
+                        rec = {'faceRectangles':[],'emotions':[],'genders':[],'ages':[]}
+                        for fv in v:
+                            vec = self.face_vector(fv)
+                            indexer.index_single(c,vec,f)
+                            ldb[str(c)] = (fv,f)
+                            c = c + 1
+                            if 'age' in fv:
+                                rec['ages'].append(fv['age'])
+                            if 'emotion' in fv:
+                                rec['emotions'].append(fv['emotion'])
+                            if 'gender' in fv:
+                                rec['genders'].append(fv['gender'])
+                            if 'faceRectangle' in fv:
+                                rec['faceRectangles'].append(fv['faceRectangle'])
+                        ldb[f] = rec
                 ldb.close()
                 indexer.build_index()
                 indexer.save_index()
         else:
             ldb = shelve.open(self.index_repo + '/out_ldata.bin')
             for f,v in self.mapi_faces.iteritems():
+                rec = {'faceRectangles':[],'emotions':[],'genders':[],'ages':[]}
                 for fv in v:
-                    ldb[f] = fv
-                    #print f,fv
+                    if 'age' in fv:
+                        rec['ages'].append(fv['age'])
+                    if 'emotion' in fv:
+                        rec['emotions'].append(fv['emotion'])
+                    if 'gender' in fv:
+                        rec['genders'].append(fv['gender'])
+                    if 'faceRectangle' in fv:
+                        rec['faceRectangles'].append(fv['faceRectangle'])
+                    print 'indexing=',f,fv
+                ldb[f] = rec
             ldb.close()
 
         # save captions
@@ -285,7 +305,7 @@ class MAPIGenerator(FeatureGenerator):
         ldb = shelve.open(self.index_repo + dbname)
         for i,c in self.mapi_captions.iteritems():
             ldb[os.path.basename(str(i))] = c.encode('utf8')
-            print 'indexing',os.path.basename(str(i)),' / ',c.encode('utf8')
+            #print 'indexing',os.path.basename(str(i)),' / ',c.encode('utf8')
         ldb.close()
         return
 
@@ -351,6 +371,7 @@ class MAPIGenerator(FeatureGenerator):
                         nn = nns['nns'][0][m]
                         nndata = ldb[str(nn)]
                         nndata0 = nndata[0]
+                        nndata = ldb[nuri]
                         age_out = nndata0.get('age',-1)
                         if age_in > 0 and age_out > 0 and not age_in-10<=age_out<=age_in+10:
                         #    print 'discarding based on age, age_in=',age_in,' / age_out=',age_out

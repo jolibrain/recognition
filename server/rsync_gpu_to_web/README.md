@@ -48,15 +48,13 @@ Create image folders (change *YOUR_RECOG_GIT_CLONE* to absolute path to your git
 cd YOUR_RECOG_GIT_CLONE
 mkdir ui/website/dist/img/tate
 mkdir ui/website/dist/img/reuters
-rsync --protect-args -arvz -e ssh
-recog_web:"/data/tate/imgs/tate_final/"
-YOUR_RECOG_GIT_CLONE/ui/website/dist/img/tate/
+rsync --protect-args -arvz -e ssh recog_web:"/data/tate/imgs/tate_final/" YOUR_RECOG_GIT_CLONE/ui/website/dist/img/tate/
 ```
 
 Edit your crontab with the command: *crontab -e* (change *YOUR_RECOG_GIT_CLONE* to absolute path to your git clone of recognition code)
 
 ```
-*/5 * * * * rsync --protect-args -arvz -e ssh recog_web:"/data/tate/imgs/reuters/RPA Feed for Tate/" YOUR_RECOG_GIT_CLONE/ui/website/dist/img/reuters/
+*/5 * * * * rsync --protect-args -arvz -e ssh recog_web:"/data/tate/imgs/reuters/Images\ of\ the\ Day\ Tate/" YOUR_RECOG_GIT_CLONE/ui/website/dist/img/reuters/
 20 * * * * rsync --protect-args -arvz -e ssh recog_web:recognition/ui/website/dist/match.json YOUR_RECOG_GIT_CLONE/ui/website/dist/
 20 * * * * rsync --protect-args -arvz -e ssh recog_web:recognition/ui/website/dist/splash.json YOUR_RECOG_GIT_CLONE/ui/website/dist/
 ```
