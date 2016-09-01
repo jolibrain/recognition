@@ -284,8 +284,8 @@ class MAPIGenerator(FeatureGenerator):
             dbname = '/in_captions.bin'
         ldb = shelve.open(self.index_repo + dbname)
         for i,c in self.mapi_captions.iteritems():
-            ldb[os.path.basename(str(i))] = c
-            print 'indexing',os.path.basename(i),' / ',c
+            ldb[os.path.basename(str(i))] = c.encode('utf8')
+            print 'indexing',os.path.basename(str(i)),' / ',c.encode('utf8')
         ldb.close()
         return
 
