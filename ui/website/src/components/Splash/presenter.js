@@ -43,7 +43,7 @@ class Splash extends React.Component {
 
       const selectedOutput = match.output[this.state.outputIndex];
 
-      return (<div className="splashComponent">
+      return (<div className="splashComponent" id="splashComponent">
 
         <ReactInterval timeout={1000} enabled={this.state.hasInterval}
           callback={() => {
