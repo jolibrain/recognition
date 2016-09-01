@@ -929,3 +929,13 @@ a.backGallery:hover {
     50% { color: #aaa; }
     100% { color: #fff; }
 }
+.fade {
+  opacity: 0;
+  -webkit-transition: opacity 200ms linear;
+       -o-transition: opacity 200ms linear;
+          transition: opacity 200ms linear;
+}
+
+.in {
+  opacity: 1;
+}

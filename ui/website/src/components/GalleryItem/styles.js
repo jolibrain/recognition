@@ -19,7 +19,8 @@ const styles = {
   },
   row: {
     borderBottom: '1px dotted #4a4a4a',
-    padding: '64px 0',
+    paddingTop: '64px',
+    paddingBottom: '64px',
     cursor: 'pointer'
   },
   rowXs: {
