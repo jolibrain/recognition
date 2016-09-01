@@ -86,28 +86,28 @@ class IntroOverlay extends React.Component {
           </nav>
 
           <div className="overlayBackground hidden-xs" style={{opacity: 1.0 - this.state.stepIndex * 0.1}}/>
-          <Swipeable onSwipingDown={() => this.setState({stepIndex: 10})}>
+          <Swipeable onSwipingUp={() => this.setState({stepIndex: 10})}>
             <div className="overlayBackground visible-xs" style={{opacity: 0.5}}/>
-
-            <div className="container hidden-xs">
-              <div className="row"><div className="col-sm-8 col-sm-offset-2 text-center">
-                <img src={steps[this.state.stepIndex].icon}/>
-                {steps[this.state.stepIndex].text}
-              </div></div>
-            </div>
-            <div className="container visible-xs">
-              <div className="row"><div className="col-sm-12 text-center">
-                <p>an artificial intelligence matching British art with real-time news</p>
-              </div></div>
-            </div>
-
-            <a className="bottom hidden-xs" onClick={() => {
-              this.setState({stepIndex: this.state.stepIndex + 1});
-            }}><span className="icon--i_arrow-down"/></a>
-            <a className="bottom visible-xs" onClick={() => {
-              this.setState({stepIndex: 10});
-            }}><span className="icon--i_arrow-down"/></a>
           </Swipeable>
+
+          <div className="container hidden-xs">
+            <div className="row"><div className="col-sm-8 col-sm-offset-2 text-center">
+              <img src={steps[this.state.stepIndex].icon}/>
+              {steps[this.state.stepIndex].text}
+            </div></div>
+          </div>
+          <div className="container visible-xs">
+            <div className="row"><div className="col-sm-12 text-center">
+              <p>an artificial intelligence matching British art with real-time news</p>
+            </div></div>
+          </div>
+
+          <a className="bottom hidden-xs" onClick={() => {
+            this.setState({stepIndex: this.state.stepIndex + 1});
+          }}><span className="icon--i_arrow-down"/></a>
+          <a className="bottom visible-xs" onClick={() => {
+            this.setState({stepIndex: 10});
+          }}><span className="icon--i_arrow-down"/></a>
 
         </div>
       </Overlay>
