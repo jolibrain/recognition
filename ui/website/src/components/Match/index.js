@@ -32,6 +32,7 @@ const mapStateToProps = (state, ownProps = {}) => {
       matchId = state.routing.locationBeforeTransitions.pathname.split("/").pop();
     }
 
+    console.log(matchId);
     //let filteredMatchesTPX = state.matches.filter(item => item.input.meta.TPX);
     //if(filteredMatchesTPX == 0) {
     //  filteredMatchesTPX = state.matches;
@@ -42,8 +43,8 @@ const mapStateToProps = (state, ownProps = {}) => {
 
     props.item = filteredMatchesTPX[matchingIndex];
 
-    if(!ownProps.params || !ownProps.params.follower)
-      props.followingMatches = filteredMatchesTPX.slice(matchingIndex + 1);
+    //if(!ownProps.params || !ownProps.params.follower)
+      //props.followingMatches = filteredMatchesTPX.slice(matchingIndex + 1);
 
   }
 
