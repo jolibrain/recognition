@@ -150,13 +150,13 @@ class MAPIGenerator(FeatureGenerator):
                 if json_data.get('description',None):
                     self.mapi_tags[img_name] = []
                     for t in json_data['description']['tags'][:5]:
-                        self.mapi_tags[img_name].append({'cat':t,'prob':0.2})
+                        self.mapi_tags[img_name].append({'cat':t.replace('_',' '),'prob':0.2})
                 if json_data.get('categories',None):
                     jd_cats = json_data['categories']
                     for c in jd_cats:
                         self.mapi_categories[img_name] = []
                         if c['score'] >= 0.3:
-                            self.mapi_categories[img_name].append({'cat':c['name'],'prob':c['score']})
+                            self.mapi_categories[img_name].append({'cat':c['name'].replace('_',' '),'prob':c['score']})
                 if json_data.get('faces',None):
                     npeople = 0
                     nmales = 0
@@ -294,7 +294,7 @@ class MAPIGenerator(FeatureGenerator):
                         rec['genders'].append(fv['gender'])
                     if 'faceRectangle' in fv:
                         rec['faceRectangles'].append(fv['faceRectangle'])
-                    print 'indexing=',f,fv
+                    #print 'indexing=',f,fv
                 ldb[f] = rec
             ldb.close()
 
