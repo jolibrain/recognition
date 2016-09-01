@@ -86,23 +86,12 @@ class Header extends React.Component {
           </div>
 
           <div className={ this.state.displayMenu ? "collapse in" : "hidden" } aria-expanded={this.state.displayMenu ? "true" : "false"}>
-            <div className="row" style={{marginTop:'10px', marginBottom:'10px'}}>
-              <div className="col-xs-3">
-                <span className={this.props.path == '/gallery' ? 'menuSelected' : ''}><Link style={[styles.menuItemXs]} to='/gallery' onClick={() => this.setState({displayMenu: false})}>Gallery</Link></span>
-              </div>
-              <div className="col-xs-3">
-                <span className={this.props.path == '/info' ? 'menuSelected' : ''}><Link style={[styles.menuItemXs]} to='/info' onClick={() => this.setState({displayMenu: false})}>Info</Link></span>
-              </div>
-              <div className="col-xs-3">
-                <a key="tate-link-header-xs" href="http://www.tate.org.uk/whats-on/tate-britain/exhibition/recognition" style={[styles.menuItem]} target="_blank" rel="noopener noreferrer">AT TATE BRITAIN</a>
-              </div>
-              <div className="col-xs-3">
-                <SubscribeModal/>
-              </div>
-            </div>
-            <div className="row" style={{paddingLeft: "16px"}}>
-              <SearchInput matches={this.props.matches} displayIcon={true}/>
-            </div>
+            <ul class="nav navbar-nav" style={{listStyle: 'none', fontFamily: 'TateNewPro', paddingLeft: '30px', fontSize: '13px'}}>
+              <li className={this.props.path == '/gallery' ? 'menuSelected' : ''}><Link style={[styles.menuItemXs]} to='/gallery' onClick={() => this.setState({displayMenu: false})}>Gallery</Link></li>
+              <li className={this.props.path == '/info' ? 'menuSelected' : ''}><Link style={[styles.menuItemXs]} to='/info' onClick={() => this.setState({displayMenu: false})}>Info</Link></li>
+              <li><a key="tate-link-header-xs" href="http://www.tate.org.uk/whats-on/tate-britain/exhibition/recognition" style={[styles.menuItemXs]} target="_blank" rel="noopener noreferrer">AT TATE BRITAIN</a></li>
+              <li style={{paddingBottom: '8px'}}><SubscribeModal/></li>
+            </ul>
           </div>
         </div>
       </nav>

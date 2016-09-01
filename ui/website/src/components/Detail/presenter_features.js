@@ -76,7 +76,7 @@ class DetailFeatures extends React.Component {
       objHovered = 'context';
     }
 
-    hovered = hovered || this.props.overImg;
+    hovered = hovered || this.props.overImg || this.props.overHash.hash.join('').length > 0;
 
     if(typeof features.densecap != 'undefined' &&
        typeof features.densecap.captions != 'undefined' &&
@@ -99,25 +99,17 @@ class DetailFeatures extends React.Component {
       this.props.overHash.index < features.densecap.boxids.length)) {
       hovered = true;
       objHovered = 'objects';
-    } else if(typeof features.mapi != 'undefined' &&
-              typeof features.mapi.ages != 'undefined' &&
-              features.mapi.ages.length > 0 &&
-              features.mapi.ages.some((caption, index) => {
-
-      let duplicates = false;
-      if(this.props.overHash.hash.length > 0) {
-        const mergedBoxids = features.mapi.boxids[index].concat(this.props.overHash.hash);
-        duplicates  = mergedBoxids.reduce(function(acc, el, i, arr) {
-          if (arr.indexOf(el) !== i && acc.indexOf(el) < 0)
-            acc.push(el);
-            return acc;
-          }, []).length > 0;
-      }
-
-      return duplicates;
-    }) || (typeof this.props.overHash.index != 'undefined' &&
+    } else if((typeof this.props.overHash.hash != 'undefined' &&
+        this.props.overHash.hash.join('').indexOf('-') != -1 &&
+        typeof features.mapi.faceRectangles != 'undefined' &&
+        features.mapi.faceRectangles.some(face => {
+          const faceId = face.left + '-' + face.top + '-' + face.width + '-' + face.height;
+          return this.props.overHash.hash.join('') == faceId;
+        })
+      ) ||
+      (typeof this.props.overHash.index != 'undefined' &&
       this.props.overHash.index != -1 &&
-      this.props.overHash.index - features.densecap.boxids.length < features.mapi.boxids.length)) {
+      this.props.overHash.index - features.densecap.boxids.length < features.mapi.faceRectangles.length)) {
       hovered = true;
       objHovered = 'faces';
     }
@@ -230,24 +222,23 @@ class DetailFeatures extends React.Component {
         mapi_ages.length == 0 ? (<p>No faces found</p>) :
         mapi_ages.map((age, index) => {
 
-          let duplicates = false;
-          if(this.props.overHash.hash.length > 0) {
-            const mergedBoxids = features.mapi.boxids[index].concat(this.props.overHash.hash);
-            duplicates  = mergedBoxids.reduce(function(acc, el, i, arr) {
-              if (arr.indexOf(el) !== i && acc.indexOf(el) < 0)
-                acc.push(el);
-                return acc;
-              }, []).length > 0;
+          const face = features.mapi.faceRectangles[index];
+          const fakeBoxId = face.left + '-' + face.top + '-' + face.width + '-' + face.height;
+
+          let selected = false;
+          if(this.props.overHash.hash.length > 0 &&
+            this.props.overHash.hash.join('').indexOf('-') != -1) {
+              selected = (this.props.overHash.hash.join('') == fakeBoxId);
           }
 
           if(typeof this.props.overHash.index != 'undefined' &&
              this.props.overHash.index == index + features.densecap.boxids.length) {
-            duplicates = true;
+            selected = true;
           }
 
           const rowStyle = [
             styles.rowHover,
-            duplicates ? styles.rowHovered: ''
+            selected ? styles.rowHovered: ''
           ]
 
           let densecapLength = 0;
@@ -259,36 +250,24 @@ class DetailFeatures extends React.Component {
 
           const mapiIndex = index + densecapLength;
 
-          return(<div key={'mapi' + index}
+          return(<div key={'mapi' + index} className="hoverable"
           onMouseOver={() => {
-            this.props.source == 'reuters' ?
-            this.props.onOver(
+            this.props.onOverFace(
               this.props.parent,
-              features.mapi.boxids[index]
-            ) :
-            this.props.onOver(
-              this.props.parent,
-              features.mapi.boxids[index],
-              mapiIndex
+              [fakeBoxId]
             )
           }}
           onMouseOut={() => {
-            this.props.source == 'reuters' ?
-            this.props.onOver(
+            this.props.onOverFace(
               this.props.parent,
               []
-            ) :
-            this.props.onOver(
-              this.props.parent,
-              [],
-              -1
             )
           }}
           >
-            <h4 className={duplicates ? 'selected': 'notSelected'}>SUBJECT {index + 1}</h4>
-            <p>AGE: {age}<br/>
+            <h4 className={selected ? 'selected': 'notSelected'}>SUBJECT {index + 1}</h4>
+            <p  className={selected ? 'selected': 'notSelected'}>AGE: {age}<br/>
             GENDER: {features.mapi.genders[index]}<br/>
-            {Object.keys(features.mapi.emotions[index]).length != 0 ? (<span>EMOTION: {Object.keys(features.mapi.emotions[index])[0]}</span>) : ''}
+            {(typeof features.mapi.emotions[index] != 'undefined') ? (Object.keys(features.mapi.emotions[index]).length != 0 ? (<span>EMOTION: {Object.keys(features.mapi.emotions[index])[0]}</span>) : '') : ''}
             </p>
           </div>);
         })

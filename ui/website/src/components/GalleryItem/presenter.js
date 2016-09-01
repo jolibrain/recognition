@@ -18,6 +18,7 @@ import Radium from 'radium';
 import moment from 'moment';
 import styles from './styles.js';
 import { browserHistory } from 'react-router'
+import ShareModal from '../Modals/ShareModal';
 
 let {Link} = require('react-router');
 Link = Radium(Link);
@@ -97,61 +98,64 @@ class GalleryItem extends React.Component {
     if(item.input.meta.author) author = item.input.meta.author[0];
 
     return(<div className="galleryItem" ref="responsiveItem">
-      <div className="row visible-xs" style={styles.row}>
-        <div className="container-fluid">
-          <div className="row">
+      <div className="row visible-xs" style={styles.rowXs}>
+        <div className="container-fluid" style={{fontSize: '13px', letterSpacing: '1.5px'}}>
+          <div className="row" style={{paddingBottom: '16px'}}>
             <div className="col-xs-12 title">
-              <p>NO. {this.state.itemId}  {moment(item.timestamp).format('DD/MM/YYYY')}</p>
+              <p style={{fontSize: '13px', letterSpacing: '1.5px'}}>NO. {this.state.itemId}  {moment(item.timestamp).format('DD/MM/YYYY')}</p>
             </div>
           </div>
           <div className="row">
-            <div className="col-xs-6">
+            <div className="col-xs-6" style={{paddingRight: 0}}>
               <Link to={`/image/reuters/${this.state.itemId}`}>
                 <img
+                  className="img-responsive"
                   src={item.input.img.replace("_2_", "_3_")}
-                  style={{width: '50vw'}}
                   srcSet={item.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + item.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w, " + item.input.img.replace('reuters/', 'reuters/responsive_757/').replace("_2_", "_3_") + " 757w, " + item.input.img.replace('reuters/', 'reuters/responsive_1920/').replace("_2_", "_3_") + " 1920w"}
-                  sizes="50vw"
                 />
               </Link>
             </div>
             <div className="col-xs-6">
               <Link to={`/image/tate/${this.state.itemId}`}>
                 <img
-                  style={{width: '50vw'}}
+                  className="img-responsive"
                   src={selectedOutput.img}
                   srcSet={selectedOutput.img.replace('tate/', 'tate/responsive_375/') + " 375w, " + selectedOutput.img.replace('tate/', 'tate/responsive_480/') + " 480w"}
-                  sizes="50vw"
                   onClick={() => {this.setState({showOutputOverlay: true})}}
                 />
               </Link>
             </div>
           </div>
-          <div className="row">
+          <div className="row" style={{paddingTop: '32px'}}>
             <div className="col-xs-12">
               <p>{moment(item.input.meta.date).format('DD/MM/YYYY')} <span className="itemSource">REUTERS/{item.input.meta.author}</span><br/>
-              {item.input.meta.caption}</p>
+              <span style={{fontSize: '18px', letterSpacing: 0}}>{item.input.meta.caption}</span></p>
             </div>
           </div>
-          <div className="row">
+          <div className="row" style={{paddingTop: '16px'}}>
             <div className="col-xs-12">
-              <p>{selectedOutput.meta.date} <span className="itemSource">{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</span><br/><em>{selectedOutput.meta.title}</em> by {selectedOutput.meta.author}</p>
+              <p>{selectedOutput.meta.date} <span className="itemSource">{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</span><br/><span style={{fontSize: '18px', letterSpacing: 0}}><em>{selectedOutput.meta.title}</em> by {selectedOutput.meta.author}</span></p>
             </div>
           </div>
-          <div className="row">
+          <div className="row" style={{paddingTop: '16px'}}>
             <div className="col-xs-12">
               <p><a onClick={() => this.setState({processVisible: !this.state.processVisible}) } className="processClick">VIEW RECOGNITION PROCESS { this.state.processVisible ? (<span className="icon--i_arrow-down"/>) : (<span className="icon--i_arrow-right"/>)}</a></p>
               { this.state.processVisible ?
                 (
-                <div className="processData">
-                  <p><img src="/img/icons/score_objects.svg"/> OBJECTS {(selectedOutput.features.summary.scores.objects * 100).toFixed(2)}%<br/>
+                <div className="processData" style={{paddingTop: '1px'}}>
+                  <p><img src="/img/icons/score_objects.svg" style={{paddingTop: '2px'}}/> OBJECTS {(selectedOutput.features.summary.scores.objects * 100).toFixed(2)}%<br/>
                   <span style={{color: 'white'}}>{new Array(parseInt(selectedOutput.features.summary.scores.objects * 25)).fill('.').join('')}</span><span style={{color: '#4a4a4a'}}>{new Array(25 - parseInt(selectedOutput.features.summary.scores.objects * 25)).fill('.').join('')}</span></p>
-                  <p><img src="/img/icons/score_faces.svg"/> FACES {(selectedOutput.features.summary.scores.faces * 100).toFixed(2)}%<br/>
+                  <p><img src="/img/icons/score_faces.svg" style={{paddingTop: '2px'}}/> FACES {(selectedOutput.features.summary.scores.faces * 100).toFixed(2)}%<br/>
                   <span style={{color: 'white'}}>{new Array(parseInt(selectedOutput.features.summary.scores.faces * 25)).fill('.').join('')}</span><span style={{color: '#4a4a4a'}}>{new Array(25 - parseInt(selectedOutput.features.summary.scores.faces * 25)).fill('.').join('')}</span></p>
-                  <p><img src="/img/icons/score_composition.svg"/> COMPOSITION {(selectedOutput.features.summary.scores.composition * 100).toFixed(2)}%<br/>
+                  <p><img src="/img/icons/score_composition.svg" style={{paddingTop: '2px'}}/> COMPOSITION {(selectedOutput.features.summary.scores.composition * 100).toFixed(2)}%<br/>
                   <span style={{color: 'white'}}>{new Array(parseInt(selectedOutput.features.summary.scores.composition * 25)).fill('.').join('')}</span><span style={{color: '#4a4a4a'}}>{new Array(25 - parseInt(selectedOutput.features.summary.scores.composition * 25)).fill('.').join('')}</span></p>
-                  <p><img src="/img/icons/score_context.svg"/> CONTEXT {(selectedOutput.features.summary.scores.context * 100).toFixed(2)}%<br/>
+                  <p><img src="/img/icons/score_context.svg" style={{paddingTop: '2px'}}/> CONTEXT {(selectedOutput.features.summary.scores.context * 100).toFixed(2)}%<br/>
                   <span style={{color: 'white'}}>{new Array(parseInt(selectedOutput.features.summary.scores.context * 25)).fill('.').join('')}</span><span style={{color: '#4a4a4a'}}>{new Array(25 - parseInt(selectedOutput.features.summary.scores.context * 25)).fill('.').join('')}</span></p>
+                  <h3 className="font-data" style={styles.descriptionTitle}>AI Description</h3>
+                  <p className="font-data" style={styles.descriptionText}>{this.props.descriptionIn}</p>
+                  <p className="font-data" style={[styles.descriptionText, {marginBottom: '32px'}]}>{this.props.descriptionOut}</p>
+
+                  <ShareModal />
                 </div>
                 ) : '' }
             </div>

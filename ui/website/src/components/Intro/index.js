@@ -18,6 +18,7 @@ import Radium from 'radium';
 import {Overlay} from 'react-overlays';
 import { browserHistory } from 'react-router';
 import {debounce} from 'throttle-debounce';
+import Swipeable from 'react-swipeable';
 
 const steps = [
   {icon: "/img/loading/intro.png", text: (<p><em>Recognition</em> is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection</p>)},
@@ -59,6 +60,7 @@ class IntroOverlay extends React.Component {
     } else {
       document.body.classList.remove('noscroll');
       document.getElementById("app").classList.remove('introOverlay-app');
+      document.getElementById("splashComponent").classList.toggle('hidden', true);
     }
 
     if(this.state.stepIndex >= steps.length) return null;
@@ -84,7 +86,9 @@ class IntroOverlay extends React.Component {
           </nav>
 
           <div className="overlayBackground hidden-xs" style={{opacity: 1.0 - this.state.stepIndex * 0.1}}/>
-          <div className="overlayBackground visible-xs" style={{opacity: 0.5}}/>
+          <Swipeable onSwipingUp={() => this.setState({stepIndex: 10})}>
+            <div className="overlayBackground visible-xs" style={{opacity: 0.5}}/>
+          </Swipeable>
 
           <div className="container hidden-xs">
             <div className="row"><div className="col-sm-8 col-sm-offset-2 text-center">

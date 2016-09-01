@@ -42,22 +42,41 @@ class SubscribeModal extends React.Component {
           this.setState({ showModal: false });
         }}
       >
-        <div style={styles.dialog} >
-          <h4 id='modal-label' style={styles.title}>Subscribe</h4>
-          <p style={styles.text}>Keep up to date with RECOGNITION</p>
+        <div>
+          <div style={styles.dialog} className="hidden-xs">
+            <h4 id='modal-label' style={styles.title}>Subscribe</h4>
+            <p style={styles.text}>Keep up to date with RECOGNITION</p>
 
-          <form class="form__newsletter-signup" action="http://links.mkt41.net/servlet/UserSignUp?f=717648&amp;postMethod=HTML&amp;m=0&amp;j=MAS2" method="post">
-            <input type="hidden" value="T" name="EMAIL_REQUIRED"/>
-            <input type="hidden" value="email" name="EMAIL_DATATYPE"/>
-            <input type="hidden" value="Yes" name="EB_EXHIBITIONS"/>
-            <input type="hidden" value="Tate home page E-Bulletin sign-up" name="Source"/>
-            <fieldset>
-              <label for="email">Email address</label>
-              <br/>
-              <input type="email" name="email" id="email" placeholder="" style={styles.input}/>
-              <button type="submit" style={styles.button}>Ok</button>
-            </fieldset>
-          </form>
+            <form class="form__newsletter-signup" action="http://links.mkt41.net/servlet/UserSignUp?f=717648&amp;postMethod=HTML&amp;m=0&amp;j=MAS2" method="post">
+              <input type="hidden" value="T" name="EMAIL_REQUIRED"/>
+              <input type="hidden" value="email" name="EMAIL_DATATYPE"/>
+              <input type="hidden" value="Yes" name="EB_EXHIBITIONS"/>
+              <input type="hidden" value="Tate home page E-Bulletin sign-up" name="Source"/>
+              <fieldset>
+                <label for="email">Email address</label>
+                <br/>
+                <input type="email" name="email" id="email" placeholder="" style={styles.input}/>
+                <button type="submit" style={styles.button}>Ok</button>
+              </fieldset>
+            </form>
+          </div>
+          <div style={styles.dialogXs} className="visible-xs">
+            <h4 id='modal-label' style={styles.titleXs}>Subscribe</h4>
+            <p style={styles.textXs}>Keep up to date with RECOGNITION</p>
+
+            <form class="form__newsletter-signup" action="http://links.mkt41.net/servlet/UserSignUp?f=717648&amp;postMethod=HTML&amp;m=0&amp;j=MAS2" method="post">
+              <input type="hidden" value="T" name="EMAIL_REQUIRED"/>
+              <input type="hidden" value="email" name="EMAIL_DATATYPE"/>
+              <input type="hidden" value="Yes" name="EB_EXHIBITIONS"/>
+              <input type="hidden" value="Tate home page E-Bulletin sign-up" name="Source"/>
+              <fieldset>
+                <label for="email">Email address</label>
+                <br/>
+                <input type="email" name="email" id="email" placeholder="" style={styles.input}/>
+                <button type="submit" style={styles.button}>Ok</button>
+              </fieldset>
+            </form>
+          </div>
         </div>
       </Modal>
 

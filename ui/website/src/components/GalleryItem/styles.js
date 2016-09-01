@@ -22,6 +22,12 @@ const styles = {
     padding: '64px 0',
     cursor: 'pointer'
   },
+  rowXs: {
+    borderBottom: '1px dotted #4a4a4a',
+    paddingTop: '48px',
+    paddingBottom: '32px',
+    cursor: 'pointer'
+  },
   fullHeight: {
     row: {
     },
@@ -71,6 +77,19 @@ const styles = {
     origin: {
       textTransform: 'uppercase'
     }
+  },
+  descriptionTitle: {
+    fontFamily: 'MaisonNeue',
+    fontSize: '12px',
+    color: '#FFF',
+    display: 'inline',
+    borderBottom: '1px solid #FFF',
+    marginBottom: '32px'
+  },
+  descriptionText: {
+    fontFamily: 'MaisonNeue',
+    fontSize: '12px',
+    color: '#FFF'
   }
 }
 

@@ -50,7 +50,21 @@ class Detail extends React.Component {
   handleRightOverFeatures(parent, overHash, overIndex) {
     parent.setState({
       overLeft: {hash: [], index: overIndex},
+      overRight: {hash: overHash, index: overIndex}
+    });
+  }
+
+  handleLeftOverFace(parent, overHash) {
+    parent.setState({
+      overLeft: {hash: overHash},
       overRight: {hash: overHash}
+    });
+  }
+
+  handleRightOverFace(parent, overHash) {
+    parent.setState({
+      overLeft: {hash: overHash},
+      overRight: {hash: overHash},
     });
   }
 
@@ -130,6 +144,7 @@ class Detail extends React.Component {
                           scores={selectedOutput.features.summary.scores}
                           onOver={this.handleLeftOverFeatures}
                           onOverTags={this.handleOverTags}
+                          onOverFace={this.handleLeftOverFace}
                           overHash={this.state.overRight}
                           overImg={this.state.overImg}
                           overTags={this.state.overTags}
@@ -145,6 +160,7 @@ class Detail extends React.Component {
                           scores={selectedOutput.features.summary.scores}
                           onOver={this.handleRightOverFeatures}
                           onOverTags={this.handleOverTags}
+                          onOverFace={this.handleRightOverFace}
                           overImg={this.state.overImg}
                           overHash={this.state.overLeft}
                           overTags={this.state.overTags}

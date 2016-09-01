@@ -497,6 +497,9 @@ ul.react-autosuggest__suggestions-list a:hover {
   font-family: 'MaisonNeue';
   font-size:12px;
 }
+.detailFeatures .hoverable {
+  pointer-events: all;
+}
 .detailFeatures a,
 .detailFeatures a:hover {
   text-decoration: none;
@@ -552,6 +555,9 @@ ul.react-autosuggest__suggestions-list a:hover {
 .detailFeatures.detailHovered h3.hovered+div table.faceSelected {
   color: #0fc;
   border-bottom: 1px solid #0fc;
+}
+.detailFeatures.detailHovered h3.hovered+div p.selected {
+  color: #0fc;
 }
 .detailFeatures.detailHovered h3.hovered+div h4.notSelected {
   color: #4a4a4a;
@@ -831,12 +837,15 @@ and (max-device-width : 768px) {
 
   .responsiveImage a.back,
   .responsiveImage a.back:hover {
-    color:#4a4a4a;
+    color:#fff;
     text-decoration: none;
   }
 
   .responsiveImage .processOverlay,
   .responsiveImage .processOverlay:hover {
+    font-family: 'TateNewPro';
+    font-size: 13px;
+    letter-spacing: 1.5px;
     color:#fff;
     text-decoration: none;
   }
@@ -846,7 +855,12 @@ and (max-device-width : 768px) {
   }
 
   .responsiveImage .info {
+    padding-top:32px;
+    font-family: 'TateNewPro';
+    font-size: 13px;
+    letter-spacing: 1.5px;
     color:#4a4a4a;
+    text-transform: uppercase;
   }
 }
 
