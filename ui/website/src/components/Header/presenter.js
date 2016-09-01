@@ -94,7 +94,7 @@ class Header extends React.Component {
                 <span className={this.props.path == '/info' ? 'menuSelected' : ''}><Link style={[styles.menuItemXs]} to='/info' onClick={() => this.setState({displayMenu: false})}>Info</Link></span>
               </div>
               <div className="col-xs-3">
-                <a key="tate-link-header-xs" href="http://www.tate.org.uk/whats-on/tate-britain/exhibition/recognition" style={[styles.menuItem]} target="_blank" rel="noopener noreferrer">AT TATE BRITAIN</a>
+                <a key="tate-link-header-xs" href="http://www.tate.org.uk/whats-on/tate-britain/exhibition/recognition" style={[styles.menuItemXs]} target="_blank" rel="noopener noreferrer">AT TATE BRITAIN</a>
               </div>
               <div className="col-xs-3">
                 <SubscribeModal/>
