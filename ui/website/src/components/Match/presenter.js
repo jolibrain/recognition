@@ -113,6 +113,10 @@ class Match extends React.Component {
     const item = this.props.item;
     const selectedOutput = item.output.filter(item => item.selected)[0];
 
+    const rx = /Z_\d+_(.*?)_/g;
+    const arr = rx.exec(this.props.item.input.img);
+    const itemId = arr[1];
+
     const inputOrientation = item.input.meta.height > item.input.meta.width ?
       "vertical" : "horizontal";
 
@@ -305,12 +309,12 @@ class Match extends React.Component {
           </div>
           <div className="row" style={{paddingBottom: '16px'}}>
             <div className="col-xs-12 title">
-              <p style={{fontSize: '13px', letterSpacing: '1.5px'}}>NO. {this.state.itemId}  {moment(item.timestamp).format('DD/MM/YYYY')}</p>
+              <p style={{fontSize: '13px', letterSpacing: '1.5px'}}>NO. {itemId}  {moment(item.timestamp).format('DD/MM/YYYY')}</p>
             </div>
           </div>
           <div className="row">
             <div className="col-xs-6" style={{paddingRight: 0}}>
-              <Link to={`/image/reuters/${this.state.itemId}`}>
+              <Link to={`/image/reuters/${itemId}`}>
                 <img
                   className="img-responsive"
                   src={item.input.img.replace("_2_", "_3_")}
@@ -319,7 +323,7 @@ class Match extends React.Component {
               </Link>
             </div>
             <div className="col-xs-6">
-              <Link to={`/image/tate/${this.state.itemId}`}>
+              <Link to={`/image/tate/${itemId}`}>
                 <img
                   className="img-responsive"
                   src={selectedOutput.img}
