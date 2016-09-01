@@ -142,13 +142,18 @@ class DetailFeatures extends React.Component {
        features.mapi.ages.length > 0)
         mapi_ages = features.mapi.ages;
 
+    let source = this.props.source;
+    if(source == 'tate') {
+      source = (<a href={this.props.item.meta.link} target="_blank" rel="noopener noreferrer" >tate</a>);
+    }
+
     return(<div className={hovered ? 'font-data detailFeatures detailHovered' : 'font-data detailFeatures'}
       style={[styles.detailColumn, hovered ? styles.columnHovered : '']}>
       <div className="table-responsive" style={[styles.tableOverflow, styles.categoryBottom]}>
         <p>{date}<br/>
         {title}<br/>
         { typeof author != 'undefined' && author.length > 0 ? (<span>AUTHOR: {author}<br/></span>) : ''}
-        SOURCE: {this.props.source}</p>
+        SOURCE: {source}</p>
       </div>
 
       <h3 className={objHovered == 'objects' ? 'hovered' : ''}>

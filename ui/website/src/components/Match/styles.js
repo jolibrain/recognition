@@ -37,7 +37,8 @@ const styles = {
     paddingLeft: '0px',
     paddingBottom: '32px',
     marginTop: '120px',
-    height: '100vh'
+    height: '100vh',
+    marginBottom: '64px'
   },
   hover: {
     color: '#0fc',

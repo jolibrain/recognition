@@ -497,6 +497,13 @@ ul.react-autosuggest__suggestions-list a:hover {
   font-family: 'MaisonNeue';
   font-size:12px;
 }
+.detailFeatures a,
+.detailFeatures a:hover {
+  text-decoration: none;
+  pointer-events: all;
+  color: inherit;
+}
+
 .detailFeatures.detailHovered {
   color: #4a4a4a;
 }
@@ -660,7 +667,7 @@ ul.react-autosuggest__suggestions-list a:hover {
   padding: 64px 0;
 }
 .galleryItem .hidden-xs .timestamp {
-  padding-bottom: 64px
+  padding-bottom: 32px
 }
 .galleryItem .hidden-xs .output-meta {
   margin-top: 16px;
@@ -781,7 +788,7 @@ ul.react-autosuggest__suggestions-list a:hover {
 }
 
 .infoPage .infoDescription {
-  color: #4a4a4a;
+  color: #aaaaaa;
   text-transform: uppercase;
 }
 
@@ -859,9 +866,44 @@ a.backGallery {
   letter-spacing: 1.5px;
   font-weight: normal;
   padding-bottom: 32px;
+  cursor: pointer;
 }
 
 a.backGallery:hover {
   color: #0FC;
   text-decoration: none;
+}
+
+.matchLinkRecog {
+  -webkit-animation: color-change 1s infinite;
+  -moz-animation: color-change 1s infinite;
+  -o-animation: color-change 1s infinite;
+  -ms-animation: color-change 1s infinite;
+  animation: color-change 1s infinite;
+}
+
+@-webkit-keyframes color-change {
+    0% { color: #fff; }
+    50% { color: #aaa; }
+    100% { color: #fff; }
+}
+@-moz-keyframes color-change {
+    0% { color: #fff; }
+    50% { color: #aaa; }
+    100% { color: #fff; }
+}
+@-ms-keyframes color-change {
+    0% { color: #fff; }
+    50% { color: #aaa; }
+    100% { color: #fff; }
+}
+@-o-keyframes color-change {
+    0% { color: #fff; }
+    50% { color: #aaa; }
+    100% { color: #fff; }
+}
+@keyframes color-change {
+    0% { color: #fff; }
+    50% { color: #aaa; }
+    100% { color: #fff; }
 }

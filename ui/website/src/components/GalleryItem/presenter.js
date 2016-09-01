@@ -171,7 +171,7 @@ class GalleryItem extends React.Component {
         }}
       >
 
-        <div className="col-sm-6 col-sm-offset-1">
+        <div className="col-sm-6">
 
           <div className="container-fluid" style={[styles.fullHeight]}>
             <div className="row" style={styles.fullHeight.row}>
@@ -211,7 +211,7 @@ class GalleryItem extends React.Component {
 
         </div>
 
-        <div className="col-sm-3 col-sm-offset-1 font-title" style={styles.descriptionColumn}>
+        <div className="col-sm-4 col-sm-offset-1 font-title" style={styles.descriptionColumn}>
 
           <p style={{fontSize: '12px', fontFamily: 'MaisonNeue'}}>No {this.state.itemId}</p>
 

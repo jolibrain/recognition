@@ -52,7 +52,7 @@ class Match extends React.Component {
   }
 
   handleBackGallery() {
-    console.log(Router.History);
+    browserHistory.push('/gallery');
   }
 
   handleLeftOver(parent, overHash, overIndex) {
@@ -165,7 +165,7 @@ class Match extends React.Component {
                   overHash={this.state.overLeft}
                   parent={this}
                 />
-                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</p>
+                <p className="font-subtext" style={styles.imgDescription}><a href={selectedOutput.meta.link} target="_blank" rel="noopener noreferrer" style={{color: '#4a4a4a', textDecoration: 'none'}}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</a></p>
               </div>
               <div className="col-sm-2" style={{paddingLeft: 0, paddingRight: 0}}>
                 <Description id={this.state.itemId}
@@ -200,7 +200,7 @@ class Match extends React.Component {
                     parent={this}
                   />
                 </div>
-                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</p>
+                <p className="font-subtext" style={styles.imgDescription}><a href={selectedOutput.meta.link} target="_blank" rel="noopener noreferrer" style={{color: '#4a4a4a', textDecoration: 'none'}}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</a></p>
               </div>
               <div className="col-sm-2" style={{paddingLeft: 0, paddingRight: 0}}>
                 <Description id={this.state.itemId}
@@ -242,7 +242,7 @@ class Match extends React.Component {
                   overHash={this.state.overLeft}
                   parent={this}
                 />
-                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</p>
+                <p className="font-subtext" style={styles.imgDescription}><a href={selectedOutput.meta.link} target="_blank" rel="noopener noreferrer" style={{color: '#4a4a4a', textDecoration: 'none'}}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</a></p>
                 <Description id={this.state.itemId}
                              descriptionIn={selectedOutput.features.in.captions.caption}
                              descriptionOut={selectedOutput.features.out.captions.caption}/>
@@ -283,7 +283,7 @@ class Match extends React.Component {
                     parent={this}
                   />
                 </div>
-                <p className="font-subtext" style={styles.imgDescription}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</p>
+                <p className="font-subtext" style={styles.imgDescription}><a href={selectedOutput.meta.link} target="_blank" rel="noopener noreferrer" style={{color: '#4a4a4a', textDecoration: 'none'}}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</a></p>
               </div>
             </div>);
             break;
