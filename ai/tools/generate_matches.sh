@@ -7,7 +7,7 @@ python recog_matches.py --input-imgs /data/tate/imgs/reuters/Images\ of\ the\ Da
 RETVAL=$?
 if [ $RETVAL -eq 0 ]; then
     cp splash_hourly.json '/data/tate/matches/splash.json_'$DATE
-    cp matches_hourly.json '/data/tate/matches/matches_hourly.json_'$DATE
+    cp match_hourly.json '/data/tate/matches/match_hourly.json_'$DATE
     scp splash_hourly.json recog_web:~/json_dump/prod/splash_current.json
     scp match_hourly.json recog_web:~/json_dump/prod/match_current.json 
     scp gallery_hourly.json recog_web:~/json_dump/prod/gallery_current.json
