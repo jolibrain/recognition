@@ -303,7 +303,7 @@ class Match extends React.Component {
         <div className="container-fluid" style={{fontSize: '13px', letterSpacing: '1.5px'}}>
           <div className="row" style={{paddingBottom: '16px'}}>
             <div className="col-xs-12 title">
-              <Link to="/gallery" style={{fontSize:'13px', color: '#4a4a4a', textDecoration: 'none'}}><span className='icon--i_arrow-left'/> Back to gallery</Link>
+              <Link to="/gallery" style={{fontFamily: 'TateNewPro', fontSize:'13px', letterSpacing: '1.5px', color: '#fff', textDecoration: 'none', textTransform: 'uppercase'}}><span className='icon--i_arrow-left'/> Back to gallery</Link>
             </div>
           </div>
           <div className="row" style={{paddingBottom: '16px'}}>
