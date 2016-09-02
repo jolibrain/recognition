@@ -34,7 +34,7 @@ class Description extends React.Component {
       <p className="font-data" style={styles.descriptionText}>{this.props.descriptionIn}</p>
       <p className="font-data" style={[styles.descriptionText, {marginBottom: '32px'}]}>{this.props.descriptionOut}</p>
 
-      <ShareModal />
+      <ShareModal url={"http://recognition.tate.org.uk/gallery/" + this.props.id} />
     </div>);
   }
 }
