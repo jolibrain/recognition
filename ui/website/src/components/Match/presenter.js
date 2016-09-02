@@ -107,11 +107,14 @@ class Match extends React.Component {
 
   render() {
 
-    console.log("match");
     if(!this.props.item) return null;
 
     const item = this.props.item;
     const selectedOutput = item.output.filter(item => item.selected)[0];
+
+    const rx = /Z_\d+_(.*?)_/g;
+    const arr = rx.exec(this.props.item.input.img);
+    const itemId = arr[1];
 
     const inputOrientation = item.input.meta.height > item.input.meta.width ?
       "vertical" : "horizontal";
@@ -132,13 +135,15 @@ class Match extends React.Component {
       {name:"twitter:site", content:"@Tate"},
       {name:"twitter:domain", content:"recognition.tate.org.uk"},
       {property:"og:site_name", content:"Recognition"},
-      {name:"twitter:image:src", content:"http://recognition.tate.org.uk/img/default_logo.jpg"},
+      {name:"twitter:image:src", content:`http://recognition.tate.org.uk/img/og_image/${itemId}`},
       {name:"twitter:image:width", content:"1200"},
       {name:"twitter:image:height", content:"628"},
+      {name:"og:image:width", content:"1200"},
+      {name:"og:image:height", content:"628"},
       {property:"og:url", content:"http://recognition.tate.org.uk/"},
       {property:"og:title", content:"Recognition"},
       {property:"og:description", content:"Recognition is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection"},
-      {property: 'og:image', content: `http://recognition.tate.org.uk/img/og_image/${this.state.itemId}.jpg`}
+      {property: 'og:image', content: `http://recognition.tate.org.uk/img/og_image/${itemId}.jpg`}
     ];
 
     switch (inputOrientation) {
@@ -148,7 +153,7 @@ class Match extends React.Component {
           case "horizontal":
             orientedComponent = (<div className="row">
               <div className="col-sm-5 horizontal">
-                <a className="font-data backGallery" style={{paddingLeft:'32px'}} onClick={this.handleBackGallery}><span className='icon--i_arrow-left'/> Back to gallery</a>
+                <a className="font-data backGallery" style={{paddingLeft:'16px'}} onClick={this.handleBackGallery}><span className='icon--i_arrow-left'/> Back to gallery</a>
                 <Titles input={item.input} output={selectedOutput}/>
                 <BoundedImage
                   item={item.input}
@@ -171,8 +176,8 @@ class Match extends React.Component {
                 />
                 <p className="font-subtext" style={styles.imgDescription}><a href={selectedOutput.meta.link} target="_blank" rel="noopener noreferrer" style={{color: '#4a4a4a', textDecoration: 'none'}}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</a></p>
               </div>
-              <div className="col-sm-2" style={{paddingLeft: 0, paddingRight: 0}}>
-                <Description id={this.state.itemId}
+              <div className="col-sm-2" style={{paddingLeft: 0}}>
+                <Description id={itemId}
                              descriptionIn={selectedOutput.features.in.captions.caption}
                              descriptionOut={selectedOutput.features.out.captions.caption}/>
               </div>
@@ -181,7 +186,7 @@ class Match extends React.Component {
           case "vertical":
             orientedComponent = (<div className="row">
               <div className="col-sm-5 horizontal">
-                <a className="font-data backGallery" style={{paddingLeft:'32px'}} onClick={this.handleBackGallery}><span className='icon--i_arrow-left'/> Back to gallery</a>
+                <a className="font-data backGallery" style={{paddingLeft:'px'}} onClick={this.handleBackGallery}><span className='icon--i_arrow-left'/> Back to gallery</a>
                 <BoundedImage
                   item={item.input}
                   itemId={this.state.itemId}
@@ -206,8 +211,8 @@ class Match extends React.Component {
                 </div>
                 <p className="font-subtext" style={styles.imgDescription}><a href={selectedOutput.meta.link} target="_blank" rel="noopener noreferrer" style={{color: '#4a4a4a', textDecoration: 'none'}}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</a></p>
               </div>
-              <div className="col-sm-2" style={{paddingLeft: 0, paddingRight: 0}}>
-                <Description id={this.state.itemId}
+              <div className="col-sm-2" style={{paddingLeft: 0}}>
+                <Description id={itemId}
                              descriptionIn={selectedOutput.features.in.captions.caption}
                              descriptionOut={selectedOutput.features.out.captions.caption}/>
               </div>
@@ -247,7 +252,7 @@ class Match extends React.Component {
                   parent={this}
                 />
                 <p className="font-subtext" style={styles.imgDescription}><a href={selectedOutput.meta.link} target="_blank" rel="noopener noreferrer" style={{color: '#4a4a4a', textDecoration: 'none'}}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</a></p>
-                <Description id={this.state.itemId}
+                <Description id={itemId}
                              descriptionIn={selectedOutput.features.in.captions.caption}
                              descriptionOut={selectedOutput.features.out.captions.caption}/>
               </div>
@@ -255,11 +260,11 @@ class Match extends React.Component {
             break;
           case "vertical":
             orientedComponent = (<div className="row">
-              <div className="col-sm-2">
-                <a className="font-data backGallery" onClick={this.handleBackGallery}><span className='icon--i_arrow-left'/> Back to gallery</a>
+              <div className="col-sm-2" style={{left: '16px'}}>
+                <a className="font-data backGallery" onClick={this.handleBackGallery} style={{paddingLeft: 0}}><span className='icon--i_arrow-left'/> Back to gallery</a>
                 <Titles input={item.input} output={selectedOutput}/>
                 <div style={{height: '16px'}}>&nbsp;</div>
-                <Description id={this.state.itemId}
+                <Description id={itemId}
                              descriptionIn={selectedOutput.features.in.captions.caption}
                              descriptionOut={selectedOutput.features.out.captions.caption}/>
               </div>
@@ -300,17 +305,17 @@ class Match extends React.Component {
         <div className="container-fluid" style={{fontSize: '13px', letterSpacing: '1.5px'}}>
           <div className="row" style={{paddingBottom: '16px'}}>
             <div className="col-xs-12 title">
-              <Link to="/gallery" style={{fontSize:'13px', color: '#4a4a4a', textDecoration: 'none'}}><span className='icon--i_arrow-left'/> Back to gallery</Link>
+              <Link to="/gallery" style={{fontFamily: 'TateNewPro', fontSize:'13px', letterSpacing: '1.5px', color: '#fff', textDecoration: 'none', textTransform: 'uppercase'}}><span className='icon--i_arrow-left'/> Back to gallery</Link>
             </div>
           </div>
           <div className="row" style={{paddingBottom: '16px'}}>
             <div className="col-xs-12 title">
-              <p style={{fontSize: '13px', letterSpacing: '1.5px'}}>NO. {this.state.itemId}  {moment(item.timestamp).format('DD/MM/YYYY')}</p>
+              <p style={{fontSize: '13px', letterSpacing: '1.5px'}}>NO. {itemId}  {moment(item.timestamp).format('DD/MM/YYYY')}</p>
             </div>
           </div>
           <div className="row">
             <div className="col-xs-6" style={{paddingRight: 0}}>
-              <Link to={`/image/reuters/${this.state.itemId}`}>
+              <Link to={`/image/reuters/${itemId}`}>
                 <img
                   className="img-responsive"
                   src={item.input.img.replace("_2_", "_3_")}
@@ -319,7 +324,7 @@ class Match extends React.Component {
               </Link>
             </div>
             <div className="col-xs-6">
-              <Link to={`/image/tate/${this.state.itemId}`}>
+              <Link to={`/image/tate/${itemId}`}>
                 <img
                   className="img-responsive"
                   src={selectedOutput.img}
@@ -358,7 +363,7 @@ class Match extends React.Component {
                   <p className="font-data" style={styles.descriptionText}>{this.props.descriptionIn}</p>
                   <p className="font-data" style={[styles.descriptionText, {marginBottom: '32px'}]}>{this.props.descriptionOut}</p>
 
-                  <ShareModal />
+                  <ShareModal url={"http://recognition.tate.org.uk/gallery/" + itemId}/>
                 </div>
                 ) : '' }
             </div>
@@ -368,6 +373,7 @@ class Match extends React.Component {
       <div className="container-fluid hidden-xs" style={styles.matchContainer}>
         {orientedComponent}
       </div>
+      <DocMeta tags={meta} />
     </div>);
   }
 }

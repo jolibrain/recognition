@@ -15,7 +15,7 @@ limitations under the License.
 */
 import React from 'react';
 import Radium from 'radium';
-import {Overlay} from 'react-overlays';
+import {Overlay, Transition} from 'react-overlays';
 import { browserHistory } from 'react-router';
 import {debounce} from 'throttle-debounce';
 import Swipeable from 'react-swipeable';
@@ -25,10 +25,12 @@ const steps = [
   {icon: "/img/loading/empty.png", text: (<p><em>Recognition</em> has four different ways of looking at an image:</p>)},
   {icon: "/img/loading/object.png", text: (<p><b>Object recognition</b> is a process for identifying specific objects.  Its algorithms rely on matching, learning, or pattern recognition using appearance-based or feature-based analysis.</p>)},
   {icon: "/img/loading/face.png", text: (<p><b>Facial recognition</b> is a process for identifying human faces. In addition to locating the human faces in an image, it determines the age, gender, and emotional state of each subject it finds.</p>)},
-  {icon: "/img/loading/composition.png", text: (<p><b>Composition recognition</b>is a process for identifying prominent shapes  and structures, visual layout, and colours.</p>)},
+  {icon: "/img/loading/composition.png", text: (<p><b>Composition recognition</b> is a process for identifying prominent shapes  and structures, visual layout, and colours.</p>)},
   {icon: "/img/loading/context.png", text: (<p><b>Context recognition</b> is a process which analyses the titles, dates, tags, and descriptions associated with each image. By reading this text, it's also how recognition learns how to write a caption for each match.</p>)},
   {icon: "/img/loading/empty.png", text: (<p>Images with close similarity in these four categories are selected as a match, and displayed in <em>Recognition</em>'s gallery.</p>)}
 ];
+
+const FADE_DURATION = 200;
 
 class IntroOverlay extends React.Component {
 
@@ -60,10 +62,24 @@ class IntroOverlay extends React.Component {
     } else {
       document.body.classList.remove('noscroll');
       document.getElementById("app").classList.remove('introOverlay-app');
-      document.getElementById("splashComponent").classList.toggle('hidden', true);
+      if( document.getElementById("splashComponent")) {
+        const elements = document.getElementById("splashComponent").getElementsByClassName("to_hide");
+        for(let i = 0; i < elements.length; i++) {
+          elements[i].classList.remove('visible-xs');
+          elements[i].classList.toggle('hidden', true);
+        }
+      }
     }
 
     if(this.state.stepIndex >= steps.length) return null;
+
+    let transition = <Transition
+          in={this.state.stepIndex < 10}
+          timeout='500'
+          className='fade'
+          enteredClassName='in'
+          enteringClassName='in'
+        />
 
     return (<Overlay show={this.state.stepIndex < steps.length}
                      onHide={() => this.setState({ stepIndex: 10 })}

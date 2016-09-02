@@ -104,6 +104,10 @@ class CanvasImage extends React.Component {
     background.onload = (() => {
       ctx.drawImage(background,0,0);
       this.renderBoxes()
+      canvas.onclick = ((e) => {
+        console.log('click');
+        this.props.parent.handleCanvasClick()
+      });
     });
   }
 

@@ -81,6 +81,10 @@ class GalleryItem extends React.Component {
     const item = this.props.item;
     const selectedOutput = item.output.filter(item => item.selected)[0];
 
+    const rx = /Z_\d+_(.*?)_/g;
+    const arr = rx.exec(item.input.img);
+    const itemId = arr[1];
+
     let classname = "row gallery_item";
     if(this.state.hover) {
       classname += " hovered";
@@ -155,7 +159,7 @@ class GalleryItem extends React.Component {
                   <p className="font-data" style={styles.descriptionText}>{selectedOutput.features.in.captions.caption}</p>
                   <p className="font-data" style={[styles.descriptionText, {marginBottom: '32px'}]}>{selectedOutput.features.out.captions.caption}</p>
 
-                  <ShareModal />
+                  <ShareModal url={"http://recognition.tate.org.uk/gallery/" + itemId}/>
                 </div>
                 ) : '' }
             </div>

@@ -70,7 +70,7 @@ class Header extends React.Component {
           <div className="navbar-header">
             <button type="button" className="navbar-toggle collapsed" aria-expanded="false" onClick={() => this.setState({displayMenu: !this.state.displayMenu})}>
             { this.state.displayMenu ?
-              (<img src="/img/icons/close.png" alt="close"/>)
+              (<img src="/img/icons/close.png" alt="close" className="closeButton"/>)
               :
               (<div>
                 <span key="toggle-1" className="sr-only">Toggle navigation</span>
@@ -80,7 +80,7 @@ class Header extends React.Component {
               </div>)
             }
             </button>
-            <Link style={[styles.brand]} className="navbar-brand" to='/'>
+            <Link style={[styles.brand]} className="navbar-brand" to='/gallery'>
               <img src="/img/logos/recognition.png" alt="recognition"/>
             </Link>
           </div>
@@ -90,7 +90,7 @@ class Header extends React.Component {
               <li className={this.props.path == '/gallery' ? 'menuSelected' : ''}><Link style={[styles.menuItemXs]} to='/gallery' onClick={() => this.setState({displayMenu: false})}>Gallery</Link></li>
               <li className={this.props.path == '/info' ? 'menuSelected' : ''}><Link style={[styles.menuItemXs]} to='/info' onClick={() => this.setState({displayMenu: false})}>Info</Link></li>
               <li><a key="tate-link-header-xs" href="http://www.tate.org.uk/whats-on/tate-britain/exhibition/recognition" style={[styles.menuItemXs]} target="_blank" rel="noopener noreferrer">AT TATE BRITAIN</a></li>
-              <li style={{paddingBottom: '8px'}}><SubscribeModal/></li>
+              <li style={{paddingBottom: '8px', marginTop: '8px', marginLeft: '15px'}}><SubscribeModal/></li>
             </ul>
           </div>
         </div>

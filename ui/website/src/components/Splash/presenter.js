@@ -69,11 +69,11 @@ class Splash extends React.Component {
           mountChildren={false}
         />
 
-        <div className="container splashContainer" style={[styles.fullHeight]}>
+        <div className="container splashContainer hidden-xs" style={[styles.fullHeight]}>
           <div className="row" style={styles.fullHeight.row}>
             <div className="col-xs-6" style={styles.fullHeight.col}>
 
-              <div className="row hidden-xs">
+              <div className="row">
                 <div className="col-sm-12">
                   <table className="table borderless" style={styles.table}>
                     <tbody>
@@ -107,21 +107,13 @@ class Splash extends React.Component {
                 <div className="col-sm-12" style={{textAlign: "center", padding: 0}}>
 
                   <img
-                    className="hidden-xs"
                     src={match.input.img.replace("_2_", "_3_")}
                     style={[styles.fullHeight.img]}
                     srcSet={match.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + match.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w, " + match.input.img.replace('reuters/', 'reuters/responsive_757/').replace("_2_", "_3_") + " 757w, " + match.input.img.replace('reuters/', 'reuters/responsive_1920/').replace("_2_", "_3_") + " 1920w"}
                     sizes="(min-width: 40em) 80vw, 100vw"
                   />
-                  <img
-                    className="visible-xs"
-                    src={match.input.img.replace("_2_", "_3_")}
-                    style={[styles.fullHeight.img, {position:"relative", top: "20%"}]}
-                    srcSet={match.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + match.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w, " + match.input.img.replace('reuters/', 'reuters/responsive_757/').replace("_2_", "_3_") + " 757w, " + match.input.img.replace('reuters/', 'reuters/responsive_1920/').replace("_2_", "_3_") + " 1920w"}
-                    sizes="(min-width: 40em) 80vw, 100vw"
-                  />
 
-                  <p className="hidden-xs" style={styles.imgDescription}>
+                  <p style={styles.imgDescription}>
                     {moment(match.input.meta.date).format('DD/MM/YYYY HH:mm')}<br/>
                     {match.input.meta.caption}<br/>
                     reuters/{match.input.meta.author}
@@ -138,21 +130,13 @@ class Splash extends React.Component {
                 <div className="col-sm-10 col-sm-offset-1" style={[styles.fullHeight.col, {padding: 0}]}>
 
                   <img
-                    className="hidden-xs"
                     style={[styles.fullHeight.img, {maxHeight: "75vh"}]}
                     src={selectedOutput.img}
                     srcSet={selectedOutput.img.replace('tate/', 'tate/responsive_375/') + " 375w, " + selectedOutput.img.replace('tate/', 'tate/responsive_480/') + " 480w, " + selectedOutput.img.replace('tate/', 'tate/responsive_757/') + " 757w"}
                     sizes="(min-width: 40em) 80vw, 100vw"
                   />
-                  <img
-                    className="visible-xs"
-                    style={[styles.fullHeight.img, {position:"relative", top: "20%"}]}
-                    src={selectedOutput.img}
-                    srcSet={selectedOutput.img.replace('tate/', 'tate/responsive_375/') + " 375w, " + selectedOutput.img.replace('tate/', 'tate/responsive_480/') + " 480w"}
-                    sizes="(min-width: 40em) 80vw, 100vw"
-                  />
 
-                  <p className="hidden-xs" style={styles.imgDescription}>
+                  <p style={styles.imgDescription}>
                     {selectedOutput.meta.date}<br/>
                     {selectedOutput.meta.title}<br/>
                     {selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}
@@ -165,7 +149,53 @@ class Splash extends React.Component {
           </div>
         </div>
 
-        <footer className="footer" style={styles.footer}>
+        <footer className="footer hidden-xs" style={styles.footer}>
+          <div className="container"style={styles.footer.galleryLinkContainer} >
+            <Scrollchor style={styles.footer.galleryLink} to='#gallery'>
+              <span className="icon--i_arrow-down" style={styles.footer.arrowDown} />
+            </Scrollchor>
+          </div>
+        </footer>
+
+        <div className="container splashContainer visible-xs to_hide" style={[styles.fullHeight]}>
+          <div className="row" style={styles.fullHeight.row}>
+            <div className="col-xs-6" style={styles.fullHeight.col}>
+
+              <div className="row">
+                <div className="col-sm-12" style={{textAlign: "center", padding: 0}}>
+
+                  <img
+                    src={match.input.img.replace("_2_", "_3_")}
+                    style={[styles.fullHeight.img, {position:"relative", top: "20%"}]}
+                    srcSet={match.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + match.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w, " + match.input.img.replace('reuters/', 'reuters/responsive_757/').replace("_2_", "_3_") + " 757w, " + match.input.img.replace('reuters/', 'reuters/responsive_1920/').replace("_2_", "_3_") + " 1920w"}
+                    sizes="(min-width: 40em) 80vw, 100vw"
+                  />
+
+                </div>
+              </div>
+
+            </div>
+
+            <div className="col-xs-6 nopadding">
+
+              <div className="row"  style={styles.fullHeight.row}>
+                <div className="col-sm-10 col-sm-offset-1" style={[styles.fullHeight.col, {padding: 0}]}>
+
+                  <img
+                    style={[styles.fullHeight.img, {position:"relative", top: "20%"}]}
+                    src={selectedOutput.img}
+                    srcSet={selectedOutput.img.replace('tate/', 'tate/responsive_375/') + " 375w, " + selectedOutput.img.replace('tate/', 'tate/responsive_480/') + " 480w"}
+                    sizes="(min-width: 40em) 80vw, 100vw"
+                  />
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <footer className="footer visible-xs to_hide" style={styles.footer}>
           <div className="container"style={styles.footer.galleryLinkContainer} >
             <Scrollchor style={styles.footer.galleryLink} to='#gallery'>
               <span className="icon--i_arrow-down" style={styles.footer.arrowDown} />

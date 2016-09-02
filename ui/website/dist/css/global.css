@@ -749,7 +749,7 @@ ul.react-autosuggest__suggestions-list a:hover {
 
 .horizontal .match-titles {
   padding-bottom: 32px;
-  padding-left: 32px;
+  padding-left: 16px;
 }
 
 .match-first-title {
@@ -889,6 +889,7 @@ a.backGallery {
   font-weight: normal;
   padding-bottom: 32px;
   cursor: pointer;
+  padding-left:16px;
 }
 
 a.backGallery:hover {
@@ -928,4 +929,31 @@ a.backGallery:hover {
     0% { color: #fff; }
     50% { color: #aaa; }
     100% { color: #fff; }
+}
+.fade {
+  opacity: 0;
+  -webkit-transition: opacity 200ms linear;
+       -o-transition: opacity 200ms linear;
+          transition: opacity 200ms linear;
+}
+
+.in {
+  opacity: 1;
+}
+
+.header .visible-xs .navbar-toggle {
+  margin-top: 13px;
+}
+
+.header .visible-xs .navbar-toggle .closeButton {
+  width: 13px;
+  margin-top: -8px;
+}
+
+.header .visible-xs .navbar-toggle .icon-bar {
+  height:1px;
+  width:13px;
+}
+.header .visible-xs .navbar-toggle .icon-bar+.icon-bar {
+  margin-top:3px;
 }

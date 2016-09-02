@@ -98,16 +98,18 @@ class Detail extends React.Component {
 
     const meta = [
       {name:"twitter:card", content:"summary_large_image"},
-      {name:"twitter:url", content:"http://recognition.tate.org.uk/"},
+      {name:"twitter:url", content:`http://recognition.tate.org.uk/gallery/${itemId}`},
       {name:"twitter:title", content:"Recognition"},
       {name:"twitter:description", content:"Recognition is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection"},
       {name:"twitter:site", content:"@Tate"},
       {name:"twitter:domain", content:"recognition.tate.org.uk"},
       {property:"og:site_name", content:"Recognition"},
-      {name:"twitter:image:src", content:"http://recognition.tate.org.uk/img/default_logo.jpg"},
+      {name:"twitter:image:src", content:`http://recognition.tate.org.uk/img/og_image/${itemId}`},
       {name:"twitter:image:width", content:"1200"},
       {name:"twitter:image:height", content:"628"},
-      {property:"og:url", content:"http://recognition.tate.org.uk/"},
+      {name:"og:image:width", content:"1200"},
+      {name:"og:image:height", content:"628"},
+      {property:"og:url", content:`http://recognition.tate.org.uk/gallery/${itemId}`},
       {property:"og:title", content:"Recognition"},
       {property:"og:description", content:"Recognition is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection"},
       {property: 'og:image', content: `http://recognition.tate.org.uk/img/og_image/${itemId}.jpg`}
@@ -118,17 +120,17 @@ class Detail extends React.Component {
         <div className="container-fluid" style={{fontSize: '13px', letterSpacing: '1.5px'}}>
           <div className="row" style={{paddingBottom: '16px'}}>
             <div className="col-xs-12 title">
-              <Link to="/gallery" style={{fontSize:'13px', color: '#4a4a4a', textDecoration: 'none'}}><span className='icon--i_arrow-left'/> Back to gallery</Link>
+              <Link to="/gallery" style={{fontFamily: 'TateNewPro', fontSize:'13px', letterSpacing: '1.5px', color: '#fff', textDecoration: 'none', textTransform: 'uppercase'}}><span className='icon--i_arrow-left'/> Back to gallery</Link>
             </div>
           </div>
           <div className="row" style={{paddingBottom: '16px'}}>
             <div className="col-xs-12 title">
-              <p style={{fontSize: '13px', letterSpacing: '1.5px'}}>NO. {this.state.itemId}  {moment(item.timestamp).format('DD/MM/YYYY')}</p>
+              <p style={{fontSize: '13px', letterSpacing: '1.5px'}}>NO. {itemId}  {moment(item.timestamp).format('DD/MM/YYYY')}</p>
             </div>
           </div>
           <div className="row">
             <div className="col-xs-6" style={{paddingRight: 0}}>
-              <Link to={`/image/reuters/${this.state.itemId}`}>
+              <Link to={`/image/reuters/${itemId}`}>
                 <img
                   className="img-responsive"
                   src={item.input.img.replace("_2_", "_3_")}
@@ -137,7 +139,7 @@ class Detail extends React.Component {
               </Link>
             </div>
             <div className="col-xs-6">
-              <Link to={`/image/tate/${this.state.itemId}`}>
+              <Link to={`/image/tate/${itemId}`}>
                 <img
                   className="img-responsive"
                   src={selectedOutput.img}
@@ -176,7 +178,7 @@ class Detail extends React.Component {
                   <p className="font-data" style={styles.descriptionText}>{this.props.descriptionIn}</p>
                   <p className="font-data" style={[styles.descriptionText, {marginBottom: '32px'}]}>{this.props.descriptionOut}</p>
 
-                  <ShareModal />
+                  <ShareModal  url={"http://recognition.tate.org.uk/gallery/" + itemId}/>
                 </div>
                 ) : '' }
             </div>
