@@ -151,7 +151,7 @@ class Match extends React.Component {
           case "horizontal":
             orientedComponent = (<div className="row">
               <div className="col-sm-5 horizontal">
-                <a className="font-data backGallery" style={{paddingLeft:'32px'}} onClick={this.handleBackGallery}><span className='icon--i_arrow-left'/> Back to gallery</a>
+                <a className="font-data backGallery" style={{paddingLeft:'16px'}} onClick={this.handleBackGallery}><span className='icon--i_arrow-left'/> Back to gallery</a>
                 <Titles input={item.input} output={selectedOutput}/>
                 <BoundedImage
                   item={item.input}
@@ -174,7 +174,7 @@ class Match extends React.Component {
                 />
                 <p className="font-subtext" style={styles.imgDescription}><a href={selectedOutput.meta.link} target="_blank" rel="noopener noreferrer" style={{color: '#4a4a4a', textDecoration: 'none'}}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</a></p>
               </div>
-              <div className="col-sm-2" style={{paddingLeft: 0, paddingRight: 0}}>
+              <div className="col-sm-2" style={{paddingLeft: 0}}>
                 <Description id={itemId}
                              descriptionIn={selectedOutput.features.in.captions.caption}
                              descriptionOut={selectedOutput.features.out.captions.caption}/>
@@ -184,7 +184,7 @@ class Match extends React.Component {
           case "vertical":
             orientedComponent = (<div className="row">
               <div className="col-sm-5 horizontal">
-                <a className="font-data backGallery" style={{paddingLeft:'32px'}} onClick={this.handleBackGallery}><span className='icon--i_arrow-left'/> Back to gallery</a>
+                <a className="font-data backGallery" style={{paddingLeft:'px'}} onClick={this.handleBackGallery}><span className='icon--i_arrow-left'/> Back to gallery</a>
                 <BoundedImage
                   item={item.input}
                   itemId={this.state.itemId}
@@ -209,7 +209,7 @@ class Match extends React.Component {
                 </div>
                 <p className="font-subtext" style={styles.imgDescription}><a href={selectedOutput.meta.link} target="_blank" rel="noopener noreferrer" style={{color: '#4a4a4a', textDecoration: 'none'}}>{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</a></p>
               </div>
-              <div className="col-sm-2" style={{paddingLeft: 0, paddingRight: 0}}>
+              <div className="col-sm-2" style={{paddingLeft: 0}}>
                 <Description id={itemId}
                              descriptionIn={selectedOutput.features.in.captions.caption}
                              descriptionOut={selectedOutput.features.out.captions.caption}/>

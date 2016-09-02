@@ -749,7 +749,7 @@ ul.react-autosuggest__suggestions-list a:hover {
 
 .horizontal .match-titles {
   padding-bottom: 32px;
-  padding-left: 32px;
+  padding-left: 16px;
 }
 
 .match-first-title {
@@ -889,6 +889,7 @@ a.backGallery {
   font-weight: normal;
   padding-bottom: 32px;
   cursor: pointer;
+  padding-left:16px;
 }
 
 a.backGallery:hover {

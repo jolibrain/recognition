@@ -34,7 +34,6 @@ const styles = {
     textAlign: 'right',
   },
   matchContainer: {
-    paddingLeft: '0px',
     paddingBottom: '32px',
     marginTop: '120px',
     height: '100vh',
