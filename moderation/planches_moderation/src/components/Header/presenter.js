@@ -44,14 +44,8 @@ class Header extends React.Component {
         <div className="container-fluid">
 
           <div className="navbar-header">
-            <Link className="navbar-brand" to='/'>Planches</Link>
+            <Link className="navbar-brand" to='/'>Recognition - Moderation</Link>
           </div>
-
-          <form className="navbar-form navbar-left" role="search" onSubmit={this.handleOnSubmit}>
-            <div className="form-group">
-              <input type="text" className="form-control" placeholder="Filter" value={this.state.searchValue} onChange={this.handleOnChange}/>
-            </div>
-          </form>
 
         </div>
       </nav>
