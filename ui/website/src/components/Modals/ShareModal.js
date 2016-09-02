@@ -181,21 +181,6 @@ class ShareModal extends React.Component {
                 </div>
                 <div className="col-sm-3">
 
-                  <PinterestShareButton
-                    url={url}
-                    description="Recognition is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection"
-                    media="http://recognition.tate.org.uk/img/default_logo.jpg"
-                    className="share-button">
-                    <PinterestIcon
-                      logoFillColor="white"
-                      size={32}
-                      iconBgStyle={{fillOpacity: 0}}
-                    />
-                  </PinterestShareButton>
-
-                </div>
-                <div className="col-sm-3">
-
                   <GooglePlusShareButton
                     url={url}
                     className="share-button">
