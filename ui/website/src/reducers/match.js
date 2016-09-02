@@ -70,7 +70,9 @@ function loadMatchJson(state, action) {
 
   });
 
-  return [ ...state, ...json ];
+  const publishedMatches = json.filter(item => item.status == "published");
+
+  return [ ...state, ...publishedMatches ];
 }
 
 function selectMatchItem(state, action) {
