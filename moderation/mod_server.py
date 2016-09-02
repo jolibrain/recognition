@@ -28,6 +28,7 @@ def change_status(img_in,img_out,status):
             for mo in m['output']:
                 if mo['img'] == img_out:
                     m['status'] = status
+                    print 'img_in=',img_in,' / img_out=',img_out,' / status changed to',m['status']
                     return m['status']
             print 'Cannot find',img_out,'in',img_in,'matches'
             return ''
