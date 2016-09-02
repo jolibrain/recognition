@@ -940,3 +940,20 @@ a.backGallery:hover {
 .in {
   opacity: 1;
 }
+
+.header .visible-xs .navbar-toggle {
+  margin-top: 13px;
+}
+
+.header .visible-xs .navbar-toggle .closeButton {
+  width: 13px;
+  margin-top: -8px;
+}
+
+.header .visible-xs .navbar-toggle .icon-bar {
+  height:1px;
+  width:13px;
+}
+.header .visible-xs .navbar-toggle .icon-bar+.icon-bar {
+  margin-top:3px;
+}

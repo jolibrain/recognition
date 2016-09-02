@@ -70,7 +70,7 @@ class Header extends React.Component {
           <div className="navbar-header">
             <button type="button" className="navbar-toggle collapsed" aria-expanded="false" onClick={() => this.setState({displayMenu: !this.state.displayMenu})}>
             { this.state.displayMenu ?
-              (<img src="/img/icons/close.png" alt="close"/>)
+              (<img src="/img/icons/close.png" alt="close" className="closeButton"/>)
               :
               (<div>
                 <span key="toggle-1" className="sr-only">Toggle navigation</span>
