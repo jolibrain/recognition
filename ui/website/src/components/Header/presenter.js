@@ -80,7 +80,7 @@ class Header extends React.Component {
               </div>)
             }
             </button>
-            <Link style={[styles.brand]} className="navbar-brand" to='/'>
+            <Link style={[styles.brand]} className="navbar-brand" to='/gallery'>
               <img src="/img/logos/recognition.png" alt="recognition"/>
             </Link>
           </div>
