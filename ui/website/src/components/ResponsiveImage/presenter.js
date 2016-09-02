@@ -94,7 +94,7 @@ class ResponsiveImage extends React.Component {
         <nav style={{background: '#0d1215', border: 0}} className="navbar navbar-default navbar-fixed-top visible-xs">
           <div className="container-fluid">
             <div className="navbar-header">
-              <Link className="navbar-brand" to='/'>
+              <Link className="navbar-brand" to='/gallery'>
                 <img src="/img/logos/recognition.png" alt="recognition"/>
               </Link>
               <p className="text-right" style={{padding: '15px'}}>
