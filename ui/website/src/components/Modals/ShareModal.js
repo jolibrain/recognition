@@ -155,7 +155,7 @@ class ShareModal extends React.Component {
                   <FacebookShareButton
                     url={url}
                     title="Recognition"
-                    description="#recognition #ikprize"
+                    description="Recognition is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection"
                     className="share-button">
                     <FacebookIcon
                       logoFillColor="white"
@@ -183,7 +183,7 @@ class ShareModal extends React.Component {
 
                   <PinterestShareButton
                     url={url}
-                    description="#recognition #ikprize"
+                    description="Recognition is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection"
                     className="share-button">
                     <PinterestIcon
                       logoFillColor="white"
