@@ -98,7 +98,7 @@ class Detail extends React.Component {
 
     const meta = [
       {name:"twitter:card", content:"summary_large_image"},
-      {name:"twitter:url", content:"http://recognition.tate.org.uk/"},
+      {name:"twitter:url", content:`http://recognition.tate.org.uk/gallery/${itemId}`},
       {name:"twitter:title", content:"Recognition"},
       {name:"twitter:description", content:"Recognition is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection"},
       {name:"twitter:site", content:"@Tate"},
@@ -107,7 +107,9 @@ class Detail extends React.Component {
       {name:"twitter:image:src", content:`http://recognition.tate.org.uk/img/og_image/${itemId}`},
       {name:"twitter:image:width", content:"1200"},
       {name:"twitter:image:height", content:"628"},
-      {property:"og:url", content:"http://recognition.tate.org.uk/"},
+      {name:"og:image:width", content:"1200"},
+      {name:"og:image:height", content:"628"},
+      {property:"og:url", content:`http://recognition.tate.org.uk/gallery/${itemId}`},
       {property:"og:title", content:"Recognition"},
       {property:"og:description", content:"Recognition is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection"},
       {property: 'og:image', content: `http://recognition.tate.org.uk/img/og_image/${itemId}.jpg`}

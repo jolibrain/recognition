@@ -138,6 +138,8 @@ class Match extends React.Component {
       {name:"twitter:image:src", content:`http://recognition.tate.org.uk/img/og_image/${itemId}`},
       {name:"twitter:image:width", content:"1200"},
       {name:"twitter:image:height", content:"628"},
+      {name:"og:image:width", content:"1200"},
+      {name:"og:image:height", content:"628"},
       {property:"og:url", content:"http://recognition.tate.org.uk/"},
       {property:"og:title", content:"Recognition"},
       {property:"og:description", content:"Recognition is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection"},
@@ -258,8 +260,8 @@ class Match extends React.Component {
             break;
           case "vertical":
             orientedComponent = (<div className="row">
-              <div className="col-sm-2">
-                <a className="font-data backGallery" onClick={this.handleBackGallery}><span className='icon--i_arrow-left'/> Back to gallery</a>
+              <div className="col-sm-2" style={{left: '16px'}}>
+                <a className="font-data backGallery" onClick={this.handleBackGallery} style={{paddingLeft: 0}}><span className='icon--i_arrow-left'/> Back to gallery</a>
                 <Titles input={item.input} output={selectedOutput}/>
                 <div style={{height: '16px'}}>&nbsp;</div>
                 <Description id={itemId}
@@ -371,6 +373,7 @@ class Match extends React.Component {
       <div className="container-fluid hidden-xs" style={styles.matchContainer}>
         {orientedComponent}
       </div>
+      <DocMeta tags={meta} />
     </div>);
   }
 }
