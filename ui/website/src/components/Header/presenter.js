@@ -90,7 +90,7 @@ class Header extends React.Component {
               <li className={this.props.path == '/gallery' ? 'menuSelected' : ''}><Link style={[styles.menuItemXs]} to='/gallery' onClick={() => this.setState({displayMenu: false})}>Gallery</Link></li>
               <li className={this.props.path == '/info' ? 'menuSelected' : ''}><Link style={[styles.menuItemXs]} to='/info' onClick={() => this.setState({displayMenu: false})}>Info</Link></li>
               <li><a key="tate-link-header-xs" href="http://www.tate.org.uk/whats-on/tate-britain/exhibition/recognition" style={[styles.menuItemXs]} target="_blank" rel="noopener noreferrer">AT TATE BRITAIN</a></li>
-              <li style={{paddingBottom: '8px'}}><SubscribeModal/></li>
+              <li style={{paddingBottom: '8px', marginTop: '8px', marginLeft: '15px'}}><SubscribeModal/></li>
             </ul>
           </div>
         </div>
