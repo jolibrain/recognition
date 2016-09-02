@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import React from 'react';
-import base64 from 'base-64';
 
 const STATUS_PENDING = "pending";
 const STATUS_PUBLISH = "published";
@@ -60,12 +59,14 @@ class GalleryItem extends React.Component {
 
   handleStatusClick(status) {
     this.setState({status: status});
+
+    var headers = new Headers();
+    headers.append("Content-Type", "application/json"); 
+    headers.append("Authorization", "Basic " + new Buffer("recog:trocEipayb").toString('base64')); 
+
     fetch('/api/moderation', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ' + base64.encode("recog:trocEipayb")
-      },
+      headers: headers,
       body: JSON.stringify({
         img_in: this.state.img_in,
         img_out: this.state.img_out,
