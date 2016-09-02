@@ -61,10 +61,10 @@ class GalleryItem extends React.Component {
     this.setState({status: status});
 
     var headers = new Headers();
-    headers.append("Content-Type", "application/json"); 
-    headers.append("Authorization", "Basic " + new Buffer("recog:trocEipayb").toString('base64')); 
+    headers.append("Content-Type", "application/json");
+    headers.append("Authorization", "Basic " + new Buffer("recog:zuaFUqnzJHdF0W33AaA66D99T").toString('base64'));
 
-    fetch('/api/moderation', {
+    fetch('/moderation', {
       method: 'POST',
       headers: headers,
       body: JSON.stringify({

@@ -25,7 +25,7 @@ import Gallery from './components/Gallery';
 require('bootstrap/dist/css/bootstrap.min.css');
 
 var headers = new Headers();
-headers.append("Authorization", "Basic " + new Buffer("recog:trocEipayb").toString('base64')); 
+headers.append("Authorization", "Basic " + new Buffer("recog:zuaFUqnzJHdF0W33AaA66D99T").toString('base64'));
 
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
