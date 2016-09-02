@@ -104,7 +104,7 @@ class Detail extends React.Component {
       {name:"twitter:site", content:"@Tate"},
       {name:"twitter:domain", content:"recognition.tate.org.uk"},
       {property:"og:site_name", content:"Recognition"},
-      {name:"twitter:image:src", content:"http://recognition.tate.org.uk/img/default_logo.jpg"},
+      {name:"twitter:image:src", content:`http://recognition.tate.org.uk/img/og_image/${itemId}`},
       {name:"twitter:image:width", content:"1200"},
       {name:"twitter:image:height", content:"628"},
       {property:"og:url", content:"http://recognition.tate.org.uk/"},

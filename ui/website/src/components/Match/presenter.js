@@ -135,13 +135,13 @@ class Match extends React.Component {
       {name:"twitter:site", content:"@Tate"},
       {name:"twitter:domain", content:"recognition.tate.org.uk"},
       {property:"og:site_name", content:"Recognition"},
-      {name:"twitter:image:src", content:"http://recognition.tate.org.uk/img/default_logo.jpg"},
+      {name:"twitter:image:src", content:`http://recognition.tate.org.uk/img/og_image/${itemId}`},
       {name:"twitter:image:width", content:"1200"},
       {name:"twitter:image:height", content:"628"},
       {property:"og:url", content:"http://recognition.tate.org.uk/"},
       {property:"og:title", content:"Recognition"},
       {property:"og:description", content:"Recognition is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection"},
-      {property: 'og:image', content: `http://recognition.tate.org.uk/img/og_image/${this.state.itemId}.jpg`}
+      {property: 'og:image', content: `http://recognition.tate.org.uk/img/og_image/${itemId}.jpg`}
     ];
 
     switch (inputOrientation) {
