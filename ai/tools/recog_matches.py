@@ -108,21 +108,25 @@ def execute_generator(generator,jdataout={},meta_in='',meta_out='',captions_in='
         logger.error('Unknown generator type ' + generator_conf['type'])
     return
 
-def concat(filein,json_out):
+def concat(filein,json_out,maxm=-1):
     json_in = {}
     try:
         with open(filein,'r') as fin:
             json_in = json.load(fin)
     except:
         logger.info('cannot load pre-existing JSON file=',filein)
+    n = 0
     for j in json_in:
         skip = False
         for ji in json_out:
             if ji['input']['img'] == j['input']['img']:
                 skip = True
                 break
-        if not skip:    
+        if not skip:
             json_out.append(j)
+            n = n + 1
+            if maxm != -1 and n > maxm:
+                return
 
 json_out = ''
 
@@ -184,7 +188,7 @@ json_out,gallery_out,splash_out = format_and_filter(json_out,args.nmatches,smatc
 
 if args.concat:
     concat(args.json_output,json_out) # concats json_out at the top of json_in (existing json_output file), into json_out
-    concat(args.gallery_output,gallery_out)
+    concat(args.gallery_output,gallery_out,50)
 
 with open(args.json_output,'w') as fout:
     json.dump(json_out,fout)
