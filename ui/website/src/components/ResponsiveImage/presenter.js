@@ -37,8 +37,13 @@ class ResponsiveImage extends React.Component {
       itemId: null
     }
 
+    this.handleCanvasClick = this.handleCanvasClick.bind(this);
     this.handleLeftSwipe = this.handleLeftSwipe.bind(this);
     this.handleRightSwipe = this.handleRightSwipe.bind(this);
+  }
+
+  handleCanvasClick() {
+    this.setState({displayOverlay: !this.state.displayOverlay});
   }
 
   handleLeftSwipe() {
@@ -79,33 +84,33 @@ class ResponsiveImage extends React.Component {
     }
 
     return (<div>
+      <nav style={{background: '#0d1215', border: 0}} className="navbar navbar-default navbar-fixed-top visible-xs">
+        <div className="container-fluid">
+          <div className="navbar-header">
+            <Link className="navbar-brand" to='/gallery'>
+              <img src="/img/logos/recognition.png" alt="recognition"/>
+            </Link>
+            <p className="text-right" style={{padding: '15px'}}>
+              <Link className="navbar-link" to={`/gallery/${itemId}`}>
+                <img src="/img/icons/close.png" alt="close"/>
+              </Link>
+            </p>
+          </div>
+        </div>
+      </nav>
+
       <Swipeable
         onSwipingLeft={() => {
           if(this.props.source == 'reuters') {
-            browserHistory.push(`/image/tate/${this.state.itemId}`)
+            browserHistory.push(`/image/tate/${itemId}`)
           }
         }}
         onSwipingRight={() => {
           if(this.props.source == 'tate') {
-            browserHistory.push(`/image/reuters/${this.state.itemId}`)
+            browserHistory.push(`/image/reuters/${itemId}`)
           }
         }}
       >
-        <nav style={{background: '#0d1215', border: 0}} className="navbar navbar-default navbar-fixed-top visible-xs">
-          <div className="container-fluid">
-            <div className="navbar-header">
-              <Link className="navbar-brand" to='/gallery'>
-                <img src="/img/logos/recognition.png" alt="recognition"/>
-              </Link>
-              <p className="text-right" style={{padding: '15px'}}>
-                <Link className="navbar-link" to={`/gallery/${itemId}`}>
-                  <img src="/img/icons/close.png" alt="close"/>
-                </Link>
-              </p>
-            </div>
-          </div>
-        </nav>
-
         <div className="container responsiveImage">
           <div className="row">
             { this.state.source === "reuters" ? (<div>
@@ -132,6 +137,7 @@ class ResponsiveImage extends React.Component {
                 item={item}
                 features={features}
                 displayOverlay={this.state.displayOverlay}
+                parent={this}
               />
             </div>
           </div>
