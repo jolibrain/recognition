@@ -1,6 +1,6 @@
 npm-debug.log
 node_modules
-config/default.json
 dist/*
+!dist/default.json.sample
 !dist/index.html
 !dist/css

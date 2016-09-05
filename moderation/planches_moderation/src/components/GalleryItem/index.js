@@ -24,7 +24,6 @@ const mapStateToProps = (state, ownProps = {}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSelectMatchItem: bindActionCreators(actions.selectMatchItem, dispatch)
   };
 }
 

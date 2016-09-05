@@ -17,19 +17,60 @@ import React from 'react';
 import {Link} from 'react-router';
 import GalleryItem from '../GalleryItem';
 
-function Gallery({matches = []}) {
+class Gallery extends React.Component {
 
-  return (<div className="container">
-    {
+  constructor(props) {
+    super(props);
 
-      matches.map((match, key) => {
-
-        return <GalleryItem key={key} match={match} />;
-
-      })
-
+    this.state = {
+      matches: [],
+      matchFilter: 'all'
     }
-  </div>);
+
+    this.handleFilterAllClick = this.handleFilterAllClick.bind(this);
+    this.handleFilterPreClick = this.handleFilterPreClick.bind(this);
+    this.handleFilterPostClick = this.handleFilterPostClick.bind(this);
+
+    this.handleFilterClick = this.handleFilterClick.bind(this);
+  }
+
+  componentWillMount() {
+    this.setState({matches: this.props.matches});
+  }
+
+  handleFilterAllClick() {
+    this.handleFilterClick('all');
+  }
+
+  handleFilterPreClick() {
+    this.handleFilterClick('pending');
+  }
+
+  handleFilterPostClick() {
+    this.handleFilterClick('published');
+  }
+
+  handleFilterClick(filter) {
+    this.setState({matchFilter: filter});
+  }
+
+  render() {
+
+    console.log(this.state);
+
+    if(this.state.matches.length == 0) return null;
+
+    return (<div className="container">
+      {
+        this.state.matches.filter(item => {
+          return this.state.matchFilter == 'all' || item.status == this.state.matchFilter;
+        }).map((match, key) => {
+          return <GalleryItem key={key} match={match} filter={this.state.matchFilter} />;
+        })
+      }
+    </div>);
+  }
+
 }
 
 export default Gallery;

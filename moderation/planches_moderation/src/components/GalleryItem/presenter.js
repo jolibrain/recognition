@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import React from 'react';
-import config from "config";
 
 const STATUS_PENDING = "pending";
 const STATUS_PUBLISH = "published";
@@ -24,8 +23,6 @@ class GalleryItem extends React.Component {
 
   constructor(props) {
     super(props);
-
-    const offset = 3;
 
     this.state = {
       status: ''
@@ -63,7 +60,7 @@ class GalleryItem extends React.Component {
 
     var headers = new Headers();
     headers.append("Content-Type", "application/json");
-    headers.append("Authorization", "Basic " + new Buffer(config.get("login") + ":" + config.get("password")).toString('base64'));
+    headers.append("Authorization", "Basic " + new Buffer("recog:zuaFUqnzJHdF0W33AaA66D99T").toString('base64'));
 
     fetch('/moderation', {
       method: 'POST',
@@ -82,7 +79,7 @@ class GalleryItem extends React.Component {
     const author_out = Array.isArray(this.state.out.meta.author) ? this.state.out.meta.author[0] : this.state.out.meta.author;
 
     return (
-      <div className="row" style={{
+      <div className={this.props.filter == "all" || this.props.filter == this.props.match.status ? "row" : "row hidden"} style={{
         "borderBottom": "1px solid #666",
         "paddingBottom": "20px",
         "marginBottom": "20px"

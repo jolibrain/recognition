@@ -22,7 +22,6 @@
     "base-64": "^0.1.0",
     "bootstrap": "^3.3.6",
     "browserify": "^13.0.1",
-    "config": "^1.21.0",
     "css-loader": "^0.23.1",
     "exports-loader": "^0.6.3",
     "file-loader": "^0.8.5",
