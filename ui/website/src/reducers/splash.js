@@ -28,7 +28,5 @@ export default function(state = initialState, action) {
 function loadSplashJson(state, action) {
   const { json } = action;
 
-  const publishedMatches = json.filter(item => item.status == "published");
-
-  return [ ...state, ...publishedMatches ];
+  return [ ...state, ...json ];
 }
