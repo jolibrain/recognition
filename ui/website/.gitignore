@@ -2,6 +2,7 @@ npm-debug.log
 node_modules
 dist/*
 !dist/index.html
+!dist/index_template.html
 !dist/fonts
 !dist/css
 !dist/js

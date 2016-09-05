@@ -22,13 +22,15 @@ import configureStore from './stores/configureStore';
 import * as actions from './actions';
 import App from './components/App';
 import Gallery from './components/Gallery';
-
 require('bootstrap/dist/css/bootstrap.min.css');
+
+var headers = new Headers();
+headers.append("Authorization", "Basic " + new Buffer("recog:zuaFUqnzJHdF0W33AaA66D99T").toString('base64'));
 
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
-fetch('./match.json').then((response) => { return response.json(); })
+fetch('./match.json', {headers: headers}).then((response) => { return response.json(); })
 .then((json) => {
   store.dispatch(actions.loadMatchJson(json));
 

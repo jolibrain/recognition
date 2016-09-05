@@ -14,18 +14,72 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import React from 'react';
-import JSONPretty from 'react-json-pretty';
-import BoundedImage from '../BoundedImage';
 
-require('react-json-pretty/JSONPretty.monikai.styl');
+const STATUS_PENDING = "pending";
+const STATUS_PUBLISH = "published";
+const STATUS_MODERATE = "moderated";
 
-function GalleryItem({match = {}, onSelectMatchItem }) {
+class GalleryItem extends React.Component {
 
-    const selectedOutput = match.output.filter(item => item.selected)[0];
-    const visibleOutputs = match.output.filter(item => item.visible);
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      status: ''
+    }
+
+    this.handlePendingClick = this.handlePendingClick.bind(this);
+    this.handlePublishClick = this.handlePublishClick.bind(this);
+    this.handleModerateClick = this.handleModerateClick.bind(this);
+    this.handleStatusClick = this.handleStatusClick.bind(this);
+  }
+
+  componentWillMount() {
+    this.setState({
+      date: this.props.match.input.meta.date,
+      in: this.props.match.input,
+      out: this.props.match.output.filter(item => item.selected)[0],
+      status: this.props.match.status
+    });
+  }
+
+  handlePendingClick() {
+    this.handleStatusClick(STATUS_PENDING);
+  }
+
+  handlePublishClick() {
+    this.handleStatusClick(STATUS_PUBLISH);
+  }
+
+  handleModerateClick() {
+    this.handleStatusClick(STATUS_MODERATE);
+  }
+
+  handleStatusClick(status) {
+    this.setState({status: status});
+
+    var headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    headers.append("Authorization", "Basic " + new Buffer("recog:zuaFUqnzJHdF0W33AaA66D99T").toString('base64'));
+
+    fetch('/moderation', {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        img_in: this.state.in.img,
+        img_out: this.state.out.img,
+        status: status
+      })
+    })
+  }
+
+  render() {
+
+    const author_in = Array.isArray(this.state.in.meta.author) ? this.state.in.meta.author[0] : this.state.in.meta.author;
+    const author_out = Array.isArray(this.state.out.meta.author) ? this.state.out.meta.author[0] : this.state.out.meta.author;
 
     return (
-      <div className="row" style={{
+      <div className={this.props.filter == "all" || this.props.filter == this.props.match.status ? "row" : "row hidden"} style={{
         "borderBottom": "1px solid #666",
         "paddingBottom": "20px",
         "marginBottom": "20px"
@@ -33,39 +87,45 @@ function GalleryItem({match = {}, onSelectMatchItem }) {
 
         <div className="col-md-9">
 
+          <h4>{this.state.date}</h4>
           <div className="row" style={{
             "marginBottom": "20px"
           }}>
             <div className="col-md-6">
               <figure className="figure">
-                <BoundedImage item={match.input} features={selectedOutput.features.in}/>
-                <figcaption className="figure-caption">{match.input.meta.caption}</figcaption>
+                <img src={this.state.in.img} className="img-responsive"/>
               </figure>
+              <p>{this.state.in.meta.date}<br/>
+              {this.state.in.meta.title}<br/>
+              { typeof author_in != 'undefined' && author_in.length > 0 ? (<span>AUTHOR: {author_in}<br/></span>) : ''}<br/>
+              {this.state.in.meta.copyright}</p>
+              <p>AI: {this.state.out.features.in.captions.caption}</p>
             </div>
             <div className="col-md-6">
               <figure className="figure">
-                <BoundedImage item={selectedOutput} features={selectedOutput.features.out}/>
-                <figcaption className="figure-caption">{selectedOutput.meta.title}</figcaption>
+                <img src={this.state.out.img} className="img-responsive"/>
               </figure>
+              <p>{this.state.out.meta.date}<br/>
+              {this.state.out.meta.title}<br/>
+              { typeof author_out != 'undefined' && author_out.length > 0 ? (<span>AUTHOR: {author_out}<br/></span>) : ''}<br/>
+              {this.state.out.meta.copyright}</p>
+              <p>AI: {this.state.out.features.out.captions.caption}</p>
             </div>
-          </div>
-
-          <div className="row">
-          {
-            visibleOutputs.map((item, key) => {
-              return <img key={key} style={{width: "150px", padding: "5px"}} src={item.img} onClick={onSelectMatchItem.bind(this, match, item)}/>
-            })
-          }
           </div>
 
         </div>
 
         <div className="col-md-3">
-          <JSONPretty id="json-pretty" json={selectedOutput.features.summary}></JSONPretty>
+          <div className="btn-group-vertical btn-group-lg" role="group">
+            <button onClick={this.handlePendingClick} type="button" className={this.state.status == STATUS_PENDING ? "btn btn-default active" : "btn btn-default"}>Pending</button>
+            <button onClick={this.handlePublishClick} type="button" className={this.state.status == STATUS_PUBLISH ? "btn btn-default active" : "btn btn-default"}>Publish</button>
+            <button onClick={this.handleModerateClick} type="button" className={this.state.status == STATUS_MODERATE ? "btn btn-default active" : "btn btn-default"}>Moderate</button>
+          </div>
         </div>
 
       </div>
     );
+  }
 }
 
 export default GalleryItem;
