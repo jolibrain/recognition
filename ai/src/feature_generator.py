@@ -86,7 +86,7 @@ class FeatureGenerator:
                         pass
                 
                 dataout = {'timestamp':datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S'),
-                           'status':'published', # out of published, moderated and pending
+                           'status':'pending', # out of published, moderated and pending
                            'input':{'img':img_reuters_repo + os.path.basename(nn['uri']),'meta':metad},
                            'output':[]
                 }

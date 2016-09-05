@@ -272,7 +272,7 @@ class MAPIGenerator(FeatureGenerator):
                             if 'age' in fv:
                                 rec['ages'].append(fv['age'])
                             if 'emotion' in fv:
-                                rec['emotions'].append(fv['emotion'])
+                                rec['emotions'].append(fv['emotions'])
                             if 'gender' in fv:
                                 rec['genders'].append(fv['gender'])
                             if 'faceRectangle' in fv:
@@ -288,8 +288,8 @@ class MAPIGenerator(FeatureGenerator):
                 for fv in v:
                     if 'age' in fv:
                         rec['ages'].append(fv['age'])
-                    if 'emotion' in fv:
-                        rec['emotions'].append(fv['emotion'])
+                    if 'emotions' in fv:
+                        rec['emotions'].append(fv['emotions'])
                     if 'gender' in fv:
                         rec['genders'].append(fv['gender'])
                     if 'faceRectangle' in fv:
