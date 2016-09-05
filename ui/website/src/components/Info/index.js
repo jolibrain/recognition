@@ -69,7 +69,7 @@ class Info extends React.Component {
             <p><span style={{color: '#4a4a4a'}}>Concept and design</span><br/>
             Coralie Gourguechon<br/>
             Monica Lanaro<br/>
-            Angelo Semararo</p>
+            Angelo Semeraro</p>
             <p><span style={{color: '#4a4a4a'}}>Website design</span><br/>
             Isaac Vallentin</p>
             <p><span style={{color: '#4a4a4a'}}>AI development</span><br/>
@@ -144,11 +144,11 @@ class Info extends React.Component {
             <p><span style={{color: '#4a4a4a'}}>Concept and design</span><br/>
             Coralie Gourguechon<br/>
             Monica Lanaro<br/>
-            Angelo Semararo</p>
+            Angelo Semeraro</p>
             <p><span style={{color: '#4a4a4a'}}>Website design</span><br/>
             Isaac Vallentin</p>
           </div>
-          <div className="col-xs-6 font-subtext" style={{color: '#4a4a4a'}}>
+          <div className="col-xs-6 font-subtext" style={{color: 'white'}}>
             <p><span style={{color: '#4a4a4a'}}>AI development</span><br/>
             Emmanuel Benazera</p>
             <p><span style={{color: '#4a4a4a'}}>Website development</span><br/>

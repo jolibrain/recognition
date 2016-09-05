@@ -143,7 +143,7 @@ class GalleryItem extends React.Component {
           </div>
           <div className="row" style={{paddingTop: '16px'}}>
             <div className="col-xs-12">
-              <p><a onClick={() => this.setState({processVisible: !this.state.processVisible}) } className="processClick">VIEW RECOGNITION PROCESS { this.state.processVisible ? (<span className="icon--i_arrow-down"/>) : (<span className="icon--i_arrow-right"/>)}</a></p>
+              <p><a onClick={() => this.setState({processVisible: !this.state.processVisible}) } className="processClick">VIEW DATA { this.state.processVisible ? (<span className="icon--i_arrow-down"/>) : (<span className="icon--i_arrow-right"/>)}</a></p>
               { this.state.processVisible ?
                 (
                 <div className="processData" style={{paddingTop: '1px'}}>
