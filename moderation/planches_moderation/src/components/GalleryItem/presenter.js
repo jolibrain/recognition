@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import React from 'react';
+import config from "config";
 
 const STATUS_PENDING = "pending";
 const STATUS_PUBLISH = "published";
@@ -39,8 +40,8 @@ class GalleryItem extends React.Component {
   componentWillMount() {
     this.setState({
       date: this.props.match.input.meta.date,
-      img_in: this.props.match.input.img,
-      img_out: this.props.match.output.filter(item => item.selected)[0].img,
+      in: this.props.match.input,
+      out: this.props.match.output.filter(item => item.selected)[0],
       status: this.props.match.status
     });
   }
@@ -62,20 +63,23 @@ class GalleryItem extends React.Component {
 
     var headers = new Headers();
     headers.append("Content-Type", "application/json");
-    headers.append("Authorization", "Basic " + new Buffer("recog:zuaFUqnzJHdF0W33AaA66D99T").toString('base64'));
+    headers.append("Authorization", "Basic " + new Buffer(config.get("login") + ":" + config.get("password")).toString('base64'));
 
     fetch('/moderation', {
       method: 'POST',
       headers: headers,
       body: JSON.stringify({
-        img_in: this.state.img_in,
-        img_out: this.state.img_out,
+        img_in: this.state.in.img,
+        img_out: this.state.out.img,
         status: status
       })
     })
   }
 
   render() {
+
+    const author_in = Array.isArray(this.state.in.meta.author) ? this.state.in.meta.author[0] : this.state.in.meta.author;
+    const author_out = Array.isArray(this.state.out.meta.author) ? this.state.out.meta.author[0] : this.state.out.meta.author;
 
     return (
       <div className="row" style={{
@@ -92,13 +96,23 @@ class GalleryItem extends React.Component {
           }}>
             <div className="col-md-6">
               <figure className="figure">
-                <img src={this.state.img_in} className="img-responsive"/>
+                <img src={this.state.in.img} className="img-responsive"/>
               </figure>
+              <p>{this.state.in.meta.date}<br/>
+              {this.state.in.meta.title}<br/>
+              { typeof author_in != 'undefined' && author_in.length > 0 ? (<span>AUTHOR: {author_in}<br/></span>) : ''}<br/>
+              {this.state.in.meta.copyright}</p>
+              <p>AI: {this.state.out.features.in.captions.caption}</p>
             </div>
             <div className="col-md-6">
               <figure className="figure">
-                <img src={this.state.img_out} className="img-responsive"/>
+                <img src={this.state.out.img} className="img-responsive"/>
               </figure>
+              <p>{this.state.out.meta.date}<br/>
+              {this.state.out.meta.title}<br/>
+              { typeof author_out != 'undefined' && author_out.length > 0 ? (<span>AUTHOR: {author_out}<br/></span>) : ''}<br/>
+              {this.state.out.meta.copyright}</p>
+              <p>AI: {this.state.out.features.out.captions.caption}</p>
             </div>
           </div>
 
