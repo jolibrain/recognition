@@ -66,6 +66,16 @@ limitations under the License.
     </script>
     <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-WQPJ9H"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WQPJ9H');</script>
+    <script type="text/javascript">
+        var appInsights = window.appInsights || function (n) {
+            function t(n){i[n]=function(){var t=arguments;i.queue.push(function(){i[n].apply(i,t)})}}var i={config:n},u=document,e=window,o="script",s="AuthenticatedUserContext",h="start",c="stop",l="Track",a=l+"Event",v=l+"Page",y=u.createElement(o),r,f;y.src=n.url||"CDN_PATH";u.getElementsByTagName(o)[0].parentNode.appendChild(y);try{i.cookie=u.cookie}catch(p){}for(i.queue=[],r=["Event","Exception","Metric","PageView","Trace","Dependency"];r.length;)t("track"+r.pop());return t("set"+s),t("clear"+s),t(h+a),t(c+a),t(h+v),t(c+v),t("flush"),n.disableExceptionTracking||(r="onerror",t("_"+r),f=e[r],e[r]=function(n,t,u,e,o){var s=f&&f(n,t,u,e,o);return s!==!0&&i["_"+r](n,t,u,e,o),s}),i
+        }({
+            instrumentationKey: "e12ed7ff-695c-46fe-9d5c-05152d8dcbae"
+        });
+
+        window.appInsights = appInsights;
+        appInsights.trackPageView();
+    </script>
   </body>
 
 </html>
