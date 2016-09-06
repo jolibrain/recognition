@@ -219,7 +219,7 @@ class GalleryItem extends React.Component {
 
         </div>
 
-        <div className="col-sm-4 col-sm-offset-1 font-title" style={styles.descriptionColumn}>
+        <div className="col-sm-5 col-sm-offset-1 font-title" style={styles.descriptionColumn}>
 
           <p style={{fontSize: '12px', fontFamily: 'MaisonNeue'}}>No {this.state.itemId}</p>
 
