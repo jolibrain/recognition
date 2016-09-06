@@ -55,7 +55,7 @@ class Info extends React.Component {
 
             <ul><li>Facial recognition</li></ul>
 
-            <p>Provided by <a href="https://www..microsoft.com/cognitive-services" target="_blank" rel="noopener noreferrer">Microsoft Cognitive Services’</a> Computer Vision and Emotion APIs.</p>
+            <p>Provided by <a href="https://www.microsoft.com/cognitive-services" target="_blank" rel="noopener noreferrer">Microsoft Cognitive Services’</a> Computer Vision and Emotion APIs.</p>
 
             <ul><li>Composition analysis</li></ul>
 
@@ -128,7 +128,7 @@ class Info extends React.Component {
 
             <ul><li>Facial recognition</li></ul>
 
-            <p>Provided by <a href="https://www..microsoft.com/cognitive-services" target="_blank" rel="noopener noreferrer">Microsoft Cognitive Services’</a> Computer Vision and Emotion APIs.</p>
+            <p>Provided by <a href="https://www.microsoft.com/cognitive-services" target="_blank" rel="noopener noreferrer">Microsoft Cognitive Services’</a> Computer Vision and Emotion APIs.</p>
 
             <ul><li>Composition analysis</li></ul>
 
