@@ -409,7 +409,7 @@ and (max-device-width : 768px) {
   font-weight: bold;
   cursor: pointer;
   margin-right: 35px;
-  top: -15px;
+  top: -16px;
 }
 
 .introOverlay .navbar-default .navbar-nav>li>a:hover {
