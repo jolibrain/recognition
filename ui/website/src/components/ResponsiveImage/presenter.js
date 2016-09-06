@@ -132,7 +132,7 @@ class ResponsiveImage extends React.Component {
           </div>
 
           <div className="row">
-            <div className="col-xs-12 text-center">
+            <div className="col-xs-12 text-center" style={{marginTop: '16px'}}>
               <BoundedImage
                 item={item}
                 features={features}
