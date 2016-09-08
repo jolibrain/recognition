@@ -17,6 +17,7 @@ import React from 'react';
 import Splash from '../Splash';
 import GalleryItem from '../GalleryItem';
 import InfiniteScroll from 'react-infinite-scroller';
+import GoogleTagManager from '../GoogleTagManager';
 
 class Gallery extends React.Component {
 
@@ -60,18 +61,26 @@ class Gallery extends React.Component {
     const loader = <div className="loader">Loading ...</div>;
     const items = this.renderItems();
 
+    let gtm = null;
+    if(!this.props.disableGTM) {
+      gtm = <GoogleTagManager dataLayerName='Gallery' />
+    }
+
     if(items.length == 0) return null;
 
-    return (<InfiniteScroll
-      pageStart={0}
-      loadMore={this.loadItems}
-      hasMore={this.state.hasMoreItems}
-      loader={loader}>
+    return (<div>{gtm}
+      <InfiniteScroll
+        pageStart={0}
+        loadMore={this.loadItems}
+        hasMore={this.state.hasMoreItems}
+        loader={loader}>
 
-      <div className="container-fluid gallery" id="gallery">
-        {items}
-      </div>
-    </InfiniteScroll>);
+        <div className="container-fluid gallery" id="gallery">
+          {items}
+        </div>
+
+      </InfiniteScroll>
+    </div>);
   }
 }
 

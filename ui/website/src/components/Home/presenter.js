@@ -24,7 +24,7 @@ class Home extends React.Component {
 
     return (<div>
       <Splash/>
-      <Gallery/>
+      <Gallery disableGTM={true} />
       <GoogleTagManager dataLayerName='Home'/>
     </div>);
   }
