@@ -97,6 +97,7 @@ class GalleryItem extends React.Component {
               </figure>
               <p>{this.state.in.meta.date}<br/>
               {this.state.in.meta.title}<br/>
+              {this.state.in.meta.caption}<br/>
               { typeof author_in != 'undefined' && author_in.length > 0 ? (<span>AUTHOR: {author_in}<br/></span>) : ''}<br/>
               {this.state.in.meta.copyright}</p>
               <p>AI: {this.state.out.features.in.captions.caption}</p>
