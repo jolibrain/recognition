@@ -374,6 +374,7 @@ class Match extends React.Component {
         {orientedComponent}
       </div>
       <DocMeta tags={meta} />
+      <GoogleTagManager dataLayerName='Match' additionalEvents={{itemId: itemId}}/>
     </div>);
   }
 }

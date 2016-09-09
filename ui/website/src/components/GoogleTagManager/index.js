@@ -31,7 +31,8 @@ class GoogleTagManager extends React.Component {
   render() {
     const gtm = gtmParts({
       id: "GTM-WQPJ9H",
-      dataLayerName: this.props.dataLayerName || 'dataLayer'
+      dataLayerName: this.props.dataLayerName || 'dataLayer',
+      additionalEvents: this.props.additionalEvents || {}
     });
 
     return (
