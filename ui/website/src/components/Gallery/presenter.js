@@ -20,17 +20,18 @@ import InfiniteScroll from 'react-infinite-scroller';
 import GoogleTagManager from '../GoogleTagManager';
 
 class Gallery extends React.Component {
+  static state={
+    items: [],
+    hasMoreItems: true,
+    offset: 3
+  };
 
   constructor(props) {
     super(props);
 
     const offset = 3;
 
-    this.state = {
-      items: [],
-      hasMoreItems: true,
-      offset: offset
-    }
+    this.state = Gallery.state;
 
     this.loadItems = this.loadItems.bind(this);
   }
@@ -50,6 +51,8 @@ class Gallery extends React.Component {
       items: this.props.matches.slice(0, newOffset),
       hasMoreItems: newOffset < this.props.matches.length
     });
+
+    Gallery.state=this.state;
   }
 
   renderItems() {

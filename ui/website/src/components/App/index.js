@@ -32,6 +32,12 @@ class App extends React.Component {
     this.setState({displayIntro: segment == 'root'});
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(window.routingHistory==undefined)
+     window.routingHistory=[];
+    window.routingHistory.push(this.props.location.pathname);
+  }
+
   render() {
 
     const meta = [
