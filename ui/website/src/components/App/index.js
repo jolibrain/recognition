@@ -38,6 +38,28 @@ class App extends React.Component {
     window.routingHistory.push(this.props.location.pathname);
   }
 
+  componentWillUpdate() {
+    this.removeSplash.bind(this);
+  }
+
+  removeSplash() {
+    if(document.getElementById("splashComponent")) {
+      const elements = document.getElementById("splashComponent").getElementsByClassName("to_hide");
+      for(let i = 0; i < elements.length; i++) {
+        elements[i].classList.remove('visible-xs');
+        elements[i].classList.toggle('hidden', true);
+      }
+    }
+  }
+
+  componentDidMount() {
+      window.addEventListener("resize", this.removeSplash.bind(this));
+  }
+
+  componentWillUnmount() {
+      window.removeEventListener("resize", this.removeSplash.bind(this));
+  }
+
   render() {
 
     const meta = [
