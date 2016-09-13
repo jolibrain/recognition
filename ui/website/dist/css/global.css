@@ -518,18 +518,15 @@ ul.react-autosuggest__suggestions-list a:hover {
 .detailFeatures h3 {
   font-family: 'MaisonNeue';
   font-size:12px;
-  border-bottom: 2px dotted rgba(255, 255, 255, 0.8);
-  padding-bottom: 3px;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
 }
 .detailFeatures.detailHovered h3 {
   color: #4a4a4a;
-  border-bottom: 2px dotted #4a4a4a;
 }
 .detailFeatures.detailHovered h3.hovered {
   font-family: 'MaisonNeue';
   font-size:12px;
-  border-bottom: 2px dotted rgba(255, 255, 255, 0.8);
-  padding-bottom: 3px;
   color: #fff;
 }
 
