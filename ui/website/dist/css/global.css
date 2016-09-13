@@ -947,6 +947,12 @@ a.backGallery:hover {
   margin-top: -8px;
 }
 
+.responsiveCloseButton {
+  width: 13px;
+  margin-top: 5px;
+  margin-right: 10px;
+}
+
 .header .visible-xs .navbar-toggle .icon-bar {
   height:1px;
   width:13px;

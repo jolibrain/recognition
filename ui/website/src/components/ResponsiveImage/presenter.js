@@ -92,7 +92,7 @@ class ResponsiveImage extends React.Component {
             </Link>
             <p className="text-right" style={{padding: '15px'}}>
               <Link className="navbar-link" to={`/gallery/${itemId}`}>
-                <img src="/img/icons/close.png" alt="close"/>
+                <img src="/img/icons/close.png" alt="close" className="responsiveCloseButton"/>
               </Link>
             </p>
           </div>
