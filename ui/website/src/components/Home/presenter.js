@@ -17,13 +17,21 @@ import React from 'react';
 import Splash from '../Splash';
 import Gallery from '../Gallery';
 import GoogleTagManager from '../GoogleTagManager';
+import Waypoint from 'react-waypoint';
 
 class Home extends React.Component {
+
+  _setGalleryMenu(position) {
+    document.getElementById("galleryMenu").classList.toggle('menuSelected', position.currentPosition == "above");
+  }
 
   render() {
 
     return (<div>
       <Splash/>
+      <Waypoint
+        onPositionChange={this._setGalleryMenu.bind(this)}
+      />
       <Gallery disableGTM={true} />
       <GoogleTagManager dataLayerName='Home'/>
     </div>);
