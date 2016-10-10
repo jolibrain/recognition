@@ -116,7 +116,6 @@ class ResponsiveImage extends React.Component {
           <div className="row">
             { this.state.source === "reuters" ? (<div>
               <div className="col-xs-10">
-                <a className="processOverlay" onClick={() => this.setState({displayOverlay: !this.state.displayOverlay})}>{this.state.displayOverlay ? "HIDE" : "VIEW" } DATA</a>
               </div>
               <div className="col-xs-2 text-right">
                 <Link className="back" to={`/image/tate/${itemId}`}><span className='icon--i_arrow-right'/></Link>
@@ -126,7 +125,6 @@ class ResponsiveImage extends React.Component {
                 <Link className="back" to={`/image/reuters/${itemId}`}><span className='icon--i_arrow-left'/></Link>
               </div>
               <div className="col-xs-10 text-right">
-                <a className="processOverlay" onClick={() => this.setState({displayOverlay: !this.state.displayOverlay})}>{this.state.displayOverlay ? "HIDE" : "VIEW" } DATA</a>
               </div>
             </div>)}
 
