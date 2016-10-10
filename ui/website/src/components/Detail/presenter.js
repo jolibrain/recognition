@@ -209,7 +209,7 @@ class Detail extends React.Component {
         <div className="row" style={styles.dataRow}>
 
           <div className="col-sm-6" style={{paddingLeft: '30px', paddingTop: '20px'}}>
-            <Link className="font-data" style={[styles.link]} to={`/gallery/${itemId}`}><span className='icon--i_arrow-left'/> Back to match</Link>
+            <Link className="font-data" style={[styles.link]} to={`/gallery`}><span className='icon--i_arrow-left'/> Back to gallery</Link>
             <DetailFeatures item={item.input}
                             source={'reuters'}
                             features={selectedOutput.features.in}
