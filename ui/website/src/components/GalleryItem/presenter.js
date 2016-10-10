@@ -143,7 +143,14 @@ class GalleryItem extends React.Component {
           </div>
           <div className="row" style={{paddingTop: '16px'}}>
             <div className="col-xs-12">
-              <p><a onClick={() => this.setState({processVisible: !this.state.processVisible}) } className="processClick">VIEW DATA { this.state.processVisible ? (<span className="icon--i_arrow-down"/>) : (<span className="icon--i_arrow-right"/>)}</a></p>
+              <div className="row">
+                <div className="col-xs-2">
+                  <ShareModal url={"http://recognition.tate.org.uk/gallery/" + itemId}/>
+                </div>
+                <div className="col-xs-10">
+                  <a onClick={() => this.setState({processVisible: !this.state.processVisible}) } className="processClick">VIEW DATA { this.state.processVisible ? (<span className="icon--i_arrow-down"/>) : (<span className="icon--i_arrow-right"/>)}</a>
+                </div>
+              </div>
               { this.state.processVisible ?
                 (
                 <div className="processData" style={{paddingTop: '1px'}}>
@@ -159,7 +166,6 @@ class GalleryItem extends React.Component {
                   <p className="font-data" style={styles.descriptionText}>{selectedOutput.features.in.captions.caption}</p>
                   <p className="font-data" style={[styles.descriptionText, {marginBottom: '32px'}]}>{selectedOutput.features.out.captions.caption}</p>
 
-                  <ShareModal url={"http://recognition.tate.org.uk/gallery/" + itemId}/>
                 </div>
                 ) : '' }
             </div>
