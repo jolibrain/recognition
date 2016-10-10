@@ -20,6 +20,8 @@ import styles from './styles.js';
 import { browserHistory } from 'react-router'
 import ShareModal from '../Modals/ShareModal';
 
+import BoundedImage from './BoundedImage';
+
 let {Link} = require('react-router');
 Link = Radium(Link);
 
@@ -111,23 +113,20 @@ class GalleryItem extends React.Component {
           </div>
           <div className="row">
             <div className="col-xs-6" style={{paddingRight: 0}}>
-              <Link to={`/image/reuters/${this.state.itemId}`}>
-                <img
-                  className="img-responsive"
-                  src={item.input.img.replace("_2_", "_3_")}
-                  srcSet={item.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + item.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w, " + item.input.img.replace('reuters/', 'reuters/responsive_757/').replace("_2_", "_3_") + " 757w, " + item.input.img.replace('reuters/', 'reuters/responsive_1920/').replace("_2_", "_3_") + " 1920w"}
-                />
-              </Link>
+              <BoundedImage
+                item={item.input}
+                features={selectedOutput.features.in}
+                displayOverlay={this.state.processVisible}
+                parent={this}
+              />
             </div>
             <div className="col-xs-6">
-              <Link to={`/image/tate/${this.state.itemId}`}>
-                <img
-                  className="img-responsive"
-                  src={selectedOutput.img}
-                  srcSet={selectedOutput.img.replace('tate/', 'tate/responsive_375/') + " 375w, " + selectedOutput.img.replace('tate/', 'tate/responsive_480/') + " 480w"}
-                  onClick={() => {this.setState({showOutputOverlay: true})}}
-                />
-              </Link>
+              <BoundedImage
+                item={selectedOutput}
+                features={selectedOutput.features.out}
+                displayOverlay={this.state.processVisible}
+                parent={this}
+              />
             </div>
           </div>
           <div className="row" style={{paddingTop: '32px'}}>
