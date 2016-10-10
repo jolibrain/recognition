@@ -53,6 +53,7 @@ class ShareModal extends React.Component {
       padding: '4px 6px 5px 6px',
       border: '1px solid',
       textDecoration: 'none',
+      pointerEvents: 'all',
       cursor: 'pointer',
       ':hover': {
         color: '#0FC',

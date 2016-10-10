@@ -23,6 +23,8 @@ import BoundedImage from './BoundedImage'
 import GoogleTagManager from '../GoogleTagManager';
 import DocMeta from 'react-doc-meta';
 
+import ShareModal from '../Modals/ShareModal';
+
 let {Link} = require('react-router');
 Link = Radium(Link);
 
@@ -209,7 +211,14 @@ class Detail extends React.Component {
         <div className="row" style={styles.dataRow}>
 
           <div className="col-sm-6" style={{paddingLeft: '30px', paddingTop: '20px'}}>
-            <Link className="font-data" style={[styles.link]} to={`/gallery`}><span className='icon--i_arrow-left'/> Back to gallery</Link>
+            <div className="row">
+              <div className="col-sm-4">
+                <Link className="font-data" style={[styles.link]} to={`/gallery`}><span className='icon--i_arrow-left'/> Back to gallery</Link>
+              </div>
+              <div className="col-sm-8">
+                <ShareModal url={"http://recognition.tate.org.uk/gallery/" + itemId} />
+              </div>
+            </div>
             <DetailFeatures item={item.input}
                             source={'reuters'}
                             features={selectedOutput.features.in}
