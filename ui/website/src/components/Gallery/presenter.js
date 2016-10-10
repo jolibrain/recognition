@@ -72,6 +72,7 @@ class Gallery extends React.Component {
     if(items.length == 0) return null;
 
     return (<div>{gtm}
+
       <InfiniteScroll
         pageStart={0}
         loadMore={this.loadItems}
@@ -79,6 +80,11 @@ class Gallery extends React.Component {
         loader={loader}>
 
         <div className="container-fluid gallery" id="gallery">
+
+          <div className="visible-xs">
+            <p style={{color: '#aaa', fontSize: '18px', fontFamily: 'TateNewPro'}}><em>Recognition</em> is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection. Scroll down to browse the gallery.</p>
+          </div>
+
           {items}
         </div>
 
