@@ -88,8 +88,9 @@ const styles = {
   },
   link: {
     color: '#FFF',
+    cursor: 'pointer',
     display: 'inline-block',
-    paddingBottom: '64px',
+    paddingBottom: '14px',
     textTransform: 'uppercase',
     pointerEvents: 'all',
     fontFamily: 'TateNewPro',
