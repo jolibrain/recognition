@@ -136,7 +136,7 @@ class DetailFeatures extends React.Component {
 
     let source = this.props.source;
     if(source == 'tate') {
-      source = (<a href={this.props.item.meta.link} target="_blank" rel="noopener noreferrer" >tate</a>);
+      source = (<a className="tateLink" href={this.props.item.meta.link} target="_blank" rel="noopener noreferrer" >TATE <img src="/img/icons/external_link.png"/></a>);
     }
 
     return(<div className={hovered ? 'font-data detailFeatures detailHovered' : 'font-data detailFeatures'}

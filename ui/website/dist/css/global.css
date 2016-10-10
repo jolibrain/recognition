@@ -506,6 +506,9 @@ ul.react-autosuggest__suggestions-list a:hover {
   pointer-events: all;
   color: inherit;
 }
+.detailFeatures a.tateLink:hover {
+  color:#0FC;
+}
 
 .detailFeatures.detailHovered {
   color: #4a4a4a;
