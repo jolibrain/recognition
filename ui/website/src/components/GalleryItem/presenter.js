@@ -143,10 +143,10 @@ class GalleryItem extends React.Component {
           <div className="row" style={{paddingTop: '16px'}}>
             <div className="col-xs-12">
               <div className="row">
-                <div className="col-xs-2">
-                  <ShareModal url={"http://recognition.tate.org.uk/gallery/" + itemId}/>
-                </div>
-                <div className="col-xs-10">
+                <div className="col-xs-12">
+                  <div style={{display: "inline-block", marginRight: "20px"}}>
+                    <ShareModal url={"http://recognition.tate.org.uk/gallery/" + itemId}/>
+                  </div>
                   <a onClick={() => this.setState({processVisible: !this.state.processVisible}) } className="processClick">VIEW DATA { this.state.processVisible ? (<span className="icon--i_arrow-down"/>) : (<span className="icon--i_arrow-right"/>)}</a>
                 </div>
               </div>
