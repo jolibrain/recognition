@@ -102,7 +102,7 @@ class Splash extends React.Component {
 
                 </div>
                 <div className="col-sm-7">
-                  <p style={{color: "#AAA", fontSize: "12px"}}>RECOGNITION IS AN ARTIFICIAL<br/>INTELLIGENCE THAT COMPARES<br/>UP-TO-THE-MINUTE PHOTOJOURNALISM<br/>WITH THE BRITISH ART FROM THE TATE<br/>COLLECTION. SCROLL DOWN TO BROWSE THE GALLERY.</p>
+                  <p style={{color: "#AAA", fontSize: "12px"}}>RECOGNITION IS AN ARTIFICIAL<br/>INTELLIGENCE THAT COMPARES<br/>UP-TO-THE-MINUTE PHOTOJOURNALISM<br/>WITH THE BRITISH ART FROM THE TATE<br/>COLLECTION. SCROLL DOWN TO BROWSE<br/>THE GALLERY.</p>
                 </div>
               </div>
 
