@@ -107,7 +107,6 @@ const styles = {
     maxHeight: '100%'
   },
   table: {
-    width: '350px',
     fontSize: '12px',
     textTransform: 'uppercase',
     marginBottom: '40px',
