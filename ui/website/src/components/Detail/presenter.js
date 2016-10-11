@@ -238,11 +238,9 @@ class Detail extends React.Component {
 
           <div className="col-sm-6" style={{paddingLeft: '30px', paddingTop: '20px'}}>
             <div className="row">
-              <div className="col-sm-4">
+              <div className="col-sm-12">
                 <a className="font-data" style={[styles.link]} onClick={this.handleBackGallery}><span className='icon--i_arrow-left'/> Back to gallery</a>
-              </div>
-              <div className="col-sm-8">
-                <ShareModal url={"http://recognition.tate.org.uk/gallery/" + itemId} />
+                <div style={{display: "inline-block", marginLeft: "20px"}}><ShareModal url={"http://recognition.tate.org.uk/gallery/" + itemId} /></div>
               </div>
             </div>
             <DetailFeatures item={item.input}
