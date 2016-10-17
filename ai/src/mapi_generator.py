@@ -137,6 +137,8 @@ class MAPIGenerator(FeatureGenerator):
         for jf in self.json_files:
             with open(jf,'r') as jfile:
                 json_data = json.load(jfile)
+                if not json_data:
+                    continue
                 if not img_bn:
                     jf = jf.replace('//','/')
                     img_bn = os.path.dirname(os.path.dirname(jf))
