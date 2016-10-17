@@ -285,6 +285,7 @@ class GalleryItem extends React.Component {
               <br/>
             </div>
             )}
+            {typeof(selectedOutput.meta.ondisplay) != undefined && selectedOutput.meta.ondisplay == true ? <div><span style={[{color: "#AAA", fontSize:'12px', fontFamily: 'MaisonNeue', textTransform: 'uppercase'}]} className="itemSource">ON DISPLAY AT TATE BRITAIN</span><br/></div> : ""}
             <span style={[{fontSize:'12px', fontFamily: 'MaisonNeue', textTransform: 'uppercase'}]} className="itemSource">{selectedOutput.meta.copyright ? selectedOutput.meta.copyright : '© TATE'}</span>
 
         </div>
