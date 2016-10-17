@@ -72,8 +72,17 @@ class Gallery extends React.Component {
     if(items.length == 0) {
 
       return (<div>{gtm}
-        <div className="row">
-          <div className="text-center">Loading...</div>
+
+        <div className="container-fluid gallery" id="gallery">
+
+          <div className="visible-xs">
+            <p style={{color: '#aaa', fontSize: '18px', fontFamily: 'TateNewPro'}}><em>Recognition</em> is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection. Scroll down to browse the gallery.</p>
+          </div>
+
+          <div className="row">
+            <div className="text-center">Loading...</div>
+          </div>
+
         </div>
       </div>);
 
