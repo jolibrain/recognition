@@ -2,6 +2,9 @@
 DATE=`date +%Y-%m-%d:%H:%M:%S`
 #export $TERM=xterm
 cd /home/recog/tate/dev/recognition/ai/tools/
+scp recog_web:~/json_dump/prod/*.json .
+mv match_current.json match_hourly.json
+mv gallery_current.json gallery_hourly.json
 #python recog_matches.py --input-imgs /data/tate/imgs/reuters/RPA\ Feed\ for\ Tate/ --generators all --indexes-repo /home/recog/tate/data/recog_test/indexes/ --models-repo /home/recog/tate/data/models/ --json-output matches_hourly.json --nfiles 200 --nmatches 10 --last-hour 1 --website --medium --freq-filter smatches.bin --concat
 python recog_matches.py --input-imgs /data/tate/imgs/reuters/Images\ of\ the\ Day\ Tate/ --generators all --indexes-repo /home/recog/tate/data/recog_test/indexes/ --models-repo /home/recog/tate/data/models/ --json-output match_hourly.json --nfiles 200 --nmatches 50 --last-hour 1 --website --medium --freq-filter smatches.bin --concat --splash-output splash_hourly.json --gallery-output gallery_hourly.json --event-filter
 RETVAL=$?
