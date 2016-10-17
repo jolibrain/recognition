@@ -21,7 +21,7 @@ limitations under the License.
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="description" content="Recognition is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection">
+      <meta name="description" content="Recognition is an artificial intelligence program that compares up-to-the-minute photojournalism with British art from the Tate collection.">
       <meta name="keywords" content="recognition, re-cognition, re][cognition, Tate, IK Prize, Microsoft, Fabrica, Reuters, Jolibrain">
 
       <title>Recognition</title>
@@ -38,7 +38,7 @@ limitations under the License.
       <meta name="twitter:card" content="summary_large_image">
       <meta name="twitter:url" content="http://recognition.tate.org.uk/__PATH__/__ITEMID__">
       <meta name="twitter:title" content="Recognition">
-      <meta name="twitter:description" content="Recognition is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection">
+      <meta name="twitter:description" content="Recognition is an artificial intelligence program that compares up-to-the-minute photojournalism with British art from the Tate collection.">
       <meta name="twitter:site" content="@Tate">
       <meta name="twitter:domain" content="recognition.tate.org.uk">
       <meta property="og:site_name" content="Recognition">
@@ -59,13 +59,15 @@ limitations under the License.
     <script src="/bundle.js"></script>
     <script src="/js/ie10-viewport-bug-workaround.js"></script>
     <script type="text/javascript">
-      dataLayer = window.dataLayer || [];
-      dataLayer.push({
-      'fireGtm': true
-      });
+        var appInsights = window.appInsights || function (n) {
+            function t(n){i[n]=function(){var t=arguments;i.queue.push(function(){i[n].apply(i,t)})}}var i={config:n},u=document,e=window,o="script",s="AuthenticatedUserContext",h="start",c="stop",l="Track",a=l+"Event",v=l+"Page",y=u.createElement(o),r,f;y.src=n.url||"https://az416426.vo.msecnd.net/scripts/a/ai.0.js";u.getElementsByTagName(o)[0].parentNode.appendChild(y);try{i.cookie=u.cookie}catch(p){}for(i.queue=[],r=["Event","Exception","Metric","PageView","Trace","Dependency"];r.length;)t("track"+r.pop());return t("set"+s),t("clear"+s),t(h+a),t(c+a),t(h+v),t(c+v),t("flush"),n.disableExceptionTracking||(r="onerror",t("_"+r),f=e[r],e[r]=function(n,t,u,e,o){var s=f&&f(n,t,u,e,o);return s!==!0&&i["_"+r](n,t,u,e,o),s}),i
+        }({
+            instrumentationKey: "e12ed7ff-695c-46fe-9d5c-05152d8dcbae"
+        });
+
+        window.appInsights = appInsights;
+        appInsights.trackPageView();
     </script>
-    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-WQPJ9H"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WQPJ9H');</script>
   </body>
 
 </html>

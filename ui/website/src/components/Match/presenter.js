@@ -55,7 +55,24 @@ class Match extends React.Component {
   }
 
   handleBackGallery() {
-    browserHistory.push('/gallery');
+    if(window.routingHistory!=undefined && Array.isArray(window.routingHistory)){
+      var index;
+      for(var i=window.routingHistory.length-1;i>=0;i--){
+        if(window.routingHistory[i]=='/gallery' || window.routingHistory[i]=='/'){
+          index=i-window.routingHistory.length;
+          break;
+        }
+      }
+      if(index==undefined)
+        browserHistory.push(`/gallery`);
+      else{
+       browserHistory.go(index);
+       window.routingHistory=[];
+      }
+    }
+    else{
+      browserHistory.push(`/gallery`);
+    }
   }
 
   handleLeftOver(parent, overHash, overIndex) {
@@ -305,7 +322,7 @@ class Match extends React.Component {
         <div className="container-fluid" style={{fontSize: '13px', letterSpacing: '1.5px'}}>
           <div className="row" style={{paddingBottom: '16px'}}>
             <div className="col-xs-12 title">
-              <Link to="/gallery" style={{fontFamily: 'TateNewPro', fontSize:'13px', letterSpacing: '1.5px', color: '#fff', textDecoration: 'none', textTransform: 'uppercase'}}><span className='icon--i_arrow-left'/> Back to gallery</Link>
+              <a className="font-data backGallery" onClick={this.handleBackGallery} style={{fontFamily: 'TateNewPro', fontSize:'13px', letterSpacing: '1.5px', color: '#fff', textDecoration: 'none', textTransform: 'uppercase'}}><span className='icon--i_arrow-left'/> Back to gallery</a>
             </div>
           </div>
           <div className="row" style={{paddingBottom: '16px'}}>
@@ -374,6 +391,7 @@ class Match extends React.Component {
         {orientedComponent}
       </div>
       <DocMeta tags={meta} />
+      <GoogleTagManager dataLayerName='Match' additionalEvents={{itemId: itemId}}/>
     </div>);
   }
 }

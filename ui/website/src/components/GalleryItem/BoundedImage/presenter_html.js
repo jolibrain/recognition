@@ -14,28 +14,19 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import React from 'react';
-import Splash from '../Splash';
-import Gallery from '../Gallery';
-import GoogleTagManager from '../GoogleTagManager';
-import Waypoint from 'react-waypoint';
+import Radium from 'radium';
+import moment from 'moment';
+import styles from './styles.js';
 
-class Home extends React.Component {
-
-  _setGalleryMenu(position) {
-    document.getElementById("galleryMenu").classList.toggle('menuSelected', position.currentPosition == "above");
-  }
+@Radium
+class HtmlImage extends React.Component {
 
   render() {
-
     return (<div>
-      <Splash/>
-      <Waypoint
-        onPositionChange={this._setGalleryMenu.bind(this)}
-      />
-      <Gallery disableGTM={true} />
-      <GoogleTagManager dataLayerName='Home'/>
+      <img className="img-responsive" src={this.props.img} />
     </div>);
   }
+
 }
 
-export default Home;
+export default HtmlImage;

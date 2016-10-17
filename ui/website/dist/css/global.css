@@ -368,7 +368,7 @@ body.noscroll{
 }
 
 .introOverlay nav {
-  padding: 33px 30px 0px 32px;
+  padding: 16px 30px 0px 30px;
   height: 150px;
   border: 0;
   z-index: 5;
@@ -409,7 +409,7 @@ and (max-device-width : 768px) {
   font-weight: bold;
   cursor: pointer;
   margin-right: 35px;
-  top: -15px;
+  top: -16px;
 }
 
 .introOverlay .navbar-default .navbar-nav>li>a:hover {
@@ -506,6 +506,9 @@ ul.react-autosuggest__suggestions-list a:hover {
   pointer-events: all;
   color: inherit;
 }
+.detailFeatures a.tateLink:hover {
+  color:#0FC;
+}
 
 .detailFeatures.detailHovered {
   color: #4a4a4a;
@@ -518,18 +521,15 @@ ul.react-autosuggest__suggestions-list a:hover {
 .detailFeatures h3 {
   font-family: 'MaisonNeue';
   font-size:12px;
-  border-bottom: 2px dotted rgba(255, 255, 255, 0.8);
-  padding-bottom: 3px;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
 }
 .detailFeatures.detailHovered h3 {
   color: #4a4a4a;
-  border-bottom: 2px dotted #4a4a4a;
 }
 .detailFeatures.detailHovered h3.hovered {
   font-family: 'MaisonNeue';
   font-size:12px;
-  border-bottom: 2px dotted rgba(255, 255, 255, 0.8);
-  padding-bottom: 3px;
   color: #fff;
 }
 
@@ -790,7 +790,7 @@ ul.react-autosuggest__suggestions-list a:hover {
 
 .infoPage a:hover {
   color: #0FC;
-  text-decoration: 'none';
+  text-decoration: none;
 }
 
 .infoPage .logoRow {
@@ -948,6 +948,12 @@ a.backGallery:hover {
 .header .visible-xs .navbar-toggle .closeButton {
   width: 13px;
   margin-top: -8px;
+}
+
+.responsiveCloseButton {
+  width: 13px;
+  margin-top: 5px;
+  margin-right: 10px;
 }
 
 .header .visible-xs .navbar-toggle .icon-bar {

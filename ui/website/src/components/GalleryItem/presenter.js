@@ -20,6 +20,8 @@ import styles from './styles.js';
 import { browserHistory } from 'react-router'
 import ShareModal from '../Modals/ShareModal';
 
+import BoundedImage from './BoundedImage';
+
 let {Link} = require('react-router');
 Link = Radium(Link);
 
@@ -111,23 +113,20 @@ class GalleryItem extends React.Component {
           </div>
           <div className="row">
             <div className="col-xs-6" style={{paddingRight: 0}}>
-              <Link to={`/image/reuters/${this.state.itemId}`}>
-                <img
-                  className="img-responsive"
-                  src={item.input.img.replace("_2_", "_3_")}
-                  srcSet={item.input.img.replace('reuters/', 'reuters/responsive_375/').replace("_2_", "_3_") + " 375w, " + item.input.img.replace('reuters/', 'reuters/responsive_480/').replace("_2_", "_3_") + " 480w, " + item.input.img.replace('reuters/', 'reuters/responsive_757/').replace("_2_", "_3_") + " 757w, " + item.input.img.replace('reuters/', 'reuters/responsive_1920/').replace("_2_", "_3_") + " 1920w"}
-                />
-              </Link>
+              <BoundedImage
+                item={item.input}
+                features={selectedOutput.features.in}
+                displayOverlay={this.state.processVisible}
+                parent={this}
+              />
             </div>
             <div className="col-xs-6">
-              <Link to={`/image/tate/${this.state.itemId}`}>
-                <img
-                  className="img-responsive"
-                  src={selectedOutput.img}
-                  srcSet={selectedOutput.img.replace('tate/', 'tate/responsive_375/') + " 375w, " + selectedOutput.img.replace('tate/', 'tate/responsive_480/') + " 480w"}
-                  onClick={() => {this.setState({showOutputOverlay: true})}}
-                />
-              </Link>
+              <BoundedImage
+                item={selectedOutput}
+                features={selectedOutput.features.out}
+                displayOverlay={this.state.processVisible}
+                parent={this}
+              />
             </div>
           </div>
           <div className="row" style={{paddingTop: '32px'}}>
@@ -143,23 +142,29 @@ class GalleryItem extends React.Component {
           </div>
           <div className="row" style={{paddingTop: '16px'}}>
             <div className="col-xs-12">
-              <p><a onClick={() => this.setState({processVisible: !this.state.processVisible}) } className="processClick">VIEW RECOGNITION PROCESS { this.state.processVisible ? (<span className="icon--i_arrow-down"/>) : (<span className="icon--i_arrow-right"/>)}</a></p>
+              <div className="row">
+                <div className="col-xs-12">
+                  <div style={{display: "inline-block", marginRight: "20px"}}>
+                    <ShareModal url={"http://recognition.tate.org.uk/gallery/" + itemId}/>
+                  </div>
+                  <a onClick={() => this.setState({processVisible: !this.state.processVisible}) } className="processClick">VIEW DATA { this.state.processVisible ? (<span className="icon--i_arrow-down"/>) : (<span className="icon--i_arrow-right"/>)}</a>
+                </div>
+              </div>
               { this.state.processVisible ?
                 (
                 <div className="processData" style={{paddingTop: '1px'}}>
-                  <p><img src="/img/icons/score_objects.svg" style={{paddingTop: '2px'}}/> OBJECTS {(selectedOutput.features.summary.scores.objects * 100).toFixed(2)}%<br/>
+                  <p><img src="/img/icons/score_objects.svg" style={{paddingBottom: '2px'}}/> OBJECTS {(selectedOutput.features.summary.scores.objects * 100).toFixed(2)}%<br/>
                   <span style={{color: 'white'}}>{new Array(parseInt(selectedOutput.features.summary.scores.objects * 25)).fill('.').join('')}</span><span style={{color: '#4a4a4a'}}>{new Array(25 - parseInt(selectedOutput.features.summary.scores.objects * 25)).fill('.').join('')}</span></p>
-                  <p><img src="/img/icons/score_faces.svg" style={{paddingTop: '2px'}}/> FACES {(selectedOutput.features.summary.scores.faces * 100).toFixed(2)}%<br/>
+                  <p><img src="/img/icons/score_faces.svg" style={{paddingBottom: '2px'}}/> FACES {(selectedOutput.features.summary.scores.faces * 100).toFixed(2)}%<br/>
                   <span style={{color: 'white'}}>{new Array(parseInt(selectedOutput.features.summary.scores.faces * 25)).fill('.').join('')}</span><span style={{color: '#4a4a4a'}}>{new Array(25 - parseInt(selectedOutput.features.summary.scores.faces * 25)).fill('.').join('')}</span></p>
-                  <p><img src="/img/icons/score_composition.svg" style={{paddingTop: '2px'}}/> COMPOSITION {(selectedOutput.features.summary.scores.composition * 100).toFixed(2)}%<br/>
+                  <p><img src="/img/icons/score_composition.svg" style={{paddingBottom: '2px'}}/> COMPOSITION {(selectedOutput.features.summary.scores.composition * 100).toFixed(2)}%<br/>
                   <span style={{color: 'white'}}>{new Array(parseInt(selectedOutput.features.summary.scores.composition * 25)).fill('.').join('')}</span><span style={{color: '#4a4a4a'}}>{new Array(25 - parseInt(selectedOutput.features.summary.scores.composition * 25)).fill('.').join('')}</span></p>
-                  <p><img src="/img/icons/score_context.svg" style={{paddingTop: '2px'}}/> CONTEXT {(selectedOutput.features.summary.scores.context * 100).toFixed(2)}%<br/>
+                  <p><img src="/img/icons/score_context.svg" style={{paddingBottom: '2px'}}/> CONTEXT {(selectedOutput.features.summary.scores.context * 100).toFixed(2)}%<br/>
                   <span style={{color: 'white'}}>{new Array(parseInt(selectedOutput.features.summary.scores.context * 25)).fill('.').join('')}</span><span style={{color: '#4a4a4a'}}>{new Array(25 - parseInt(selectedOutput.features.summary.scores.context * 25)).fill('.').join('')}</span></p>
                   <h3 className="font-data" style={styles.descriptionTitle}>AI Statement</h3>
                   <p className="font-data" style={styles.descriptionText}>{selectedOutput.features.in.captions.caption}</p>
                   <p className="font-data" style={[styles.descriptionText, {marginBottom: '32px'}]}>{selectedOutput.features.out.captions.caption}</p>
 
-                  <ShareModal url={"http://recognition.tate.org.uk/gallery/" + itemId}/>
                 </div>
                 ) : '' }
             </div>
@@ -219,7 +224,7 @@ class GalleryItem extends React.Component {
 
         </div>
 
-        <div className="col-sm-4 col-sm-offset-1 font-title" style={styles.descriptionColumn}>
+        <div className="col-sm-5 col-sm-offset-1 font-title" style={styles.descriptionColumn}>
 
           <p style={{fontSize: '12px', fontFamily: 'MaisonNeue'}}>No {this.state.itemId}</p>
 

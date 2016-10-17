@@ -23,19 +23,47 @@ import BoundedImage from './BoundedImage'
 import GoogleTagManager from '../GoogleTagManager';
 import DocMeta from 'react-doc-meta';
 
+import ShareModal from '../Modals/ShareModal';
+
 let {Link} = require('react-router');
 Link = Radium(Link);
 
 @Radium
 class Detail extends React.Component {
 
-  state = {
-    overImg: false,
-    overTags: false,
-    overLeft: {hash: []},
-    overRight: {hash: []},
-    showOutputOverlay: false
-  };
+  constructor(props) {
+    super(props);
+    this.handleBackGallery = this.handleBackGallery.bind(this);
+    this.state = {
+      overImg: false,
+      overTags: false,
+      overLeft: {hash: []},
+      overRight: {hash: []},
+      showOutputOverlay: false
+    };
+  }
+
+  handleBackGallery() {
+    if(window.routingHistory!=undefined && Array.isArray(window.routingHistory)){
+      var index;
+      for(var i=window.routingHistory.length-1;i>=0;i--){
+        if(window.routingHistory[i]=='/gallery' || window.routingHistory[i]=='/'){
+          index=i-window.routingHistory.length;
+          break;
+        }
+      }
+      if(index==undefined)
+        browserHistory.push(`/gallery`);
+      else{
+       browserHistory.go(index);
+       window.routingHistory=[];
+      }
+    }
+    else{
+      browserHistory.push(`/gallery`);
+    }
+  }
+
 
   handleOverTags(parent, over) {
     parent.setState({overTags: over});
@@ -120,7 +148,7 @@ class Detail extends React.Component {
         <div className="container-fluid" style={{fontSize: '13px', letterSpacing: '1.5px'}}>
           <div className="row" style={{paddingBottom: '16px'}}>
             <div className="col-xs-12 title">
-              <Link to="/gallery" style={{fontFamily: 'TateNewPro', fontSize:'13px', letterSpacing: '1.5px', color: '#fff', textDecoration: 'none', textTransform: 'uppercase'}}><span className='icon--i_arrow-left'/> Back to gallery</Link>
+              <a onClick={this.handleBackGallery} style={{fontFamily: 'TateNewPro', fontSize:'13px', letterSpacing: '1.5px', color: '#fff', textDecoration: 'none', textTransform: 'uppercase'}}><span className='icon--i_arrow-left'/> Back to gallery</a>
             </div>
           </div>
           <div className="row" style={{paddingBottom: '16px'}}>
@@ -209,7 +237,12 @@ class Detail extends React.Component {
         <div className="row" style={styles.dataRow}>
 
           <div className="col-sm-6" style={{paddingLeft: '30px', paddingTop: '20px'}}>
-            <Link className="font-data" style={[styles.link]} to={`/gallery/${itemId}`}><span className='icon--i_arrow-left'/> Back to match</Link>
+            <div className="row">
+              <div className="col-sm-12">
+                <a className="font-data" style={[styles.link]} onClick={this.handleBackGallery}><span className='icon--i_arrow-left'/> Back to gallery</a>
+                <div style={{display: "inline-block", marginLeft: "20px"}}><ShareModal url={"http://recognition.tate.org.uk/gallery/" + itemId} /></div>
+              </div>
+            </div>
             <DetailFeatures item={item.input}
                             source={'reuters'}
                             features={selectedOutput.features.in}

@@ -17,19 +17,21 @@ import React from 'react';
 import Splash from '../Splash';
 import GalleryItem from '../GalleryItem';
 import InfiniteScroll from 'react-infinite-scroller';
+import GoogleTagManager from '../GoogleTagManager';
 
 class Gallery extends React.Component {
+  static state={
+    items: [],
+    hasMoreItems: true,
+    offset: 3
+  };
 
   constructor(props) {
     super(props);
 
     const offset = 3;
 
-    this.state = {
-      items: [],
-      hasMoreItems: true,
-      offset: offset
-    }
+    this.state = Gallery.state;
 
     this.loadItems = this.loadItems.bind(this);
   }
@@ -49,6 +51,8 @@ class Gallery extends React.Component {
       items: this.props.matches.slice(0, newOffset),
       hasMoreItems: newOffset < this.props.matches.length
     });
+
+    Gallery.state=this.state;
   }
 
   renderItems() {
@@ -60,18 +64,32 @@ class Gallery extends React.Component {
     const loader = <div className="loader">Loading ...</div>;
     const items = this.renderItems();
 
+    let gtm = null;
+    if(!this.props.disableGTM) {
+      gtm = <GoogleTagManager dataLayerName='Gallery' />
+    }
+
     if(items.length == 0) return null;
 
-    return (<InfiniteScroll
-      pageStart={0}
-      loadMore={this.loadItems}
-      hasMore={this.state.hasMoreItems}
-      loader={loader}>
+    return (<div>{gtm}
 
-      <div className="container-fluid gallery" id="gallery">
-        {items}
-      </div>
-    </InfiniteScroll>);
+      <InfiniteScroll
+        pageStart={0}
+        loadMore={this.loadItems}
+        hasMore={this.state.hasMoreItems}
+        loader={loader}>
+
+        <div className="container-fluid gallery" id="gallery">
+
+          <div className="visible-xs">
+            <p style={{color: '#aaa', fontSize: '18px', fontFamily: 'TateNewPro'}}><em>Recognition</em> is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection. Scroll down to browse the gallery.</p>
+          </div>
+
+          {items}
+        </div>
+
+      </InfiniteScroll>
+    </div>);
   }
 }
 

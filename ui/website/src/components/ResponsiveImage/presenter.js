@@ -15,6 +15,7 @@ limitations under the License.
 */
 import React from 'react';
 import Radium from 'radium';
+import styles from './styles.js';
 import { browserHistory } from 'react-router';
 import BoundedImage from './BoundedImage';
 import moment from 'moment';
@@ -87,12 +88,12 @@ class ResponsiveImage extends React.Component {
       <nav style={{background: '#0d1215', border: 0}} className="navbar navbar-default navbar-fixed-top visible-xs">
         <div className="container-fluid">
           <div className="navbar-header">
-            <Link className="navbar-brand" to='/gallery'>
-              <img src="/img/logos/recognition.png" alt="recognition"/>
+            <Link style={[styles.brand]} className="navbar-brand" to='/gallery'>
+              <span style={[styles.brand.re]}>re]</span>[cognition
             </Link>
             <p className="text-right" style={{padding: '15px'}}>
               <Link className="navbar-link" to={`/gallery/${itemId}`}>
-                <img src="/img/icons/close.png" alt="close"/>
+                <img src="/img/icons/close.png" alt="close" className="responsiveCloseButton"/>
               </Link>
             </p>
           </div>
@@ -115,7 +116,6 @@ class ResponsiveImage extends React.Component {
           <div className="row">
             { this.state.source === "reuters" ? (<div>
               <div className="col-xs-10">
-                <a className="processOverlay" onClick={() => this.setState({displayOverlay: !this.state.displayOverlay})}>{this.state.displayOverlay ? "HIDE" : "VIEW" } RECOGNITION OVERLAY</a>
               </div>
               <div className="col-xs-2 text-right">
                 <Link className="back" to={`/image/tate/${itemId}`}><span className='icon--i_arrow-right'/></Link>
@@ -125,14 +125,13 @@ class ResponsiveImage extends React.Component {
                 <Link className="back" to={`/image/reuters/${itemId}`}><span className='icon--i_arrow-left'/></Link>
               </div>
               <div className="col-xs-10 text-right">
-                <a className="processOverlay" onClick={() => this.setState({displayOverlay: !this.state.displayOverlay})}>{this.state.displayOverlay ? "HIDE" : "VIEW" } RECOGNITION OVERLAY</a>
               </div>
             </div>)}
 
           </div>
 
           <div className="row">
-            <div className="col-xs-12 text-center">
+            <div className="col-xs-12 text-center" style={{marginTop: '16px'}}>
               <BoundedImage
                 item={item}
                 features={features}

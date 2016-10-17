@@ -53,6 +53,7 @@ class ShareModal extends React.Component {
       padding: '4px 6px 5px 6px',
       border: '1px solid',
       textDecoration: 'none',
+      pointerEvents: 'all',
       cursor: 'pointer',
       ':hover': {
         color: '#0FC',
@@ -155,7 +156,7 @@ class ShareModal extends React.Component {
                   <FacebookShareButton
                     url={url}
                     title="Recognition"
-                    description="Recognition is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection"
+                    description="Recognition is an artificial intelligence program that compares up-to-the-minute photojournalism with British art from the Tate collection."
                     className="share-button">
                     <FacebookIcon
                       logoFillColor="white"
@@ -183,7 +184,7 @@ class ShareModal extends React.Component {
 
                   <PinterestShareButton
                     url={url}
-                    description="Recognition is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection"
+                    description="Recognition is an artificial intelligence program that compares up-to-the-minute photojournalism with British art from the Tate collection."
                     media="http://recognition.tate.org.uk/img/default_logo.jpg"
                     className="share-button">
                     <PinterestIcon
@@ -222,7 +223,7 @@ class ShareModal extends React.Component {
                   <FacebookShareButton
                     url={url}
                     title="Recognition"
-                    description="Recognition is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection"
+                    description="Recognition is an artificial intelligence program that compares up-to-the-minute photojournalism with British art from the Tate collection."
                     className="share-button">
                     <FacebookIcon
                       logoFillColor="white"
@@ -250,7 +251,7 @@ class ShareModal extends React.Component {
 
                   <PinterestShareButton
                     url={url}
-                    description="Recognition is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection"
+                    description="Recognition is an artificial intelligence program that compares up-to-the-minute photojournalism with British art from the Tate collection."
                     media="http://recognition.tate.org.uk/img/default_logo.jpg"
                     className="share-button">
                     <PinterestIcon

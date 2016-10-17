@@ -45,7 +45,7 @@ fetch('/splash.json').then((response) => { return response.json(); })
           <IndexRoute component={Home} />
           <Route path="/gallery" component={Gallery} />
           <Route path="/image/:source/:itemId" component={Image}/>
-          <Route path="/gallery/:matchId" component={Match}/>
+          <Route path="/gallery/:matchId" component={Detail}/>
           <Route path="/details/:matchId" component={Detail}/>
           <Route path="/info" component={Info}/>
         </Route>

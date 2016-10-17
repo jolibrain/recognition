@@ -74,7 +74,7 @@ class Splash extends React.Component {
             <div className="col-xs-6" style={styles.fullHeight.col}>
 
               <div className="row">
-                <div className="col-sm-12">
+                <div className="col-sm-5">
                   <table className="table borderless" style={styles.table}>
                     <tbody>
                       <tr style={styles.table.header}>
@@ -100,6 +100,9 @@ class Splash extends React.Component {
                     </tbody>
                   </table>
 
+                </div>
+                <div className="col-sm-7">
+                  <p style={{color: "#AAA", fontSize: "12px"}}>RECOGNITION IS AN ARTIFICIAL<br/>INTELLIGENCE THAT COMPARES<br/>UP-TO-THE-MINUTE PHOTOJOURNALISM<br/>WITH THE BRITISH ART FROM THE TATE<br/>COLLECTION. SCROLL DOWN TO BROWSE<br/>THE GALLERY.</p>
                 </div>
               </div>
 

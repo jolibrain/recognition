@@ -73,14 +73,6 @@ class IntroOverlay extends React.Component {
 
     if(this.state.stepIndex >= steps.length) return null;
 
-    let transition = <Transition
-          in={this.state.stepIndex < 10}
-          timeout='500'
-          className='fade'
-          enteredClassName='in'
-          enteringClassName='in'
-        />
-
     return (<Overlay show={this.state.stepIndex < steps.length}
                      onHide={() => this.setState({ stepIndex: 10 })}
       >

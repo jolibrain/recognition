@@ -50,7 +50,7 @@ class Header extends React.Component {
 
           <div>
             <ul className="nav navbar-nav navbar-right">
-              <li className={this.props.path == '/gallery' ? 'menuSelected' : ''}><Link style={[styles.menuItem]} to='/gallery'>Gallery</Link></li>
+              <li id="galleryMenu" className={this.props.path == '/gallery' ? 'menuSelected' : ''}><Link style={[styles.menuItem]} to='/gallery'>Gallery</Link></li>
               <li><a key="tate-link-header" href="http://www.tate.org.uk/whats-on/tate-britain/exhibition/recognition" style={[styles.menuItem]} target="_blank" rel="noopener noreferrer">AT TATE BRITAIN</a></li>
               <li className={this.props.path == '/info' ? 'menuSelected' : ''}><Link style={[styles.menuItem]} to='/info'>Info</Link></li>
               <li style={{marginTop:'16px', marginLeft: '32px'}}><SubscribeModal/></li>
@@ -81,7 +81,7 @@ class Header extends React.Component {
             }
             </button>
             <Link style={[styles.brand]} className="navbar-brand" to='/gallery'>
-              <img src="/img/logos/recognition.png" alt="recognition"/>
+              <span style={[styles.brand.re]}>re]</span>[cognition
             </Link>
           </div>
 

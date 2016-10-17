@@ -14,28 +14,29 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import React from 'react';
-import Splash from '../Splash';
-import Gallery from '../Gallery';
-import GoogleTagManager from '../GoogleTagManager';
-import Waypoint from 'react-waypoint';
+import Radium from 'radium';
+import moment from 'moment';
+import styles from './styles.js';
+import { browserHistory } from 'react-router'
+import SvgImage from './presenter_svg';
+import HtmlImage from './presenter_html';
+import CanvasImage from './presenter_canvas';
 
-class Home extends React.Component {
+let {Link} = require('react-router');
+Link = Radium(Link);
 
-  _setGalleryMenu(position) {
-    document.getElementById("galleryMenu").classList.toggle('menuSelected', position.currentPosition == "above");
-  }
+@Radium
+class BoundedImage extends React.Component {
 
   render() {
 
-    return (<div>
-      <Splash/>
-      <Waypoint
-        onPositionChange={this._setGalleryMenu.bind(this)}
-      />
-      <Gallery disableGTM={true} />
-      <GoogleTagManager dataLayerName='Home'/>
-    </div>);
+    if(this.props.boxes.length > 0) {
+      return (<CanvasImage {...this.props}/>)
+    } else {
+      return (<HtmlImage img={this.props.item.img}/>)
+    }
+
   }
 }
 
-export default Home;
+export default BoundedImage;

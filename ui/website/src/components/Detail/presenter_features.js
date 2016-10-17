@@ -136,11 +136,15 @@ class DetailFeatures extends React.Component {
 
     let source = this.props.source;
     if(source == 'tate') {
-      source = (<a href={this.props.item.meta.link} target="_blank" rel="noopener noreferrer" >tate</a>);
+      source = (<a className="tateLink" href={this.props.item.meta.link} target="_blank" rel="noopener noreferrer" >TATE <img src="/img/icons/external_link.png"/></a>);
     }
 
     return(<div className={hovered ? 'font-data detailFeatures detailHovered' : 'font-data detailFeatures'}
       style={[styles.detailColumn, hovered ? styles.columnHovered : '']}>
+
+      { this.props.source == "reuters" ?
+        (<div style={{paddingBottom: '14px'}}><h3 style={{textDecoration: "underline"}}>AI STATEMENT</h3><p>{this.props.features.captions.caption}</p></div>) : ""}
+
       <div className="table-responsive" style={[styles.tableOverflow, styles.categoryBottom]}>
         <p>{date}<br/>
         {title}<br/>
@@ -151,6 +155,7 @@ class DetailFeatures extends React.Component {
       <h3 className={objHovered == 'objects' ? 'hovered' : ''}>
         <img style={{paddingBottom: '3px'}} src={this.getIconUrl('objects', hovered, objHovered)}/> OBJECTS {(scores.objects * 100).toFixed(2)}%
       </h3>
+      <p><span style={{color: 'white'}}>{new Array(parseInt(this.props.scores.objects * 25)).fill('.').join('')}</span><span style={{color: '#4a4a4a'}}>{new Array(25 - parseInt(this.props.scores.objects * 25)).fill('.').join('')}</span></p>
       <div className="table-responsive" style={[styles.tableOverflow, styles.categoryBottom]}>
         <table className="table borderless">
           <tbody>
@@ -217,6 +222,7 @@ class DetailFeatures extends React.Component {
       <h3 className={objHovered == 'faces' ? 'hovered' : ''}>
         <img style={{paddingBottom: '3px'}} src={this.getIconUrl('faces', hovered, objHovered)}/> FACES {(scores.faces * 100).toFixed(2)}%
       </h3>
+      <p><span style={{color: 'white'}}>{new Array(parseInt(this.props.scores.faces * 25)).fill('.').join('')}</span><span style={{color: '#4a4a4a'}}>{new Array(25 - parseInt(this.props.scores.faces * 25)).fill('.').join('')}</span></p>
       { typeof features.mapi != 'undefined' ? (<div className="table-responsive" style={[styles.tableOverflow, styles.categoryBottom]}>
       {
         mapi_ages.length == 0 ? (<p>No faces found</p>) :
@@ -277,11 +283,13 @@ class DetailFeatures extends React.Component {
       <h3 className={objHovered == 'composition' ? 'hovered' : ''}>
         <img style={{paddingBottom: '3px'}} src={this.getIconUrl('composition', hovered, objHovered)}/> COMPOSITION {(scores.composition * 100).toFixed(2)}%
       </h3>
+      <p><span style={{color: 'white'}}>{new Array(parseInt(this.props.scores.composition * 25)).fill('.').join('')}</span><span style={{color: '#4a4a4a'}}>{new Array(25 - parseInt(this.props.scores.composition * 25)).fill('.').join('')}</span></p>
       <div style={styles.categoryBottom}>&nbsp;</div>
 
       <h3 className={objHovered == 'context' ? 'hovered' : ''}>
         <img style={{paddingBottom: '3px'}} src={this.getIconUrl('context', hovered, objHovered)}/> CONTEXT {(scores.context * 100).toFixed(2)}%
       </h3>
+      <p><span style={{color: 'white'}}>{new Array(parseInt(this.props.scores.context * 25)).fill('.').join('')}</span><span style={{color: '#4a4a4a'}}>{new Array(25 - parseInt(this.props.scores.context * 25)).fill('.').join('')}</span></p>
       {
         all_tags.length > 0 ? (
         <div key={'tagsDiv'} style={[styles.rowHover, this.state.tags || this.props.overTags ? styles.rowHovered: '']}>

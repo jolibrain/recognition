@@ -13,20 +13,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-import * as actionTypes from '../constants/actionTypes';
-
-const initialState = [];
-
-export default function(state = initialState, action) {
-  switch (action.type) {
-    case actionTypes.SPLASH_LOAD_JSON:
-      return loadSplashJson(state, action);
+const styles = {
+  brand: {
+    color: "#FFF",
+    fontWeight: 'normal',
+    re: {
+      position: 'relative',
+      top: '-3px'
+    },
+    ':hover': {
+      color: '#0FC'
+    }
   }
-  return state;
 }
 
-function loadSplashJson(state, action) {
-  const { json } = action;
-
-  return [ ...state, ...json ];
-}
+export default styles;
