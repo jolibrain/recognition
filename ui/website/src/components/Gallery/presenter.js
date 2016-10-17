@@ -69,33 +69,37 @@ class Gallery extends React.Component {
       gtm = <GoogleTagManager dataLayerName='Gallery' />
     }
 
-    let loading = "";
     if(items.length == 0) {
-      loading = <div className="row">
-        <div className="text-center">Loading...</div>
-      </div>;
-    }
 
-    return (<div>{gtm}
+      return (<div>{gtm}
+        <div className="row">
+          <div className="text-center">Loading...</div>
+        </div>
+      </div>);
 
-      <InfiniteScroll
-        pageStart={0}
-        loadMore={this.loadItems}
-        hasMore={this.state.hasMoreItems}
-        loader={loader}>
+    } else {
 
-        <div className="container-fluid gallery" id="gallery">
+      return (<div>{gtm}
 
-          <div className="visible-xs">
-            <p style={{color: '#aaa', fontSize: '18px', fontFamily: 'TateNewPro'}}><em>Recognition</em> is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection. Scroll down to browse the gallery.</p>
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={this.loadItems}
+          hasMore={this.state.hasMoreItems}
+          loader={loader}>
+
+          <div className="container-fluid gallery" id="gallery">
+
+            <div className="visible-xs">
+              <p style={{color: '#aaa', fontSize: '18px', fontFamily: 'TateNewPro'}}><em>Recognition</em> is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection. Scroll down to browse the gallery.</p>
+            </div>
+
+            {items}
           </div>
 
-          {loading}
-          {items}
-        </div>
+        </InfiniteScroll>
+      </div>);
 
-      </InfiniteScroll>
-    </div>);
+    }
   }
 }
 
