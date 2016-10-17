@@ -253,6 +253,8 @@ class Detail extends React.Component {
                             overHash={this.state.overRight}
                             overImg={this.state.overImg}
                             overTags={this.state.overTags}
+                            captionIn={selectedOutput.features.in.captions.caption}
+                            captionOut={selectedOutput.features.out.captions.caption}
                             parent={this}
             />
           </div>

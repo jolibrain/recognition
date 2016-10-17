@@ -143,7 +143,7 @@ class DetailFeatures extends React.Component {
       style={[styles.detailColumn, hovered ? styles.columnHovered : '']}>
 
       { this.props.source == "reuters" ?
-        (<div style={{paddingBottom: '14px'}}><h3 style={{textDecoration: "underline"}}>AI STATEMENT</h3><p>{this.props.features.captions.caption}</p></div>) : ""}
+        (<div style={{paddingBottom: '14px'}}><h3 style={{textDecoration: "underline"}}>AI STATEMENT</h3><p style={{textTransform: 'uppercase'}}>{this.props.captionIn}.<br/>{this.props.captionOut}.</p></div>) : ""}
 
       <div className="table-responsive" style={[styles.tableOverflow, styles.categoryBottom]}>
         <p>{date}<br/>
