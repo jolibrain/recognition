@@ -69,7 +69,12 @@ class Gallery extends React.Component {
       gtm = <GoogleTagManager dataLayerName='Gallery' />
     }
 
-    if(items.length == 0) return null;
+    let loading = "";
+    if(items.length == 0) {
+      loading = <div className="row">
+        <div className="text-center">Loading...</div>
+      </div>;
+    }
 
     return (<div>{gtm}
 
@@ -85,6 +90,7 @@ class Gallery extends React.Component {
             <p style={{color: '#aaa', fontSize: '18px', fontFamily: 'TateNewPro'}}><em>Recognition</em> is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection. Scroll down to browse the gallery.</p>
           </div>
 
+          {loading}
           {items}
         </div>
 
