@@ -15,6 +15,7 @@ limitations under the License.
 */
 import React from 'react';
 import Splash from '../Splash';
+import Placeholder from '../Placeholder';
 import Gallery from '../Gallery';
 import GoogleTagManager from '../GoogleTagManager';
 import Waypoint from 'react-waypoint';
@@ -28,7 +29,7 @@ class Home extends React.Component {
   render() {
 
     return (<div>
-      <Splash/>
+      <Placeholder/>
       <Waypoint
         onPositionChange={this._setGalleryMenu.bind(this)}
       />
