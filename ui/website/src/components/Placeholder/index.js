@@ -21,12 +21,12 @@ import styles from './styles.js';
 class Placeholder extends React.Component {
   render() {
     return <div style={styles.uppercase} className="infoPage">
-      <div className="fluid-container">
+      <div className="fluid-container" style={{margin: "20px 100px"}}>
         <div className="row">
           <div className="col-xs-12">
-            <p className="font-subtext infoDescription">RECOGNITION HAS NOW BEEN TURNED OFF.</p>
-              <p className="font-subtext infoDescription">RECOGNITION WAS AN ARTIFICIAL INTELLIGENCE PROGRAM THAT COMPARED UP-TO-THE-MINUTE PHOTOJOURNALISM WITH BRITISH ART FROM THE TATE COLLECTION BETWEEN 2 SEPTEMBER AND 27 NOVEMBER 2016.</p>
-              <p className="font-subtext infoDescription">THIS WEBSITE WILL REMAIN AS AN ARCHIVE OF THE MACHINE'S FINDINGS. PLEASE RETURN SOON TO FIND MORE RSULTS FROM THIS EXPERIMENT TO SEE WHETHER MACHINE INTELLIGENCE CAN UNEARTH SIMILARITIES BETWEEN THE ART OF THE PAST AND REPRESENTATIONS OF TODAY'S WORLD.</p>
+            <p className="font-subtext infoDescription" style={{color: "#FFFFFF"}}>RECOGNITION HAS NOW BEEN TURNED OFF.</p>
+              <p className="font-subtext infoDescription" style={{color: "#FFFFFF"}}>RECOGNITION WAS AN ARTIFICIAL INTELLIGENCE PROGRAM THAT COMPARED UP-TO-THE-MINUTE PHOTOJOURNALISM WITH BRITISH ART FROM THE TATE COLLECTION BETWEEN 2 SEPTEMBER AND 27 NOVEMBER 2016.</p>
+              <p className="font-subtext infoDescription" style={{color: "#FFFFFF"}}>THIS WEBSITE WILL REMAIN AS AN ARCHIVE OF THE MACHINE'S FINDINGS. PLEASE RETURN SOON TO FIND MORE RSULTS FROM THIS EXPERIMENT TO SEE WHETHER MACHINE INTELLIGENCE CAN UNEARTH SIMILARITIES BETWEEN THE ART OF THE PAST AND REPRESENTATIONS OF TODAY'S WORLD.</p>
           </div>
         </div>
       </div>
