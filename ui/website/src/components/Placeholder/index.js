@@ -21,7 +21,7 @@ import styles from './styles.js';
 class Placeholder extends React.Component {
   render() {
     return <div style={styles.uppercase} className="infoPage">
-      <div className="fluid-container" style={{margin: "20px 100px"}}>
+      <div className="fluid-container" style={{margin: "0 auto", width: "50%"}}>
         <div className="row">
           <div className="col-xs-12">
             <p className="font-subtext infoDescription" style={{color: "#FFFFFF"}}>RECOGNITION HAS NOW BEEN TURNED OFF.</p>
