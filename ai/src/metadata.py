@@ -82,6 +82,7 @@ class MetadataExtractor:
                         #meta['html_content'] = json_data_s['resources'][0]['content'] # content in HTML format
                     meta['copyright'] = json_data_s['masterImages'][0]['copyright']
                     meta['creativeCommons'] = json_data_s['masterImages'][0]['creativeCommons']
+                    meta['ondisplay'] = json_data_s.get('onDisplayAtTate',False)
                     self.metadata[imgid] = meta
                     c = c + 1
             elif self.reuters_json: # reuters or incoming images
@@ -109,6 +110,7 @@ class MetadataExtractor:
                     #print 'doc=',doc
                     #with open('testxml.json','w+') as fd:
                     #    json.dump(doc,fd)
+                    #print 'jf=',jf
                     meta = {}
                     img_loc = doc['newsMessage']['itemSet']['newsItem']['contentSet']['remoteContent']
                     l = 0
