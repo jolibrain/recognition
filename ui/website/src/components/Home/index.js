@@ -27,6 +27,8 @@ const mapStateToProps = (state, ownProps = {}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    onSearch: bindActionCreators(actions.searchMatches, dispatch),
+    onSort: bindActionCreators(actions.sortMatches, dispatch)
   };
 }
 

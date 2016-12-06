@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import * as actionTypes from '../constants/actionTypes';
+import moment from 'moment';
 
 const initialState = [];
 
@@ -23,6 +24,10 @@ export default function(state = initialState, action) {
       return loadMatchJson(state, action);
     case actionTypes.MATCH_ADD:
       return addMatch(state, action);
+    case actionTypes.MATCH_SORT:
+      return sortMatches(state, action);
+    case actionTypes.MATCH_SEARCH:
+      return searchMatches(state, action);
     case actionTypes.MATCH_SELECT_ITEM:
       return selectMatchItem(state, action);
   }
@@ -73,6 +78,44 @@ function loadMatchJson(state, action) {
   const publishedMatches = json.filter(item => item.status == "published");
 
   return [ ...state, ...publishedMatches ];
+}
+
+function searchMatches(state, action) {
+}
+
+function sortMatches(state, action) {
+  const sorting = action.sort;
+
+  let sortedMatches = state;
+
+  switch(sorting.order) {
+    case "ALPHABETICAL A TO Z":
+      sortedMatches = sortedMatches.sort((a, b) => {
+        return a.input.meta.caption.localeCompare(b.input.meta.caption);
+      });
+      break;
+    case "ALPHABETICAL Z TO A":
+      sortedMatches = sortedMatches.sort((b, a) => {
+        return a.input.meta.caption.localeCompare(b.input.meta.caption);
+      });
+      break;
+    case "DATE NEWEST TO OLDEST":
+      sortedMatches = sortedMatches.sort((b, a) => {
+        if(moment(a.timestamp).milli < moment(b.timestamp).milli) return -1;
+        if(moment(a.timestamp).milli > moment(b.timestamp).milli) return 1;
+        return 0;
+      });
+      break;
+    case "DATE OLDEST TO NEWEST":
+      sortedMatches = sortedMatches.sort((a, b) => {
+        if(moment(a.timestamp).milli < moment(b.timestamp).milli) return -1;
+        if(moment(a.timestamp).milli > moment(b.timestamp).milli) return 1;
+        return 0;
+      });
+      break;
+  }
+
+  return sortedMatches;
 }
 
 function selectMatchItem(state, action) {

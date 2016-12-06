@@ -30,7 +30,7 @@ class Home extends React.Component {
   render() {
 
     return (<div>
-      <Placeholder/>
+      <Search onSearch={this.props.onSearch} onSort={this.props.onSort}/>
       <Waypoint
         onPositionChange={this._setGalleryMenu.bind(this)}
       />

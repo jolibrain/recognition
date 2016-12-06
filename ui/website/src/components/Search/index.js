@@ -26,23 +26,25 @@ class Search extends React.Component {
     this.state =  {
       dateString: "All",
       date: "",
-      sort: "ALPHABETICAL A TO Z",
+      order: "DATE NEWEST TO OLDEST",
       type: "ALL",
-      displaySort: false,
+      displayOrder: false,
       displayType: false
     };
 
-    this.toggleSortDisplay = this.toggleSortDisplay.bind(this);
+    this.toggleOrderDisplay = this.toggleOrderDisplay.bind(this);
     this.toggleTypeDisplay = this.toggleTypeDisplay.bind(this);
     this.toggleDateDisplay = this.toggleDateDisplay.bind(this);
 
-    this.handleSortChange = this.handleSortChange.bind(this);
+    this.handleOrderChange = this.handleOrderChange.bind(this);
     this.handleTypeChange = this.handleTypeChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
+
+    this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
   }
 
-  toggleSortDisplay() {
-    this.setState({displaySort: !this.state.displaySort});
+  toggleOrderDisplay() {
+    this.setState({displayOrder: !this.state.displayOrder});
   }
 
   toggleTypeDisplay() {
@@ -53,19 +55,25 @@ class Search extends React.Component {
     this.setState({displayDate: !this.state.displayDate});
   }
 
-  handleSortChange(sort) {
-    this.setState({sort: sort});
-    this.toggleSortDisplay();
+  handleOrderChange(order) {
+    this.setState({order: order});
+    this.toggleOrderDisplay();
+    this.props.onSort({order: order, type: this.state.type});
   }
 
   handleTypeChange(type) {
     this.setState({type: type});
     this.toggleTypeDisplay();
+    this.props.onSort({order: this.state.order, type: type});
   }
 
   handleDateChange(date) {
     this.setState({date: date});
     this.toggleDateDisplay();
+  }
+
+  handleSearchSubmit() {
+    this.props.onSearch(this.refs.searchInput);
   }
 
   render() {
@@ -84,21 +92,21 @@ class Search extends React.Component {
             <div className="row">
               <div className="col-md-12">
                 <span className="icon--i_search"></span>
-                <input type="text" placeholder="Search" style={{width: "80%", borderBottom:"2px dotted rgba(255, 255, 255, 0.8)", background: "#0d1215",color: "#FFF",borderTop: "0",borderLeft: "0",borderRight: "0",marginLeft: "20px",marginBottom: "40px"}}/>
-                <button className="btn btn-default pull-right" style={{color:"#FFF", backgroundColor: "#000", border:"1px solid #4a4a4a", borderRadius: "0"}}>SEARCH</button>
+                <input ref="searchInput" type="text" placeholder="Search" style={{width: "80%", borderBottom:"2px dotted rgba(255, 255, 255, 0.8)", background: "#0d1215",color: "#FFF",borderTop: "0",borderLeft: "0",borderRight: "0",marginLeft: "20px",marginBottom: "40px"}}/>
+                <button onClick={this.handleSeachSubmit} className="btn btn-default pull-right" style={{color:"#FFF", backgroundColor: "#000", border:"1px solid #4a4a4a", borderRadius: "0"}}>SEARCH</button>
               </div>
             </div>
             <div className="row">
               <div className="col-md-4">
                 <span style={{color: "#4a4a4a"}}>SORT:</span>
-                { this.state.displaySort ?
+                { this.state.displayOrder ?
                   <ul>
-                    <li onClick={this.handleSortChange.bind(this, "ALPHABETICAL A TO Z")}>ALPHABETICAL A TO Z</li>
-                    <li onClick={this.handleSortChange.bind(this, "ALPHABETICAL Z TO A")}>ALPHABETICAL Z TO A</li>
-                    <li onClick={this.handleSortChange.bind(this, "DATE NEWEST TO OLDEST")}>DATE NEWEST TO OLDEST</li>
-                    <li onClick={this.handleSortChange.bind(this, "DATE OLDEST TO NEWEST")}>DATE OLDEST TO NEWEST</li>
+                    <li onClick={this.handleOrderChange.bind(this, "ALPHABETICAL A TO Z")}>ALPHABETICAL A TO Z</li>
+                    <li onClick={this.handleOrderChange.bind(this, "ALPHABETICAL Z TO A")}>ALPHABETICAL Z TO A</li>
+                    <li onClick={this.handleOrderChange.bind(this, "DATE NEWEST TO OLDEST")}>DATE NEWEST TO OLDEST</li>
+                    <li onClick={this.handleOrderChange.bind(this, "DATE OLDEST TO NEWEST")}>DATE OLDEST TO NEWEST</li>
                   </ul>
-                  : <span className="hoverable" style={{margin: "5px 0px"}} onClick={this.toggleSortDisplay}>{this.state.sort}<span className="chevron icon--i_chevron-down" style={{color: "#4a4a4a"}}/></span> }
+                  : <span className="hoverable" style={{margin: "5px 0px"}} onClick={this.toggleOrderDisplay}>{this.state.order}<span className="chevron icon--i_chevron-down" style={{color: "#4a4a4a"}}/></span> }
                 </div>
               <div className="col-md-4">
                 <span style={{color: "#4a4a4a"}}>MATCH TYPE:</span>

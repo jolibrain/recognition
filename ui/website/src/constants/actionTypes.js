@@ -15,5 +15,7 @@ limitations under the License.
 */
 export const SPLASH_LOAD_JSON = 'SPLASH_LOAD_JSON';
 export const MATCH_LOAD_JSON = 'MATCH_LOAD_JSON';
+export const MATCH_SEARCH = 'MATCH_SEARCH';
+export const MATCH_SORT = 'MATCH_SORT';
 export const MATCH_ADD = 'MATCH_ADD';
 export const MATCH_SELECT_ITEM = 'MATCH_SELECT_ITEM';

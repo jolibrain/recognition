@@ -55,6 +55,10 @@ class Gallery extends React.Component {
     Gallery.state=this.state;
   }
 
+  componentWillUpdate() {
+    console.log("Gallery componentWillUpdate");
+  }
+
   renderItems() {
     const items = this.state.items.length == 0 ? this.props.matches.slice(0, this.state.offset) : this.state.items;
     return items.map((item, key) => (<GalleryItem key={key} item={item}/>));

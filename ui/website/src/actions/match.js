@@ -29,6 +29,20 @@ export function loadMatchJson(json) {
   };
 };
 
+export function searchMatches(input) {
+  return {
+    type: actionTypes.MATCH_SEARCH,
+    input
+  };
+};
+
+export function sortMatches(sort) {
+  return {
+    type: actionTypes.MATCH_SORT,
+    sort
+  };
+};
+
 export function addMatch(match) {
   return {
     type: actionTypes.MATCH_ADD,
