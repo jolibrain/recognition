@@ -13,6 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+var webpack = require('webpack');
 module.exports = {
   entry: [
     'webpack-dev-server/client?http://localhost:8101',
@@ -47,5 +48,8 @@ module.exports = {
     historyApiFallback: true,
     host: '0.0.0.0',
     port: 8101
-  }
+  },
+  plugins: [
+    new webpack.OldWatchingPlugin(),
+  ]
 };

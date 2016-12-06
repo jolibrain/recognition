@@ -16,6 +16,7 @@ limitations under the License.
 import React from 'react';
 import Splash from '../Splash';
 import Placeholder from '../Placeholder';
+import Search from '../Search';
 import Gallery from '../Gallery';
 import GoogleTagManager from '../GoogleTagManager';
 import Waypoint from 'react-waypoint';

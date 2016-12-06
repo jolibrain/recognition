@@ -963,3 +963,32 @@ a.backGallery:hover {
 .header .visible-xs .navbar-toggle .icon-bar+.icon-bar {
   margin-top:3px;
 }
+
+#search {
+  margin-bottom: 100px;
+}
+
+#search .hoverable {
+  cursor:pointer;
+}
+
+#search input {
+  outline: none;
+}
+
+#search ul {
+  list-style:none;
+  padding: 0;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+}
+
+#search li:hover {
+  cursor:pointer;
+  color:#0fc;
+}
+
+#search .chevron {
+  margin-left:8px;
+}
