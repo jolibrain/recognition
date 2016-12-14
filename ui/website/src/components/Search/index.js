@@ -94,38 +94,78 @@ class Search extends React.Component {
 */
     return <div id="search" style={styles.uppercase}>
       <div className="container">
-        <div className="row">
-          <div className="col-md-10 col-md-offset-1">
-            <div className="row">
-              <div className="col-md-12">
-                <span className="icon--i_search"></span>
-                <input ref="searchInput" type="text" placeholder="Search" style={{width: "80%", borderBottom:"2px dotted rgba(255, 255, 255, 0.8)", background: "#0d1215",color: "#FFF",borderTop: "0",borderLeft: "0",borderRight: "0",marginLeft: "20px",marginBottom: "40px"}} onKeyPress={this.handleSearchKeyPress}/>
-                <button onClick={this.handleSearchSubmit} className="btn btn-default pull-right" style={{color:"#FFF", backgroundColor: "#000", border:"1px solid #4a4a4a", borderRadius: "0"}}>SEARCH</button>
+        <div className="visible-xs">
+          <div className="row">
+            <div className="col-md-10 col-md-offset-1">
+              <div className="row">
+                <div className="col-xs-12">
+                  <span className="icon--i_search"></span>
+                  <input ref="searchInput" type="text" placeholder="Search" style={{width: "80%", borderBottom:"2px dotted rgba(255, 255, 255, 0.8)", background: "#0d1215",color: "#FFF",borderTop: "0",borderLeft: "0",borderRight: "0",marginLeft: "20px",marginBottom: "40px"}} onKeyPress={this.handleSearchKeyPress}/>
+                  <button onClick={this.handleSearchSubmit} className="btn btn-default pull-right" style={{color:"#FFF", backgroundColor: "#000", border:"1px solid #4a4a4a", borderRadius: "0"}}>SEARCH</button>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-xs-6">
+                  <span style={{color: "#4a4a4a"}}>SORT:</span>
+                  { this.state.displayOrder ?
+                    <ul>
+                      <li onClick={this.handleOrderChange.bind(this, "ALPHABETICAL A TO Z")}>ALPHABETICAL A TO Z</li>
+                      <li onClick={this.handleOrderChange.bind(this, "ALPHABETICAL Z TO A")}>ALPHABETICAL Z TO A</li>
+                      <li onClick={this.handleOrderChange.bind(this, "DATE NEWEST TO OLDEST")}>DATE NEWEST TO OLDEST</li>
+                      <li onClick={this.handleOrderChange.bind(this, "DATE OLDEST TO NEWEST")}>DATE OLDEST TO NEWEST</li>
+                    </ul>
+                    : <span className="hoverable" style={{margin: "5px 0px"}} onClick={this.toggleOrderDisplay}>{this.state.order}<span className="chevron icon--i_chevron-down" style={{color: "#4a4a4a"}}/></span> }
+                  </div>
+                <div className="col-xs-6">
+                  <span style={{color: "#4a4a4a"}}>MATCH TYPE:</span>
+                  { this.state.displayType ?
+                  <ul>
+                    <li onClick={this.handleTypeChange.bind(this, "ALL")}>ALL</li>
+                    <li onClick={this.handleTypeChange.bind(this, "OBJECT")}>OBJECT</li>
+                    <li onClick={this.handleTypeChange.bind(this, "FACE")}>FACE</li>
+                    <li onClick={this.handleTypeChange.bind(this, "COMPOSITION")}>COMPOSITION</li>
+                    <li onClick={this.handleTypeChange.bind(this, "CONTEXT")}>CONTEXT</li>
+                  </ul>
+                  : <span className="hoverable" style={{margin: "5px 0px"}} onClick={this.toggleTypeDisplay}>{this.state.type}<span className="chevron icon--i_chevron-down" style={{color: "#4a4a4a"}}/></span> }
+                </div>
               </div>
             </div>
-            <div className="row">
-              <div className="col-md-4">
-                <span style={{color: "#4a4a4a"}}>SORT:</span>
-                { this.state.displayOrder ?
-                  <ul>
-                    <li onClick={this.handleOrderChange.bind(this, "ALPHABETICAL A TO Z")}>ALPHABETICAL A TO Z</li>
-                    <li onClick={this.handleOrderChange.bind(this, "ALPHABETICAL Z TO A")}>ALPHABETICAL Z TO A</li>
-                    <li onClick={this.handleOrderChange.bind(this, "DATE NEWEST TO OLDEST")}>DATE NEWEST TO OLDEST</li>
-                    <li onClick={this.handleOrderChange.bind(this, "DATE OLDEST TO NEWEST")}>DATE OLDEST TO NEWEST</li>
-                  </ul>
-                  : <span className="hoverable" style={{margin: "5px 0px"}} onClick={this.toggleOrderDisplay}>{this.state.order}<span className="chevron icon--i_chevron-down" style={{color: "#4a4a4a"}}/></span> }
+          </div>
+        </div>
+        <div className="hidden-xs">
+          <div className="row">
+            <div className="col-md-10 col-md-offset-1">
+              <div className="row">
+                <div className="col-md-12">
+                  <span className="icon--i_search"></span>
+                  <input ref="searchInput" type="text" placeholder="Search" style={{width: "80%", borderBottom:"2px dotted rgba(255, 255, 255, 0.8)", background: "#0d1215",color: "#FFF",borderTop: "0",borderLeft: "0",borderRight: "0",marginLeft: "20px",marginBottom: "40px"}} onKeyPress={this.handleSearchKeyPress}/>
+                  <button onClick={this.handleSearchSubmit} className="btn btn-default pull-right" style={{color:"#FFF", backgroundColor: "#000", border:"1px solid #4a4a4a", borderRadius: "0"}}>SEARCH</button>
                 </div>
-              <div className="col-md-4">
-                <span style={{color: "#4a4a4a"}}>MATCH TYPE:</span>
-                { this.state.displayType ?
-                <ul>
-                  <li onClick={this.handleTypeChange.bind(this, "ALL")}>ALL</li>
-                  <li onClick={this.handleTypeChange.bind(this, "OBJECT")}>OBJECT</li>
-                  <li onClick={this.handleTypeChange.bind(this, "FACE")}>FACE</li>
-                  <li onClick={this.handleTypeChange.bind(this, "COMPOSITION")}>COMPOSITION</li>
-                  <li onClick={this.handleTypeChange.bind(this, "CONTEXT")}>CONTEXT</li>
-                </ul>
-                : <span className="hoverable" style={{margin: "5px 0px"}} onClick={this.toggleTypeDisplay}>{this.state.type}<span className="chevron icon--i_chevron-down" style={{color: "#4a4a4a"}}/></span> }
+              </div>
+              <div className="row">
+                <div className="col-md-4">
+                  <span style={{color: "#4a4a4a"}}>SORT:</span>
+                  { this.state.displayOrder ?
+                    <ul>
+                      <li onClick={this.handleOrderChange.bind(this, "ALPHABETICAL A TO Z")}>ALPHABETICAL A TO Z</li>
+                      <li onClick={this.handleOrderChange.bind(this, "ALPHABETICAL Z TO A")}>ALPHABETICAL Z TO A</li>
+                      <li onClick={this.handleOrderChange.bind(this, "DATE NEWEST TO OLDEST")}>DATE NEWEST TO OLDEST</li>
+                      <li onClick={this.handleOrderChange.bind(this, "DATE OLDEST TO NEWEST")}>DATE OLDEST TO NEWEST</li>
+                    </ul>
+                    : <span className="hoverable" style={{margin: "5px 0px"}} onClick={this.toggleOrderDisplay}>{this.state.order}<span className="chevron icon--i_chevron-down" style={{color: "#4a4a4a"}}/></span> }
+                  </div>
+                <div className="col-md-4">
+                  <span style={{color: "#4a4a4a"}}>MATCH TYPE:</span>
+                  { this.state.displayType ?
+                  <ul>
+                    <li onClick={this.handleTypeChange.bind(this, "ALL")}>ALL</li>
+                    <li onClick={this.handleTypeChange.bind(this, "OBJECT")}>OBJECT</li>
+                    <li onClick={this.handleTypeChange.bind(this, "FACE")}>FACE</li>
+                    <li onClick={this.handleTypeChange.bind(this, "COMPOSITION")}>COMPOSITION</li>
+                    <li onClick={this.handleTypeChange.bind(this, "CONTEXT")}>CONTEXT</li>
+                  </ul>
+                  : <span className="hoverable" style={{margin: "5px 0px"}} onClick={this.toggleTypeDisplay}>{this.state.type}<span className="chevron icon--i_chevron-down" style={{color: "#4a4a4a"}}/></span> }
+                </div>
               </div>
             </div>
           </div>

@@ -964,9 +964,12 @@ a.backGallery:hover {
   margin-top:3px;
 }
 
-#search {
+#search .hidden-xs {
   margin-top: 100px;
   margin-bottom: 100px;
+}
+#search .visible-xs {
+  margin-bottom: 80px;
 }
 
 #search .hoverable {
