@@ -24,6 +24,7 @@ import * as actions from './actions';
 import App from './components/App';
 import Home from './components/Home';
 import Gallery from './components/Gallery';
+import GallerySearch from './components/GallerySearch';
 import Match from './components/Match';
 import Detail from './components/Detail';
 import Info from './components/Info';
@@ -43,6 +44,7 @@ fetch('/splash.json').then((response) => { return response.json(); })
       <Router history={history} render={applyRouterMiddleware(useScroll())}>
         <Route path="/" component={App}>
           <IndexRoute component={Home} />
+          <Route path="/searchdemo" component={GallerySearch} />
           <Route path="/gallery" component={Gallery} />
           <Route path="/image/:source/:itemId" component={Image}/>
           <Route path="/gallery/:matchId" component={Detail}/>
