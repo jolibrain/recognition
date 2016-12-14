@@ -41,6 +41,7 @@ class Search extends React.Component {
     this.handleDateChange = this.handleDateChange.bind(this);
 
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
+    this.handleSearchKeyPress = this.handleSearchKeyPress.bind(this);
   }
 
   toggleOrderDisplay() {
@@ -73,7 +74,13 @@ class Search extends React.Component {
   }
 
   handleSearchSubmit() {
-    this.props.onSearch(this.refs.searchInput);
+    this.props.onSearch(this.refs.searchInput.value);
+  }
+
+  handleSearchKeyPress(e) {
+    if (e.charCode == 13) {
+      this.props.onSearch(this.refs.searchInput.value);
+    }
   }
 
   render() {
@@ -92,8 +99,8 @@ class Search extends React.Component {
             <div className="row">
               <div className="col-md-12">
                 <span className="icon--i_search"></span>
-                <input ref="searchInput" type="text" placeholder="Search" style={{width: "80%", borderBottom:"2px dotted rgba(255, 255, 255, 0.8)", background: "#0d1215",color: "#FFF",borderTop: "0",borderLeft: "0",borderRight: "0",marginLeft: "20px",marginBottom: "40px"}}/>
-                <button onClick={this.handleSeachSubmit} className="btn btn-default pull-right" style={{color:"#FFF", backgroundColor: "#000", border:"1px solid #4a4a4a", borderRadius: "0"}}>SEARCH</button>
+                <input ref="searchInput" type="text" placeholder="Search" style={{width: "80%", borderBottom:"2px dotted rgba(255, 255, 255, 0.8)", background: "#0d1215",color: "#FFF",borderTop: "0",borderLeft: "0",borderRight: "0",marginLeft: "20px",marginBottom: "40px"}} onKeyPress={this.handleSearchKeyPress}/>
+                <button onClick={this.handleSearchSubmit} className="btn btn-default pull-right" style={{color:"#FFF", backgroundColor: "#000", border:"1px solid #4a4a4a", borderRadius: "0"}}>SEARCH</button>
               </div>
             </div>
             <div className="row">

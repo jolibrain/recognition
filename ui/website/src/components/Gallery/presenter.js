@@ -21,6 +21,7 @@ import GoogleTagManager from '../GoogleTagManager';
 
 class Gallery extends React.Component {
   static state={
+    matches: [],
     items: [],
     hasMoreItems: true,
     offset: 3
@@ -29,51 +30,42 @@ class Gallery extends React.Component {
   constructor(props) {
     super(props);
 
-    const offset = 3;
-
     this.state = Gallery.state;
 
-    this.loadItems = this.loadItems.bind(this);
+    this.loadMore = this.loadMore.bind(this);
   }
 
-  componentWillReceiveProps() {
-    if(this.state.items.length == 0) this.loadItems();
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      matches: nextProps.displayedMatches,
+      items: []
+    });
+    if(this.state.items.length == 0) this.loadMore();
   }
 
   componentDidUpdate() {
-    if(this.state.items.length == 0) this.loadItems();
+    if(this.state.items.length == 0) this.loadMore();
   }
 
-  loadItems() {
+  loadMore() {
     const newOffset = this.state.items.length + this.state.offset;
 
     this.setState({
-      items: this.props.matches.slice(0, newOffset),
-      hasMoreItems: newOffset < this.props.matches.length
+      items: this.state.matches.slice(0, newOffset),
+      hasMoreItems: newOffset < this.state.matches.length
     });
 
     Gallery.state=this.state;
   }
 
-  componentWillUpdate() {
-    console.log("Gallery componentWillUpdate");
-  }
-
-  renderItems() {
-    const items = this.state.items.length == 0 ? this.props.matches.slice(0, this.state.offset) : this.state.items;
-    return items.map((item, key) => (<GalleryItem key={key} item={item}/>));
-  }
-
   render() {
-    const loader = <div className="loader">Loading ...</div>;
-    const items = this.renderItems();
 
     let gtm = null;
     if(!this.props.disableGTM) {
       gtm = <GoogleTagManager dataLayerName='Gallery' />
     }
 
-    if(items.length == 0) {
+    if(this.state.items.length == 0) {
 
       return (<div>{gtm}
 
@@ -96,9 +88,9 @@ class Gallery extends React.Component {
 
         <InfiniteScroll
           pageStart={0}
-          loadMore={this.loadItems}
+          loadMore={this.loadMore}
           hasMore={this.state.hasMoreItems}
-          loader={loader}>
+          loader={<div className="loader">Loading ...</div>}>
 
           <div className="container-fluid gallery" id="gallery">
 
@@ -106,7 +98,7 @@ class Gallery extends React.Component {
               <p style={{color: '#aaa', fontSize: '18px', fontFamily: 'TateNewPro'}}><em>Recognition</em> is an artificial intelligence comparing up-to-the-minute photojournalism with British art from the Tate collection. Scroll down to browse the gallery.</p>
             </div>
 
-            {items}
+            {this.state.items.map((item, index) => (<GalleryItem key={index + item.input.img} item={item}/>))}
           </div>
 
         </InfiniteScroll>

@@ -3507,6 +3507,10 @@ react-addons-css-transition-group@^15.2.1:
   version "15.4.1"
   resolved "https://registry.yarnpkg.com/react-addons-css-transition-group/-/react-addons-css-transition-group-15.4.1.tgz#60b133fac5116e4009e56ab0674dc2ddcc1a18f6"
 
+react-addons-update:
+  version "15.4.1"
+  resolved "https://registry.yarnpkg.com/react-addons-update/-/react-addons-update-15.4.1.tgz#00c07f45243aa9715e1706bbfd1f23d3d8d80bd1"
+
 react-autosuggest@^5.0.2:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/react-autosuggest/-/react-autosuggest-5.1.2.tgz#78518fde543fb07d3552ec4257f5c1d8e840b305"

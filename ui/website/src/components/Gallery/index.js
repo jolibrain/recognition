@@ -20,15 +20,9 @@ import * as actions from '../../actions';
 import Gallery from './presenter';
 
 const mapStateToProps = (state, ownProps = {}) => {
-
-  //let matches = state.matches.filter(item => item.input.meta.TPX)
-  //if(matches.length == 0) {
-  //  matches = state.matches;
-  //}
-  let matches = state.matches;
-
   return {
-    matches: matches
+    matches: state.matches,
+    displayedMatches: state.matches.filter(match => match.visible)
   }
 }
 

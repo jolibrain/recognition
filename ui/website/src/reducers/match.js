@@ -15,6 +15,7 @@ limitations under the License.
 */
 import * as actionTypes from '../constants/actionTypes';
 import moment from 'moment';
+import Fuse from 'fuse.js';
 
 const initialState = [];
 
@@ -64,6 +65,7 @@ function loadMatchJson(state, action) {
   json.forEach(item => {
 
     item.output = item.output.sort((a, b) => b.features.score - a.features.score);
+    item.visible = true;
 
     const selectedItem = item.output.some(output => {
       return output.selected;
@@ -81,6 +83,35 @@ function loadMatchJson(state, action) {
 }
 
 function searchMatches(state, action) {
+
+  const input = action.input.toLowerCase();
+
+  if(input.length > 0) {
+
+    return state.map((match, index) => {
+      if (
+        match.input.meta.caption.toLowerCase().indexOf(input) != -1 ||
+        match.input.meta.title.toLowerCase().indexOf(input) != -1 ||
+        match.input.meta.author.toLowerCase().indexOf(input) != -1 ||
+        match.output[0].meta.title.toLowerCase().indexOf(input) != -1 ||
+        match.output[0].meta.author[0].toLowerCase().indexOf(input) != -1 ||
+        match.output[0].meta.tags.indexOf(input) != -1 ||
+        match.output[0].features.in.captions.caption.toLowerCase().indexOf(input) != -1 ||
+        match.output[0].features.out.captions.caption.toLowerCase().indexOf(input) != -1
+      ) {
+        return { ...match, visible: true }
+      } else {
+        return { ...match, visible: false }
+      }
+    })
+
+  } else {
+
+    return state.map((match, index) => {
+      return { ...match, visible: true }
+    })
+
+  }
 }
 
 function sortMatches(state, action) {
@@ -115,7 +146,34 @@ function sortMatches(state, action) {
       break;
   }
 
-  return sortedMatches;
+  switch(sorting.type) {
+    case "OBJECT":
+      sortedMatches = sortedMatches.sort((a, b) => {
+        return a.output[0].features.summary.scores.objects -
+               b.output[0].features.summary.scores.objects;
+      });
+      break;
+    case "FACE":
+      sortedMatches = sortedMatches.sort((b, a) => {
+        return a.output[0].features.summary.scores.faces -
+               b.output[0].features.summary.scores.faces;
+      });
+      break;
+    case "COMPOSITION":
+      sortedMatches = sortedMatches.sort((b, a) => {
+        return a.output[0].features.summary.scores.composition -
+               b.output[0].features.summary.scores.composition;
+      });
+      break;
+    case "CONTEXT":
+      sortedMatches = sortedMatches.sort((a, b) => {
+        return a.output[0].features.summary.scores.context -
+               b.output[0].features.summary.scores.context;
+      });
+      break;
+  }
+
+  return [ ...sortedMatches ];
 }
 
 function selectMatchItem(state, action) {
