@@ -50,14 +50,7 @@ class Header extends React.Component {
 
           <div>
             <ul className="nav navbar-nav navbar-right">
-              <li id="galleryMenu" className={this.props.path == '/gallery' ? 'menuSelected' : ''}><Link style={[styles.menuItem]} to='/gallery'>Gallery</Link></li>
-              <li><a key="tate-link-header" href="http://www.tate.org.uk/whats-on/tate-britain/exhibition/recognition" style={[styles.menuItem]} target="_blank" rel="noopener noreferrer">AT TATE BRITAIN</a></li>
               <li className={this.props.path == '/info' ? 'menuSelected' : ''}><Link style={[styles.menuItem]} to='/info'>Info</Link></li>
-              <li style={{marginTop:'16px', marginLeft: '32px'}}><SubscribeModal/></li>
-              <li><span key="search-not-xs" style={searchStyles} className='icon--i_search' onClick={() => {
-                this.setState({displaySearch: !this.state.displaySearch})
-              }}/></li>
-              { this.state.displaySearch ? <li><SearchInput matches={this.props.matches}/></li> : ''}
             </ul>
           </div>
 
@@ -87,10 +80,7 @@ class Header extends React.Component {
 
           <div className={ this.state.displayMenu ? "collapse in" : "hidden" } aria-expanded={this.state.displayMenu ? "true" : "false"}>
             <ul className="nav navbar-nav" style={{listStyle: 'none', fontFamily: 'TateNewPro', paddingLeft: '30px', fontSize: '13px'}}>
-              <li className={this.props.path == '/gallery' ? 'menuSelected' : ''}><Link style={[styles.menuItemXs]} to='/gallery' onClick={() => this.setState({displayMenu: false})}>Gallery</Link></li>
               <li className={this.props.path == '/info' ? 'menuSelected' : ''}><Link style={[styles.menuItemXs]} to='/info' onClick={() => this.setState({displayMenu: false})}>Info</Link></li>
-              <li><a key="tate-link-header-xs" href="http://www.tate.org.uk/whats-on/tate-britain/exhibition/recognition" style={[styles.menuItemXs]} target="_blank" rel="noopener noreferrer">AT TATE BRITAIN</a></li>
-              <li style={{paddingBottom: '8px', marginTop: '8px', marginLeft: '15px'}}><SubscribeModal/></li>
             </ul>
           </div>
         </div>
