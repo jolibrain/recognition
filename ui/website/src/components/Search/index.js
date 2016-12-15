@@ -109,8 +109,6 @@ class Search extends React.Component {
                   <span style={{color: "#4a4a4a"}}>SORT:</span>
                   { this.state.displayOrder ?
                     <ul>
-                      <li onClick={this.handleOrderChange.bind(this, "ALPHABETICAL A TO Z")}>ALPHABETICAL A TO Z</li>
-                      <li onClick={this.handleOrderChange.bind(this, "ALPHABETICAL Z TO A")}>ALPHABETICAL Z TO A</li>
                       <li onClick={this.handleOrderChange.bind(this, "DATE NEWEST TO OLDEST")}>DATE NEWEST TO OLDEST</li>
                       <li onClick={this.handleOrderChange.bind(this, "DATE OLDEST TO NEWEST")}>DATE OLDEST TO NEWEST</li>
                     </ul>
@@ -147,8 +145,6 @@ class Search extends React.Component {
                   <span style={{color: "#4a4a4a"}}>SORT:</span>
                   { this.state.displayOrder ?
                     <ul>
-                      <li onClick={this.handleOrderChange.bind(this, "ALPHABETICAL A TO Z")}>ALPHABETICAL A TO Z</li>
-                      <li onClick={this.handleOrderChange.bind(this, "ALPHABETICAL Z TO A")}>ALPHABETICAL Z TO A</li>
                       <li onClick={this.handleOrderChange.bind(this, "DATE NEWEST TO OLDEST")}>DATE NEWEST TO OLDEST</li>
                       <li onClick={this.handleOrderChange.bind(this, "DATE OLDEST TO NEWEST")}>DATE OLDEST TO NEWEST</li>
                     </ul>
