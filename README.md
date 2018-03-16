@@ -16,7 +16,7 @@ Angelo Semeraro
 Isaac Vallentin
 
 #### Jolibrain
-Emmuanel Benazera
+Emmanuel Benazera
 
 Alexandre Girard
 
